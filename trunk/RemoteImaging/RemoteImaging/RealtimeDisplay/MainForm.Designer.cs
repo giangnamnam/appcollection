@@ -47,9 +47,11 @@
             this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.squareListView1 = new MultiPicListView.SquareListView();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.treeList1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -110,6 +112,7 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.squareListView1);
             this.panelControl1.Location = new System.Drawing.Point(208, 7);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(578, 418);
@@ -248,6 +251,18 @@
             // 
             this.defaultLookAndFeel1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Style3D;
             // 
+            // squareListView1
+            // 
+            this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
+            this.squareListView1.Count = 3;
+            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.squareListView1.Location = new System.Drawing.Point(3, 3);
+            this.squareListView1.Name = "squareListView1";
+            this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
+            this.squareListView1.Size = new System.Drawing.Size(572, 412);
+            this.squareListView1.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,6 +278,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.treeList1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -298,6 +314,7 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
+        private MultiPicListView.SquareListView squareListView1;
 
     }
 }
