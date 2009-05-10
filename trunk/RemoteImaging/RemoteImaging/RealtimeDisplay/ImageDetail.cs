@@ -9,6 +9,7 @@ namespace RemoteImaging.RealtimeDisplay
     {
         public ImageDetail(string pathName)
         {
+
             this.FullPath = pathName;
             this.ParseName();
         }

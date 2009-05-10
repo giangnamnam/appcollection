@@ -17,6 +17,7 @@ namespace RemoteImaging.RealtimeDisplay
         public MainForm()
         {
             InitializeComponent();
+
         }
 
         #region IImageScreen Members
@@ -34,23 +35,28 @@ namespace RemoteImaging.RealtimeDisplay
         {
             get
             {
-                throw new NotImplementedException();
+                ImageDetail img = null;
+                if (this.squareListView1.LastSelectedCell != null)
+                {
+                    Cell c = this.squareListView1.LastSelectedCell;
+                    if (!string.IsNullOrEmpty(c.Path))
+                    {
+                        img = new ImageDetail(c.Path);
+                    }
+                    
+                }
+
+                return img;
             }
-            set
-            {
-                throw new NotImplementedException();
-            }
+
         }
 
         public ImageDetail BigImage
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
             set
             {
-                throw new NotImplementedException();
+                Image img = Image.FromFile(value.FullPath);
+                this.pictureEdit1.Image = img;
             }
         }
 
@@ -149,6 +155,14 @@ namespace RemoteImaging.RealtimeDisplay
                 new Camera() { Description = "西门", ID = 3, IpAddress = "192.168.1.1" },
             };
             this.Cameras = cams;
+        }
+
+        private void squareListView1_SelectedCellChanged(object sender, EventArgs e)
+        {
+            if (this.Observer != null)
+            {
+                this.Observer.SelectedImageChanged();
+            }
         }
     }
 }

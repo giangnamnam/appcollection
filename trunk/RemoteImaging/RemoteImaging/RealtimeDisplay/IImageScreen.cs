@@ -17,12 +17,10 @@ namespace RemoteImaging.RealtimeDisplay
         ImageDetail SelectedImage
         {
             get;
-            set;
         }
 
         ImageDetail BigImage
         {
-            get;
             set;
         }
 

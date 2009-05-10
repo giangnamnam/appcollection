@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Drawing;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -68,14 +69,25 @@ namespace RemoteImaging.RealtimeDisplay
             return iconImgs;
         }
 
+        delegate ImageDetail[] ExtractIconsMethod(ImageDetail img);
+
         void uploadWatcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
         {
             ImageClassifier.ClassifyImages(args.Images);
 
             foreach (ImageDetail img in args.Images)
 	        {
-		          ImageDetail[] iconImgs = ExtractIcons(img);
-                  screen.ShowImages(iconImgs);
+                ExtractIconsMethod del = (imgs) => ExtractIcons(imgs);
+
+                IAsyncResult result = del.BeginInvoke(img, null, null);
+                while (!result.IsCompleted)
+                {
+                    System.Windows.Forms.Application.DoEvents();
+                    System.Diagnostics.Debug.WriteLine("pump message");
+                }
+                ImageDetail[] iconImgs = del.EndInvoke(result);
+                
+                screen.ShowImages(iconImgs);
 	        }
            
         }
@@ -87,9 +99,28 @@ namespace RemoteImaging.RealtimeDisplay
             throw new NotImplementedException();
         }
 
+        private static string BuildFolderPath(ImageDetail img)
+        {
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(img.Name);
+            int idx = nameWithoutExtension.LastIndexOf('-');
+            nameWithoutExtension = nameWithoutExtension.Remove(idx);
+
+            string bigPicName = nameWithoutExtension + Path.GetExtension(img.Name);
+            string bigPicFolder = Directory.GetParent(img.Path).ToString();
+            bigPicFolder = Path.Combine(bigPicFolder, Properties.Settings.Default.BigImageDirectoryName);
+            string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
+            return bigPicPathName;
+        }
         public void SelectedImageChanged()
         {
-            throw new NotImplementedException();
+            ImageDetail img = this.screen.SelectedImage;
+            if (img != null && !string.IsNullOrEmpty(img.FullPath))
+            {
+                string bigPicPathName = BuildFolderPath(img);
+                ImageDetail bigImageDetail = new ImageDetail(bigPicPathName);
+                this.screen.BigImage = bigImageDetail;
+
+            }
         }
 
         #endregion

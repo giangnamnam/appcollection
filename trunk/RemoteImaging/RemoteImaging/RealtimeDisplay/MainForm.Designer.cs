@@ -190,6 +190,7 @@
             this.pictureEdit1.Location = new System.Drawing.Point(0, 24);
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
             this.pictureEdit1.Size = new System.Drawing.Size(199, 173);
             this.pictureEdit1.TabIndex = 2;
             // 
@@ -380,8 +381,10 @@
             this.squareListView1.Location = new System.Drawing.Point(3, 3);
             this.squareListView1.Name = "squareListView1";
             this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
+            this.squareListView1.SelectedCell = null;
             this.squareListView1.Size = new System.Drawing.Size(552, 405);
             this.squareListView1.TabIndex = 0;
+            this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
             // 
             // simpleButton2
             // 
