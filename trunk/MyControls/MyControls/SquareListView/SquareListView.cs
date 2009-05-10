@@ -31,6 +31,17 @@ namespace MyControls
         }
 
 
+        public event EventHandler SelectedCellChanged;
+
+        private void FireSelectedCellChanged()
+        {
+            if (SelectedCellChanged != null)
+            {
+                SelectedCellChanged(this, EventArgs.Empty);
+            }
+        }
+
+
         int idx = 0;
 
         void refreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -49,6 +60,8 @@ namespace MyControls
                 dstCell.Image = imgToShow.Image;
                 dstCell.Text = imgToShow.Text;
                 dstCell.Path = imgToShow.Path;
+                //dstCell.Selected = false;
+                //selectedCell = null;
 
                 this.Invalidate(dstCell.ToRectangle(dstCell.Rec));
 
@@ -216,25 +229,44 @@ namespace MyControls
         {
             Cell c = FindCell(e.Location);
             if (c != null)
-            {
-                if (selectedCell != c)
+            { 
+                if (LastSelectedCell != c)
                 {
-                    c.Selected = true;
-                    this.Invalidate(c.ToRectangle(c.Rec));
-
-                    if (selectedCell != null)
-                    {
-                        selectedCell.Selected = false;
-                        this.Invalidate(c.ToRectangle(selectedCell.Rec));
-                    }
-                    
-
-                    selectedCell = c;
+                    LastSelectedCell = c;
                 }
+
+                if (selectedCell != null)
+                {
+                    selectedCell.Selected = false;
+                    this.Invalidate(c.ToRectangle(selectedCell.Rec));
+                }
+                
+                c.Selected = true;
+                this.Invalidate(c.ToRectangle(c.Rec));
+                
+                selectedCell = c;
+
+                FireSelectedCellChanged();
+
+
                 
             }
         }
 
+        public Cell LastSelectedCell { get; private set; }
+
+
+        public Cell SelectedCell
+        {
+            get
+            {
+                return selectedCell;
+            }
+            set
+            {
+                selectedCell = value;
+            }
+        }
         private Cell selectedCell;
     }
 }
