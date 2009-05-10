@@ -156,5 +156,11 @@ namespace RemoteImaging.RealtimeDisplay
                 this.Observer.SelectedImageChanged();
             }
         }
+
+        private void simpleButton3_Click(object sender, EventArgs e)
+        {
+            Query.QueryForm queryForm = new RemoteImaging.Query.QueryForm();
+            queryForm.Show();
+        }
     }
 }

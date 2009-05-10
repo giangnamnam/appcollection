@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -75,6 +75,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Query\ImageDirSys.cs" />
+    <Compile Include="Query\ImageSearch.cs" />
+    <Compile Include="Query\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Query\QueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\QueryForm.designer.cs">
+      <DependentUpon>QueryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="RealtimeDisplay\Camera.cs" />
     <Compile Include="RealtimeDisplay\IIconExtractor.cs" />
     <Compile Include="RealtimeDisplay\IconExtractor.cs" />
@@ -95,6 +106,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Query\QueryForm.resx">
+      <DependentUpon>QueryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="RealtimeDisplay\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
