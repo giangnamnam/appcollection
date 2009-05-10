@@ -6,16 +6,16 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MultiPicListView
+namespace MyControls
 {
     public class Cell
     {
         public RectangleF Rec { get; set; }
-
-        private Image img;
+        public Image Image { get; set; }
+        public bool Selected { get; set; }
 
         private string _ImagePath;
-        public string ImagePath
+        public string Path
         {
             get
             {
@@ -26,13 +26,6 @@ namespace MultiPicListView
                 if (_ImagePath == value)
                     return;
                 _ImagePath = value;
-
-                if (img != null)
-                {
-                    img.Dispose();
-                }
-
-                img = Image.FromFile(this._ImagePath);
             }
         }
 
@@ -44,7 +37,8 @@ namespace MultiPicListView
             SizeF sizeOfPrompt = g.MeasureString(str, font);
             float x = rec.X + (rec.Width - sizeOfPrompt.Width) / 2;
             float y = rec.Y + (rec.Height - sizeOfPrompt.Height) / 2;
-            g.DrawString(str, font, SystemBrushes.ControlText, x, y);
+            Brush br = this.Selected ? Brushes.White : SystemBrushes.ControlText;
+            g.DrawString(str, font, br, x, y);
         }
 
         public Rectangle ToRectangle(RectangleF rF)
@@ -83,10 +77,15 @@ namespace MultiPicListView
 
         public void Paint(Graphics g, Font font)
         {
+            if (this.Selected)
+            {
+                g.FillRectangle(Brushes.DarkBlue, this.Rec);
+            }
 
-            if (img == null)
+            if (this.Image == null)
             {
                 DrawStringInCenterOfRectangle("未指定图片", g, font, this.Rec);
+                g.DrawRectangle(Pens.Gray, ToRectangle(this.Rec));
             }
             else
             {
@@ -106,9 +105,9 @@ namespace MultiPicListView
                 RectangleF recOfImg = this.Rec;
                 recOfImg.Height -= sizeOfText.Height + space;
 
-                g.DrawImage(this.img, 
+                g.DrawImage(this.Image, 
                     CalculateAutoFitRectangle(ToRectangle(recOfImg), 
-                    new Rectangle(0, 0, this.img.Width, this.img.Height)));
+                    new Rectangle(0, 0, this.Image.Width, this.Image.Height)));
 
                 g.DrawRectangle(Pens.Gray, ToRectangle(recOfImg));
             }

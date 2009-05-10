@@ -1,4 +1,4 @@
-﻿namespace MultiPicListView
+﻿namespace MyControls
 {
     partial class SquareListView
     {
@@ -30,12 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // MultiPicListView
+            // SquareListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "MultiPicListView";
+            this.Name = "SquareListView";
             this.Size = new System.Drawing.Size(389, 299);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SquareListView_MouseClick);
             this.ResumeLayout(false);
 
         }

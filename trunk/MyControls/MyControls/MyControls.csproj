@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SquareListView\Cell.cs" />
+    <Compile Include="SquareListView\ImageCell.cs" />
     <Compile Include="SquareListView\SquareListView.cs">
       <SubType>UserControl</SubType>
     </Compile>

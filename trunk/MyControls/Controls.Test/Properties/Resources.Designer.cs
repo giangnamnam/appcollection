@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MultiPicListView.Test.Properties
+namespace Controls.Test.Properties
 {
 
 
