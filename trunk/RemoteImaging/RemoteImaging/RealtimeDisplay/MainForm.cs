@@ -20,13 +20,36 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        private Camera getSelCamera()
+        {
+            if (this.cameraComboBox.ComboBox.SelectedItem != null)
+            {
+                Camera cam = this.cameraComboBox.ComboBox.SelectedItem as Camera;
+                return cam;
+
+            }
+
+            return null;
+        }
+
+        delegate Camera GetCam();
+
         #region IImageScreen Members
 
         public Camera SelectedCamera
         {
             get
             {
-                return null;
+                if (this.InvokeRequired)
+                {
+                    GetCam del = getSelCamera;
+                    return this.Invoke(del) as Camera;
+                }
+                else
+                {
+                    return getSelCamera();
+                }
+                
             }
 
         }
@@ -133,7 +156,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-               
+                this.cameraComboBox.ComboBox.DataSource = value;
+                this.cameraComboBox.ComboBox.DisplayMember = "Description";
             }
         }
 
@@ -157,10 +181,44 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        private void simpleButton3_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            Query.QueryForm queryForm = new RemoteImaging.Query.QueryForm();
-            queryForm.Show();
+            Camera[] cams = new Camera[] {
+                new Camera() { Description = "所有", ID = -1, IpAddress = "192.168.1.1" },
+                new Camera() { Description = "南门", ID = 1, IpAddress = "192.168.1.1" },
+                new Camera() { Description = "北门", ID = 2, IpAddress = "192.168.1.1" },
+                new Camera() { Description = "西门", ID = 3, IpAddress = "192.168.1.1" },
+            };
+            this.Cameras = cams;
+        }
+
+        private void squareNumber_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.squareNumber.Text))
+            {
+                return;
+            }
+
+            int n = 0;
+            if (int.TryParse(this.squareNumber.Text, out n))
+            {
+                if (n < 1)
+                {
+                    MessageBox.Show("数字应该 > 0");
+                    return;
+                }
+
+                if (n == this.squareListView1.Count)
+                {
+                    return;
+                }
+
+                this.squareListView1.Count = n;
+            }
+            else
+            {
+                MessageBox.Show("无效输入, 应该输入数字, 且数字 >= 1");
+            }
         }
     }
 }
