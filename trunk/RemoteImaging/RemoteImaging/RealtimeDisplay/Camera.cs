@@ -7,26 +7,10 @@ namespace RemoteImaging
 {
     public class Camera
     {
-        public int ID
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
+        public int ID { get; set; }
 
-        public int Description
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
+        public string Description { get; set; }
+
+        public string IpAddress { get; set; }
     }
 }

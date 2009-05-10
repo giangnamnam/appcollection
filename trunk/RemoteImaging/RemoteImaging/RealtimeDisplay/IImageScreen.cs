@@ -7,19 +7,20 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public interface IImageScreen
     {
-        int SelectedCameraID
+        Camera[] Cameras { set; }
+
+        Camera SelectedCamera
+        {
+            get;
+        }
+
+        ImageDetail SelectedImage
         {
             get;
             set;
         }
 
-        ImageUploadEventArgs SelectedImage
-        {
-            get;
-            set;
-        }
-
-        ImageUploadEventArgs BigImage
+        ImageDetail BigImage
         {
             get;
             set;

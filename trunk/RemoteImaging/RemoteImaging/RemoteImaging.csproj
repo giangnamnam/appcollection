@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RealtimeDisplay\Camera.cs" />
+    <Compile Include="RealtimeDisplay\IIconExtractor.cs" />
+    <Compile Include="RealtimeDisplay\IconExtractor.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="RealtimeDisplay\ImageClassifier.cs" />
     <Compile Include="RealtimeDisplay\ImageDetail.cs" />
@@ -83,7 +85,7 @@
     <Compile Include="RealtimeDisplay\ImageUploadHandler.cs" />
     <Compile Include="RealtimeDisplay\ImageUploadWatcher.cs" />
     <Compile Include="RealtimeDisplay\InvalidFileNameFormat.cs" />
-    <Compile Include="RealtimeDisplay\IRealtimeScreen.cs" />
+    <Compile Include="RealtimeDisplay\IImageScreen.cs" />
     <Compile Include="RealtimeDisplay\Presenter.cs" />
     <Compile Include="RealtimeDisplay\MainForm.cs">
       <SubType>Form</SubType>
@@ -105,6 +107,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -117,6 +120,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Camera.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CamWithPic.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Camera32.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Peoples32.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Camera16.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

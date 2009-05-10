@@ -68,20 +68,16 @@ namespace RemoteImaging.Test
         [TestMethod()]
         public void ClassifyImagesTest()
         {
-            ImageClassifier target = new ImageClassifier(); // TODO: Initialize to an appropriate value
-            ImageUploadEventArgs[] images = null; // TODO: Initialize to an appropriate value
-            target.ClassifyImages(images);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            string[] files = System.IO.Directory.GetFiles(@"d:\20090505");
+            ImageDetail[] images = new ImageDetail[10];
+            for (int i = 0; i < images.Length; i++)
+			{
+                ImageDetail d = new ImageDetail(files[i]);
+                images[i] = d;
+			}
+
+            ImageClassifier.ClassifyImages(images);
         }
 
-        /// <summary>
-        ///A test for ImageClassifier Constructor
-        ///</summary>
-        [TestMethod()]
-        public void ImageClassifierConstructorTest()
-        {
-            ImageClassifier target = new ImageClassifier();
-            Assert.Inconclusive("TODO: Implement code to verify target");
-        }
     }
 }

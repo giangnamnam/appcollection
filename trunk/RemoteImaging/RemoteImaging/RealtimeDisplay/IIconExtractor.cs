@@ -5,10 +5,9 @@ using System.Text;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public interface IImageScreenObserver
+    public interface IIconExtractor
     {
-        void SelectedCameraChanged();
-
-        void SelectedImageChanged();
+        string ExtractIcons(string bigImage, string destFolder);
+        void Initialize();
     }
 }

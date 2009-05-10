@@ -19,7 +19,7 @@ namespace RemoteImaging.RealtimeDisplay
             this._Watcher = new FileSystemWatcher();
             this._Watcher.Path = this.PathToWatch;
             this._Watcher.Filter = "*.jpg";
-            this._Watcher.Created += new FileSystemEventHandler(File_Created);
+            this._Watcher.Created += File_Created;
             this._Watcher.EnableRaisingEvents = true;
         }
 
@@ -36,9 +36,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private bool ShouldFireEvent(ImageDetail img)
         {
-            bool shouldFireEvent = false;
+            bool shouldFireEvent = true;
             foreach (ImageDetail item in cameraImagesQueue[img.FromCamera])
             {
+                shouldFireEvent = true;
                 if (item.CaptureTime != img.CaptureTime)
                 {
                     shouldFireEvent = true;
@@ -62,15 +63,11 @@ namespace RemoteImaging.RealtimeDisplay
             bool shouldFireEvent = ShouldFireEvent(img);
             if (shouldFireEvent)
             {
-
                 if (this.ImagesUploaded != null)
                 {  
                     ImageDetail[] imgs = MoveImages(img.FromCamera);
-
-                    ImageUploadEventArgs args = new ImageUploadEventArgs();
-                    args.CameraID = img.FromCamera;
-                    args.Images = imgs;
-
+                    ImageUploadEventArgs args = 
+                        new ImageUploadEventArgs { CameraID = img.FromCamera, Images = imgs };
                     this.ImagesUploaded(this, args);
 
                 }
