@@ -121,16 +121,22 @@
   <data name="CamWithPic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CamWithPic.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SearchPic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SearchPic.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Camera32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Camera32.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Peoples32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Peoples32.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Camera16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Camera16.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Camera.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Camera16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Camera16.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SearchVideo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SearchVideo.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

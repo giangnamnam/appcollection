@@ -26,7 +26,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             get
             {
-                return this.navBarGroupCameras.SelectedLink.Item.Tag as Camera;
+                return null;
             }
 
         }
@@ -133,15 +133,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                this.navBarGroupCameras.ItemLinks.Clear();
-
-                foreach (Camera cam in value)
-	            {
-                    this.navBarGroupCameras.ItemLinks.Add(
-                        new NavBarItemLink(
-                            new NavBarItem(){ Caption = cam.Description, SmallImageIndex = 0, Tag = cam }));
-	            }
-                
+               
             }
         }
 

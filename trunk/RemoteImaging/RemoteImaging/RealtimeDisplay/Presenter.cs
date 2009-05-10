@@ -86,8 +86,16 @@ namespace RemoteImaging.RealtimeDisplay
                     System.Diagnostics.Debug.WriteLine("pump message");
                 }
                 ImageDetail[] iconImgs = del.EndInvoke(result);
+
+                foreach (ImageDetail icon in iconImgs)
+                {
+                    if (screen.SelectedCamera != null 
+                        && screen.SelectedCamera.ID == icon.FromCamera)
+                    {
+                        screen.ShowImages(iconImgs);
+                    }
+                }
                 
-                screen.ShowImages(iconImgs);
 	        }
            
         }
