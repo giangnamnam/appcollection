@@ -32,7 +32,6 @@ namespace RemoteImaging.RealtimeDisplay
             return null;
         }
 
-        delegate Camera GetCam();
 
         #region IImageScreen Members
 
@@ -42,8 +41,8 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 if (this.InvokeRequired)
                 {
-                    GetCam del = getSelCamera;
-                    return this.Invoke(del) as Camera;
+                    System.Func<Camera> func = this.getSelCamera;
+                    return this.Invoke(func) as Camera;
                 }
                 else
                 {
@@ -223,8 +222,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            Query.QueryForm queryForm = new RemoteImaging.Query.QueryForm();
-            queryForm.Show();
+            new RemoteImaging.Query.QueryForm().ShowDialog(this);
         }
+
+        private void optionsButton_Click(object sender, EventArgs e)
+        {
+            new OptionsForm().ShowDialog(this);
+        }
+ 
     }
 }

@@ -88,6 +88,20 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Options {
+            get {
+                object obj = ResourceManager.GetObject("Options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Options2 {
+            get {
+                object obj = ResourceManager.GetObject("Options2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Peoples32 {
             get {
                 object obj = ResourceManager.GetObject("Peoples32", resourceCulture);

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -75,6 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
     <Compile Include="Query\ListViewEx.cs">
@@ -106,6 +112,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Query\QueryForm.resx">
       <DependentUpon>QueryForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -159,6 +168,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Square.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Options.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Options.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
