@@ -220,5 +220,11 @@ namespace RemoteImaging.RealtimeDisplay
                 MessageBox.Show("无效输入, 应该输入数字, 且数字 >= 1");
             }
         }
+
+        private void simpleButton3_Click(object sender, EventArgs e)
+        {
+            Query.QueryForm queryForm = new RemoteImaging.Query.QueryForm();
+            queryForm.Show();
+        }
     }
 }

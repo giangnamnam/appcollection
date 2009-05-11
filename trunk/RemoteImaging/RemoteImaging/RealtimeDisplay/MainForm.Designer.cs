@@ -218,6 +218,7 @@
             this.simpleButton3.Size = new System.Drawing.Size(145, 39);
             this.simpleButton3.TabIndex = 2;
             this.simpleButton3.Text = "搜索图像";
+            this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
             // 
             // navBarActionContainer1
             // 
@@ -365,7 +366,7 @@
             // 
             this.toolStripLabel1.Image = global::RemoteImaging.Properties.Resources.Camera16;
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(74, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(63, 22);
             this.toolStripLabel1.Text = "摄像头:";
             // 
             // cameraComboBox
@@ -378,7 +379,7 @@
             // 
             this.toolStripLabel2.Image = global::RemoteImaging.Properties.Resources.Square;
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(74, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(63, 22);
             this.toolStripLabel2.Text = "行列数:";
             // 
             // squareNumber
