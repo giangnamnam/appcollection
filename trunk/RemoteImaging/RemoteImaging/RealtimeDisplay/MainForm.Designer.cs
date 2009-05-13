@@ -101,9 +101,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 514);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 422);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(951, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(759, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -126,7 +126,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(951, 514);
+            this.layoutControl1.Size = new System.Drawing.Size(759, 422);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -139,7 +139,7 @@
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Location = new System.Drawing.Point(7, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(937, 65);
+            this.panel1.Size = new System.Drawing.Size(745, 65);
             this.panel1.TabIndex = 14;
             // 
             // label3
@@ -179,9 +179,9 @@
             this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl3.Controls.Add(this.pictureEdit1);
             this.panelControl3.Controls.Add(this.panelControl5);
-            this.panelControl3.Location = new System.Drawing.Point(7, 279);
+            this.panelControl3.Location = new System.Drawing.Point(7, 239);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(197, 228);
+            this.panelControl3.Size = new System.Drawing.Size(154, 176);
             this.panelControl3.TabIndex = 12;
             // 
             // pictureEdit1
@@ -191,7 +191,7 @@
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.pictureEdit1.Size = new System.Drawing.Size(197, 204);
+            this.pictureEdit1.Size = new System.Drawing.Size(154, 152);
             this.pictureEdit1.TabIndex = 2;
             // 
             // panelControl5
@@ -204,7 +204,7 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(0, 0);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(197, 24);
+            this.panelControl5.Size = new System.Drawing.Size(154, 24);
             this.panelControl5.TabIndex = 1;
             // 
             // pictureBox2
@@ -240,7 +240,7 @@
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Location = new System.Drawing.Point(7, 82);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(197, 181);
+            this.panelControl2.Size = new System.Drawing.Size(154, 141);
             this.panelControl2.TabIndex = 11;
             // 
             // optionsButton
@@ -251,7 +251,7 @@
             this.optionsButton.Image = global::RemoteImaging.Properties.Resources.Options2;
             this.optionsButton.Location = new System.Drawing.Point(15, 128);
             this.optionsButton.Name = "optionsButton";
-            this.optionsButton.Size = new System.Drawing.Size(171, 29);
+            this.optionsButton.Size = new System.Drawing.Size(128, 29);
             this.optionsButton.TabIndex = 4;
             this.optionsButton.Text = "系统设置";
             this.optionsButton.Click += new System.EventHandler(this.optionsButton_Click);
@@ -264,7 +264,7 @@
             this.simpleButton4.Image = global::RemoteImaging.Properties.Resources.SearchVideo;
             this.simpleButton4.Location = new System.Drawing.Point(15, 82);
             this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(171, 30);
+            this.simpleButton4.Size = new System.Drawing.Size(128, 30);
             this.simpleButton4.TabIndex = 3;
             this.simpleButton4.Text = "搜索视频";
             // 
@@ -276,7 +276,7 @@
             this.simpleButton3.Image = global::RemoteImaging.Properties.Resources.SearchPic;
             this.simpleButton3.Location = new System.Drawing.Point(15, 36);
             this.simpleButton3.Name = "simpleButton3";
-            this.simpleButton3.Size = new System.Drawing.Size(171, 29);
+            this.simpleButton3.Size = new System.Drawing.Size(128, 29);
             this.simpleButton3.TabIndex = 2;
             this.simpleButton3.Text = "搜索图像";
             this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
@@ -291,7 +291,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(197, 24);
+            this.panelControl4.Size = new System.Drawing.Size(154, 24);
             this.panelControl4.TabIndex = 0;
             // 
             // pictureBox1
@@ -330,9 +330,9 @@
             // 
             this.panelControl1.Controls.Add(this.squareListView1);
             this.panelControl1.Controls.Add(this.toolStrip1);
-            this.panelControl1.Location = new System.Drawing.Point(220, 82);
+            this.panelControl1.Location = new System.Drawing.Point(177, 82);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(724, 425);
+            this.panelControl1.Size = new System.Drawing.Size(575, 333);
             this.panelControl1.TabIndex = 10;
             // 
             // squareListView1
@@ -346,7 +346,7 @@
             this.squareListView1.Name = "squareListView1";
             this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
             this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(718, 394);
+            this.squareListView1.Size = new System.Drawing.Size(569, 302);
             this.squareListView1.TabIndex = 0;
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
             // 
@@ -359,7 +359,7 @@
             this.squareNumber});
             this.toolStrip1.Location = new System.Drawing.Point(3, 3);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(718, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(569, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -446,7 +446,7 @@
             this.layoutControlItem7});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(951, 514);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(759, 422);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
@@ -455,9 +455,9 @@
             // 
             this.layoutControlItem5.Control = this.panelControl1;
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(213, 75);
+            this.layoutControlItem5.Location = new System.Drawing.Point(170, 75);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(734, 435);
+            this.layoutControlItem5.Size = new System.Drawing.Size(585, 343);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -470,7 +470,7 @@
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 75);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(207, 191);
+            this.layoutControlItem2.Size = new System.Drawing.Size(164, 151);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -481,9 +481,9 @@
             // 
             this.layoutControlItem4.Control = this.panelControl3;
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 272);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 232);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(207, 238);
+            this.layoutControlItem4.Size = new System.Drawing.Size(164, 186);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -494,16 +494,16 @@
             // 
             this.splitterItem2.ContentVisible = false;
             this.splitterItem2.CustomizationFormText = "splitterItem2";
-            this.splitterItem2.Location = new System.Drawing.Point(207, 75);
+            this.splitterItem2.Location = new System.Drawing.Point(164, 75);
             this.splitterItem2.Name = "splitterItem2";
-            this.splitterItem2.Size = new System.Drawing.Size(6, 435);
+            this.splitterItem2.Size = new System.Drawing.Size(6, 343);
             // 
             // splitterItem1
             // 
             this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(0, 266);
+            this.splitterItem1.Location = new System.Drawing.Point(0, 226);
             this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(207, 6);
+            this.splitterItem1.Size = new System.Drawing.Size(164, 6);
             // 
             // layoutControlItem7
             // 
@@ -513,7 +513,7 @@
             this.layoutControlItem7.MaxSize = new System.Drawing.Size(0, 75);
             this.layoutControlItem7.MinSize = new System.Drawing.Size(110, 75);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(947, 75);
+            this.layoutControlItem7.Size = new System.Drawing.Size(755, 75);
             this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem7.Text = "layoutControlItem7";
             this.layoutControlItem7.TextLocation = DevExpress.Utils.Locations.Left;
@@ -535,7 +535,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(629, 2);
+            this.pictureBox4.Location = new System.Drawing.Point(437, 2);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(258, 60);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -546,11 +546,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(951, 536);
+            this.ClientSize = new System.Drawing.Size(759, 444);
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "人像抓拍";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
