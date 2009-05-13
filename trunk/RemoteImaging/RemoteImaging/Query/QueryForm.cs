@@ -126,7 +126,7 @@ namespace RemoteImaging.Query
             //detail infomation
             Camera camera = new Camera();
             camera.ID = 01;
-            camera.Description = "四川大学南大门摄像头";
+            camera.Name = "四川大学南大门摄像头";
             this.gotPlaceTxt.Text = "四川大学南大门摄像头";
 
             string focusedFileName = this.bestPicListView.FocusedItem.Text;

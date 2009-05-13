@@ -17,5 +17,11 @@
     <Setting Name="ImageUploadPool" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\UploadPool</Value>
     </Setting>
+    <Setting Name="ColumnNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="CamConfigFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CamConfig.xml</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

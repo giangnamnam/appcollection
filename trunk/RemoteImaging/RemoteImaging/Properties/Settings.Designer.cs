@@ -82,5 +82,29 @@ namespace RemoteImaging.Properties {
                 this["ImageUploadPool"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int ColumnNumber {
+            get {
+                return ((int)(this["ColumnNumber"]));
+            }
+            set {
+                this["ColumnNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CamConfig.xml")]
+        public string CamConfigFile {
+            get {
+                return ((string)(this["CamConfigFile"]));
+            }
+            set {
+                this["CamConfigFile"] = value;
+            }
+        }
     }
 }

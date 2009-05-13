@@ -7,9 +7,9 @@ namespace RemoteImaging.Query
 {
     public class ImageDirSys
     {
-        public const string BeginDir = "D:\\pic\\";
-        public const string BigIconPath = "BigIcon";
-        public const string IconPath = "Icon";
+        public static string BeginDir = Properties.Settings.Default.OutputPath;
+        public static string BigIconPath = Properties.Settings.Default.BigImageDirectoryName;
+        public static string IconPath = Properties.Settings.Default.IconDirectoryName;
 
         public ImageDirSys(string camera,string year,string month,string day,string hour,string minute,string second )
         {

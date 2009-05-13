@@ -18,6 +18,16 @@ namespace RemoteImaging.RealtimeDisplay
         {
             InitializeComponent();
 
+            for (int i = 0; i < 5; i++)
+            {
+                this.squareNumber.Items.Add(i+1);
+            }
+
+            this.squareNumber.SelectedItem = Properties.Settings.Default.ColumnNumber;
+            Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
+            Configuration.Instance.Cameras.CopyTo(cams, 0);
+            this.Cameras = cams;
+
         }
 
         private Camera getSelCamera()
@@ -156,7 +166,8 @@ namespace RemoteImaging.RealtimeDisplay
             set
             {
                 this.cameraComboBox.ComboBox.DataSource = value;
-                this.cameraComboBox.ComboBox.DisplayMember = "Description";
+                this.cameraComboBox.ComboBox.DisplayMember = "Name";
+                this.cameraComboBox.SelectedIndex = 0;
             }
         }
 
@@ -165,9 +176,9 @@ namespace RemoteImaging.RealtimeDisplay
         private void testToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Camera[] cams = new Camera[] { 
-                new Camera() { Description = "南门", ID = 3, IpAddress = "192.168.1.1" },
-                new Camera() { Description = "北门", ID = 3, IpAddress = "192.168.1.1" },
-                new Camera() { Description = "西门", ID = 3, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "南门", ID = 3, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "北门", ID = 3, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "西门", ID = 3, IpAddress = "192.168.1.1" },
             };
             this.Cameras = cams;
         }
@@ -183,10 +194,10 @@ namespace RemoteImaging.RealtimeDisplay
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             Camera[] cams = new Camera[] {
-                new Camera() { Description = "所有", ID = -1, IpAddress = "192.168.1.1" },
-                new Camera() { Description = "南门", ID = 1, IpAddress = "192.168.1.1" },
-                new Camera() { Description = "北门", ID = 2, IpAddress = "192.168.1.1" },
-                new Camera() { Description = "西门", ID = 3, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "所有", ID = -1, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "南门", ID = 1, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "北门", ID = 2, IpAddress = "192.168.1.1" },
+                new Camera() { Name = "西门", ID = 3, IpAddress = "192.168.1.1" },
             };
             this.Cameras = cams;
         }
@@ -199,6 +210,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             int n = 0;
+            
             if (int.TryParse(this.squareNumber.Text, out n))
             {
                 if (n < 1)
@@ -227,8 +239,33 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void optionsButton_Click(object sender, EventArgs e)
         {
-            new OptionsForm().ShowDialog(this);
+            using (OptionsForm frm = new OptionsForm())
+            {
+                IList<Camera> camCopy = new List<Camera>();
+
+                foreach (Camera item in Configuration.Instance.Cameras)
+                {
+                    camCopy.Add(new Camera() { ID = item.ID, Name = item.Name, IpAddress = item.IpAddress });
+                }
+
+
+                frm.Cameras = camCopy;
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    Configuration.Instance.Cameras = frm.Cameras;
+                    Configuration.Instance.Save();
+
+                    this.Cameras = frm.Cameras.ToArray<Camera>();
+                }
+            }
         }
+
+        private void squareNumber_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.squareListView1.Count = (int) this.squareNumber.SelectedItem;
+        }
+
+      
  
     }
 }
