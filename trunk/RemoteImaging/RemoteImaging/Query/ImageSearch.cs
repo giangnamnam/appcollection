@@ -11,7 +11,7 @@ namespace RemoteImaging.Query
 {
     public class ImageSearch
     {
-        public string[] SearchImages(ImageDirSys startDir,ImageDirSys endDir,string beginDir)
+        public string[] SearchImages(ImageDirSys startDir,ImageDirSys endDir,Query.ImageDirSys.SearchType searchType)
         {
             int startYear = int.Parse(startDir.Year);
             int startMonth = int.Parse(startDir.Month);
@@ -26,11 +26,23 @@ namespace RemoteImaging.Query
             int endMinute = int.Parse(endDir.Minute);
             int endSecond = int.Parse(endDir.Second);
 
+            string beginDir = RemoteImaging.Query.ImageDirSys.BeginDir;
+            string subSearchPath = "";
+            if (searchType == ImageDirSys.SearchType.PicType)
+            {
+                subSearchPath = Query.ImageDirSys.IconPath;
+            }
+            else if (searchType == ImageDirSys.SearchType.VideoType)
+            {
+                subSearchPath = Query.ImageDirSys.VideoPath;
+            }
 
+            /*
             if ((beginDir.Trim()).LastIndexOf("\\") == beginDir.Length - 1)
             {
                 beginDir = beginDir.Substring(0, beginDir.Length - 1);
             }
+            */
 
 
             ArrayList fileList = new ArrayList();
@@ -44,7 +56,7 @@ namespace RemoteImaging.Query
                                     startDir.CameraID + "\\" +
                                     startDir.Year + "\\" +
                                     startDir.Month + "\\" +
-                                    startDir.Day + "\\" + RemoteImaging.Query.ImageDirSys.IconPath + "\\";
+                                    startDir.Day + "\\" + subSearchPath + "\\";
                 if (Directory.Exists(searchPath))
                 {
                     string[] files = Directory.GetFiles(searchPath);
@@ -80,7 +92,7 @@ namespace RemoteImaging.Query
                                         startDir.CameraID + "\\" +
                                         startDir.Year + "\\" +
                                         startDir.Month + "\\" +
-                                        i.ToString("D2") + "\\" + RemoteImaging.Query.ImageDirSys.IconPath + "\\";
+                                        i.ToString("D2") + "\\" + subSearchPath + "\\";
 
                     if (Directory.Exists(searchPath))
                     {
@@ -117,7 +129,7 @@ namespace RemoteImaging.Query
                                             startDir.CameraID + "\\" +
                                             startDir.Year + "\\" +
                                             i.ToString("D2") + "\\" +
-                                            j.ToString("D2") + "\\" + RemoteImaging.Query.ImageDirSys.IconPath + "\\";
+                                            j.ToString("D2") + "\\" + subSearchPath + "\\";
                         if (Directory.Exists(searchPath))
                         {
                             string[] files = Directory.GetFiles(searchPath);
@@ -167,7 +179,7 @@ namespace RemoteImaging.Query
                                                 startDir.CameraID + "\\" +
                                                 i.ToString() + "\\" +
                                                 j.ToString("D2") + "\\" +
-                                                k.ToString("D2") + "\\" + RemoteImaging.Query.ImageDirSys.IconPath + "\\";
+                                                k.ToString("D2") + "\\" + subSearchPath + "\\";
                             if(Directory.Exists(searchPath))
                             {
                                 string[] files = Directory.GetFiles(searchPath);

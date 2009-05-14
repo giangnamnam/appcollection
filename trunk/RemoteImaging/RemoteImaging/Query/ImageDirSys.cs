@@ -10,6 +10,8 @@ namespace RemoteImaging.Query
         public static string BeginDir = Properties.Settings.Default.OutputPath;
         public static string BigIconPath = Properties.Settings.Default.BigImageDirectoryName;
         public static string IconPath = Properties.Settings.Default.IconDirectoryName;
+        public static string VideoPath = Properties.Settings.Default.VideoDirectoryName;
+        public enum SearchType{PicType,VideoType};
 
         public ImageDirSys(string camera,string year,string month,string day,string hour,string minute,string second )
         {

@@ -234,7 +234,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.QueryForm().ShowDialog(this);
+            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
         }
 
         private void optionsButton_Click(object sender, EventArgs e)
@@ -263,6 +263,11 @@ namespace RemoteImaging.RealtimeDisplay
         private void squareNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.squareListView1.Count = (int) this.squareNumber.SelectedItem;
+        }
+
+        private void simpleButton4_Click(object sender, EventArgs e)
+        {
+            new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
         }
 
       
