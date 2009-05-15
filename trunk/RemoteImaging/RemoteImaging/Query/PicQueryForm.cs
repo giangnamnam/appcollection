@@ -103,10 +103,17 @@ namespace RemoteImaging.Query
 
             Query.ImageSearch imageSearch = new ImageSearch();
             string[] files = imageSearch.SelectedBestImageChanged(this.bestPicListView.FocusedItem.Text);
+            if (files == null)
+            {
+                MessageBox.Show("没有搜索到对应的二级图片", "警告");
+                return;
+            }
+
             this.secPicListView.Scrollable = true;
             this.secPicListView.MultiSelect = false;
             this.secPicListView.View = View.LargeIcon;
             this.secPicListView.LargeImageList = imageList2;
+
 
             for (int i = 0; i < files.Length; i++)
             {
