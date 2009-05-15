@@ -37,14 +37,6 @@ namespace RemoteImaging.Query
                 subSearchPath = Query.ImageDirSys.VideoPath;
             }
 
-            /*
-            if ((beginDir.Trim()).LastIndexOf("\\") == beginDir.Length - 1)
-            {
-                beginDir = beginDir.Substring(0, beginDir.Length - 1);
-            }
-            */
-
-
             ArrayList fileList = new ArrayList();
 
             
@@ -232,7 +224,7 @@ namespace RemoteImaging.Query
         }
 
 
-        public string[] SelectedBestImageChanged(string selectedImageName,string beginDir)
+        public string[] SelectedBestImageChanged(string selectedImageName)
         {
             string fileName = System.IO.Path.GetFileNameWithoutExtension(selectedImageName);
             if (!IsValidImageFile(fileName))
@@ -240,12 +232,7 @@ namespace RemoteImaging.Query
                 return null;
             }
 
-            if ((beginDir.Trim()).LastIndexOf("\\") == beginDir.Length - 1)
-            {
-                beginDir = beginDir.Substring(0, beginDir.Length - 1);
-            }
-
-            string searchPath = beginDir + "\\" +
+            string searchPath = Query.ImageDirSys.BeginDir + "\\" +
                                 fileName.Substring(0, 2) + "\\" +
                                 (2000 + int.Parse(fileName.Substring(3, 2))).ToString() + "\\" +
                                 fileName.Substring(5, 2) + "\\" +

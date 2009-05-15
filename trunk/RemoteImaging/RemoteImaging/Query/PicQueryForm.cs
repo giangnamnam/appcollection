@@ -20,7 +20,11 @@ namespace RemoteImaging.Query
         private void queryBtn_Click(object sender, EventArgs e)
         {
             string cameraID = this.comboBox1.Text;
-
+            if (cameraID == "" || cameraID == null)
+            {
+                MessageBox.Show("请选择要查询的摄像头ID", "警告");
+                return;
+            }
             string dataStr1 = this.dateTimePicker1.Text;
             int indexYear1 = dataStr1.IndexOf("年");
             int indexMonth1 = dataStr1.IndexOf("月");
@@ -98,7 +102,7 @@ namespace RemoteImaging.Query
             this.imageList2.Images.Clear();
 
             Query.ImageSearch imageSearch = new ImageSearch();
-            string[] files = imageSearch.SelectedBestImageChanged(this.bestPicListView.FocusedItem.Text, RemoteImaging.Query.ImageDirSys.BeginDir);
+            string[] files = imageSearch.SelectedBestImageChanged(this.bestPicListView.FocusedItem.Text);
             this.secPicListView.Scrollable = true;
             this.secPicListView.MultiSelect = false;
             this.secPicListView.View = View.LargeIcon;
@@ -162,6 +166,12 @@ namespace RemoteImaging.Query
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
+            this.bestPicListView.Clear();
+            this.imageList1.Images.Clear();
+            this.secPicListView.Clear();
+            this.imageList2.Images.Clear();
+
+
             this.Close();
         }
     }
