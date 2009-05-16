@@ -48,6 +48,11 @@ namespace MyControls
         {
             try
             {
+                if (imgQueue.Count<=0)
+                {
+                    this.refreshTimer.Enabled = false;
+                    return;
+                }
                 
                 Cell dstCell = this.cells[idx];
                 ImageCell imgToShow = this.imgQueue.Dequeue();
@@ -85,10 +90,7 @@ namespace MyControls
 
         public void ShowImages(ImageCell[] imgs)
         {
-            foreach (ImageCell item in imgs)
-            {
-                imgQueue.Enqueue(item);
-            }
+            Array.ForEach(imgs, imgQueue.Enqueue);
 
             if (imgQueue.Count > 0 && this.Visible)
             {
