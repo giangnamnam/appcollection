@@ -46,23 +46,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IconExtractor.cs" />
+    <Compile Include="IIconExtractor.cs" />
+    <Compile Include="NativeIconExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common_Grabber.dll" />
     <Content Include="data\haarcascade_frontalface_alt.xml" />
     <Content Include="data\haarcascade_frontalface_alt2.xml" />
     <Content Include="data\haarcascade_frontalface_alt_tree.xml" />
     <Content Include="data\haarcascade_frontalface_default.xml" />
     <Content Include="Doc\读我.txt" />
-    <Content Include="thirdparty\libs\opencv\cv100.dll" />
-    <Content Include="thirdparty\libs\opencv\cvaux100.dll" />
-    <Content Include="thirdparty\libs\opencv\cvcam100.dll" />
-    <Content Include="thirdparty\libs\opencv\cxcore100.dll" />
-    <Content Include="thirdparty\libs\opencv\cxts001.dll" />
-    <Content Include="thirdparty\libs\opencv\highgui100.dll" />
-    <Content Include="thirdparty\libs\opencv\libguide40.dll" />
-    <Content Include="thirdparty\libs\opencv\ml100.dll" />
+    <Content Include="FaceSelDll.dll" />
+    <Content Include="thirdparty\libs\opencv\cv100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\cvaux100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\cvcam100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\cxcore100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\cxts001.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\highgui100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\libguide40.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="thirdparty\libs\opencv\ml100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Doc\接口说明.doc" />

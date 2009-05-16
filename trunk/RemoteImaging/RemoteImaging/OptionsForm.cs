@@ -139,5 +139,10 @@ namespace RemoteImaging
             new  BindingList<Camera>();
 
         private BindingSource bs;
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

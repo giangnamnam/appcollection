@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RemoteImaging.RealtimeDisplay
+namespace IconExtractor
 {
     public interface IIconExtractor
     {
-        string ExtractIcons(string bigImage, string destFolder);
-        void Initialize();
+        void AddInImage(string strFileName);
+        void SetOutputDir(string dir);
+        string SelectBestImage();
     }
 }

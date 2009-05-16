@@ -36,10 +36,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         private bool ShouldFireEvent(ImageDetail img)
         {
-            bool shouldFireEvent = true;
+            bool shouldFireEvent = false;
             foreach (ImageDetail item in cameraImagesQueue[img.FromCamera])
             {
-                shouldFireEvent = true;
                 if (item.CaptureTime != img.CaptureTime)
                 {
                     shouldFireEvent = true;
@@ -79,6 +78,12 @@ namespace RemoteImaging.RealtimeDisplay
         {
             if (e.ChangeType == WatcherChangeTypes.Created)
             {
+                ////remove "alarm_"
+                //string alarmString = "Alarm_";
+                //int idx = e.FullPath.IndexOf(alarmString);
+
+                //string fileName = e.FullPath.Remove(idx, alarmString.Length);
+
                 ImageDetail img = new ImageDetail(e.FullPath);
 
                 InitCameraQueue(img.FromCamera);

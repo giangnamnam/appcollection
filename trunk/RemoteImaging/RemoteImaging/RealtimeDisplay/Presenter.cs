@@ -11,7 +11,8 @@ namespace RemoteImaging.RealtimeDisplay
     {
         IImageScreen screen;
         ImageUploadWatcher uploadWatcher;
-        IIconExtractor extractor;
+        
+        IconExtractor.IIconExtractor extractor;
 
         /// <summary>
         /// Initializes a new instance of the Presenter class.
@@ -20,7 +21,7 @@ namespace RemoteImaging.RealtimeDisplay
         /// <param name="uploadWatcher"></param>
         public Presenter(IImageScreen screen, 
             ImageUploadWatcher uploadWatcher,
-            IIconExtractor extractor)
+            IconExtractor.IIconExtractor extractor)
         {
             this.screen = screen;
             this.uploadWatcher = uploadWatcher;
@@ -47,45 +48,78 @@ namespace RemoteImaging.RealtimeDisplay
             return destFolder;
         }
 
-        private ImageDetail[] BuildIconImages(string destFolder, string iconFilesString)
+        private ImageDetail[] BuildIconImages(string destFolder, ImageDetail[] bigImgs, string iconFilesString)
         {
-            string[] iconFiles = iconFilesString.Split(new char[]{'\t'}, StringSplitOptions.RemoveEmptyEntries);
-            ImageDetail[] iconImgs = new ImageDetail[iconFiles.Length];
-            for (int i = 0; i < iconImgs.Length; i++)
+            string[] iconFiles = iconFilesString.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+            IDictionary<int, IList<string>> iconGroup = new Dictionary<int, IList<string>>();
+
+            //分组
+            for (int i = 0; i < iconFiles.Length; i+=2)
             {
-                string destPathName = Path.Combine(destFolder, iconFiles[i]);
-                iconImgs[i] = new ImageDetail(destPathName);
+                int idxOfBigPic = int.Parse(iconFiles[i+1]);
+                if (!iconGroup.ContainsKey(idxOfBigPic))
+                {
+                    iconGroup.Add(idxOfBigPic, new List<string>());
+                }
+
+                iconGroup[idxOfBigPic].Add(iconFiles[i]);
             }
 
-            return iconImgs;
+            IList<ImageDetail> returnImgs = new List<ImageDetail>();
+            foreach (var iconSubGroup in iconGroup)
+            {
+                for (int i = 0; i < iconSubGroup.Value.Count; i++)
+                {
+                    int idx = iconSubGroup.Key;
+                    string bigPicPath = bigImgs[idx].FullPath;
+                    string bigpicExtension = Path.GetExtension(bigPicPath);
+                    string bigPicNameWithoutExtention = Path.GetFileNameWithoutExtension(bigPicPath);
+                    string iconFileName = string.Format("{0}-{1:d4}{2}", bigPicNameWithoutExtention, i, bigpicExtension);
+                    string iconFilePath = Path.Combine(destFolder, iconFileName);
+
+                    //rename file
+                    string origIconFilePath = Path.Combine(destFolder, iconSubGroup.Value[i]);
+                    File.Move(origIconFilePath, iconFilePath);
+                    returnImgs.Add(new ImageDetail(iconFilePath));
+                }
+            }
+
+            ImageDetail[] returnImgsArray = new ImageDetail[returnImgs.Count];
+            returnImgs.CopyTo(returnImgsArray, 0);
+
+            return returnImgsArray;
         }
 
-        private ImageDetail[] ExtractIcons(ImageDetail img)
+        private ImageDetail[] ExtractIcons(ImageDetail[] imgs)
         {
-            string destFolder = PrepareDestFolder(img);
-            string iconFilesString = extractor.ExtractIcons(img.FullPath, destFolder);
+            string destFolder = PrepareDestFolder(imgs[0]);
+            extractor.SetOutputDir(destFolder);
+            Array.ForEach<ImageDetail>(imgs, img => extractor.AddInImage(img.FullPath));
 
-            ImageDetail[] iconImgs = BuildIconImages(destFolder, iconFilesString);
+            string iconFilesString = extractor.SelectBestImage();
+
+            ImageDetail[] iconImgs = BuildIconImages(destFolder, imgs, iconFilesString);
             return iconImgs;
         }
 
-        delegate ImageDetail[] ExtractIconsMethod(ImageDetail img);
 
         void uploadWatcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
         {
-            ImageClassifier.ClassifyImages(args.Images);
+            ImageDetail[] imgsToProcess = args.Images;
 
-            foreach (ImageDetail img in args.Images)
-	        {
-                ExtractIconsMethod del = (imgs) => ExtractIcons(imgs);
+            ImageClassifier.ClassifyImages(imgsToProcess);
 
-                IAsyncResult result = del.BeginInvoke(img, null, null);
+                System.Func<ImageDetail[], ImageDetail[]> func = (imgs) => ExtractIcons(imgsToProcess);
+
+                IAsyncResult result = func.BeginInvoke(imgsToProcess, null, null);
                 while (!result.IsCompleted)
                 {
-                    System.Windows.Forms.Application.DoEvents();
-                    System.Diagnostics.Debug.WriteLine("pump message");
+                    //System.Windows.Forms.Application.DoEvents();
+                    System.Threading.Thread.Sleep(1000);
+                    System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString());
                 }
-                ImageDetail[] iconImgs = del.EndInvoke(result);
+                ImageDetail[] iconImgs = func.EndInvoke(result);
 
                 foreach (ImageDetail icon in iconImgs)
                 {
@@ -96,7 +130,6 @@ namespace RemoteImaging.RealtimeDisplay
                     }
                 }
                 
-	        }
            
         }
 

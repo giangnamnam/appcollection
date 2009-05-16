@@ -110,8 +110,7 @@
       <DependentUpon>VideoQueryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RealtimeDisplay\Camera.cs" />
-    <Compile Include="RealtimeDisplay\IIconExtractor.cs" />
-    <Compile Include="RealtimeDisplay\IconExtractor.cs" />
+    <Compile Include="RealtimeDisplay\IconExtractorStub.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="RealtimeDisplay\ImageClassifier.cs" />
     <Compile Include="RealtimeDisplay\ImageDetail.cs" />
@@ -204,6 +203,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MainIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IconExtractor\IconExtractor.csproj">
+      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
+      <Name>IconExtractor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

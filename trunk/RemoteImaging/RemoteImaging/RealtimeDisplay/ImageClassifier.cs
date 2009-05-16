@@ -38,6 +38,7 @@ namespace RemoteImaging.RealtimeDisplay
             foreach (ImageDetail image in images)
             {
                 string destPath = BuildDestPath(outputPathRoot, Properties.Settings.Default.BigImageDirectoryName, image);
+
                 string destFile = destPath + image.Name;
                 if (!Directory.Exists(destPath))
                 {

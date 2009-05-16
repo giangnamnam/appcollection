@@ -2,34 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Runtime.InteropServices;
 
 namespace IconExtractor
 {
-    public static class IconExtractor
+    public class IconExtractor : IIconExtractor
     {
+      
+        #region IIconExtractor Members
 
-        const string dllName = "Common_Grabber.dll";
+        public void AddInImage(string strFileName)
+        {
+            NativeIconExtractor.AddInImage(strFileName);
+        }
 
-        /// Return Type: void
-        ///strFileName: char*
-        [DllImport(dllName, CharSet=CharSet.Ansi)]
-        public static extern  void AddInImage([InAttribute()]
-                                              [MarshalAs(UnmanagedType.LPStr)] 
-                                              string strFileName);
+        public void SetOutputDir(string dir)
+        {
+            NativeIconExtractor.SetOutputDir(dir);
+        }
 
-        
-        /// Return Type: void
-        ///dir: char*
-        [DllImport(dllName, CharSet=CharSet.Ansi)]
-        public static extern  void SetOutputDir([InAttribute()]
-                                                [MarshalAs(UnmanagedType.LPStr)] 
-                                                string dir);
+        public string SelectBestImage()
+        {
+            return NativeIconExtractor.SelectBestImage();
+        }
 
-        
-        /// Return Type: char*
-        [DllImport(dllName, CharSet=CharSet.Ansi)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        private static extern string SelectBestImage();
+        #endregion
     }
 }

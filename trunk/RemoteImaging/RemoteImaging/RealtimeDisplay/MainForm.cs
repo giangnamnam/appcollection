@@ -149,8 +149,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            IIconExtractor extractor = new IconExtractor();
-            extractor.Initialize();
+            IconExtractor.IIconExtractor extractor = new IconExtractor.IconExtractor();
 
             ImageUploadWatcher watcher = 
                 new ImageUploadWatcher() { PathToWatch = Properties.Settings.Default.ImageUploadPool, };
@@ -254,6 +253,8 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Configuration.Instance.Cameras = frm.Cameras;
                     Configuration.Instance.Save();
+
+                    Properties.Settings.Default.Save();
 
                     this.Cameras = frm.Cameras.ToArray<Camera>();
                 }

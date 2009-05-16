@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
+using IconExtractor;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    internal class IconExtractor : IIconExtractor
+    internal class IconExtractorStub : IIconExtractor
     {
         public string ExtractIcons(string bigImage, string destFolder)
         {
@@ -42,12 +43,25 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+
+
+
+
         #region IIconExtractor Members
 
-
-        public void Initialize()
+        public void AddInImage(string strFileName)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public void SetOutputDir(string dir)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string SelectBestImage()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
