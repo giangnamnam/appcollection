@@ -50,7 +50,7 @@ namespace Controls.Test
             this.multiPicListView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.multiPicListView1.Count = 3;
+            this.multiPicListView1.NumberOfColumns = 3;
             this.multiPicListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.multiPicListView1.Location = new System.Drawing.Point(4, 14);
             this.multiPicListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

@@ -17,7 +17,7 @@ namespace MyControls
             InitializeComponent();
 
             this.DoubleBuffered = true;
-            this.Count = 2;
+            this.NumberOfColumns = 2;
             this.Padding = new Padding(3);
 
             refreshTimer.Interval = 20;
@@ -68,7 +68,7 @@ namespace MyControls
                 //dstCell.Selected = false;
                 //selectedCell = null;
 
-                this.Invalidate(dstCell.ToRectangle(dstCell.Rec));
+                this.Invalidate(Rectangle.Round(dstCell.Rec));
 
                 idx = ++idx % this.cells.Length;
             }
@@ -103,7 +103,7 @@ namespace MyControls
 
 
         private int _Count;
-        public int Count
+        public int NumberOfColumns
         {
             get
             {
@@ -134,16 +134,16 @@ namespace MyControls
 
         private void CalcCellSize(Cell[] cells)
         {
-            int width = this.ClientRectangle.Width / this.Count;
-            int height = this.ClientRectangle.Height / this.Count;
+            int width = this.ClientRectangle.Width / this.NumberOfColumns;
+            int height = this.ClientRectangle.Height / this.NumberOfColumns;
 
-            for (int i = 0; i < this.Count; i++)
+            for (int i = 0; i < this.NumberOfColumns; i++)
             {
-                for (int j = 0; j < this.Count; j++)
+                for (int j = 0; j < this.NumberOfColumns; j++)
                 {
-                    int idx = j * this.Count + i;
+                    int idx = j * this.NumberOfColumns + i;
                     Cell c = cells[idx];
-                    c.Rec = new RectangleF(i * width + this.Padding.Left,
+                    c.Rec = new Rectangle(i * width + this.Padding.Left,
                         j * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
                         height - this.Padding.Vertical);
@@ -154,7 +154,7 @@ namespace MyControls
 
         private Cell[] CreateNewCells()
         {
-            Cell[] newCells = new Cell[this.Count * this.Count];
+            Cell[] newCells = new Cell[this.NumberOfColumns * this.NumberOfColumns];
             for (int i = 0; i < newCells.Length; i++)
             {
                 newCells[i] = new Cell();
@@ -208,7 +208,7 @@ namespace MyControls
 
             foreach (Cell c in this.cells)
             {
-                if (e.ClipRectangle.IntersectsWith(c.ToRectangle(c.Rec)))
+                if (e.ClipRectangle.IntersectsWith(Rectangle.Round(c.Rec)))
                 {
                     c.Paint(e.Graphics, this.Font);
                 }
@@ -240,18 +240,15 @@ namespace MyControls
                 if (selectedCell != null)
                 {
                     selectedCell.Selected = false;
-                    this.Invalidate(c.ToRectangle(selectedCell.Rec));
+                    this.Invalidate(Rectangle.Round(selectedCell.Rec));
                 }
                 
                 c.Selected = true;
-                this.Invalidate(c.ToRectangle(c.Rec));
+                this.Invalidate(Rectangle.Round(c.Rec));
                 
                 selectedCell = c;
 
                 FireSelectedCellChanged();
-
-
-                
             }
         }
 
