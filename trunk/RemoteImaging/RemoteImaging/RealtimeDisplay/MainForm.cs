@@ -218,12 +218,12 @@ namespace RemoteImaging.RealtimeDisplay
                     return;
                 }
 
-                if (n == this.squareListView1.Count)
+                if (n == this.squareListView1.NumberOfColumns)
                 {
                     return;
                 }
 
-                this.squareListView1.Count = n;
+                this.squareListView1.NumberOfColumns = n;
             }
             else
             {
@@ -263,7 +263,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void squareNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.squareListView1.Count = (int) this.squareNumber.SelectedItem;
+            this.squareListView1.NumberOfColumns = (int) this.squareNumber.SelectedItem;
         }
 
         private void simpleButton4_Click(object sender, EventArgs e)

@@ -351,7 +351,7 @@
             // 
             this.squareListView1.AutoDisposeImage = true;
             this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.squareListView1.Count = 4;
+            this.squareListView1.NumberOfColumns = 4;
             this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.squareListView1.Location = new System.Drawing.Point(3, 28);

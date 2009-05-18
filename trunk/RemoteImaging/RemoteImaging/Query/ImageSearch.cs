@@ -280,10 +280,8 @@ namespace RemoteImaging.Query
                 return true;
             
             }
-            else
-            {
-                return false;
-            }
+ 
+            return false;
         }
     }
 }
