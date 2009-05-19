@@ -31,5 +31,31 @@ namespace ImageProcess
         [DllImport(dllName, CharSet = CharSet.Ansi)]
         [return: MarshalAs(UnmanagedType.LPStr)]
         public static extern string SelectBestImage();
+
+
+
+        /// Return Type: void
+        ///iMinFace: int
+        ///dFaceChangeRatio: double
+        [DllImport(dllName, CharSet = CharSet.Ansi)]
+        public static extern void SetFaceParas(int iMinFace, double dFaceChangeRatio);
+
+
+        /// Return Type: void
+        ///topExRatio: double
+        ///bottomExRatio: double
+        ///leftExRatio: double
+        ///rightExRatio: double
+        [DllImport(dllName, CharSet = CharSet.Ansi)]
+        public static extern void SetExRatio(double topExRatio,
+            double bottomExRatio,
+            double leftExRatio,
+            double rightExRatio);
+
+
+        /// Return Type: void
+        ///dRatio: double
+        [DllImport(dllName, CharSet = CharSet.Ansi)]
+        public static extern void SetDwSmpRatio(double dRatio);
     }
 }

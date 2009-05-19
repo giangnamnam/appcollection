@@ -20,6 +20,32 @@ namespace RemoteImaging
         }
 
 
+        public float LeftExtRatio
+        {
+            get { return float.Parse(this.leftExtRatio.Text); }
+        }
+
+        public float RightExtRatio
+        {
+            get { return float.Parse(this.rightExtRatio.Text); }
+        }
+
+        public float TopExtRatio
+        {
+            get { return float.Parse(this.topExtRatio.Text); }
+        }
+
+        public float BottomExtRatio
+        {
+            get { return float.Parse(this.bottomExtRatio.Text); }
+        }
+
+        public int MinFaceWidth { get { return int.Parse(this.minFaceWidth.Text); } }
+
+        public int MaxFaceWidth { get { return int.Parse(this.maxFaceWidth.Text); } }
+
+        public float DownSamplingRatio { get { return float.Parse(this.downSamplingRatio.Text); } }
+
         private void InitCamDatagridView()
         {
             InitCamList();
@@ -104,7 +130,7 @@ namespace RemoteImaging
 
         private void SaveCamConfig()
         {
-            
+
         }
 
 
@@ -117,10 +143,10 @@ namespace RemoteImaging
 
             Camera cam = bs.Current as Camera;
             if (string.IsNullOrEmpty(cam.IpAddress))
-	        {
-		         return;
-	        }
-            
+            {
+                return;
+            }
+
             using (FormConfigCamera form = new FormConfigCamera())
             {
                 StringBuilder sb = new StringBuilder(form.Text);
@@ -135,8 +161,8 @@ namespace RemoteImaging
         }
 
 
-        private BindingList<Camera> camList = 
-            new  BindingList<Camera>();
+        private BindingList<Camera> camList =
+            new BindingList<Camera>();
 
         private BindingSource bs;
 

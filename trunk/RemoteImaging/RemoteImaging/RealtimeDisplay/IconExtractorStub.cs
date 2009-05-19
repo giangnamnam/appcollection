@@ -65,5 +65,24 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         #endregion
+
+        #region IIconExtractor Members
+
+        public void SetFaceParas(int iMinFace, double dFaceChangeRatio)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetExRatio(double topExRatio, double bottomExRatio, double leftExRatio, double rightExRatio)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetDwSmpRatio(double dRatio)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

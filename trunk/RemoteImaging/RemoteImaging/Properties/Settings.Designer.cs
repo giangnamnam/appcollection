@@ -118,5 +118,89 @@ namespace RemoteImaging.Properties {
                 this["LengthOfImageGroup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string IconLeftExtRatio {
+            get {
+                return ((string)(this["IconLeftExtRatio"]));
+            }
+            set {
+                this["IconLeftExtRatio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string IconRightExtRatio {
+            get {
+                return ((string)(this["IconRightExtRatio"]));
+            }
+            set {
+                this["IconRightExtRatio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string IconTopExtRatio {
+            get {
+                return ((string)(this["IconTopExtRatio"]));
+            }
+            set {
+                this["IconTopExtRatio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string IconBottomExtRatio {
+            get {
+                return ((string)(this["IconBottomExtRatio"]));
+            }
+            set {
+                this["IconBottomExtRatio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string MinFaceWidth {
+            get {
+                return ((string)(this["MinFaceWidth"]));
+            }
+            set {
+                this["MinFaceWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public string MaxFaceWidth {
+            get {
+                return ((string)(this["MaxFaceWidth"]));
+            }
+            set {
+                this["MaxFaceWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public string DownSampling {
+            get {
+                return ((string)(this["DownSampling"]));
+            }
+            set {
+                this["DownSampling"] = value;
+            }
+        }
     }
 }

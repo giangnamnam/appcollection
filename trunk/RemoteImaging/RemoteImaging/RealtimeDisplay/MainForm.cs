@@ -29,6 +29,20 @@ namespace RemoteImaging.RealtimeDisplay
             Configuration.Instance.Cameras.CopyTo(cams, 0);
             this.Cameras = cams;
 
+            Properties.Settings setting = Properties.Settings.Default;
+
+            float left = float.Parse(setting.IconLeftExtRatio);
+            float top = float.Parse(setting.IconTopExtRatio);
+            float right = float.Parse(setting.IconRightExtRatio);
+            float bottom = float.Parse(setting.IconBottomExtRatio);
+
+            int minFaceWidth = int.Parse(setting.MinFaceWidth);
+            int maxFaceWidth = int.Parse(setting.MaxFaceWidth);
+
+            float ratio = (float)maxFaceWidth / minFaceWidth;
+
+            SetupExtractor(left, right, top, bottom, minFaceWidth, ratio);
+
         }
 
         private Camera getSelCamera()
@@ -130,27 +144,10 @@ namespace RemoteImaging.RealtimeDisplay
             this.squareListView1.ShowImages(cells);
         }
 
-        private void extractIconToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //IIconExtractor extractor = new IconExtractor();
-
-            //string[] files = Directory.GetFiles(@"d:\20090505");
-            //ImageClassifier classifier = new ImageClassifier();
-            //ImageDetail[] imgs = new ImageDetail[1] { new ImageDetail(files[0]) };
-            //classifier.ClassifyImages(imgs);
-            //string parentOfBigPicFolder = Directory.GetParent(imgs[0].Path).Parent.FullName.ToString();
-            //string destFolder = Path.Combine(parentOfBigPicFolder, Properties.Settings.Default.IconDirectoryName);
-            //if (!Directory.Exists(destFolder))
-            //{
-            //    Directory.CreateDirectory(destFolder);
-            //}
-
-            //extractor.ExtractIcons(imgs[0].FullPath, destFolder);
-        }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            IIconExtractor extractor = new IconExtractor();
+            IIconExtractor extractor = IconExtractor.Default;
 
             ImageUploadWatcher watcher =
                 new ImageUploadWatcher() { PathToWatch = Properties.Settings.Default.ImageUploadPool, };
@@ -173,15 +170,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
 
-        private void testToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Camera[] cams = new Camera[] { 
-                new Camera() { Name = "南门", ID = 3, IpAddress = "192.168.1.1" },
-                new Camera() { Name = "北门", ID = 3, IpAddress = "192.168.1.1" },
-                new Camera() { Name = "西门", ID = 3, IpAddress = "192.168.1.1" },
-            };
-            this.Cameras = cams;
-        }
 
         private void squareListView1_SelectedCellChanged(object sender, EventArgs e)
         {
@@ -237,6 +225,21 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
         }
 
+        private static void SetupExtractor(float leftRatio,
+            float rightRatio,
+            float topRatio,
+            float bottomRatio,
+            int minFaceWidth,
+            float maxFaceWidthRatio)
+        {
+            IconExtractor.Default.SetExRatio(topRatio,
+                                    bottomRatio,
+                                    leftRatio,
+                                    rightRatio);
+
+            IconExtractor.Default.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+        }
+
         private void optionsButton_Click(object sender, EventArgs e)
         {
             using (OptionsForm frm = new OptionsForm())
@@ -258,6 +261,12 @@ namespace RemoteImaging.RealtimeDisplay
                     Properties.Settings.Default.Save();
 
                     this.Cameras = frm.Cameras.ToArray<Camera>();
+
+                    
+
+                    float ratio = (float)frm.MaxFaceWidth / frm.MinFaceWidth;
+
+                    SetupExtractor(frm.LeftExtRatio, frm.RightExtRatio, frm.TopExtRatio, frm.BottomExtRatio, frm.MinFaceWidth, ratio);
                 }
             }
         }

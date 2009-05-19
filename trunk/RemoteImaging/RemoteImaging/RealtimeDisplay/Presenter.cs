@@ -94,10 +94,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private ImageDetail[] ExtractIcons(ImageDetail[] imgs)
         {
-            return new ImageDetail[0];
-            //System.Diagnostics.Debug.WriteLine("big imgs:");
-            //Array.ForEach(imgs, img => System.Diagnostics.Debug.WriteLine(img.Path));
-
             string destFolder = PrepareDestFolder(imgs[0]);
             extractor.SetOutputDir(destFolder);
             Array.ForEach<ImageDetail>(imgs, img => extractor.AddInImage(img.Path));
@@ -108,7 +104,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             System.Diagnostics.Debug.WriteLine("icon imgs:");
             Array.ForEach(iconImgs, img => System.Diagnostics.Debug.WriteLine(img.Path));
-            
+
             return iconImgs;
         }
 

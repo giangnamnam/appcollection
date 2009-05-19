@@ -7,7 +7,20 @@ namespace ImageProcess
 {
     public class IconExtractor : IIconExtractor
     {
-      
+
+        public static IconExtractor Default
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new IconExtractor();
+                }
+                return instance;
+            }
+        }
+
+
         #region IIconExtractor Members
 
         public void AddInImage(string strFileName)
@@ -24,6 +37,32 @@ namespace ImageProcess
         {
             return NativeIconExtractor.SelectBestImage();
         }
+
+        #endregion
+
+        #region IIconExtractor Members
+
+        public void SetFaceParas(int iMinFace, double dFaceChangeRatio)
+        {
+            NativeIconExtractor.SetFaceParas(iMinFace, dFaceChangeRatio);
+        }
+
+        public void SetExRatio(double topExRatio,
+            double bottomExRatio,
+            double leftExRatio,
+            double rightExRatio)
+        {
+            NativeIconExtractor.SetExRatio(topExRatio, bottomExRatio, leftExRatio, rightExRatio);
+        }
+
+        public void SetDwSmpRatio(double dRatio)
+        {
+            NativeIconExtractor.SetDwSmpRatio(dRatio);
+        }
+
+        private IconExtractor() { }
+
+        private static IconExtractor instance;
 
         #endregion
     }
