@@ -54,6 +54,9 @@ namespace RemoteImaging.Query
                     string[] files = Directory.GetFiles(searchPath);
                     foreach(string file in files)
                     {                  
+                        DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
+                        DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
+
                         string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
                         if (IsValidImageFile(fileName))
                         {
@@ -61,11 +64,8 @@ namespace RemoteImaging.Query
                             int minute = int.Parse(fileName.Substring(11, 2));
                             int second = int.Parse(fileName.Substring(13, 2));
 
-                            int totalSecond = hour * 60 * 60 + minute * 60 + second;
-                            int startTotalSecond = startHour * 60 * 60 + startMinute * 60 + startSecond;
-                            int endTotalSecond = endHour * 60 * 60 + endMinute * 60 + endSecond;
-
-                            if ((startTotalSecond <= totalSecond) && (totalSecond <= endTotalSecond))
+                            DateTime dateTime = new DateTime(startYear, startMonth, startDay, hour, minute, second);
+                            if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
                             {
                                 fileList.Add(file);
                             }
@@ -77,7 +77,6 @@ namespace RemoteImaging.Query
                      startMonth == endMonth &&
                      startDay < endDay)//accross the day
             {
-                int index = 0;
                 for (int i = startDay; i <= endDay; i++)
                 {
                     string searchPath = beginDir + "\\" +
@@ -138,10 +137,21 @@ namespace RemoteImaging.Query
                             string[] files = Directory.GetFiles(searchPath);
                             foreach (string file in files)
                             {
+                                DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
+                                DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
+
                                 string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
                                 if (IsValidImageFile(fileName))
                                 {
-                                    fileList.Add(file);
+                                    int hour = int.Parse(fileName.Substring(9, 2));
+                                    int minute = int.Parse(fileName.Substring(11, 2));
+                                    int second = int.Parse(fileName.Substring(13, 2));
+
+                                    DateTime dateTime = new DateTime(startYear, i, j, hour, minute, second);
+                                    if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                    {
+                                        fileList.Add(file);
+                                    }
                                 }
                             }
                         }
@@ -187,32 +197,25 @@ namespace RemoteImaging.Query
                             {
                                 string[] files = Directory.GetFiles(searchPath);
                                 
-                                /*foreach (string file in files)
-                                {
-                                    DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
-                                    DateTime dateIime2 = new DateTime(endYear,endMonth,endDay,endHour,endMinute,endSecond);
-                                    
-                                    string fileName = System.IO.Path.GetFileName(file);
-                                    int hour = int.Parse(fileName.Substring(9, 2));
-                                    int minute = int.Parse(fileName.Substring(11, 2));
-                                    int second = int.Parse(fileName.Substring(13, 2));
-
-                                    DateTime dateTime = new DateTime(i,j,k,hour,minute,second);
-                                    if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
-                                    {
-                                        fileList.Add(file);
-                                    }
-
-                                }*/
                                 foreach (string file in files)
                                 {
+                                    DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
+                                    DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
+
                                     string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
                                     if (IsValidImageFile(fileName))
                                     {
-                                        fileList.Add(file);
+                                        int hour = int.Parse(fileName.Substring(9, 2));
+                                        int minute = int.Parse(fileName.Substring(11, 2));
+                                        int second = int.Parse(fileName.Substring(13, 2));
+
+                                        DateTime dateTime = new DateTime(i, j, k, hour, minute, second);
+                                        if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                        {
+                                            fileList.Add(file);
+                                        }
                                     }
                                 }
-
                             }
                         }
                       }
