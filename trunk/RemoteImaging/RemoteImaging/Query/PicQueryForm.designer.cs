@@ -50,6 +50,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cameraIPTxt = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.gotTimeTxt = new System.Windows.Forms.TextBox();
             this.gotPlaceTxt = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -74,11 +76,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 33);
+            this.label1.Location = new System.Drawing.Point(12, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "地点";
+            this.label1.Text = "摄像机编号";
             // 
             // label2
             // 
@@ -101,27 +103,21 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "01",
-            "02",
-            "03",
-            "04",
-            "05"});
-            this.comboBox1.Location = new System.Drawing.Point(85, 28);
+            this.comboBox1.Location = new System.Drawing.Point(85, 29);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 4;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(312, 31);
+            this.dateTimePicker1.Location = new System.Drawing.Point(312, 30);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(129, 20);
             this.dateTimePicker1.TabIndex = 5;
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(646, 34);
+            this.dateTimePicker2.Location = new System.Drawing.Point(646, 30);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(129, 20);
             this.dateTimePicker2.TabIndex = 6;
@@ -133,17 +129,17 @@
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 22);
+            this.timeEdit1.Size = new System.Drawing.Size(96, 20);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
             // 
             this.timeEdit2.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit2.Location = new System.Drawing.Point(781, 33);
+            this.timeEdit2.Location = new System.Drawing.Point(781, 30);
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 22);
+            this.timeEdit2.Size = new System.Drawing.Size(96, 20);
             this.timeEdit2.TabIndex = 8;
             // 
             // groupBox1
@@ -222,9 +218,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 92);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 118);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(403, 373);
+            this.pictureBox1.Size = new System.Drawing.Size(403, 347);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
@@ -258,6 +254,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cameraIPTxt);
+            this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.gotTimeTxt);
             this.groupBox4.Controls.Add(this.gotPlaceTxt);
             this.groupBox4.Controls.Add(this.label7);
@@ -269,6 +267,23 @@
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "放大显示";
+            // 
+            // cameraIPTxt
+            // 
+            this.cameraIPTxt.Location = new System.Drawing.Point(98, 88);
+            this.cameraIPTxt.Name = "cameraIPTxt";
+            this.cameraIPTxt.ReadOnly = true;
+            this.cameraIPTxt.Size = new System.Drawing.Size(293, 20);
+            this.cameraIPTxt.TabIndex = 22;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(25, 89);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "摄像机IP：";
             // 
             // gotTimeTxt
             // 
@@ -293,7 +308,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 18;
-            this.label7.Text = "抓拍时间：\r\n";
+            this.label7.Text = "抓拍时间：";
             // 
             // label6
             // 
@@ -304,7 +319,7 @@
             this.label6.TabIndex = 17;
             this.label6.Text = "抓拍地点：";
             // 
-            // QueryForm
+            // PicQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -320,7 +335,7 @@
             this.Controls.Add(this.bestPicListView);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "QueryForm";
+            this.Name = "PicQueryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "搜索图片";
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
@@ -362,5 +377,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox gotTimeTxt;
+        private System.Windows.Forms.TextBox cameraIPTxt;
+        private System.Windows.Forms.Label label8;
     }
 }

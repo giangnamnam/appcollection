@@ -33,7 +33,6 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -45,6 +44,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
@@ -63,8 +63,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.comboBox1);
             this.groupBox3.Controls.Add(this.dateTimePicker1);
@@ -87,15 +87,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "时间起点";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "地点";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -108,15 +99,9 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "01",
-            "02",
-            "03",
-            "04",
-            "05"});
-            this.comboBox1.Location = new System.Drawing.Point(43, 27);
+            this.comboBox1.Location = new System.Drawing.Point(79, 27);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(79, 21);
             this.comboBox1.TabIndex = 4;
             // 
             // dateTimePicker1
@@ -197,6 +182,15 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "face.bmp");
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "摄像机编号";
+            // 
             // VideoQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,7 +219,6 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
@@ -237,5 +230,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label label4;
     }
 }

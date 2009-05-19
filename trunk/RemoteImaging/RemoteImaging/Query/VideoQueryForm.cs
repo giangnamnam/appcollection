@@ -14,19 +14,23 @@ namespace RemoteImaging.Query
         public VideoQueryForm()
         {
             InitializeComponent();
+            foreach (Camera camera in Configuration.Instance.Cameras)
+            {
+                this.comboBox1.Items.Add(camera.ID.ToString());
+            }
+
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
             this.listView1.Clear();
 
-            string cameraID = this.comboBox1.Text;
-
-            if (cameraID == "" || cameraID == null)
+            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
             {
-                MessageBox.Show("请选择要查询的摄像头ID","警告");
+                MessageBox.Show("请选择要查询的摄像头ID", "警告");
                 return;
             }
+            string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
 
 
             //judge the input validation

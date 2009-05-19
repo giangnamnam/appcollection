@@ -15,19 +15,26 @@ namespace RemoteImaging.Query
         public PicQueryForm()
         {
             InitializeComponent();
+            foreach(Camera camera in Configuration.Instance.Cameras)
+            {
+                this.comboBox1.Items.Add(camera.ID.ToString());
+            }
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
             this.bestPicListView.Clear();
             this.imageList1.Images.Clear();
+            this.secPicListView.Clear();
+            this.imageList2.Images.Clear();
+            this.pictureBox1.Image = null;
 
-            string cameraID = this.comboBox1.Text;
-            if (cameraID == "" || cameraID == null)
+            if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
             {
                 MessageBox.Show("请选择要查询的摄像头ID", "警告");
                 return;
             }
+            string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
 
             
             //judge the input validation
@@ -81,8 +88,46 @@ namespace RemoteImaging.Query
             }
 
         }
-
+        
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
+        {
+            string filePath = RemoteImaging.Query.ImageDirSys.BeginDir + "\\" +
+                              this.bestPicListView.FocusedItem.Text.Substring(0, 2) + "\\" +
+                              (2000 + int.Parse(this.bestPicListView.FocusedItem.Text.Substring(3, 2))).ToString() + "\\" +
+                              this.bestPicListView.FocusedItem.Text.Substring(5, 2) + "\\" +
+                              this.bestPicListView.FocusedItem.Text.Substring(7, 2) + "\\" + Query.ImageDirSys.IconPath + "\\" + this.bestPicListView.FocusedItem.Text;
+
+            //show modify icon
+            if (File.Exists(filePath))
+            {
+                this.pictureBox1.Image = Image.FromFile(filePath);
+            }
+            //
+
+            //detail infomation
+            int cameraID = int.Parse(this.bestPicListView.FocusedItem.Text.Substring(0, 2));
+            foreach (Camera camera in Configuration.Instance.Cameras)
+            {
+                if (camera.ID == cameraID)
+                {
+                    this.gotPlaceTxt.Text = camera.Name;
+                    this.cameraIPTxt.Text = camera.IpAddress;
+                    break;
+                }
+            } 
+            
+            string focusedFileName = this.bestPicListView.FocusedItem.Text;
+            this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
+                                   focusedFileName.Substring(5, 2) + "月" + //month
+                                   focusedFileName.Substring(7, 2) + "日" + //day
+                                   focusedFileName.Substring(9, 2) + "时" + //hour
+                                   focusedFileName.Substring(11, 2) + "分" + //minute
+                                   focusedFileName.Substring(13, 2) + "妙";//second
+
+            //
+        }
+        
+        private void bestPicListView_DoubleClick(object sender, System.EventArgs e)
         {
             this.secPicListView.Clear();
             this.imageList2.Images.Clear();
@@ -121,10 +166,16 @@ namespace RemoteImaging.Query
             //
 
             //detail infomation
-            Camera camera = new Camera();
-            camera.ID = 01;
-            camera.Name = "四川大学南大门摄像头";
-            this.gotPlaceTxt.Text = "四川大学南大门摄像头";
+            int cameraID = int.Parse(this.bestPicListView.FocusedItem.Text.Substring(0,2));
+            foreach (Camera camera in Configuration.Instance.Cameras)
+            {
+                if (camera.ID == cameraID)
+                {
+                    this.gotPlaceTxt.Text = camera.Name;
+                    this.cameraIPTxt.Text = camera.IpAddress;
+                    break;
+                }
+            }
 
             string focusedFileName = this.bestPicListView.FocusedItem.Text;
             this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
@@ -133,13 +184,6 @@ namespace RemoteImaging.Query
                                    focusedFileName.Substring(9, 2) + "时" + //hour
                                    focusedFileName.Substring(11, 2) + "分" + //minute
                                    focusedFileName.Substring(13, 2) + "妙";//second
-
-            //
-        }
-
-        private void bestPicListView_DoubleClick(object sender, System.EventArgs e)
-        {
-            //MessageBox.Show("double click");
         }
 
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
