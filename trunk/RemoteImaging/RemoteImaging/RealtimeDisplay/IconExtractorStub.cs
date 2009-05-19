@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
-using IconExtractor;
+using ImageProcess;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -22,16 +22,16 @@ namespace RemoteImaging.RealtimeDisplay
             for (int i = 0; i < count; i++)
             {
                 string destFileName = Path.GetFileNameWithoutExtension(bigImage)
-                    + "-" + i.ToString("D4")  + Path.GetExtension(bigImage);
+                    + "-" + i.ToString("D4") + Path.GetExtension(bigImage);
                 string destPathName = Path.Combine(destFolder, destFileName);
 
                 Image img = Image.FromFile(bigImage);
                 Graphics g = Graphics.FromImage(img);
                 string text = DateTime.Now.ToString();
-                
+
                 g.DrawString(text,
-                    new Font("arial", 50), 
-                    Brushes.Black, 
+                    new Font("arial", 50),
+                    Brushes.Black,
                     0, 0);
 
                 img.Save(destPathName);

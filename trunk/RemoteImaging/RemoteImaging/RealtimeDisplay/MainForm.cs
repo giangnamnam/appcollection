@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using MyControls;
 using System.IO;
 using DevExpress.XtraNavBar;
+using ImageProcess;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -20,7 +21,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             for (int i = 0; i < 5; i++)
             {
-                this.squareNumber.Items.Add(i+1);
+                this.squareNumber.Items.Add(i + 1);
             }
 
             this.squareNumber.SelectedItem = Properties.Settings.Default.ColumnNumber;
@@ -58,7 +59,7 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     return getSelCamera();
                 }
-                
+
             }
 
         }
@@ -73,9 +74,9 @@ namespace RemoteImaging.RealtimeDisplay
                     Cell c = this.squareListView1.LastSelectedCell;
                     if (!string.IsNullOrEmpty(c.Path))
                     {
-                        img = new ImageDetail(c.Path);
+                        img = ImageDetail.FromPath(c.Path);
                     }
-                    
+
                 }
 
                 return img;
@@ -87,7 +88,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                Image img = Image.FromFile(value.FullPath);
+                Image img = Image.FromFile(value.Path);
                 this.pictureEdit1.Image = img;
             }
         }
@@ -99,9 +100,9 @@ namespace RemoteImaging.RealtimeDisplay
             ImageCell[] cells = new ImageCell[images.Length];
             for (int i = 0; i < cells.Length; i++)
             {
-                Image img = Image.FromFile(images[i].FullPath);
+                Image img = Image.FromFile(images[i].Path);
                 string text = images[i].CaptureTime.ToString();
-                ImageCell newCell = new ImageCell() { Image = img, Path = images[i].FullPath, Text = text, Tag = null };
+                ImageCell newCell = new ImageCell() { Image = img, Path = images[i].Path, Text = text, Tag = null };
                 cells[i] = newCell;
             }
 
@@ -149,9 +150,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            IconExtractor.IIconExtractor extractor = new IconExtractor.IconExtractor();
+            IIconExtractor extractor = new IconExtractor();
 
-            ImageUploadWatcher watcher = 
+            ImageUploadWatcher watcher =
                 new ImageUploadWatcher() { PathToWatch = Properties.Settings.Default.ImageUploadPool, };
 
             Presenter p = new Presenter(this, watcher, extractor);
@@ -209,7 +210,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             int n = 0;
-            
+
             if (int.TryParse(this.squareNumber.Text, out n))
             {
                 if (n < 1)
@@ -263,7 +264,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void squareNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = (int) this.squareNumber.SelectedItem;
+            this.squareListView1.NumberOfColumns = (int)this.squareNumber.SelectedItem;
         }
 
         private void simpleButton4_Click(object sender, EventArgs e)
@@ -271,7 +272,7 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
         }
 
-      
- 
+
+
     }
 }

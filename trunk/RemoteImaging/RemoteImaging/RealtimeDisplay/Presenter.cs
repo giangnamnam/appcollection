@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
+using ImageProcess;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -11,17 +12,17 @@ namespace RemoteImaging.RealtimeDisplay
     {
         IImageScreen screen;
         ImageUploadWatcher uploadWatcher;
-        
-        IconExtractor.IIconExtractor extractor;
+
+        IIconExtractor extractor;
 
         /// <summary>
         /// Initializes a new instance of the Presenter class.
         /// </summary>
         /// <param name="screen"></param>
         /// <param name="uploadWatcher"></param>
-        public Presenter(IImageScreen screen, 
+        public Presenter(IImageScreen screen,
             ImageUploadWatcher uploadWatcher,
-            IconExtractor.IIconExtractor extractor)
+            IIconExtractor extractor)
         {
             this.screen = screen;
             this.uploadWatcher = uploadWatcher;
@@ -39,7 +40,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
         {
-            string parentOfBigPicFolder = Directory.GetParent(imgToProcess.Path).Parent.FullName.ToString();
+            string parentOfBigPicFolder = Directory.GetParent(imgToProcess.ContainedBy).FullName;
             string destFolder = Path.Combine(parentOfBigPicFolder, Properties.Settings.Default.IconDirectoryName);
             if (!Directory.Exists(destFolder))
             {
@@ -55,9 +56,9 @@ namespace RemoteImaging.RealtimeDisplay
             IDictionary<int, IList<string>> iconGroup = new Dictionary<int, IList<string>>();
 
             //分组
-            for (int i = 0; i < iconFiles.Length; i+=2)
+            for (int i = 0; i < iconFiles.Length; i += 2)
             {
-                int idxOfBigPic = int.Parse(iconFiles[i+1]);
+                int idxOfBigPic = int.Parse(iconFiles[i + 1]);
                 if (!iconGroup.ContainsKey(idxOfBigPic))
                 {
                     iconGroup.Add(idxOfBigPic, new List<string>());
@@ -72,7 +73,7 @@ namespace RemoteImaging.RealtimeDisplay
                 for (int i = 0; i < iconSubGroup.Value.Count; i++)
                 {
                     int idx = iconSubGroup.Key;
-                    string bigPicPath = bigImgs[idx].FullPath;
+                    string bigPicPath = bigImgs[idx].Path;
                     string bigpicExtension = Path.GetExtension(bigPicPath);
                     string bigPicNameWithoutExtention = Path.GetFileNameWithoutExtension(bigPicPath);
                     string iconFileName = string.Format("{0}-{1:d4}{2}", bigPicNameWithoutExtention, i, bigpicExtension);
@@ -81,7 +82,7 @@ namespace RemoteImaging.RealtimeDisplay
                     //rename file
                     string origIconFilePath = Path.Combine(destFolder, iconSubGroup.Value[i]);
                     File.Move(origIconFilePath, iconFilePath);
-                    returnImgs.Add(new ImageDetail(iconFilePath));
+                    returnImgs.Add(ImageDetail.FromPath(iconFilePath));
                 }
             }
 
@@ -93,13 +94,21 @@ namespace RemoteImaging.RealtimeDisplay
 
         private ImageDetail[] ExtractIcons(ImageDetail[] imgs)
         {
+            return new ImageDetail[0];
+            //System.Diagnostics.Debug.WriteLine("big imgs:");
+            //Array.ForEach(imgs, img => System.Diagnostics.Debug.WriteLine(img.Path));
+
             string destFolder = PrepareDestFolder(imgs[0]);
             extractor.SetOutputDir(destFolder);
-            Array.ForEach<ImageDetail>(imgs, img => extractor.AddInImage(img.FullPath));
+            Array.ForEach<ImageDetail>(imgs, img => extractor.AddInImage(img.Path));
 
             string iconFilesString = extractor.SelectBestImage();
 
             ImageDetail[] iconImgs = BuildIconImages(destFolder, imgs, iconFilesString);
+
+            System.Diagnostics.Debug.WriteLine("icon imgs:");
+            Array.ForEach(iconImgs, img => System.Diagnostics.Debug.WriteLine(img.Path));
+            
             return iconImgs;
         }
 
@@ -110,27 +119,30 @@ namespace RemoteImaging.RealtimeDisplay
 
             ImageClassifier.ClassifyImages(imgsToProcess);
 
-                System.Func<ImageDetail[], ImageDetail[]> func = (imgs) => ExtractIcons(imgsToProcess);
+            System.Func<ImageDetail[], ImageDetail[]> func = (imgs) => ExtractIcons(imgs);
 
-                IAsyncResult result = func.BeginInvoke(imgsToProcess, null, null);
-                while (!result.IsCompleted)
-                {
-                    //System.Windows.Forms.Application.DoEvents();
-                    System.Threading.Thread.Sleep(1000);
-                    System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString());
-                }
-                ImageDetail[] iconImgs = func.EndInvoke(result);
+            IAsyncResult result = func.BeginInvoke(imgsToProcess, null, null);
+            while (!result.IsCompleted)
+            {
+                //System.Windows.Forms.Application.DoEvents();
+                System.Threading.Thread.Sleep(1000);
+                System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString());
+            }
 
-                foreach (ImageDetail icon in iconImgs)
-                {
-                    if (screen.SelectedCamera != null 
-                        && screen.SelectedCamera.ID == icon.FromCamera)
-                    {
-                        screen.ShowImages(iconImgs);
-                    }
-                }
-                
-           
+            ImageDetail[] iconImgs = func.EndInvoke(result);
+
+            if (iconImgs.Length == 0)
+            {
+                return;
+            }
+
+            if (screen.SelectedCamera != null
+                && screen.SelectedCamera.ID == iconImgs[0].FromCamera)
+            {
+                screen.ShowImages(iconImgs);
+            }
+
+
         }
 
         #region IImageScreenObserver Members
@@ -147,7 +159,7 @@ namespace RemoteImaging.RealtimeDisplay
             nameWithoutExtension = nameWithoutExtension.Remove(idx);
 
             string bigPicName = nameWithoutExtension + Path.GetExtension(img.Name);
-            string bigPicFolder = Directory.GetParent(img.Path).ToString();
+            string bigPicFolder = Directory.GetParent(img.ContainedBy).ToString();
             bigPicFolder = Path.Combine(bigPicFolder, Properties.Settings.Default.BigImageDirectoryName);
             string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
             return bigPicPathName;
@@ -155,10 +167,10 @@ namespace RemoteImaging.RealtimeDisplay
         public void SelectedImageChanged()
         {
             ImageDetail img = this.screen.SelectedImage;
-            if (img != null && !string.IsNullOrEmpty(img.FullPath))
+            if (img != null && !string.IsNullOrEmpty(img.Path))
             {
                 string bigPicPathName = BuildFolderPath(img);
-                ImageDetail bigImageDetail = new ImageDetail(bigPicPathName);
+                ImageDetail bigImageDetail = ImageDetail.FromPath(bigPicPathName);
                 this.screen.BigImage = bigImageDetail;
 
             }

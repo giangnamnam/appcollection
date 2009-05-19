@@ -4,8 +4,8 @@ using System;
 
 namespace RemoteImaging.Test
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for ImageDetailTest and is intended
     ///to contain all ImageDetailTest Unit Tests
@@ -71,7 +71,7 @@ namespace RemoteImaging.Test
         public void ImageDetailConstructorTest()
         {
             string pathName = @"c:\abc\02_090426154606-0011.jpg"; // TODO: Initialize to an appropriate value
-            ImageDetail target = new ImageDetail(pathName);
+            ImageDetail target = ImageDetail.FromPath(pathName);
 
             Assert.AreEqual(2, target.FromCamera);
             Assert.AreEqual(2009, target.CaptureTime.Year);
@@ -81,9 +81,9 @@ namespace RemoteImaging.Test
             Assert.AreEqual(46, target.CaptureTime.Minute);
             Assert.AreEqual(6, target.CaptureTime.Second);
 
-            Assert.AreEqual(@"c:\abc", target.Path);
+            Assert.AreEqual(@"c:\abc", target.ContainedBy);
             Assert.AreEqual(@"02_090426154606-0011.jpg", target.Name);
-            Assert.AreEqual(@"c:\abc\02_090426154606-0011.jpg", target.FullPath);
+            Assert.AreEqual(@"c:\abc\02_090426154606-0011.jpg", target.Path);
         }
     }
 }

@@ -7,28 +7,40 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public class ImageDetail
     {
-        public ImageDetail(string pathName)
+        private ImageDetail()
         {
 
-            this.FullPath = pathName;
-            this.ParseName();
         }
 
-
-        public DateTime CaptureTime { get; set; }
-
-        public int FromCamera { get; set; }
-
-        public string Name { get; set; }
-
-        public string Path { get; set; }
-
-        public string FullPath { get; set; }
-
-        private void ParseName()
+        public static ImageDetail FromPath(string path)
         {
-            this.Name = System.IO.Path.GetFileName(this.FullPath);
-            this.Path = System.IO.Path.GetDirectoryName(this.FullPath);
+            ImageDetail img = new ImageDetail();
+            img.ParsePath(path);
+            return img;
+        }
+
+        public void MoveTo(string destDirectory)
+        {
+            string destPath = System.IO.Path.Combine(destDirectory, this.Name);
+            System.IO.File.Move(this.Path, destPath);
+            this.ParsePath(destPath);
+        }
+
+        public DateTime CaptureTime { get; private set; }
+
+        public int FromCamera { get; private set; }
+
+        public string Name { get; private set; }
+
+        public string ContainedBy { get; private set; }
+
+        public string Path { get; private set; }
+
+        private void ParsePath(string path)
+        {
+            this.Path = path;
+            this.Name = System.IO.Path.GetFileName(path);
+            this.ContainedBy = System.IO.Path.GetDirectoryName(this.Path);
 
             this.FromCamera = int.Parse(this.Name.Substring(0, 2));
 

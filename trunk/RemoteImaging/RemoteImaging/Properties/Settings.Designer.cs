@@ -106,5 +106,17 @@ namespace RemoteImaging.Properties {
                 this["CamConfigFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int LengthOfImageGroup {
+            get {
+                return ((int)(this["LengthOfImageGroup"]));
+            }
+            set {
+                this["LengthOfImageGroup"] = value;
+            }
+        }
     }
 }

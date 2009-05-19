@@ -8,7 +8,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public static class ImageClassifier
     {
-        private static string BuildDestPath(string outputPathRoot,
+        private static string BuildDestDirectory(string outputPathRoot,
             string subFoldername,
             ImageDetail image)
         {
@@ -37,16 +37,12 @@ namespace RemoteImaging.RealtimeDisplay
             string outputPathRoot = Properties.Settings.Default.OutputPath;
             foreach (ImageDetail image in images)
             {
-                string destPath = BuildDestPath(outputPathRoot, Properties.Settings.Default.BigImageDirectoryName, image);
-
-                string destFile = destPath + image.Name;
-                if (!Directory.Exists(destPath))
+                string destDirectory = BuildDestDirectory(outputPathRoot, Properties.Settings.Default.BigImageDirectoryName, image);
+                if (!Directory.Exists(destDirectory))
                 {
-                    Directory.CreateDirectory(destPath);
+                    Directory.CreateDirectory(destDirectory);
                 }
-                File.Move(image.FullPath, destFile);
-                image.FullPath = destFile;
-                image.Path = destPath;
+                image.MoveTo(destDirectory);
             }
         }
     }

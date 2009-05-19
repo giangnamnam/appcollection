@@ -34,62 +34,68 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        private bool ShouldFireEvent(ImageDetail img)
+        private void FireUploadEvent(ImageDetail incomingImg)
         {
-            bool shouldFireEvent = false;
-            foreach (ImageDetail item in cameraImagesQueue[img.FromCamera])
+            IList<ImageDetail> imgs = this.cameraImagesQueue[incomingImg.FromCamera];
+
+            if (imgs.Count == 0)
             {
-                if (item.CaptureTime != img.CaptureTime)
+                imgs.Add(incomingImg);
+                return;
+            }
+
+            int idxOfLastImg = imgs.Count - 1;
+
+            bool sameBatch = incomingImg.CaptureTime == imgs[idxOfLastImg].CaptureTime;
+
+            //已经是新的一组图片
+            if (!(sameBatch))
+            {
+                ImageDetail[] imgsToFire = imgs.ToArray();
+                imgs.Clear();
+                imgs.Add(incomingImg);
+                FireEvent(imgsToFire);
+            }
+            else
+            {
+                imgs.Add(incomingImg);
+                //一组图片已经收集齐全
+                if (imgs.Count == Properties.Settings.Default.LengthOfImageGroup)
                 {
-                    shouldFireEvent = true;
-                    break;
+                    ImageDetail[] imgsToFire = imgs.ToArray();
+                    imgs.Clear();
+                    FireEvent(imgsToFire);
                 }
             }
-            return shouldFireEvent;
-        }
-        private ImageDetail[] MoveImages(int cameraID)
-        {
-            int count = cameraImagesQueue[cameraID].Count;
-            ImageDetail[] images = new ImageDetail[count];
-            cameraImagesQueue[cameraID].CopyTo(images, 0);
-            cameraImagesQueue[cameraID].Clear();
-
-            return images;
         }
 
-        private void FireEvent(ImageDetail img)
+
+
+        private void FireEvent(ImageDetail[] imgs)
         {
-            bool shouldFireEvent = ShouldFireEvent(img);
-            if (shouldFireEvent)
+            if (imgs.Length <= 0)
+                return;
+
+            if (this.ImagesUploaded != null)
             {
-                if (this.ImagesUploaded != null)
-                {  
-                    ImageDetail[] imgs = MoveImages(img.FromCamera);
-                    ImageUploadEventArgs args = 
-                        new ImageUploadEventArgs { CameraID = img.FromCamera, Images = imgs };
-                    this.ImagesUploaded(this, args);
-
-                }
-
+                ImageUploadEventArgs args =
+                    new ImageUploadEventArgs { CameraID = imgs[0].FromCamera, Images = imgs };
+                this.ImagesUploaded(this, args);
             }
+
         }
 
         void File_Created(object sender, FileSystemEventArgs e)
         {
             if (e.ChangeType == WatcherChangeTypes.Created)
             {
-                ////remove "alarm_"
-                //string alarmString = "Alarm_";
-                //int idx = e.FullPath.IndexOf(alarmString);
+                ImageDetail img = ImageDetail.FromPath(e.FullPath);
 
-                //string fileName = e.FullPath.Remove(idx, alarmString.Length);
-
-                ImageDetail img = new ImageDetail(e.FullPath);
+                System.Diagnostics.Debug.WriteLine("file created");
+                System.Diagnostics.Debug.WriteLine(e.FullPath);
 
                 InitCameraQueue(img.FromCamera);
-                FireEvent(img);
-                cameraImagesQueue[img.FromCamera].Add(img);
-                
+                FireUploadEvent(img);
             }
         }
     }

@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace RemoteImaging.Test
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for ImageClassifierTest and is intended
     ///to contain all ImageClassifierTest Unit Tests
@@ -71,10 +71,10 @@ namespace RemoteImaging.Test
             string[] files = System.IO.Directory.GetFiles(@"d:\20090505");
             ImageDetail[] images = new ImageDetail[10];
             for (int i = 0; i < images.Length; i++)
-			{
-                ImageDetail d = new ImageDetail(files[i]);
+            {
+                ImageDetail d = ImageDetail.FromPath(files[i]);
                 images[i] = d;
-			}
+            }
 
             ImageClassifier.ClassifyImages(images);
         }
