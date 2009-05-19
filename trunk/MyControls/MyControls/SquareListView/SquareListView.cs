@@ -20,14 +20,14 @@ namespace MyControls
             this.NumberOfColumns = 2;
             this.Padding = new Padding(3);
 
-            refreshTimer.Interval = 20;
+            refreshTimer.Interval = 1000;
             refreshTimer.Enabled = false;
             refreshTimer.AutoReset = true;
             refreshTimer.Elapsed += refreshTimer_Elapsed;
 
             this.AutoDisposeImage = true;
 
-            this.Resize += (sender, args) => { this.CalcCellSize(this.cells);  this.Invalidate(); };
+            this.Resize += (sender, args) => { this.CalcCellSize(this.cells); this.Invalidate(); };
         }
 
 
@@ -48,12 +48,12 @@ namespace MyControls
         {
             try
             {
-                if (imgQueue.Count<=0)
+                if (imgQueue.Count <= 0)
                 {
                     this.refreshTimer.Enabled = false;
                     return;
                 }
-                
+
                 Cell dstCell = this.cells[idx];
                 ImageCell imgToShow = this.imgQueue.Dequeue();
 
@@ -70,6 +70,7 @@ namespace MyControls
 
                 this.Invalidate(Rectangle.Round(dstCell.Rec));
 
+
                 idx = ++idx % this.cells.Length;
             }
             catch (InvalidOperationException ex)// the queue is empty
@@ -77,10 +78,10 @@ namespace MyControls
                 this.refreshTimer.Enabled = false;
             }
 
-            
+
 
             System.Diagnostics.Debug.WriteLine("tick");
-            
+
         }
 
         public bool AutoDisposeImage { get; set; }
@@ -120,7 +121,7 @@ namespace MyControls
                     this.selectedCell.Selected = false;
                 }
                 this.CalculateLayout();
-                
+
                 this.Invalidate();
             }
         }
@@ -196,6 +197,11 @@ namespace MyControls
 
             MoveOldCells(newCells);
 
+            if (this.idx > newCells.Length - 1)
+            {
+                this.idx = 0;
+            }
+
             this.cells = newCells;
 
             return newCells;
@@ -231,7 +237,7 @@ namespace MyControls
         {
             Cell c = FindCell(e.Location);
             if (c != null)
-            { 
+            {
                 if (LastSelectedCell != c)
                 {
                     LastSelectedCell = c;
@@ -242,19 +248,18 @@ namespace MyControls
                     selectedCell.Selected = false;
                     this.Invalidate(Rectangle.Round(selectedCell.Rec));
                 }
-                
+
                 c.Selected = true;
                 this.Invalidate(Rectangle.Round(c.Rec));
-                
+
                 selectedCell = c;
 
                 FireSelectedCellChanged();
             }
         }
 
+
         public Cell LastSelectedCell { get; private set; }
-
-
         public Cell SelectedCell
         {
             get
