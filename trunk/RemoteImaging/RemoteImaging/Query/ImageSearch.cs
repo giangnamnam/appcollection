@@ -91,10 +91,21 @@ namespace RemoteImaging.Query
                         string[] files = Directory.GetFiles(searchPath);
                         foreach (string file in files)
                         {
+                            DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
+                            DateTime dateIime2 = new DateTime(endYear,endMonth,endDay,endHour,endMinute,endSecond);
+                            
                             string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
                             if (IsValidImageFile(fileName))
                             {
-                                fileList.Add(file);
+                                int hour = int.Parse(fileName.Substring(9, 2));
+                                int minute = int.Parse(fileName.Substring(11, 2));
+                                int second = int.Parse(fileName.Substring(13, 2));
+
+                                DateTime dateTime = new DateTime(startYear, startMonth, i, hour, minute, second);
+                                if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                {
+                                    fileList.Add(file);
+                                }
                             }
                         }
                     }
