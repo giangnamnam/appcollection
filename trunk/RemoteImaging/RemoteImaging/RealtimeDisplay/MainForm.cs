@@ -41,12 +41,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private Camera getSelCamera()
         {
-            if (this.cameraComboBox.ComboBox.SelectedItem != null)
-            {
-                Camera cam = this.cameraComboBox.ComboBox.SelectedItem as Camera;
-                return cam;
-
-            }
 
             return null;
         }
@@ -156,9 +150,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                this.cameraComboBox.ComboBox.DataSource = value;
-                this.cameraComboBox.ComboBox.DisplayMember = "Name";
-                this.cameraComboBox.SelectedIndex = 0;
             }
         }
 
@@ -208,6 +199,34 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void optionsButton_Click(object sender, EventArgs e)
         {
+
+        }
+
+
+
+        private void simpleButton4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void searchPic_Click(object sender, EventArgs e)
+        {
+            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
+        }
+
+        private void dnloadVideo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void videoSearch_Click(object sender, EventArgs e)
+        {
+            new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
+        }
+
+        private void options_Click(object sender, EventArgs e)
+        {
             using (OptionsForm frm = new OptionsForm())
             {
                 IList<Camera> camCopy = new List<Camera>();
@@ -235,18 +254,13 @@ namespace RemoteImaging.RealtimeDisplay
                     SetupExtractor(frm.LeftExtRatio, frm.RightExtRatio, frm.TopExtRatio, frm.BottomExtRatio, frm.MinFaceWidth, ratio);
                 }
             }
-        }
 
-        
-
-        private void simpleButton4_Click(object sender, EventArgs e)
-        {
-            new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
         }
 
         private void column1by1_Click(object sender, EventArgs e)
         {
             this.squareListView1.NumberOfColumns = 1;
+
         }
 
         private void column2by2_Click(object sender, EventArgs e)
