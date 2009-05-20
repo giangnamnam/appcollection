@@ -202,5 +202,41 @@ namespace RemoteImaging.Properties {
                 this["DownSampling"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string SrchRegionLeft {
+            get {
+                return ((string)(this["SrchRegionLeft"]));
+            }
+            set {
+                this["SrchRegionLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string SrchRegionTop {
+            get {
+                return ((string)(this["SrchRegionTop"]));
+            }
+            set {
+                this["SrchRegionTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1920")]
+        public string SrchRegionWidth {
+            get {
+                return ((string)(this["SrchRegionWidth"]));
+            }
+            set {
+                this["SrchRegionWidth"] = value;
+            }
+        }
     }
 }

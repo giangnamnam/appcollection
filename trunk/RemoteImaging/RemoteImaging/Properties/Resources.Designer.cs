@@ -129,5 +129,40 @@ namespace RemoteImaging.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap Square16_1 {
+            get {
+                object obj = ResourceManager.GetObject("Square16.1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Square16_2 {
+            get {
+                object obj = ResourceManager.GetObject("Square16.2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Square16_3 {
+            get {
+                object obj = ResourceManager.GetObject("Square16.3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Square16_4 {
+            get {
+                object obj = ResourceManager.GetObject("Square16.4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Square16_5 {
+            get {
+                object obj = ResourceManager.GetObject("Square16.5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

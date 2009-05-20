@@ -203,6 +203,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MainIcon.ico" />
+    <None Include="Resources\Square16.5.gif" />
+    <None Include="Resources\Square16.4.gif" />
+    <None Include="Resources\Square16.3.gif" />
+    <None Include="Resources\Square16.2.gif" />
+    <None Include="Resources\Square16.1.gif" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IconExtractor\IconExtractor.csproj">

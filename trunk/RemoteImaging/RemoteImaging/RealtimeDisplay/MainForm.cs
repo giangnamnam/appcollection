@@ -19,12 +19,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
             InitializeComponent();
 
-            for (int i = 0; i < 5; i++)
-            {
-                this.squareNumber.Items.Add(i + 1);
-            }
-
-            this.squareNumber.SelectedItem = Properties.Settings.Default.ColumnNumber;
             Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             Configuration.Instance.Cameras.CopyTo(cams, 0);
             this.Cameras = cams;
@@ -190,35 +184,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.Cameras = cams;
         }
 
-        private void squareNumber_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.squareNumber.Text))
-            {
-                return;
-            }
 
-            int n = 0;
-
-            if (int.TryParse(this.squareNumber.Text, out n))
-            {
-                if (n < 1)
-                {
-                    MessageBox.Show("数字应该 > 0");
-                    return;
-                }
-
-                if (n == this.squareListView1.NumberOfColumns)
-                {
-                    return;
-                }
-
-                this.squareListView1.NumberOfColumns = n;
-            }
-            else
-            {
-                MessageBox.Show("无效输入, 应该输入数字, 且数字 >= 1");
-            }
-        }
 
         private void simpleButton3_Click(object sender, EventArgs e)
         {
@@ -262,7 +228,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                     this.Cameras = frm.Cameras.ToArray<Camera>();
 
-                    
+
 
                     float ratio = (float)frm.MaxFaceWidth / frm.MinFaceWidth;
 
@@ -271,14 +237,36 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        private void squareNumber_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.squareListView1.NumberOfColumns = (int)this.squareNumber.SelectedItem;
-        }
+        
 
         private void simpleButton4_Click(object sender, EventArgs e)
         {
             new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
+        }
+
+        private void column1by1_Click(object sender, EventArgs e)
+        {
+            this.squareListView1.NumberOfColumns = 1;
+        }
+
+        private void column2by2_Click(object sender, EventArgs e)
+        {
+            this.squareListView1.NumberOfColumns = 2;
+        }
+
+        private void column3by3_Click(object sender, EventArgs e)
+        {
+            this.squareListView1.NumberOfColumns = 3;
+        }
+
+        private void column4by4_Click(object sender, EventArgs e)
+        {
+            this.squareListView1.NumberOfColumns = 4;
+        }
+
+        private void column5by5_Click(object sender, EventArgs e)
+        {
+            this.squareListView1.NumberOfColumns = 5;
         }
 
 

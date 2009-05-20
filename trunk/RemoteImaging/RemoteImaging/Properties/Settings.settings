@@ -47,5 +47,14 @@
     <Setting Name="DownSampling" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.5</Value>
     </Setting>
+    <Setting Name="SrchRegionLeft" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SrchRegionTop" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SrchRegionWidth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1920</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
