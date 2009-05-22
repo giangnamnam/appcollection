@@ -132,8 +132,8 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
-            if (screen.SelectedCamera != null
-                && screen.SelectedCamera.ID == iconImgs[0].FromCamera)
+            if (screen.SelectedCamera.ID == -1
+                || screen.SelectedCamera.ID == iconImgs[0].FromCamera)
             {
                 screen.ShowImages(iconImgs);
             }

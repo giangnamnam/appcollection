@@ -92,6 +92,13 @@
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.browseForVideoDnTool = new System.Windows.Forms.Button();
+            this.VideoDnExePath = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.browseForFTPConsole = new System.Windows.Forms.Button();
+            this.ftpExePath = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -101,6 +108,7 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -139,6 +147,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(5, 77);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -709,6 +718,73 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.browseForVideoDnTool);
+            this.tabPage4.Controls.Add(this.VideoDnExePath);
+            this.tabPage4.Controls.Add(this.label25);
+            this.tabPage4.Controls.Add(this.browseForFTPConsole);
+            this.tabPage4.Controls.Add(this.ftpExePath);
+            this.tabPage4.Controls.Add(this.label27);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(486, 285);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "工具";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // browseForVideoDnTool
+            // 
+            this.browseForVideoDnTool.Location = new System.Drawing.Point(374, 161);
+            this.browseForVideoDnTool.Name = "browseForVideoDnTool";
+            this.browseForVideoDnTool.Size = new System.Drawing.Size(75, 23);
+            this.browseForVideoDnTool.TabIndex = 11;
+            this.browseForVideoDnTool.Text = "浏览";
+            this.browseForVideoDnTool.UseVisualStyleBackColor = true;
+            // 
+            // VideoDnExePath
+            // 
+            this.VideoDnExePath.Location = new System.Drawing.Point(30, 163);
+            this.VideoDnExePath.Name = "VideoDnExePath";
+            this.VideoDnExePath.Size = new System.Drawing.Size(328, 20);
+            this.VideoDnExePath.TabIndex = 10;
+            this.VideoDnExePath.Text = "D:\\ImageOutput";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(27, 147);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(106, 13);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "视频下载工具目录:";
+            // 
+            // browseForFTPConsole
+            // 
+            this.browseForFTPConsole.Location = new System.Drawing.Point(374, 63);
+            this.browseForFTPConsole.Name = "browseForFTPConsole";
+            this.browseForFTPConsole.Size = new System.Drawing.Size(75, 23);
+            this.browseForFTPConsole.TabIndex = 8;
+            this.browseForFTPConsole.Text = "浏览";
+            this.browseForFTPConsole.UseVisualStyleBackColor = true;
+            // 
+            // ftpExePath
+            // 
+            this.ftpExePath.Location = new System.Drawing.Point(30, 65);
+            this.ftpExePath.Name = "ftpExePath";
+            this.ftpExePath.Size = new System.Drawing.Size(328, 20);
+            this.ftpExePath.TabIndex = 7;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(27, 49);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(102, 13);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "FTP管理工具目录:";
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -739,6 +815,8 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -808,5 +886,12 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Button browseForVideoDnTool;
+        private System.Windows.Forms.TextBox VideoDnExePath;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button browseForFTPConsole;
+        private System.Windows.Forms.TextBox ftpExePath;
+        private System.Windows.Forms.Label label27;
     }
 }

@@ -25,6 +25,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             Properties.Settings setting = Properties.Settings.Default;
 
+            InitStatusBar();
             float left = float.Parse(setting.IconLeftExtRatio);
             float top = float.Parse(setting.IconTopExtRatio);
             float right = float.Parse(setting.IconRightExtRatio);
@@ -39,10 +40,28 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        Camera allCamera = new Camera() { ID = -1 };
+
+        private TreeNode getTopCamera()
+        {
+            TreeNode nd = this.cameraTree.SelectedNode;
+            while (nd.Tag == null || !(nd.Tag is Camera))
+            {
+                nd = nd.Parent;
+            }
+            return nd;
+        }
+
         private Camera getSelCamera()
         {
+            if (this.cameraTree.SelectedNode == null
+                || this.cameraTree.SelectedNode.Level == 0)
+            {
+                return allCamera;
+            }
 
-            return null;
+            TreeNode nd = getTopCamera();
+            return nd.Tag as Camera;
         }
 
 
@@ -150,6 +169,76 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
+                this.cameraTree.Nodes.Clear();
+
+                TreeNode rootNode = new TreeNode()
+                {
+                    Text = "所有摄像头",
+                    ImageIndex = 0,
+                    SelectedImageIndex = 0
+                };
+
+                Array.ForEach(value, camera =>
+                {
+                    TreeNode camNode = new TreeNode()
+                    {
+                        Text = camera.Name,
+                        ImageIndex = 1,
+                        SelectedImageIndex = 1,
+                        Tag = camera,
+                    };
+
+                    Action<string> setupCamera = (ip) =>
+                    {
+                        using (FormConfigCamera form = new FormConfigCamera())
+                        {
+                            StringBuilder sb = new StringBuilder(form.Text);
+                            sb.Append("-[");
+                            sb.Append(ip);
+                            sb.Append("]");
+
+                            form.Navigate(ip);
+                            form.Text = sb.ToString();
+                            form.ShowDialog(this);
+                        }
+                    };
+
+                    TreeNode setupNode = new TreeNode()
+                    {
+                        Text = "设置",
+                        ImageIndex = 2,
+                        SelectedImageIndex = 2,
+                        Tag = setupCamera,
+                    };
+                    TreeNode propertyNode = new TreeNode()
+                    {
+                        Text = "属性",
+                        ImageIndex = 3,
+                        SelectedImageIndex = 3,
+                    };
+                    TreeNode ipNode = new TreeNode()
+                    {
+                        Text = "IP地址:" + camera.IpAddress,
+                        ImageIndex = 4,
+                        SelectedImageIndex = 4
+                    };
+                    TreeNode idNode = new TreeNode()
+                    {
+                        Text = "编号:" + camera.ID.ToString(),
+                        ImageIndex = 5,
+                        SelectedImageIndex = 5
+                    };
+
+
+                    propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
+                    camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
+                    rootNode.Nodes.Add(camNode);
+                    
+                });
+
+                this.cameraTree.Nodes.Add(rootNode);
+
+                this.cameraTree.ExpandAll();
             }
         }
 
@@ -163,18 +252,6 @@ namespace RemoteImaging.RealtimeDisplay
                 this.Observer.SelectedImageChanged();
             }
         }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            Camera[] cams = new Camera[] {
-                new Camera() { Name = "所有", ID = -1, IpAddress = "192.168.1.1" },
-                new Camera() { Name = "南门", ID = 1, IpAddress = "192.168.1.1" },
-                new Camera() { Name = "北门", ID = 2, IpAddress = "192.168.1.1" },
-                new Camera() { Name = "西门", ID = 3, IpAddress = "192.168.1.1" },
-            };
-            this.Cameras = cams;
-        }
-
 
 
         private void simpleButton3_Click(object sender, EventArgs e)
@@ -196,12 +273,6 @@ namespace RemoteImaging.RealtimeDisplay
 
             IconExtractor.Default.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
         }
-
-        private void optionsButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
 
         private void simpleButton4_Click(object sender, EventArgs e)
@@ -245,9 +316,9 @@ namespace RemoteImaging.RealtimeDisplay
 
                     Properties.Settings.Default.Save();
 
+                    InitStatusBar();
+
                     this.Cameras = frm.Cameras.ToArray<Camera>();
-
-
 
                     float ratio = (float)frm.MaxFaceWidth / frm.MinFaceWidth;
 
@@ -281,6 +352,37 @@ namespace RemoteImaging.RealtimeDisplay
         private void column5by5_Click(object sender, EventArgs e)
         {
             this.squareListView1.NumberOfColumns = 5;
+        }
+
+        private void InitStatusBar()
+        {
+            statusUploadFolder.Text = "上传目录：" + Properties.Settings.Default.ImageUploadPool;
+            statusOutputFolder.Text = "输出目录：" + Properties.Settings.Default.OutputPath;
+        }
+        private void cameraTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Tag == null)
+                return;
+
+            Action<string> setupCamera = e.Node.Tag as Action<string>;
+            if (setupCamera != null)
+            {
+                Camera cam = this.getTopCamera().Tag as Camera;
+                setupCamera(cam.IpAddress);
+            }
+
+        }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            AboutBox about = new AboutBox();
+            about.ShowDialog();
+            about.Dispose();
+        }
+
+        private void realTimer_Tick(object sender, EventArgs e)
+        {
+            statusTime.Text = DateTime.Now.ToString();
         }
 
 

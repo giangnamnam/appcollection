@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RemoteImaging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Company")]
+[assembly: AssemblyCompany("成都精识智能")]
 [assembly: AssemblyProduct("RemoteImaging")]
-[assembly: AssemblyCopyright("Copyright © Company 2009")]
+[assembly: AssemblyCopyright("成都精识智能 Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,8 +19,6 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("225c18b9-d848-4b23-9485-2d816dd006d3")]
 
 // Version information for an assembly consists of the following four values:
 //
