@@ -148,7 +148,7 @@ namespace MyControls
                         j * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
                         height - this.Padding.Vertical);
-                    c.Text = DateTime.Now.ToString();
+                    //c.Text = DateTime.Now.ToString();
                 }
             }
         }
