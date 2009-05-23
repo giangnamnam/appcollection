@@ -113,6 +113,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             ImageDetail[] imgsToProcess = args.Images;
 
+            System.Threading.Thread.Sleep(500);
+
             ImageClassifier.ClassifyImages(imgsToProcess);
 
             System.Func<ImageDetail[], ImageDetail[]> func = (imgs) => ExtractIcons(imgs);

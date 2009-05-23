@@ -133,25 +133,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
 
-        private void showPicToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string[] files
-               = System.IO.Directory.GetFiles(@"d:\20090505");
-
-            ImageCell[] cells = new ImageCell[100];
-            for (int i = 0; i < cells.Length; i++)
-            {
-                Image img = Image.FromFile(files[i]);
-                Graphics g = Graphics.FromImage(img);
-                string text = DateTime.Now.ToShortTimeString() + ":" + i.ToString();
-                g.DrawString(text, SystemFonts.CaptionFont, Brushes.Black, 0, 0);
-                ImageCell newCell = new ImageCell() { Image = img, Path = "", Text = text, Tag = null };
-                cells[i] = newCell;
-            }
-
-            this.squareListView1.ShowImages(cells);
-        }
-
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -316,7 +297,7 @@ namespace RemoteImaging.RealtimeDisplay
             videoDnTool = System.Diagnostics.Process.Start(Properties.Settings.Default.VideoDnTool);
             videoDnTool.EnableRaisingEvents = true;
             videoDnTool.Exited += videoDnTool_Exited;
-            
+
         }
 
         void videoDnTool_Exited(object sender, EventArgs e)
