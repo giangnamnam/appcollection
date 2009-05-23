@@ -238,5 +238,17 @@ namespace RemoteImaging.Properties {
                 this["SrchRegionWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\VideoDownLoadTool\\HDCDownloader.exe")]
+        public string VideoDnTool {
+            get {
+                return ((string)(this["VideoDnTool"]));
+            }
+            set {
+                this["VideoDnTool"] = value;
+            }
+        }
     }
 }

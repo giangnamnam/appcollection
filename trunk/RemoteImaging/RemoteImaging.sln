@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTPUploadSimulator", "FTPUp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IconExtractor", "IconExtractor\IconExtractor.csproj", "{C917EC7F-9A59-4845-9108-87056AC61D4F}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{69103411-682D-4FC4-8052-50A826FE3DD7}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = RemoteImaging.vsmdi
@@ -68,6 +70,12 @@ Global
 		{C917EC7F-9A59-4845-9108-87056AC61D4F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C917EC7F-9A59-4845-9108-87056AC61D4F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C917EC7F-9A59-4845-9108-87056AC61D4F}.Release|Win32.ActiveCfg = Release|Any CPU
+		{69103411-682D-4FC4-8052-50A826FE3DD7}.Debug|Any CPU.ActiveCfg = Debug
+		{69103411-682D-4FC4-8052-50A826FE3DD7}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{69103411-682D-4FC4-8052-50A826FE3DD7}.Debug|Win32.ActiveCfg = Debug
+		{69103411-682D-4FC4-8052-50A826FE3DD7}.Release|Any CPU.ActiveCfg = Release
+		{69103411-682D-4FC4-8052-50A826FE3DD7}.Release|Mixed Platforms.ActiveCfg = Release
+		{69103411-682D-4FC4-8052-50A826FE3DD7}.Release|Win32.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

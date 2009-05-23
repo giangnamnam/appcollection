@@ -56,7 +56,9 @@
     <Content Include="data\haarcascade_frontalface_alt_tree.xml" />
     <Content Include="data\haarcascade_frontalface_default.xml" />
     <Content Include="Doc\读我.txt" />
-    <Content Include="FaceSelDll.dll" />
+    <None Include="FaceSelDll.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="thirdparty\libs\opencv\cv100.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

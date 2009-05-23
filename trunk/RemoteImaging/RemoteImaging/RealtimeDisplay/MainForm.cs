@@ -10,6 +10,7 @@ using MyControls;
 using System.IO;
 using DevExpress.XtraNavBar;
 using ImageProcess;
+using System.Runtime.InteropServices;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -233,7 +234,7 @@ namespace RemoteImaging.RealtimeDisplay
                     propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
                     camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
                     rootNode.Nodes.Add(camNode);
-                    
+
                 });
 
                 this.cameraTree.Nodes.Add(rootNode);
@@ -286,9 +287,41 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
         }
 
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        [DllImport("user32.dll", EntryPoint = "BringWindowToTop")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool BringWindowToTop([In()] IntPtr hWnd);
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        ///nCmdShow: int
+        [DllImport("user32.dll", EntryPoint = "ShowWindow")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ShowWindow([In()] IntPtr hWnd, int nCmdShow);
+
+        System.Diagnostics.Process videoDnTool;
+
         private void dnloadVideo_Click(object sender, EventArgs e)
         {
+            if (videoDnTool != null && !videoDnTool.HasExited)
+            {
+                //restore window and bring it to top
+                ShowWindow(videoDnTool.MainWindowHandle, 9);
+                BringWindowToTop(videoDnTool.MainWindowHandle);
+                return;
+            }
 
+            videoDnTool = System.Diagnostics.Process.Start(Properties.Settings.Default.VideoDnTool);
+            videoDnTool.EnableRaisingEvents = true;
+            videoDnTool.Exited += videoDnTool_Exited;
+            
+        }
+
+        void videoDnTool_Exited(object sender, EventArgs e)
+        {
+            videoDnTool = null;
         }
 
         private void videoSearch_Click(object sender, EventArgs e)
@@ -311,18 +344,26 @@ namespace RemoteImaging.RealtimeDisplay
                 frm.Cameras = camCopy;
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
+                    Properties.Settings setting = Properties.Settings.Default;
+
                     Configuration.Instance.Cameras = frm.Cameras;
                     Configuration.Instance.Save();
 
-                    Properties.Settings.Default.Save();
+                    setting.Save();
 
                     InitStatusBar();
 
                     this.Cameras = frm.Cameras.ToArray<Camera>();
 
-                    float ratio = (float)frm.MaxFaceWidth / frm.MinFaceWidth;
+                    var minFaceWidth = int.Parse(setting.MinFaceWidth);
+                    float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                    SetupExtractor(frm.LeftExtRatio, frm.RightExtRatio, frm.TopExtRatio, frm.BottomExtRatio, frm.MinFaceWidth, ratio);
+                    SetupExtractor(float.Parse(setting.IconLeftExtRatio),
+                        float.Parse(setting.IconRightExtRatio),
+                        float.Parse(setting.IconTopExtRatio),
+                        float.Parse(setting.IconBottomExtRatio),
+                        minFaceWidth,
+                        ratio);
                 }
             }
 
@@ -383,6 +424,18 @@ namespace RemoteImaging.RealtimeDisplay
         private void realTimer_Tick(object sender, EventArgs e)
         {
             statusTime.Text = DateTime.Now.ToString();
+        }
+
+        private void statusOutputFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"explorer.exe",
+                Properties.Settings.Default.OutputPath);
+        }
+
+        private void statusUploadFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"explorer.exe",
+               Properties.Settings.Default.ImageUploadPool);
         }
 
 

@@ -56,5 +56,8 @@
     <Setting Name="SrchRegionWidth" Type="System.String" Scope="User">
       <Value Profile="(Default)">1920</Value>
     </Setting>
+    <Setting Name="VideoDnTool" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\VideoDownLoadTool\HDCDownloader.exe</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

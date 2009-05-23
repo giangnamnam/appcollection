@@ -32,14 +32,14 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.browseForOutputFolder = new System.Windows.Forms.Button();
-            this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.browseForUploadFolder = new System.Windows.Forms.Button();
-            this.textBoxUploadFolder = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
@@ -65,17 +65,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.downSamplingRatio = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.maxFaceWidth = new System.Windows.Forms.TextBox();
-            this.minFaceWidth = new System.Windows.Forms.TextBox();
-            this.bottomExtRatio = new System.Windows.Forms.TextBox();
-            this.topExtRatio = new System.Windows.Forms.TextBox();
-            this.rightExtRatio = new System.Windows.Forms.TextBox();
-            this.leftExtRatio = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.browseForVideoDnTool = new System.Windows.Forms.Button();
+            this.VideoDnExePath = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.browseForFTPConsole = new System.Windows.Forms.Button();
+            this.ftpExePath = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -90,24 +86,28 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.browseForVideoDnTool = new System.Windows.Forms.Button();
-            this.VideoDnExePath = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.browseForFTPConsole = new System.Windows.Forms.Button();
-            this.ftpExePath = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
+            this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
+            this.textBoxUploadFolder = new System.Windows.Forms.TextBox();
+            this.downSamplingRatio = new System.Windows.Forms.TextBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.maxFaceWidth = new System.Windows.Forms.TextBox();
+            this.minFaceWidth = new System.Windows.Forms.TextBox();
+            this.bottomExtRatio = new System.Windows.Forms.TextBox();
+            this.topExtRatio = new System.Windows.Forms.TextBox();
+            this.rightExtRatio = new System.Windows.Forms.TextBox();
+            this.leftExtRatio = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,6 +142,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "设置系统参数";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(45, 25);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -172,6 +182,16 @@
             this.tabPage1.Text = "目录";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(37, 247);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -193,15 +213,6 @@
             this.browseForOutputFolder.UseVisualStyleBackColor = true;
             this.browseForOutputFolder.Click += new System.EventHandler(this.browseForOutputFolder_Click);
             // 
-            // textBoxOutputFolder
-            // 
-            this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 133);
-            this.textBoxOutputFolder.Name = "textBoxOutputFolder";
-            this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 20);
-            this.textBoxOutputFolder.TabIndex = 4;
-            this.textBoxOutputFolder.Text = global::RemoteImaging.Properties.Settings.Default.OutputPath;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -220,15 +231,6 @@
             this.browseForUploadFolder.Text = "浏览";
             this.browseForUploadFolder.UseVisualStyleBackColor = true;
             this.browseForUploadFolder.Click += new System.EventHandler(this.browseForUploadFolder_Click);
-            // 
-            // textBoxUploadFolder
-            // 
-            this.textBoxUploadFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ImageUploadPool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 65);
-            this.textBoxUploadFolder.Name = "textBoxUploadFolder";
-            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 20);
-            this.textBoxUploadFolder.TabIndex = 1;
-            this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
             // 
             // label3
             // 
@@ -477,104 +479,73 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
-            // downSamplingRatio
+            // tabPage4
             // 
-            this.downSamplingRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "DownSampling", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.downSamplingRatio.Location = new System.Drawing.Point(93, 227);
-            this.downSamplingRatio.Name = "downSamplingRatio";
-            this.downSamplingRatio.Size = new System.Drawing.Size(51, 20);
-            this.downSamplingRatio.TabIndex = 26;
-            this.downSamplingRatio.Text = global::RemoteImaging.Properties.Settings.Default.DownSampling;
+            this.tabPage4.Controls.Add(this.browseForVideoDnTool);
+            this.tabPage4.Controls.Add(this.VideoDnExePath);
+            this.tabPage4.Controls.Add(this.label25);
+            this.tabPage4.Controls.Add(this.browseForFTPConsole);
+            this.tabPage4.Controls.Add(this.ftpExePath);
+            this.tabPage4.Controls.Add(this.label27);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(486, 285);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "工具";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // textBox11
+            // browseForVideoDnTool
             // 
-            this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox11.Location = new System.Drawing.Point(400, 181);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(51, 20);
-            this.textBox11.TabIndex = 24;
-            this.textBox11.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
+            this.browseForVideoDnTool.Location = new System.Drawing.Point(374, 161);
+            this.browseForVideoDnTool.Name = "browseForVideoDnTool";
+            this.browseForVideoDnTool.Size = new System.Drawing.Size(75, 23);
+            this.browseForVideoDnTool.TabIndex = 11;
+            this.browseForVideoDnTool.Text = "浏览";
+            this.browseForVideoDnTool.UseVisualStyleBackColor = true;
             // 
-            // textBox12
+            // VideoDnExePath
             // 
-            this.textBox12.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox12.Location = new System.Drawing.Point(294, 181);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(51, 20);
-            this.textBox12.TabIndex = 22;
-            this.textBox12.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
+            this.VideoDnExePath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "VideoDnTool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.VideoDnExePath.Location = new System.Drawing.Point(30, 163);
+            this.VideoDnExePath.Name = "VideoDnExePath";
+            this.VideoDnExePath.Size = new System.Drawing.Size(328, 20);
+            this.VideoDnExePath.TabIndex = 10;
+            this.VideoDnExePath.Text = global::RemoteImaging.Properties.Settings.Default.VideoDnTool;
             // 
-            // textBox13
+            // label25
             // 
-            this.textBox13.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox13.Location = new System.Drawing.Point(180, 181);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(51, 20);
-            this.textBox13.TabIndex = 20;
-            this.textBox13.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(27, 147);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(106, 13);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "视频下载工具目录:";
             // 
-            // textBox14
+            // browseForFTPConsole
             // 
-            this.textBox14.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox14.Location = new System.Drawing.Point(83, 181);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(51, 20);
-            this.textBox14.TabIndex = 16;
-            this.textBox14.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
+            this.browseForFTPConsole.Location = new System.Drawing.Point(374, 63);
+            this.browseForFTPConsole.Name = "browseForFTPConsole";
+            this.browseForFTPConsole.Size = new System.Drawing.Size(75, 23);
+            this.browseForFTPConsole.TabIndex = 8;
+            this.browseForFTPConsole.Text = "浏览";
+            this.browseForFTPConsole.UseVisualStyleBackColor = true;
             // 
-            // maxFaceWidth
+            // ftpExePath
             // 
-            this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.maxFaceWidth.Location = new System.Drawing.Point(308, 119);
-            this.maxFaceWidth.Name = "maxFaceWidth";
-            this.maxFaceWidth.Size = new System.Drawing.Size(51, 20);
-            this.maxFaceWidth.TabIndex = 14;
-            this.maxFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MaxFaceWidth;
+            this.ftpExePath.Location = new System.Drawing.Point(30, 65);
+            this.ftpExePath.Name = "ftpExePath";
+            this.ftpExePath.Size = new System.Drawing.Size(328, 20);
+            this.ftpExePath.TabIndex = 7;
             // 
-            // minFaceWidth
+            // label27
             // 
-            this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.minFaceWidth.Location = new System.Drawing.Point(137, 119);
-            this.minFaceWidth.Name = "minFaceWidth";
-            this.minFaceWidth.Size = new System.Drawing.Size(51, 20);
-            this.minFaceWidth.TabIndex = 12;
-            this.minFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MinFaceWidth;
-            // 
-            // bottomExtRatio
-            // 
-            this.bottomExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.bottomExtRatio.Location = new System.Drawing.Point(400, 49);
-            this.bottomExtRatio.Name = "bottomExtRatio";
-            this.bottomExtRatio.Size = new System.Drawing.Size(51, 20);
-            this.bottomExtRatio.TabIndex = 8;
-            this.bottomExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
-            // 
-            // topExtRatio
-            // 
-            this.topExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.topExtRatio.Location = new System.Drawing.Point(294, 49);
-            this.topExtRatio.Name = "topExtRatio";
-            this.topExtRatio.Size = new System.Drawing.Size(51, 20);
-            this.topExtRatio.TabIndex = 6;
-            this.topExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
-            // 
-            // rightExtRatio
-            // 
-            this.rightExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rightExtRatio.Location = new System.Drawing.Point(180, 49);
-            this.rightExtRatio.Name = "rightExtRatio";
-            this.rightExtRatio.Size = new System.Drawing.Size(51, 20);
-            this.rightExtRatio.TabIndex = 4;
-            this.rightExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
-            // 
-            // leftExtRatio
-            // 
-            this.leftExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.leftExtRatio.Location = new System.Drawing.Point(83, 49);
-            this.leftExtRatio.Name = "leftExtRatio";
-            this.leftExtRatio.Size = new System.Drawing.Size(51, 20);
-            this.leftExtRatio.TabIndex = 0;
-            this.leftExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(27, 49);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(102, 13);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "FTP管理工具目录:";
             // 
             // buttonOK
             // 
@@ -698,92 +669,122 @@
             this.textBox8.Size = new System.Drawing.Size(51, 20);
             this.textBox8.TabIndex = 0;
             // 
-            // pictureBox2
+            // textBoxOutputFolder
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(37, 247);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
+            this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 133);
+            this.textBoxOutputFolder.Name = "textBoxOutputFolder";
+            this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 20);
+            this.textBoxOutputFolder.TabIndex = 4;
+            this.textBoxOutputFolder.Text = global::RemoteImaging.Properties.Settings.Default.OutputPath;
             // 
-            // pictureBox1
+            // textBoxUploadFolder
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(45, 25);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.textBoxUploadFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ImageUploadPool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 65);
+            this.textBoxUploadFolder.Name = "textBoxUploadFolder";
+            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 20);
+            this.textBoxUploadFolder.TabIndex = 1;
+            this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
             // 
-            // tabPage4
+            // downSamplingRatio
             // 
-            this.tabPage4.Controls.Add(this.browseForVideoDnTool);
-            this.tabPage4.Controls.Add(this.VideoDnExePath);
-            this.tabPage4.Controls.Add(this.label25);
-            this.tabPage4.Controls.Add(this.browseForFTPConsole);
-            this.tabPage4.Controls.Add(this.ftpExePath);
-            this.tabPage4.Controls.Add(this.label27);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(486, 285);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "工具";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.downSamplingRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "DownSampling", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.downSamplingRatio.Location = new System.Drawing.Point(93, 227);
+            this.downSamplingRatio.Name = "downSamplingRatio";
+            this.downSamplingRatio.Size = new System.Drawing.Size(51, 20);
+            this.downSamplingRatio.TabIndex = 26;
+            this.downSamplingRatio.Text = global::RemoteImaging.Properties.Settings.Default.DownSampling;
             // 
-            // browseForVideoDnTool
+            // textBox11
             // 
-            this.browseForVideoDnTool.Location = new System.Drawing.Point(374, 161);
-            this.browseForVideoDnTool.Name = "browseForVideoDnTool";
-            this.browseForVideoDnTool.Size = new System.Drawing.Size(75, 23);
-            this.browseForVideoDnTool.TabIndex = 11;
-            this.browseForVideoDnTool.Text = "浏览";
-            this.browseForVideoDnTool.UseVisualStyleBackColor = true;
+            this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox11.Location = new System.Drawing.Point(400, 181);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(51, 20);
+            this.textBox11.TabIndex = 24;
+            this.textBox11.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
             // 
-            // VideoDnExePath
+            // textBox12
             // 
-            this.VideoDnExePath.Location = new System.Drawing.Point(30, 163);
-            this.VideoDnExePath.Name = "VideoDnExePath";
-            this.VideoDnExePath.Size = new System.Drawing.Size(328, 20);
-            this.VideoDnExePath.TabIndex = 10;
-            this.VideoDnExePath.Text = "D:\\ImageOutput";
+            this.textBox12.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox12.Location = new System.Drawing.Point(294, 181);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(51, 20);
+            this.textBox12.TabIndex = 22;
+            this.textBox12.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
             // 
-            // label25
+            // textBox13
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(27, 147);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(106, 13);
-            this.label25.TabIndex = 9;
-            this.label25.Text = "视频下载工具目录:";
+            this.textBox13.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox13.Location = new System.Drawing.Point(180, 181);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(51, 20);
+            this.textBox13.TabIndex = 20;
+            this.textBox13.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
             // 
-            // browseForFTPConsole
+            // textBox14
             // 
-            this.browseForFTPConsole.Location = new System.Drawing.Point(374, 63);
-            this.browseForFTPConsole.Name = "browseForFTPConsole";
-            this.browseForFTPConsole.Size = new System.Drawing.Size(75, 23);
-            this.browseForFTPConsole.TabIndex = 8;
-            this.browseForFTPConsole.Text = "浏览";
-            this.browseForFTPConsole.UseVisualStyleBackColor = true;
+            this.textBox14.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox14.Location = new System.Drawing.Point(83, 181);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(51, 20);
+            this.textBox14.TabIndex = 16;
+            this.textBox14.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
             // 
-            // ftpExePath
+            // maxFaceWidth
             // 
-            this.ftpExePath.Location = new System.Drawing.Point(30, 65);
-            this.ftpExePath.Name = "ftpExePath";
-            this.ftpExePath.Size = new System.Drawing.Size(328, 20);
-            this.ftpExePath.TabIndex = 7;
+            this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.maxFaceWidth.Location = new System.Drawing.Point(308, 119);
+            this.maxFaceWidth.Name = "maxFaceWidth";
+            this.maxFaceWidth.Size = new System.Drawing.Size(51, 20);
+            this.maxFaceWidth.TabIndex = 14;
+            this.maxFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MaxFaceWidth;
             // 
-            // label27
+            // minFaceWidth
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(27, 49);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(102, 13);
-            this.label27.TabIndex = 6;
-            this.label27.Text = "FTP管理工具目录:";
+            this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.minFaceWidth.Location = new System.Drawing.Point(137, 119);
+            this.minFaceWidth.Name = "minFaceWidth";
+            this.minFaceWidth.Size = new System.Drawing.Size(51, 20);
+            this.minFaceWidth.TabIndex = 12;
+            this.minFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MinFaceWidth;
+            // 
+            // bottomExtRatio
+            // 
+            this.bottomExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.bottomExtRatio.Location = new System.Drawing.Point(400, 49);
+            this.bottomExtRatio.Name = "bottomExtRatio";
+            this.bottomExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.bottomExtRatio.TabIndex = 8;
+            this.bottomExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
+            // 
+            // topExtRatio
+            // 
+            this.topExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.topExtRatio.Location = new System.Drawing.Point(294, 49);
+            this.topExtRatio.Name = "topExtRatio";
+            this.topExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.topExtRatio.TabIndex = 6;
+            this.topExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
+            // 
+            // rightExtRatio
+            // 
+            this.rightExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.rightExtRatio.Location = new System.Drawing.Point(180, 49);
+            this.rightExtRatio.Name = "rightExtRatio";
+            this.rightExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.rightExtRatio.TabIndex = 4;
+            this.rightExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
+            // 
+            // leftExtRatio
+            // 
+            this.leftExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.leftExtRatio.Location = new System.Drawing.Point(83, 49);
+            this.leftExtRatio.Name = "leftExtRatio";
+            this.leftExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.leftExtRatio.TabIndex = 0;
+            this.leftExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
             // 
             // OptionsForm
             // 
@@ -805,16 +806,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
