@@ -84,5 +84,15 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         #endregion
+
+        #region IIconExtractor Members
+
+
+        public void SetROI(int x, int y, int width, int height)
+        {
+            
+        }
+
+        #endregion
     }
 }

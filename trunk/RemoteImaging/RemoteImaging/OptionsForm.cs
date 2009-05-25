@@ -19,33 +19,6 @@ namespace RemoteImaging
             InitCamDatagridView();
         }
 
-
-        public float LeftExtRatio
-        {
-            get { return float.Parse(this.leftExtRatio.Text); }
-        }
-
-        public float RightExtRatio
-        {
-            get { return float.Parse(this.rightExtRatio.Text); }
-        }
-
-        public float TopExtRatio
-        {
-            get { return float.Parse(this.topExtRatio.Text); }
-        }
-
-        public float BottomExtRatio
-        {
-            get { return float.Parse(this.bottomExtRatio.Text); }
-        }
-
-        public int MinFaceWidth { get { return int.Parse(this.minFaceWidth.Text); } }
-
-        public int MaxFaceWidth { get { return int.Parse(this.maxFaceWidth.Text); } }
-
-        public float DownSamplingRatio { get { return float.Parse(this.downSamplingRatio.Text); } }
-
         private void InitCamDatagridView()
         {
             InitCamList();

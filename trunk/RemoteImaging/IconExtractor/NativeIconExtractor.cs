@@ -11,6 +11,17 @@ namespace ImageProcess
 
         const string dllName = "FaceSelDll.dll";
 
+
+
+        /// Return Type: void
+        ///x: int
+        ///y: int
+        ///width: int
+        ///height: int
+        [DllImport(dllName, CharSet = CharSet.Ansi)]
+        public static extern void SetROI(int x, int y, int width, int height);
+
+
         /// Return Type: void
         ///strFileName: char*
         [DllImport(dllName, CharSet = CharSet.Ansi)]

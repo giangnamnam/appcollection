@@ -37,7 +37,18 @@ namespace RemoteImaging.RealtimeDisplay
 
             float ratio = (float)maxFaceWidth / minFaceWidth;
 
-            SetupExtractor(left, right, top, bottom, minFaceWidth, ratio);
+            SetupExtractor(
+                left,
+                right,
+                top,
+                bottom,
+                minFaceWidth,
+                ratio,
+                new Rectangle(int.Parse(setting.SrchRegionLeft),
+                    int.Parse(setting.SrchRegionTop),
+                    int.Parse(setting.SrchRegionWidth),
+                    int.Parse(setting.SrchRegionHeight))
+                    );
 
         }
 
@@ -246,12 +257,18 @@ namespace RemoteImaging.RealtimeDisplay
             float topRatio,
             float bottomRatio,
             int minFaceWidth,
-            float maxFaceWidthRatio)
+            float maxFaceWidthRatio,
+            Rectangle SearchRectangle)
         {
             IconExtractor.Default.SetExRatio(topRatio,
                                     bottomRatio,
                                     leftRatio,
                                     rightRatio);
+
+            IconExtractor.Default.SetROI(SearchRectangle.Left,
+                SearchRectangle.Top,
+                SearchRectangle.Width - 1,
+                SearchRectangle.Height - 1);
 
             IconExtractor.Default.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
         }
@@ -339,12 +356,18 @@ namespace RemoteImaging.RealtimeDisplay
                     var minFaceWidth = int.Parse(setting.MinFaceWidth);
                     float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                    SetupExtractor(float.Parse(setting.IconLeftExtRatio),
+                    SetupExtractor(
+                        float.Parse(setting.IconLeftExtRatio),
                         float.Parse(setting.IconRightExtRatio),
                         float.Parse(setting.IconTopExtRatio),
                         float.Parse(setting.IconBottomExtRatio),
                         minFaceWidth,
-                        ratio);
+                        ratio,
+                        new Rectangle(int.Parse(setting.SrchRegionLeft),
+                                        int.Parse(setting.SrchRegionTop),
+                                        int.Parse(setting.SrchRegionWidth),
+                                        int.Parse(setting.SrchRegionHeight))
+                                   );
                 }
             }
 

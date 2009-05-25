@@ -65,5 +65,15 @@ namespace ImageProcess
         private static IconExtractor instance;
 
         #endregion
+
+        #region IIconExtractor Members
+
+
+        public void SetROI(int x, int y, int width, int height)
+        {
+            NativeIconExtractor.SetROI(x, y, width, height);
+        }
+
+        #endregion
     }
 }

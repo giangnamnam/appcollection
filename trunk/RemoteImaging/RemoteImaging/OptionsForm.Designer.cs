@@ -48,7 +48,6 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label26 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -67,7 +66,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.browseForVideoDnTool = new System.Windows.Forms.Button();
-            this.VideoDnExePath = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.browseForFTPConsole = new System.Windows.Forms.Button();
             this.ftpExePath = new System.Windows.Forms.TextBox();
@@ -88,7 +86,6 @@
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             this.textBoxUploadFolder = new System.Windows.Forms.TextBox();
-            this.downSamplingRatio = new System.Windows.Forms.TextBox();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
@@ -99,6 +96,7 @@
             this.topExtRatio = new System.Windows.Forms.TextBox();
             this.rightExtRatio = new System.Windows.Forms.TextBox();
             this.leftExtRatio = new System.Windows.Forms.TextBox();
+            this.VideoDnExePath = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -293,7 +291,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label26);
             this.tabPage3.Controls.Add(this.label20);
             this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.label22);
@@ -310,7 +307,6 @@
             this.tabPage3.Controls.Add(this.label7);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.downSamplingRatio);
             this.tabPage3.Controls.Add(this.textBox11);
             this.tabPage3.Controls.Add(this.textBox12);
             this.tabPage3.Controls.Add(this.textBox13);
@@ -329,19 +325,10 @@
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(21, 230);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(67, 13);
-            this.label26.TabIndex = 28;
-            this.label26.Text = "降采样率：";
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(368, 184);
+            this.label20.Location = new System.Drawing.Point(368, 216);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(31, 13);
             this.label20.TabIndex = 25;
@@ -350,7 +337,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(261, 184);
+            this.label21.Location = new System.Drawing.Point(261, 216);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(31, 13);
             this.label21.TabIndex = 23;
@@ -359,7 +346,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(148, 184);
+            this.label22.Location = new System.Drawing.Point(148, 216);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(31, 13);
             this.label22.TabIndex = 21;
@@ -368,7 +355,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(51, 184);
+            this.label23.Location = new System.Drawing.Point(51, 216);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(31, 13);
             this.label23.TabIndex = 19;
@@ -377,7 +364,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(21, 157);
+            this.label24.Location = new System.Drawing.Point(21, 189);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(79, 13);
             this.label24.TabIndex = 18;
@@ -385,7 +372,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Location = new System.Drawing.Point(93, 162);
+            this.groupBox5.Location = new System.Drawing.Point(93, 194);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(380, 2);
             this.groupBox5.TabIndex = 17;
@@ -394,7 +381,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(238, 122);
+            this.label19.Location = new System.Drawing.Point(238, 136);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(67, 13);
             this.label19.TabIndex = 15;
@@ -403,7 +390,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(67, 122);
+            this.label18.Location = new System.Drawing.Point(67, 136);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(67, 13);
             this.label18.TabIndex = 13;
@@ -412,7 +399,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(21, 95);
+            this.label11.Location = new System.Drawing.Point(21, 109);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(109, 13);
             this.label11.TabIndex = 11;
@@ -420,7 +407,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(93, 100);
+            this.groupBox2.Location = new System.Drawing.Point(93, 114);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(380, 2);
             this.groupBox2.TabIndex = 10;
@@ -482,11 +469,11 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.browseForVideoDnTool);
-            this.tabPage4.Controls.Add(this.VideoDnExePath);
             this.tabPage4.Controls.Add(this.label25);
             this.tabPage4.Controls.Add(this.browseForFTPConsole);
             this.tabPage4.Controls.Add(this.ftpExePath);
             this.tabPage4.Controls.Add(this.label27);
+            this.tabPage4.Controls.Add(this.VideoDnExePath);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -503,15 +490,6 @@
             this.browseForVideoDnTool.TabIndex = 11;
             this.browseForVideoDnTool.Text = "浏览";
             this.browseForVideoDnTool.UseVisualStyleBackColor = true;
-            // 
-            // VideoDnExePath
-            // 
-            this.VideoDnExePath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "VideoDnTool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.VideoDnExePath.Location = new System.Drawing.Point(30, 163);
-            this.VideoDnExePath.Name = "VideoDnExePath";
-            this.VideoDnExePath.Size = new System.Drawing.Size(328, 20);
-            this.VideoDnExePath.TabIndex = 10;
-            this.VideoDnExePath.Text = global::RemoteImaging.Properties.Settings.Default.VideoDnTool;
             // 
             // label25
             // 
@@ -687,55 +665,46 @@
             this.textBoxUploadFolder.TabIndex = 1;
             this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
             // 
-            // downSamplingRatio
-            // 
-            this.downSamplingRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "DownSampling", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.downSamplingRatio.Location = new System.Drawing.Point(93, 227);
-            this.downSamplingRatio.Name = "downSamplingRatio";
-            this.downSamplingRatio.Size = new System.Drawing.Size(51, 20);
-            this.downSamplingRatio.TabIndex = 26;
-            this.downSamplingRatio.Text = global::RemoteImaging.Properties.Settings.Default.DownSampling;
-            // 
             // textBox11
             // 
-            this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox11.Location = new System.Drawing.Point(400, 181);
+            this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox11.Location = new System.Drawing.Point(400, 213);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(51, 20);
             this.textBox11.TabIndex = 24;
-            this.textBox11.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
+            this.textBox11.Text = global::RemoteImaging.Properties.Settings.Default.SrchRegionHeight;
             // 
             // textBox12
             // 
-            this.textBox12.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox12.Location = new System.Drawing.Point(294, 181);
+            this.textBox12.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox12.Location = new System.Drawing.Point(294, 213);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(51, 20);
             this.textBox12.TabIndex = 22;
-            this.textBox12.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
+            this.textBox12.Text = global::RemoteImaging.Properties.Settings.Default.SrchRegionWidth;
             // 
             // textBox13
             // 
-            this.textBox13.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox13.Location = new System.Drawing.Point(180, 181);
+            this.textBox13.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionTop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox13.Location = new System.Drawing.Point(180, 213);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(51, 20);
             this.textBox13.TabIndex = 20;
-            this.textBox13.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
+            this.textBox13.Text = global::RemoteImaging.Properties.Settings.Default.SrchRegionTop;
             // 
             // textBox14
             // 
-            this.textBox14.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox14.Location = new System.Drawing.Point(83, 181);
+            this.textBox14.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionLeft", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox14.Location = new System.Drawing.Point(83, 213);
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(51, 20);
             this.textBox14.TabIndex = 16;
-            this.textBox14.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
+            this.textBox14.Text = global::RemoteImaging.Properties.Settings.Default.SrchRegionLeft;
             // 
             // maxFaceWidth
             // 
             this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.maxFaceWidth.Location = new System.Drawing.Point(308, 119);
+            this.maxFaceWidth.Location = new System.Drawing.Point(308, 133);
             this.maxFaceWidth.Name = "maxFaceWidth";
             this.maxFaceWidth.Size = new System.Drawing.Size(51, 20);
             this.maxFaceWidth.TabIndex = 14;
@@ -744,7 +713,7 @@
             // minFaceWidth
             // 
             this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.minFaceWidth.Location = new System.Drawing.Point(137, 119);
+            this.minFaceWidth.Location = new System.Drawing.Point(137, 133);
             this.minFaceWidth.Name = "minFaceWidth";
             this.minFaceWidth.Size = new System.Drawing.Size(51, 20);
             this.minFaceWidth.TabIndex = 12;
@@ -785,6 +754,15 @@
             this.leftExtRatio.Size = new System.Drawing.Size(51, 20);
             this.leftExtRatio.TabIndex = 0;
             this.leftExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
+            // 
+            // VideoDnExePath
+            // 
+            this.VideoDnExePath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "VideoDnTool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.VideoDnExePath.Location = new System.Drawing.Point(30, 163);
+            this.VideoDnExePath.Name = "VideoDnExePath";
+            this.VideoDnExePath.Size = new System.Drawing.Size(328, 20);
+            this.VideoDnExePath.TabIndex = 10;
+            this.VideoDnExePath.Text = global::RemoteImaging.Properties.Settings.Default.VideoDnTool;
             // 
             // OptionsForm
             // 
@@ -875,8 +853,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox downSamplingRatio;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label21;

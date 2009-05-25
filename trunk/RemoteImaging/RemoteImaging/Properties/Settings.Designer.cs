@@ -250,5 +250,17 @@ namespace RemoteImaging.Properties {
                 this["VideoDnTool"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1080")]
+        public string SrchRegionHeight {
+            get {
+                return ((string)(this["SrchRegionHeight"]));
+            }
+            set {
+                this["SrchRegionHeight"] = value;
+            }
+        }
     }
 }
