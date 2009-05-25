@@ -11,7 +11,7 @@ namespace RemoteImaging.Query
 {
     public class ImageSearch
     {
-        public string[] SearchImages(ImageDirSys startDir,ImageDirSys endDir,Query.ImageDirSys.SearchType searchType)
+        public string[] SearchImages(ImageDirSys startDir,ImageDirSys endDir,ImageDirSys.SearchType searchType)
         {
             int startYear = int.Parse(startDir.Year);
             int startMonth = int.Parse(startDir.Month);
@@ -26,7 +26,7 @@ namespace RemoteImaging.Query
             int endMinute = int.Parse(endDir.Minute);
             int endSecond = int.Parse(endDir.Second);
 
-            string beginDir = RemoteImaging.Query.ImageDirSys.BeginDir;
+            string beginDir = ImageDirSys.BeginDir;
             string subSearchPath = "";
             if (searchType == ImageDirSys.SearchType.PicType)
             {
@@ -64,10 +64,16 @@ namespace RemoteImaging.Query
                             int minute = int.Parse(fileName.Substring(11, 2));
                             int second = int.Parse(fileName.Substring(13, 2));
 
-                            DateTime dateTime = new DateTime(startYear, startMonth, startDay, hour, minute, second);
-                            if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                            if (hour >= 0 && hour <= 23 &&
+                                minute >= 0 && minute <= 59 &&
+                                second >= 0 && second <= 59)
                             {
-                                fileList.Add(file);
+
+                                DateTime dateTime = new DateTime(startYear, startMonth, startDay, hour, minute, second);
+                                if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                {
+                                    fileList.Add(file);
+                                }
                             }
                         }
                     }
@@ -100,10 +106,15 @@ namespace RemoteImaging.Query
                                 int minute = int.Parse(fileName.Substring(11, 2));
                                 int second = int.Parse(fileName.Substring(13, 2));
 
-                                DateTime dateTime = new DateTime(startYear, startMonth, i, hour, minute, second);
-                                if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                if (hour >= 0 && hour <= 23 &&
+                                   minute >= 0 && minute <= 59 &&
+                                   second >= 0 && second <= 59)
                                 {
-                                    fileList.Add(file);
+                                    DateTime dateTime = new DateTime(startYear, startMonth, i, hour, minute, second);
+                                    if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                    {
+                                        fileList.Add(file);
+                                    }
                                 }
                             }
                         }
@@ -147,10 +158,17 @@ namespace RemoteImaging.Query
                                     int minute = int.Parse(fileName.Substring(11, 2));
                                     int second = int.Parse(fileName.Substring(13, 2));
 
-                                    DateTime dateTime = new DateTime(startYear, i, j, hour, minute, second);
-                                    if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                    if (hour >= 0 && hour <= 23 &&
+                                        minute >= 0 && minute <= 59 &&
+                                        second >= 0 && second <= 59)
                                     {
-                                        fileList.Add(file);
+
+                                        DateTime dateTime = new DateTime(startYear, i, j, hour, minute, second);
+                                        if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                        {
+                                            fileList.Add(file);
+                                        }
+
                                     }
                                 }
                             }
@@ -209,10 +227,17 @@ namespace RemoteImaging.Query
                                         int minute = int.Parse(fileName.Substring(11, 2));
                                         int second = int.Parse(fileName.Substring(13, 2));
 
-                                        DateTime dateTime = new DateTime(i, j, k, hour, minute, second);
-                                        if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                        if (hour >= 0 && hour <= 23 &&
+                                            minute >= 0 && minute <= 59 &&
+                                            second >= 0 && second <= 59)
                                         {
-                                            fileList.Add(file);
+
+                                            DateTime dateTime = new DateTime(i, j, k, hour, minute, second);
+                                            if ((dateTime1 <= dateTime) && (dateTime <= dateIime2))
+                                            {
+                                                fileList.Add(file);
+                                            }
+
                                         }
                                     }
                                 }
