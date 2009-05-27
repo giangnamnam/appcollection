@@ -505,12 +505,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         public string getCurrentCpuUsage()
         {
-            return cpuCounter.NextValue().ToString("F0") + "%";
+            return String.Format("{0:F0}%", cpuCounter.NextValue());
         }
 
         public string getAvailableRAM()
         {
-            return ramCounter.NextValue().ToString() + "MB";
+            return String.Format("{0}MB", ramCounter.NextValue());
         }
 
     }
