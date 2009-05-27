@@ -11,6 +11,7 @@ using System.IO;
 using DevExpress.XtraNavBar;
 using ImageProcess;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -19,6 +20,14 @@ namespace RemoteImaging.RealtimeDisplay
         public MainForm()
         {
             InitializeComponent();
+
+
+            cpuCounter = new PerformanceCounter();
+            ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+
+            cpuCounter.CategoryName = "Processor";
+            cpuCounter.CounterName = "% Processor Time";
+            cpuCounter.InstanceName = "_Total";
 
             Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             Configuration.Instance.Cameras.CopyTo(cams, 0);
@@ -413,6 +422,11 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
+            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}",
+                this.getCurrentCpuUsage(), this.getAvailableRAM());
+
+            this.statusCPUMemUsage.Text = statusTxt;
+
             statusTime.Text = DateTime.Now.ToString();
             this.StepProgress();
         }
@@ -485,5 +499,19 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         #endregion
+
+        PerformanceCounter cpuCounter;
+        PerformanceCounter ramCounter;
+
+        public string getCurrentCpuUsage()
+        {
+            return cpuCounter.NextValue().ToString("F0") + "%";
+        }
+
+        public string getAvailableRAM()
+        {
+            return ramCounter.NextValue().ToString() + "MB";
+        }
+
     }
 }
