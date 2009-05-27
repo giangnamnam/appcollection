@@ -503,12 +503,12 @@ namespace RemoteImaging.RealtimeDisplay
         PerformanceCounter cpuCounter;
         PerformanceCounter ramCounter;
 
-        public string getCurrentCpuUsage()
+        private string getCurrentCpuUsage()
         {
             return String.Format("{0:F0}%", cpuCounter.NextValue());
         }
 
-        public string getAvailableRAM()
+        private string getAvailableRAM()
         {
             return String.Format("{0}MB", ramCounter.NextValue());
         }

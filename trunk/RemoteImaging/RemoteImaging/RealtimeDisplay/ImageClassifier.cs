@@ -14,7 +14,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             StringBuilder sb = new StringBuilder();
             DateTime dt = image.CaptureTime;
-            sb.Append(image.FromCamera.ToString("D4"));
+            sb.Append(image.FromCamera.ToString("D2"));
             sb.Append(Path.AltDirectorySeparatorChar);
             sb.Append(dt.Year.ToString("D4"));
             sb.Append(Path.AltDirectorySeparatorChar);
