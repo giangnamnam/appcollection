@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Collections.Generic;
 
 namespace MyControls
 {
@@ -17,7 +12,6 @@ namespace MyControls
             InitializeComponent();
 
             this.DoubleBuffered = true;
-            this.NumberOfColumns = 2;
             this.Padding = new Padding(3);
 
             refreshTimer.Interval = 1000;
@@ -27,11 +21,18 @@ namespace MyControls
 
             this.AutoDisposeImage = true;
 
-            this.Resize += (sender, args) => { this.CalcCellSize(this.cells); this.Invalidate(); };
+            this.MaxCountOfCells = 25;
+            this.cells = new List<Cell>(this.MaxCountOfCells);
+            this.numOfColumns = 2;
+
+            this.PopulateCellList();
+            this.CalcLayout();
+
+            this.Resize += SquareListView_Resize;
         }
 
+        
 
-        public event EventHandler SelectedCellChanged;
 
         private void FireSelectedCellChanged()
         {
@@ -42,7 +43,6 @@ namespace MyControls
         }
 
 
-        int idx = 0;
 
         void refreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -54,7 +54,9 @@ namespace MyControls
                     return;
                 }
 
-                Cell dstCell = this.cells[idx];
+                RepositionCursor();
+
+                Cell dstCell = this.cells[cursor];
                 ImageCell imgToShow = this.imgQueue.Dequeue();
 
                 if (this.AutoDisposeImage && dstCell.Image != null)
@@ -65,20 +67,14 @@ namespace MyControls
                 dstCell.Image = imgToShow.Image;
                 dstCell.Text = imgToShow.Text;
                 dstCell.Path = imgToShow.Path;
-                //dstCell.Selected = false;
-                //selectedCell = null;
 
                 this.Invalidate(Rectangle.Round(dstCell.Rec));
-
-
-                idx = ++idx % this.cells.Length;
+                cursor++;
             }
             catch (InvalidOperationException ex)// the queue is empty
             {
                 this.refreshTimer.Enabled = false;
             }
-
-
 
             System.Diagnostics.Debug.WriteLine("tick");
 
@@ -86,8 +82,6 @@ namespace MyControls
 
         public bool AutoDisposeImage { get; set; }
 
-        System.Timers.Timer refreshTimer = new System.Timers.Timer();
-        Queue<ImageCell> imgQueue = new Queue<ImageCell>();
 
         public void ShowImages(ImageCell[] imgs)
         {
@@ -101,39 +95,15 @@ namespace MyControls
         }
 
 
-
-
-        private int _Count;
-        public int NumberOfColumns
-        {
-            get
-            {
-                return _Count;
-            }
-            set
-            {
-                if (_Count == value)
-                    return;
-                _Count = value;
-
-                if (this.selectedCell != null)
-                {
-                    this.selectedCell.Selected = false;
-                }
-                this.CalculateLayout();
-
-                this.Invalidate();
-            }
-        }
-
+        
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             e.Graphics.Clear(this.BackColor);
+            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
         }
 
-        Cell[] cells = new Cell[0];
 
-        private void CalcCellSize(Cell[] cells)
+        private void CalcLayout()
         {
             int width = this.ClientRectangle.Width / this.NumberOfColumns;
             int height = this.ClientRectangle.Height / this.NumberOfColumns;
@@ -143,68 +113,12 @@ namespace MyControls
                 for (int j = 0; j < this.NumberOfColumns; j++)
                 {
                     int idx = j * this.NumberOfColumns + i;
-                    Cell c = cells[idx];
-                    c.Rec = new Rectangle(i * width + this.Padding.Left,
+                    this.cells[idx].Rec = new Rectangle(i * width + this.Padding.Left,
                         j * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
                         height - this.Padding.Vertical);
-                    //c.Text = DateTime.Now.ToString();
                 }
             }
-        }
-
-        private Cell[] CreateNewCells()
-        {
-            Cell[] newCells = new Cell[this.NumberOfColumns * this.NumberOfColumns];
-            for (int i = 0; i < newCells.Length; i++)
-            {
-                newCells[i] = new Cell();
-            }
-
-            CalcCellSize(newCells);
-            MoveOldCells(newCells);
-
-            return newCells;
-        }
-
-
-        private void MoveOldCells(Cell[] newCells)
-        {
-            if (this.cells != null)
-            {
-                int count = Math.Min(newCells.Length, cells.Length);
-                for (int i = 0; i < count; i++)
-                {
-                    newCells[i].Path = cells[i].Path;
-                    newCells[i].Image = cells[i].Image;
-                    newCells[i].Text = cells[i].Text;
-                    newCells[i].Selected = cells[i].Selected;
-                }
-            }
-        }
-
-        private Cell[] ReCalcLayOut()
-        {
-            CalcCellSize(this.cells);
-
-            return this.cells;
-        }
-
-        private Cell[] CalculateLayout()
-        {
-
-            Cell[] newCells = CreateNewCells();
-
-            MoveOldCells(newCells);
-
-            if (this.idx > newCells.Length - 1)
-            {
-                this.idx = 0;
-            }
-
-            this.cells = newCells;
-
-            return newCells;
         }
 
 
@@ -212,16 +126,18 @@ namespace MyControls
         {
             base.OnPaint(e);
 
-            foreach (Cell c in this.cells)
+            for (int i = 0; i < this.CellsCount; i++)
             {
+                Cell c = this.cells[i];
                 if (e.ClipRectangle.IntersectsWith(Rectangle.Round(c.Rec)))
                 {
                     c.Paint(e.Graphics, this.Font);
                 }
             }
+
         }
 
-        private Cell FindCell(Point pt)
+        private Cell CellFromPoint(Point pt)
         {
             foreach (Cell c in this.cells)
             {
@@ -233,9 +149,10 @@ namespace MyControls
 
             return null;
         }
+
         private void SquareListView_MouseClick(object sender, MouseEventArgs e)
         {
-            Cell c = FindCell(e.Location);
+            Cell c = CellFromPoint(e.Location);
             if (c != null)
             {
                 if (LastSelectedCell != c)
@@ -243,34 +160,89 @@ namespace MyControls
                     LastSelectedCell = c;
                 }
 
-                if (selectedCell != null)
+                if (SelectedCell != null)
                 {
-                    selectedCell.Selected = false;
-                    this.Invalidate(Rectangle.Round(selectedCell.Rec));
+                    SelectedCell.Selected = false;
+                    this.Invalidate(Rectangle.Round(SelectedCell.Rec));
                 }
 
                 c.Selected = true;
                 this.Invalidate(Rectangle.Round(c.Rec));
 
-                selectedCell = c;
+                SelectedCell = c;
 
                 FireSelectedCellChanged();
             }
         }
 
+        void PopulateCellList()
+        {
+            int length = this.MaxCountOfCells;
+            for (int i = 0; i < length; i++)
+            {
+                cells.Add(new Cell());
+            }
+        }
 
-        public Cell LastSelectedCell { get; private set; }
-        public Cell SelectedCell
+        void SquareListView_Resize(object sender, EventArgs e)
+        {
+            this.CalcLayout();
+            this.Invalidate();
+        }
+
+        void RepositionCursor()
+        {
+            if (cursor > this.CellsCount - 1)
+            {
+                cursor = 0;
+            }
+        }
+
+
+        public int NumberOfColumns
         {
             get
             {
-                return selectedCell;
+                return numOfColumns;
             }
             set
             {
-                selectedCell = value;
+                if (numOfColumns == value)
+                    return;
+
+                if (value * value > this.MaxCountOfCells)
+                {
+                    throw new ArgumentOutOfRangeException(@"NumberOfColumns",
+                        @"Total Number of Cells > Max Number of cells");
+                }
+
+                numOfColumns = value;
+
+                if (this.SelectedCell != null)
+                {
+                    this.SelectedCell.Selected = false;
+                }
+
+                this.CalcLayout();
+                this.Invalidate();
             }
         }
-        private Cell selectedCell;
+
+
+
+        public Cell LastSelectedCell { get; private set; }
+        public Cell SelectedCell { get; set; }
+        public int CellsCount { get { return this.NumberOfColumns * this.NumberOfColumns; } }
+        public int MaxCountOfCells { get; set; }
+
+
+        public event EventHandler SelectedCellChanged;
+
+
+        int cursor = 0;
+        IList<Cell> cells;
+        System.Timers.Timer refreshTimer = new System.Timers.Timer();
+        Queue<ImageCell> imgQueue = new Queue<ImageCell>();
+        private int numOfColumns;
     }
 }
