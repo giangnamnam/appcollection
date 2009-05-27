@@ -29,7 +29,10 @@ namespace RemoteImaging.RealtimeDisplay
             get;
             set;
         }
-    
+
         void ShowImages(ImageDetail[] images);
+
+        bool ShowProgress { set; }
+        void StepProgress();
     }
 }

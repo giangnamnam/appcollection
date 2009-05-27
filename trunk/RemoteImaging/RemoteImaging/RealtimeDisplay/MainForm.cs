@@ -54,14 +54,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         Camera allCamera = new Camera() { ID = -1 };
 
-        private TreeNode getTopCamera()
+        private TreeNode getTopCamera(TreeNode node)
         {
-            TreeNode nd = this.cameraTree.SelectedNode;
-            while (nd.Tag == null || !(nd.Tag is Camera))
+            while (node.Tag == null || !(node.Tag is Camera))
             {
-                nd = nd.Parent;
+                node = node.Parent;
             }
-            return nd;
+            return node;
         }
 
         private Camera getSelCamera()
@@ -72,7 +71,7 @@ namespace RemoteImaging.RealtimeDisplay
                 return allCamera;
             }
 
-            TreeNode nd = getTopCamera();
+            TreeNode nd = getTopCamera(this.cameraTree.SelectedNode);
             return nd.Tag as Camera;
         }
 
@@ -404,19 +403,6 @@ namespace RemoteImaging.RealtimeDisplay
             statusUploadFolder.Text = "上传目录：" + Properties.Settings.Default.ImageUploadPool;
             statusOutputFolder.Text = "输出目录：" + Properties.Settings.Default.OutputPath;
         }
-        private void cameraTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node.Tag == null)
-                return;
-
-            Action<string> setupCamera = e.Node.Tag as Action<string>;
-            if (setupCamera != null)
-            {
-                Camera cam = this.getTopCamera().Tag as Camera;
-                setupCamera(cam.IpAddress);
-            }
-
-        }
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
@@ -428,6 +414,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void realTimer_Tick(object sender, EventArgs e)
         {
             statusTime.Text = DateTime.Now.ToString();
+            this.StepProgress();
         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
@@ -442,7 +429,61 @@ namespace RemoteImaging.RealtimeDisplay
                Properties.Settings.Default.ImageUploadPool);
         }
 
+        private void cameraTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag == null)
+                return;
+
+            Action<string> setupCamera = e.Node.Tag as Action<string>;
+            if (setupCamera != null)
+            {
+                Camera cam = this.getTopCamera(e.Node).Tag as Camera;
+                setupCamera(cam.IpAddress);
+
+            }
+
+        }
 
 
+
+
+
+        #region IImageScreen Members
+
+
+        public bool ShowProgress
+        {
+            set
+            {
+                if (this.InvokeRequired)
+                {
+                    Action ac = () => this.statusProgressBar.Visible = value;
+                    //this.Invoke(ac);
+                }
+                else
+                {
+                    //this.statusProgressBar.Visible = value;
+                }
+
+            }
+        }
+
+        public void StepProgress()
+        {
+            if (InvokeRequired)
+            {
+                Action ac = () => this.statusProgressBar.PerformStep();
+
+                this.Invoke(ac);
+            }
+            else
+            {
+                this.statusProgressBar.PerformStep();
+
+            }
+
+        }
+
+        #endregion
     }
 }

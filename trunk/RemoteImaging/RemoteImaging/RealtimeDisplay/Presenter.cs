@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Drawing;
 using ImageProcess;
 
 namespace RemoteImaging.RealtimeDisplay
@@ -12,8 +9,9 @@ namespace RemoteImaging.RealtimeDisplay
     {
         IImageScreen screen;
         ImageUploadWatcher uploadWatcher;
-
         IIconExtractor extractor;
+        System.ComponentModel.BackgroundWorker worker;
+        System.Collections.Generic.Queue<ImageDetail[]> imgsQueue;
 
         /// <summary>
         /// Initializes a new instance of the Presenter class.
@@ -29,7 +27,54 @@ namespace RemoteImaging.RealtimeDisplay
             this.extractor = extractor;
 
             this.screen.Observer = this;
+            this.worker = new System.ComponentModel.BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            worker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(worker_ProgressChanged);
+            worker.DoWork += worker_DoWork;
+
+            imgsQueue = new Queue<ImageDetail[]>();
+
             this.uploadWatcher.ImagesUploaded += uploadWatcher_ImagesUploaded;
+        }
+
+        void worker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            screen.StepProgress();
+        }
+
+        void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            ImageDetail[] imgs = e.Argument as ImageDetail[];
+            worker.ReportProgress(50);
+            ImageDetail[] retImgs = this.ExtractIcons(imgs);
+            worker.ReportProgress(100);
+            e.Result = retImgs;
+        }
+
+        void worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            ImageDetail[] iconImgs = e.Result as ImageDetail[];
+
+            if (iconImgs.Length > 0)
+            {
+                if (screen.SelectedCamera.ID == -1
+                || screen.SelectedCamera.ID == iconImgs[0].FromCamera)
+                {
+                    screen.ShowImages(iconImgs);
+                }
+            }
+
+
+            if (imgsQueue.Count > 0)
+            {
+                screen.ShowProgress = true;
+                worker.RunWorkerAsync(imgsQueue.Dequeue());
+            }
+            else
+            {
+                screen.ShowProgress = false;
+            }
         }
 
 
@@ -117,30 +162,13 @@ namespace RemoteImaging.RealtimeDisplay
 
             ImageClassifier.ClassifyImages(imgsToProcess);
 
-            System.Func<ImageDetail[], ImageDetail[]> func = (imgs) => ExtractIcons(imgs);
+            this.imgsQueue.Enqueue(imgsToProcess);
 
-            IAsyncResult result = func.BeginInvoke(imgsToProcess, null, null);
-            while (!result.IsCompleted)
+            if (!this.worker.IsBusy)
             {
-                //System.Windows.Forms.Application.DoEvents();
-                System.Threading.Thread.Sleep(1000);
-                System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString());
+                screen.ShowProgress = true;
+                worker.RunWorkerAsync(this.imgsQueue.Dequeue());
             }
-
-            ImageDetail[] iconImgs = func.EndInvoke(result);
-
-            if (iconImgs.Length == 0)
-            {
-                return;
-            }
-
-            if (screen.SelectedCamera.ID == -1
-                || screen.SelectedCamera.ID == iconImgs[0].FromCamera)
-            {
-                screen.ShowImages(iconImgs);
-            }
-
-
         }
 
         #region IImageScreenObserver Members

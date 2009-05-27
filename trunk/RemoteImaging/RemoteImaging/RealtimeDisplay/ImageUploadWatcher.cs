@@ -17,6 +17,7 @@ namespace RemoteImaging.RealtimeDisplay
         public void Start()
         {
             this._Watcher = new FileSystemWatcher();
+            this._Watcher.IncludeSubdirectories = true;
             this._Watcher.Path = this.PathToWatch;
             this._Watcher.Filter = "*.jpg";
             this._Watcher.Created += File_Created;

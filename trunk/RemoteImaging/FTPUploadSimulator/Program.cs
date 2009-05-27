@@ -25,7 +25,7 @@ namespace FTPUploadSimulator
                 System.Threading.Thread.Sleep(500);
                 if (count % 6 == 0)
                 {
-                    System.Threading.Thread.Sleep(5000);
+                    System.Threading.Thread.Sleep(1000);
                 }
             }
 
