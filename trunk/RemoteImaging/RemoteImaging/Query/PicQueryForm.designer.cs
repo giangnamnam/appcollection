@@ -213,7 +213,6 @@
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
-            this.bestPicListView.DoubleClick += new System.EventHandler(this.bestPicListView_DoubleClick);
             // 
             // pictureBox1
             // 

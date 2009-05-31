@@ -126,16 +126,17 @@ namespace RemoteImaging.Query
                                    focusedFileName.Substring(11, 2) + "分" + //minute
                                    focusedFileName.Substring(13, 2) + "妙";//second
 
-            //
+            this.PopulateBigPicList(Path.GetFileName(filePath));
         }
 
-        private void bestPicListView_DoubleClick(object sender, System.EventArgs e)
+
+        private void PopulateBigPicList(string iconFile)
         {
             this.secPicListView.Clear();
             this.imageList2.Images.Clear();
 
             Query.ImageSearch imageSearch = new ImageSearch();
-            string[] files = imageSearch.SelectedBestImageChanged(this.bestPicListView.FocusedItem.Text);
+            string[] files = imageSearch.SelectedBestImageChanged(iconFile);
             if (files == null)
             {
                 MessageBox.Show("没有搜索到对应的二级图片", "警告");
@@ -160,34 +161,6 @@ namespace RemoteImaging.Query
                 };
                 this.secPicListView.Items.Add(item);
             }
-
-            string filePath = this.bestPicListView.FocusedItem.Tag as string;
-
-            //show modify icon
-            if (File.Exists(filePath))
-            {
-                this.pictureBox1.Image = Image.FromFile(filePath);
-            }
-            //
-
-            //detail infomation
-            int cameraID = int.Parse(this.bestPicListView.FocusedItem.Text.Substring(0, 2));
-            foreach (Camera camera in Configuration.Instance.Cameras)
-            {
-                if (camera.ID == cameraID)
-                {
-                    this.gotPlaceTxt.Text = camera.Name;
-                    break;
-                }
-            }
-
-            string focusedFileName = this.bestPicListView.FocusedItem.Text;
-            this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
-                                   focusedFileName.Substring(5, 2) + "月" + //month
-                                   focusedFileName.Substring(7, 2) + "日" + //day
-                                   focusedFileName.Substring(9, 2) + "时" + //hour
-                                   focusedFileName.Substring(11, 2) + "分" + //minute
-                                   focusedFileName.Substring(13, 2) + "妙";//second
         }
 
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
