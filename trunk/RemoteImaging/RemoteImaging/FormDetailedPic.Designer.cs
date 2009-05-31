@@ -82,6 +82,7 @@
             this.ClientSize = new System.Drawing.Size(407, 330);
             this.Controls.Add(this.pictureEdit1);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "FormDetailedPic";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
