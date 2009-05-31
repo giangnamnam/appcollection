@@ -81,21 +81,24 @@ namespace RemoteImaging.Query
             this.bestPicListView.View = View.LargeIcon;
             this.bestPicListView.LargeImageList = imageList1;
 
-            for (int i = 0; i < files.Length; i++)
+            for (int i = 0; i < files.Length; ++i)
             {
                 this.imageList1.Images.Add(Image.FromFile(files[i]));
-                this.bestPicListView.Items.Add(System.IO.Path.GetFileName(files[i]), i);
+                string text = System.IO.Path.GetFileName(files[i]);
+                ListViewItem item = new ListViewItem()
+                {
+                    Tag = files[i],
+                    Text = text,
+                    ImageIndex = i
+                };
+                this.bestPicListView.Items.Add(item);
             }
 
         }
 
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
-            string filePath = RemoteImaging.Query.ImageDirSys.BeginDir + "\\" +
-                              this.bestPicListView.FocusedItem.Text.Substring(0, 2) + "\\" +
-                              (2000 + int.Parse(this.bestPicListView.FocusedItem.Text.Substring(3, 2))).ToString() + "\\" +
-                              this.bestPicListView.FocusedItem.Text.Substring(5, 2) + "\\" +
-                              this.bestPicListView.FocusedItem.Text.Substring(7, 2) + "\\" + Query.ImageDirSys.IconPath + "\\" + this.bestPicListView.FocusedItem.Text;
+            string filePath = this.bestPicListView.FocusedItem.Tag as string;
 
             //show modify icon
             if (File.Exists(filePath))
@@ -148,14 +151,17 @@ namespace RemoteImaging.Query
             for (int i = 0; i < files.Length; i++)
             {
                 this.imageList2.Images.Add(Image.FromFile(files[i]));
-                this.secPicListView.Items.Add(System.IO.Path.GetFileNameWithoutExtension(files[i]), i);
+                string text = System.IO.Path.GetFileName(files[i]);
+                ListViewItem item = new ListViewItem()
+                {
+                    Tag = files[i],
+                    Text = text,
+                    ImageIndex = i
+                };
+                this.secPicListView.Items.Add(item);
             }
 
-            string filePath = RemoteImaging.Query.ImageDirSys.BeginDir + "\\" +
-                              this.bestPicListView.FocusedItem.Text.Substring(0, 2) + "\\" +
-                              (2000 + int.Parse(this.bestPicListView.FocusedItem.Text.Substring(3, 2))).ToString() + "\\" +
-                              this.bestPicListView.FocusedItem.Text.Substring(5, 2) + "\\" +
-                              this.bestPicListView.FocusedItem.Text.Substring(7, 2) + "\\" + Query.ImageDirSys.IconPath + "\\" + this.bestPicListView.FocusedItem.Text;
+            string filePath = this.bestPicListView.FocusedItem.Tag as string;
 
             //show modify icon
             if (File.Exists(filePath))
@@ -186,11 +192,7 @@ namespace RemoteImaging.Query
 
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
         {
-            string filePath = RemoteImaging.Query.ImageDirSys.BeginDir + "\\" +
-                              this.secPicListView.FocusedItem.Text.Substring(0, 2) + "\\" +
-                              (2000 + int.Parse(this.secPicListView.FocusedItem.Text.Substring(3, 2))).ToString() + "\\" +
-                              this.secPicListView.FocusedItem.Text.Substring(5, 2) + "\\" +
-                              this.secPicListView.FocusedItem.Text.Substring(7, 2) + "\\" + Query.ImageDirSys.BeginDir + "\\" + this.secPicListView.FocusedItem.Text;
+            string filePath = this.secPicListView.FocusedItem.Tag as string;
 
             if (File.Exists(filePath))
             {
@@ -208,6 +210,13 @@ namespace RemoteImaging.Query
 
 
             this.Close();
+        }
+
+        private void secPicListView_DoubleClick(object sender, EventArgs e)
+        {
+            FormDetailedPic detail = new FormDetailedPic();
+            detail.Img = RemoteImaging.RealtimeDisplay.ImageDetail.FromPath(this.secPicListView.FocusedItem.Tag as string);
+            detail.Show(this);
         }
     }
 }

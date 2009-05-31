@@ -168,6 +168,7 @@
             // 
             // secPicListView
             // 
+            this.secPicListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.secPicListView.AutoArrange = false;
             this.secPicListView.HideSelection = false;
             this.secPicListView.Location = new System.Drawing.Point(427, 364);
@@ -177,6 +178,7 @@
             this.secPicListView.TabIndex = 13;
             this.secPicListView.UseCompatibleStateImageBehavior = false;
             this.secPicListView.ItemActivate += new System.EventHandler(this.secPicListView_ItemActive);
+            this.secPicListView.DoubleClick += new System.EventHandler(this.secPicListView_DoubleClick);
             // 
             // groupBox2
             // 
