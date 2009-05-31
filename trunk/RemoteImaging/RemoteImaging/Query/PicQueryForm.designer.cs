@@ -169,12 +169,15 @@
             // secPicListView
             // 
             this.secPicListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.secPicListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.secPicListView.AutoArrange = false;
             this.secPicListView.HideSelection = false;
             this.secPicListView.Location = new System.Drawing.Point(427, 364);
             this.secPicListView.MultiSelect = false;
             this.secPicListView.Name = "secPicListView";
-            this.secPicListView.Size = new System.Drawing.Size(713, 191);
+            this.secPicListView.Size = new System.Drawing.Size(713, 212);
             this.secPicListView.TabIndex = 13;
             this.secPicListView.UseCompatibleStateImageBehavior = false;
             this.secPicListView.ItemActivate += new System.EventHandler(this.secPicListView_ItemActive);
@@ -203,6 +206,9 @@
             // bestPicListView
             // 
             this.bestPicListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.bestPicListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.bestPicListView.AutoArrange = false;
             this.bestPicListView.HideSelection = false;
             this.bestPicListView.Location = new System.Drawing.Point(427, 97);
@@ -217,9 +223,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 83);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 96);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(403, 382);
+            this.pictureBox1.Size = new System.Drawing.Size(403, 390);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
@@ -260,7 +266,7 @@
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Location = new System.Drawing.Point(12, 87);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(409, 468);
+            this.groupBox4.Size = new System.Drawing.Size(409, 489);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "放大显示";
@@ -315,7 +321,9 @@
             this.Controls.Add(this.bestPicListView);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
             this.Name = "PicQueryForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "搜索图片";
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
