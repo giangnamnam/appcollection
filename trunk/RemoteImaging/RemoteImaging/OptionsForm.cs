@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Collections.ObjectModel;
 
 namespace RemoteImaging
 {
@@ -33,15 +28,12 @@ namespace RemoteImaging
 
         private void InitCamList()
         {
-            XDocument camXMLDoc = XDocument.Load(Properties.Settings.Default.CamConfigFile);
-            var camsElements = camXMLDoc.Root.Descendants("cam");
+            Configuration config = Configuration.Instance;
 
             camList.Clear();
-            foreach (XElement camElement in camsElements)
+            foreach (var cam in config.Cameras)
             {
-                int id = int.Parse((string)camElement.Attribute("id"));
-                camList.Add(
-                    new Camera() { ID = id, IpAddress = camElement.Attribute("ip").Value, Name = camElement.Attribute("name").Value });
+                camList.Add(cam);
             }
         }
         private void browseForUploadFolder_Click(object sender, EventArgs e)
@@ -100,12 +92,6 @@ namespace RemoteImaging
         {
             Properties.Settings.Default.Reload();
         }
-
-        private void SaveCamConfig()
-        {
-
-        }
-
 
         private void linkLabelConfigCamera_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

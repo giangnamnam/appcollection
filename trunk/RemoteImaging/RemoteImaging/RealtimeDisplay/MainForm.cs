@@ -131,6 +131,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Image img = Image.FromFile(value.Path);
                 this.pictureEdit1.Image = img;
+                this.pictureEdit1.Tag = value;
             }
         }
 
@@ -511,6 +512,32 @@ namespace RemoteImaging.RealtimeDisplay
         private string getAvailableRAM()
         {
             return String.Format("{0}MB", ramCounter.NextValue());
+        }
+
+        private void ShowDetailPic(ImageDetail img)
+        {
+            FormDetailedPic detail = new FormDetailedPic();
+            detail.Img = img;
+            detail.Show(this);
+        }
+
+        private void pictureEdit1_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.pictureEdit1.Tag == null)
+            {
+                return;
+            }
+
+            ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
+
+            ShowDetailPic(img);
+
+        }
+
+        private void squareListView1_CellDoubleClick(object sender, CellDoubleClickEventArgs args)
+        {
+            this.ShowDetailPic(ImageDetail.FromPath(args.Cell.Path));
+
         }
 
     }

@@ -158,7 +158,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             ImageDetail[] imgsToProcess = args.Images;
 
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
 
             ImageClassifier.ClassifyImages(imgsToProcess);
 

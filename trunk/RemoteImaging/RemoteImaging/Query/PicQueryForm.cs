@@ -15,7 +15,7 @@ namespace RemoteImaging.Query
         public PicQueryForm()
         {
             InitializeComponent();
-            foreach(Camera camera in Configuration.Instance.Cameras)
+            foreach (Camera camera in Configuration.Instance.Cameras)
             {
                 this.comboBox1.Items.Add(camera.ID.ToString());
             }
@@ -36,18 +36,18 @@ namespace RemoteImaging.Query
             }
             string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
 
-            
+
             //judge the input validation
             DateTime date1 = this.dateTimePicker1.Value;
             DateTime date2 = this.dateTimePicker2.Value;
             DateTime time1 = this.timeEdit1.Time;
-            DateTime time2 = this.timeEdit2.Time;             
+            DateTime time2 = this.timeEdit2.Time;
 
-            DateTime dateTime1 = new DateTime(date1.Year,date1.Month,date1.Day,time1.Hour,time1.Minute,time1.Second);
-            DateTime dateTime2 = new DateTime(date2.Year,date2.Month,date2.Day,time2.Hour,time2.Minute,time2.Second);
+            DateTime dateTime1 = new DateTime(date1.Year, date1.Month, date1.Day, time1.Hour, time1.Minute, time1.Second);
+            DateTime dateTime2 = new DateTime(date2.Year, date2.Month, date2.Day, time2.Hour, time2.Minute, time2.Second);
             if (dateTime1 >= dateTime2)
             {
-                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！","警告");
+                MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
                 return;
             }
             /////
@@ -72,7 +72,7 @@ namespace RemoteImaging.Query
             string[] files = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
             if (files == null)
             {
-                MessageBox.Show("没有搜索到满足条件的图片！","警告");
+                MessageBox.Show("没有搜索到满足条件的图片！", "警告");
                 return;
             }
 
@@ -88,7 +88,7 @@ namespace RemoteImaging.Query
             }
 
         }
-        
+
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
             string filePath = RemoteImaging.Query.ImageDirSys.BeginDir + "\\" +
@@ -111,11 +111,10 @@ namespace RemoteImaging.Query
                 if (camera.ID == cameraID)
                 {
                     this.gotPlaceTxt.Text = camera.Name;
-                    this.cameraIPTxt.Text = camera.IpAddress;
                     break;
                 }
-            } 
-            
+            }
+
             string focusedFileName = this.bestPicListView.FocusedItem.Text;
             this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
                                    focusedFileName.Substring(5, 2) + "月" + //month
@@ -126,7 +125,7 @@ namespace RemoteImaging.Query
 
             //
         }
-        
+
         private void bestPicListView_DoubleClick(object sender, System.EventArgs e)
         {
             this.secPicListView.Clear();
@@ -166,13 +165,12 @@ namespace RemoteImaging.Query
             //
 
             //detail infomation
-            int cameraID = int.Parse(this.bestPicListView.FocusedItem.Text.Substring(0,2));
+            int cameraID = int.Parse(this.bestPicListView.FocusedItem.Text.Substring(0, 2));
             foreach (Camera camera in Configuration.Instance.Cameras)
             {
                 if (camera.ID == cameraID)
                 {
                     this.gotPlaceTxt.Text = camera.Name;
-                    this.cameraIPTxt.Text = camera.IpAddress;
                     break;
                 }
             }

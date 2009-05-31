@@ -50,8 +50,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cameraIPTxt = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.gotTimeTxt = new System.Windows.Forms.TextBox();
             this.gotPlaceTxt = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -129,7 +127,7 @@
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 20);
+            this.timeEdit1.Size = new System.Drawing.Size(96, 22);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
@@ -139,7 +137,7 @@
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 20);
+            this.timeEdit2.Size = new System.Drawing.Size(96, 22);
             this.timeEdit2.TabIndex = 8;
             // 
             // groupBox1
@@ -162,7 +160,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(424, 404);
+            this.label5.Location = new System.Drawing.Point(424, 345);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 15;
@@ -172,17 +170,17 @@
             // 
             this.secPicListView.AutoArrange = false;
             this.secPicListView.HideSelection = false;
-            this.secPicListView.Location = new System.Drawing.Point(427, 420);
+            this.secPicListView.Location = new System.Drawing.Point(427, 364);
             this.secPicListView.MultiSelect = false;
             this.secPicListView.Name = "secPicListView";
-            this.secPicListView.Size = new System.Drawing.Size(713, 135);
+            this.secPicListView.Size = new System.Drawing.Size(713, 191);
             this.secPicListView.TabIndex = 13;
             this.secPicListView.UseCompatibleStateImageBehavior = false;
             this.secPicListView.ItemActivate += new System.EventHandler(this.secPicListView_ItemActive);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(485, 404);
+            this.groupBox2.Location = new System.Drawing.Point(485, 345);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(655, 10);
             this.groupBox2.TabIndex = 14;
@@ -209,7 +207,7 @@
             this.bestPicListView.MultiSelect = false;
             this.bestPicListView.Name = "bestPicListView";
             this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(713, 301);
+            this.bestPicListView.Size = new System.Drawing.Size(713, 242);
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
@@ -218,9 +216,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 118);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 83);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(403, 347);
+            this.pictureBox1.Size = new System.Drawing.Size(403, 382);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
@@ -254,8 +252,6 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.cameraIPTxt);
-            this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.gotTimeTxt);
             this.groupBox4.Controls.Add(this.gotPlaceTxt);
             this.groupBox4.Controls.Add(this.label7);
@@ -267,23 +263,6 @@
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "放大显示";
-            // 
-            // cameraIPTxt
-            // 
-            this.cameraIPTxt.Location = new System.Drawing.Point(98, 88);
-            this.cameraIPTxt.Name = "cameraIPTxt";
-            this.cameraIPTxt.ReadOnly = true;
-            this.cameraIPTxt.Size = new System.Drawing.Size(293, 20);
-            this.cameraIPTxt.TabIndex = 22;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(25, 89);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "摄像机IP：";
             // 
             // gotTimeTxt
             // 
@@ -377,7 +356,5 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox gotTimeTxt;
-        private System.Windows.Forms.TextBox cameraIPTxt;
-        private System.Windows.Forms.Label label8;
     }
 }
