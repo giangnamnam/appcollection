@@ -536,6 +536,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void squareListView1_CellDoubleClick(object sender, CellDoubleClickEventArgs args)
         {
+            if (args.Cell.Path == null)
+            {
+                return;
+            }
             this.ShowDetailPic(ImageDetail.FromPath(args.Cell.Path));
 
         }
