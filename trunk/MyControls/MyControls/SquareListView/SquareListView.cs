@@ -5,6 +5,8 @@ using System.Windows.Forms;
 
 namespace MyControls
 {
+    public delegate void CellDoubleClickHandler(object sender, CellDoubleClickEventArgs args);
+
     public partial class SquareListView : UserControl
     {
         public SquareListView()
@@ -29,9 +31,23 @@ namespace MyControls
             this.CalcLayout();
 
             this.Resize += SquareListView_Resize;
+            this.MouseDoubleClick += new MouseEventHandler(SquareListView_MouseDoubleClick);
         }
 
-        
+        void SquareListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Cell c = this.CellFromPoint(e.Location);
+
+            if (c == null)
+            {
+                return;
+            }
+
+            this.FireCellDoubleClick(c);
+
+        }
+
+
 
 
         private void FireSelectedCellChanged()
@@ -41,6 +57,23 @@ namespace MyControls
                 SelectedCellChanged(this, EventArgs.Empty);
             }
         }
+
+        private void FireCellDoubleClick(Cell c)
+        {
+            if (CellDoubleClick != null)
+            {
+                CellDoubleClickEventArgs arg = new CellDoubleClickEventArgs();
+                arg.Cell = new ImageCell()
+                {
+                    Image = c.Image,
+                    Path = c.Path,
+                    Text = c.Text,
+                };
+
+                CellDoubleClick(this, arg);
+            }
+        }
+
 
 
 
@@ -95,7 +128,7 @@ namespace MyControls
         }
 
 
-        
+
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             e.Graphics.Clear(this.BackColor);
@@ -237,6 +270,7 @@ namespace MyControls
 
 
         public event EventHandler SelectedCellChanged;
+        public event CellDoubleClickHandler CellDoubleClick;
 
 
         int cursor = 0;
