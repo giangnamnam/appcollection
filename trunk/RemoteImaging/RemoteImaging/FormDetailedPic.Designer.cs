@@ -87,6 +87,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "图片详细信息";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDetailedPic_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

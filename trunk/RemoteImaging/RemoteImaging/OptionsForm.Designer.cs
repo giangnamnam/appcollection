@@ -97,6 +97,9 @@
             this.rightExtRatio = new System.Windows.Forms.TextBox();
             this.leftExtRatio = new System.Windows.Forms.TextBox();
             this.VideoDnExePath = new System.Windows.Forms.TextBox();
+            this.envModes = new DevExpress.XtraEditors.RadioGroup();
+            this.label26 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -107,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -159,7 +163,7 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 77);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(494, 311);
+            this.tabControl1.Size = new System.Drawing.Size(494, 339);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -291,6 +295,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label26);
+            this.tabPage3.Controls.Add(this.groupBox6);
+            this.tabPage3.Controls.Add(this.envModes);
             this.tabPage3.Controls.Add(this.label20);
             this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.label22);
@@ -320,7 +327,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(486, 285);
+            this.tabPage3.Size = new System.Drawing.Size(486, 313);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -328,7 +335,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(368, 216);
+            this.label20.Location = new System.Drawing.Point(368, 195);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(31, 13);
             this.label20.TabIndex = 25;
@@ -337,7 +344,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(261, 216);
+            this.label21.Location = new System.Drawing.Point(261, 195);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(31, 13);
             this.label21.TabIndex = 23;
@@ -346,7 +353,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(148, 216);
+            this.label22.Location = new System.Drawing.Point(148, 195);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(31, 13);
             this.label22.TabIndex = 21;
@@ -355,7 +362,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(51, 216);
+            this.label23.Location = new System.Drawing.Point(51, 195);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(31, 13);
             this.label23.TabIndex = 19;
@@ -364,7 +371,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(21, 189);
+            this.label24.Location = new System.Drawing.Point(21, 168);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(79, 13);
             this.label24.TabIndex = 18;
@@ -372,7 +379,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Location = new System.Drawing.Point(93, 194);
+            this.groupBox5.Location = new System.Drawing.Point(93, 173);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(380, 2);
             this.groupBox5.TabIndex = 17;
@@ -381,7 +388,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(238, 136);
+            this.label19.Location = new System.Drawing.Point(238, 127);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(67, 13);
             this.label19.TabIndex = 15;
@@ -390,7 +397,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(67, 136);
+            this.label18.Location = new System.Drawing.Point(67, 127);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(67, 13);
             this.label18.TabIndex = 13;
@@ -399,7 +406,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(21, 109);
+            this.label11.Location = new System.Drawing.Point(21, 100);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(109, 13);
             this.label11.TabIndex = 11;
@@ -407,7 +414,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(93, 114);
+            this.groupBox2.Location = new System.Drawing.Point(93, 105);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(380, 2);
             this.groupBox2.TabIndex = 10;
@@ -529,7 +536,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(343, 394);
+            this.buttonOK.Location = new System.Drawing.Point(344, 431);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 2;
@@ -541,7 +548,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(424, 394);
+            this.buttonCancel.Location = new System.Drawing.Point(425, 431);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -668,7 +675,7 @@
             // textBox11
             // 
             this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox11.Location = new System.Drawing.Point(400, 213);
+            this.textBox11.Location = new System.Drawing.Point(400, 192);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(51, 20);
             this.textBox11.TabIndex = 24;
@@ -677,7 +684,7 @@
             // textBox12
             // 
             this.textBox12.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox12.Location = new System.Drawing.Point(294, 213);
+            this.textBox12.Location = new System.Drawing.Point(294, 192);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(51, 20);
             this.textBox12.TabIndex = 22;
@@ -686,7 +693,7 @@
             // textBox13
             // 
             this.textBox13.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionTop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox13.Location = new System.Drawing.Point(180, 213);
+            this.textBox13.Location = new System.Drawing.Point(180, 192);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(51, 20);
             this.textBox13.TabIndex = 20;
@@ -695,7 +702,7 @@
             // textBox14
             // 
             this.textBox14.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "SrchRegionLeft", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox14.Location = new System.Drawing.Point(83, 213);
+            this.textBox14.Location = new System.Drawing.Point(83, 192);
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(51, 20);
             this.textBox14.TabIndex = 16;
@@ -704,7 +711,7 @@
             // maxFaceWidth
             // 
             this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.maxFaceWidth.Location = new System.Drawing.Point(308, 133);
+            this.maxFaceWidth.Location = new System.Drawing.Point(308, 124);
             this.maxFaceWidth.Name = "maxFaceWidth";
             this.maxFaceWidth.Size = new System.Drawing.Size(51, 20);
             this.maxFaceWidth.TabIndex = 14;
@@ -713,7 +720,7 @@
             // minFaceWidth
             // 
             this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.minFaceWidth.Location = new System.Drawing.Point(137, 133);
+            this.minFaceWidth.Location = new System.Drawing.Point(137, 124);
             this.minFaceWidth.Name = "minFaceWidth";
             this.minFaceWidth.Size = new System.Drawing.Size(51, 20);
             this.minFaceWidth.TabIndex = 12;
@@ -764,12 +771,43 @@
             this.VideoDnExePath.TabIndex = 10;
             this.VideoDnExePath.Text = global::RemoteImaging.Properties.Settings.Default.VideoDnTool;
             // 
+            // envModes
+            // 
+            this.envModes.Location = new System.Drawing.Point(78, 261);
+            this.envModes.Name = "envModes";
+            this.envModes.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.envModes.Properties.Appearance.Options.UseBackColor = true;
+            this.envModes.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.envModes.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "顺光"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "逆光"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "强逆光")});
+            this.envModes.Size = new System.Drawing.Size(319, 28);
+            this.envModes.TabIndex = 26;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(21, 237);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(55, 13);
+            this.label26.TabIndex = 28;
+            this.label26.Text = "环境模式";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Location = new System.Drawing.Point(93, 242);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(380, 2);
+            this.groupBox6.TabIndex = 27;
+            this.groupBox6.TabStop = false;
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(504, 429);
+            this.ClientSize = new System.Drawing.Size(504, 457);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.tabControl1);
@@ -796,6 +834,7 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -870,5 +909,8 @@
         private System.Windows.Forms.Button browseForFTPConsole;
         private System.Windows.Forms.TextBox ftpExePath;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private DevExpress.XtraEditors.RadioGroup envModes;
     }
 }

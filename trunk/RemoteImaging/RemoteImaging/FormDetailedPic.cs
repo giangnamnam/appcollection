@@ -25,5 +25,10 @@ namespace RemoteImaging
                 this.captureTime.Text = value.CaptureTime.ToString();
             }
         }
+
+        private void FormDetailedPic_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.pictureEdit1.Dispose();
+        }
     }
 }

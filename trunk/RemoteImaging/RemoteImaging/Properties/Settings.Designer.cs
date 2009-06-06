@@ -262,5 +262,17 @@ namespace RemoteImaging.Properties {
                 this["SrchRegionHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int EnvMode {
+            get {
+                return ((int)(this["EnvMode"]));
+            }
+            set {
+                this["EnvMode"] = value;
+            }
+        }
     }
 }

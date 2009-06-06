@@ -46,7 +46,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             float ratio = (float)maxFaceWidth / minFaceWidth;
 
-            SetupExtractor(
+            SetupExtractor(setting.EnvMode,
                 left,
                 right,
                 top,
@@ -261,7 +261,7 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
         }
 
-        private static void SetupExtractor(float leftRatio,
+        private static void SetupExtractor(int envMode, float leftRatio,
             float rightRatio,
             float topRatio,
             float bottomRatio,
@@ -280,6 +280,8 @@ namespace RemoteImaging.RealtimeDisplay
                 SearchRectangle.Height - 1);
 
             IconExtractor.Default.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+
+            IconExtractor.Default.SetLightMode(envMode);
         }
 
 
@@ -365,7 +367,7 @@ namespace RemoteImaging.RealtimeDisplay
                     var minFaceWidth = int.Parse(setting.MinFaceWidth);
                     float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                    SetupExtractor(
+                    SetupExtractor(setting.EnvMode,
                         float.Parse(setting.IconLeftExtRatio),
                         float.Parse(setting.IconRightExtRatio),
                         float.Parse(setting.IconTopExtRatio),

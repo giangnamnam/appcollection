@@ -90,7 +90,17 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void SetROI(int x, int y, int width, int height)
         {
-            
+
+        }
+
+        #endregion
+
+        #region IIconExtractor Members
+
+
+        public void SetLightMode(int iMode)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

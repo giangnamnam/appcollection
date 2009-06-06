@@ -12,6 +12,8 @@ namespace RemoteImaging
         {
             InitializeComponent();
             InitCamDatagridView();
+
+            this.envModes.SelectedIndex = Properties.Settings.Default.EnvMode;
         }
 
         private void InitCamDatagridView()
@@ -127,7 +129,7 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-
+            Properties.Settings.Default.EnvMode = this.envModes.SelectedIndex;
         }
     }
 }
