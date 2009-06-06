@@ -25,7 +25,7 @@ namespace Yaguang.VJK3G.GUI
 
         private void UpdateControlState()
         {
-            this.buttonCalibrate.Enabled = Instrument.NetworkAnalyzer.Default.WorkerStream != null;
+            this.buttonCalibrateTxChaSun.Enabled = Instrument.NetworkAnalyzer.Default.WorkerStream != null;
         }
 
         private bool _propertyChanged = false;
@@ -71,18 +71,19 @@ namespace Yaguang.VJK3G.GUI
 
 
 
-        private void buttonCalc_Click(object sender, EventArgs e)
+        private void buttonCalcTxChaSun_Click(object sender, EventArgs e)
         {
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-
                 Helper.SetupMarks();
-
-                Helper.CalibrateZhaSunGeLiDu(null);
-
-                //System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(delegate(object o){MessageBox.Show("abc");}));
-
+                Test.TestItemBase item;
+                item = Test.TestItemFactory.CreateTestItem(Yaguang.VJK3G.Test.TestItemType.TxChaSun, false);
+                item.Setup();
+                item.Run();
+                Settings.Default.STDTXChaSun1 = item.OriginalValues[0];
+                Settings.Default.STDTXChaSun2 = item.OriginalValues[1];
+                Settings.Default.STDTXChaSun3 = item.OriginalValues[2];
             }
             finally
             {
@@ -113,8 +114,6 @@ namespace Yaguang.VJK3G.GUI
             this.labelAVGPIBAddr.Visible = show;
             this.textBoxAVGPIBAddr.Visible = show;
 
-            this.labelOSCGPIBAddr.Visible = show;
-            this.textBoxOSCGPIBAddr.Visible = show;
 
             this.labelSCAddr.Visible = show;
             this.numericUpDownSCAddr.Visible = show;
@@ -153,14 +152,71 @@ namespace Yaguang.VJK3G.GUI
                     textBoxPowerResist.Enabled = true;
                     textBoxTxGeLiDuThresh.Enabled = true;
                     textBoxSTDRxGeLiDU.Enabled = true;
-                    textBoxZhuBoThresh.Enabled = true;
-                    textBoxSwitchSpeedThresh.Enabled = true;
                 }
                 else
                 {
                     MessageBox.Show("√‹¬ÎŒﬁ–ß", "¥ÌŒÛ", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
+        }
+
+        private void checkBoxSysPowerCalib_CheckedChanged(object sender, EventArgs e)
+        {
+            SwitchSetting ctrlCode = this.checkBoxSysPowerCalib.Checked ?
+                SwitchSetting.SysPowerCalib : SwitchSetting.Start;
+
+            SwitchController.Default.CurrentSwitch = ctrlCode;
+        }
+
+        private void buttonCalTxPower_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                Helper.SetupMarks();
+                Test.TestItemBase item;
+                item = Test.TestItemFactory.CreateTestItem(Yaguang.VJK3G.Test.TestItemType.TxPower, false);
+                item.Setup();
+                item.Run();
+                Settings.Default.STDTXNaiGongLu = item.OriginalValues[0];
+            }
+            finally
+            {
+                SwitchController.Default.CurrentSwitch = SwitchSetting.Start;
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void buttonCalRxChaSun_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                Helper.SetupMarks();
+                Test.TestItemBase item;
+                item = Test.TestItemFactory.CreateTestItem(Yaguang.VJK3G.Test.TestItemType.RxChaSun, false);
+                item.Setup();
+                item.Run();
+                Settings.Default.STDRXChaSun1 = item.OriginalValues[0];
+                Settings.Default.STDRXChaSun2 = item.OriginalValues[1];
+                Settings.Default.STDRXChaSun3 = item.OriginalValues[2];
+
+            }
+            finally
+            {
+                SwitchController.Default.CurrentSwitch = SwitchSetting.Start;
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void textBoxTxGeLiDuThresh_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxSTDRxGeLiDU_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

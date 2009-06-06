@@ -16,14 +16,8 @@ namespace Yaguang.VJK3G.GUI
         public FormTestTool()
         {
             InitializeComponent();
-            UpdateControlsState();
         }
 
-        private void UpdateControlsState()
-        {
-            this.checkBoxOsc.Checked = Oscillograph.Default.WorkerStream != null;
-            this.checkBoxOsc.Enabled = Oscillograph.Default.WorkerStream != null;
-        }
 
 
         private void radioButtonRXChaSun_CheckedChanged(object sender, EventArgs e)
@@ -57,16 +51,6 @@ namespace Yaguang.VJK3G.GUI
 
 
 
-        private void radioButtonSwitchSpeed_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((sender as RadioButton).Checked)
-            {
-                SwitchController.Default.WriteControlCode(0);
-                SwitchController.Default.CurrentSwitch = SwitchSetting.SwitchSpeed;
-            }
-
-        }
-
         private void buttonSendControlCode_Click(object sender, EventArgs e)
         {
             if (this.comboBoxCtrlCodeHistory.Text == "")
@@ -89,39 +73,10 @@ namespace Yaguang.VJK3G.GUI
 
         }
 
-        private void buttonSetPWM_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.comboBoxMValue.Text)
-                || string.IsNullOrEmpty(this.comboBoxNValue.Text))
-            {
-                return;
-            }
-
-            string textN = this.comboBoxNValue.Text;
-            string textM = this.comboBoxMValue.Text;
-
-            int N = int.Parse(textN);
-            int M = int.Parse(textM);
-
-            SwitchController.Default.PWMPeriod = N;
-            SwitchController.Default.PWMLowTTL = M;
-
-            if (!this.comboBoxNValue.Items.Contains(textN))
-            {
-                this.comboBoxNValue.Items.Add(textN);
-            }
-
-            if (!this.comboBoxMValue.Items.Contains(textM))
-            {
-                this.comboBoxMValue.Items.Add(textM);
-            }
-
-        }
 
         private void ReadData()
         {
             string RetTextFromAV = null;
-            string RetTextFromOsc = null;
             string RetText = "";
 
             if (this.checkBoxAV.Checked)
@@ -130,11 +85,6 @@ namespace Yaguang.VJK3G.GUI
                 RetTextFromAV = RetTextFromAV.Insert(0, "AV Returns: \n");
             }
 
-            if (this.checkBoxOsc.Checked)
-            {
-                RetTextFromOsc = Oscillograph.Default.ReadString();
-                RetTextFromOsc = RetTextFromOsc.Insert(0, "OSC Returns: \n");
-            }
 
             if (RetTextFromAV != null)
             {
@@ -142,10 +92,6 @@ namespace Yaguang.VJK3G.GUI
 
             }
 
-            if (RetTextFromOsc != null)
-            {
-                RetText += "\nOSC Returns: \n" + RetTextFromOsc;
-            }
 
             this.textBoxReceive.Text = RetText;
 
@@ -171,19 +117,6 @@ namespace Yaguang.VJK3G.GUI
                 else
                 {
                     NetworkAnalyzer.Default.ExecuteCommand(text);
-                }
-            }
-
-            if (this.checkBoxOsc.Checked)
-            {
-
-                if (IsQuery)
-                {
-                    RetTextFromOsc = Oscillograph.Default.Query(text);
-                }
-                else
-                {
-                    Oscillograph.Default.ExecuteCommand(text);
                 }
             }
 
@@ -218,7 +151,7 @@ namespace Yaguang.VJK3G.GUI
             {
                 SwitchController.Default.CurrentSwitch = SwitchSetting.Start;
             }
-            
+
 
         }
 
@@ -231,23 +164,6 @@ namespace Yaguang.VJK3G.GUI
 
         }
 
-        private void radioButtonTXGeLiDu_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.radioButtonTXGeLiDu.Checked)
-            {
-                SwitchController.Default.CurrentSwitch = SwitchSetting.TXGeLiDu;
-            }
-
-        }
-
-        private void radioButtonRXPowerResist_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.radioButtonRXPowerResist.Checked)
-            {
-                SwitchController.Default.CurrentSwitch = SwitchSetting.RXPowerResist;
-            }
-
-        }
 
         private void radioButtonTXPowerResist_CheckedChanged(object sender, EventArgs e)
         {

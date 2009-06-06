@@ -113,9 +113,14 @@ namespace Yaguang.VJK3G
             float f;
             for (int i = 0; i < values.Count; i++)
             {
-                f = float.Parse(values[i]) -
-                    float.Parse((string)Settings.Default[baseName + (i + 1).ToString()]);
+                float v = float.Parse(values[i]);
+                string stdvalueName = (string)Settings.Default[baseName + (i + 1).ToString()];
+                float std = float.Parse(stdvalueName);
+                f = v - std;
                 values[i] = f.ToString(Helper.FloatFormat);
+
+                string txt = string.Format("calibrate: {0} - {1} = {2}", v, std, f);
+                System.Diagnostics.Debug.WriteLine(txt);
             }
 
             return values;
@@ -192,36 +197,30 @@ namespace Yaguang.VJK3G
 
         }
 
-        public static void CalibrateZhaSunGeLiDu(object state)
+        public static void Calibrate(object state)
         {
             IList<string> marks = null;
+            Test.TestItemBase item = null;
 
-            //             marks = TestItemOnAV(SwitchSetting.RXChaSunZhuBo, Settings.Default.chOfRxChaSun);
-            //             Settings.Default.STDRXChaSun1 = marks[0];
-            //             Settings.Default.STDRXChaSun2 = marks[1];
-            //             Settings.Default.STDRXChaSun3 = marks[2];
-            // 
-            //             marks = TestItemOnAV(SwitchSetting.RXGeLiDu, Settings.Default.chOfRxGeLiDu);
-            //             Settings.Default.STDRXGeLiDu1 = marks[0];
-            //             Settings.Default.STDRXGeLiDu2 = marks[1];
-            //             Settings.Default.STDRXGeLiDu3 = marks[2];
-
-            marks = TestItemOnAV(SwitchSetting.TXChaSunZhuBo, Settings.Default.chOfTxChaSun);
-            Settings.Default.STDTXChaSun1 = marks[0];
-            Settings.Default.STDTXChaSun2 = marks[1];
-            Settings.Default.STDTXChaSun3 = marks[2];
+            item = Test.TestItemFactory.CreateTestItem(Yaguang.VJK3G.Test.TestItemType.TxChaSun, false);
+            item.Setup();
+            item.Run();
+            Settings.Default.STDTXChaSun1 = item.OriginalValues[0];
+            Settings.Default.STDTXChaSun2 = item.OriginalValues[1];
+            Settings.Default.STDTXChaSun3 = item.OriginalValues[2];
 
 
-//             marks = TestItemOnAV(SwitchSetting.TXPowerResist, Settings.Default.chOfTxNaiGongLu);
-//             Settings.Default.STDTXNaiGongLu = marks[1];
-// 
-//             marks = TestItemOnAV(SwitchSetting.RXPowerResist, Settings.Default.chOfRxNaiGongLu);
-//             Settings.Default.STDRXNaiGongLu = marks[1];
+            item = Test.TestItemFactory.CreateTestItem(Yaguang.VJK3G.Test.TestItemType.RxChaSun, false);
+            item.Setup();
+            item.Run();
+            Settings.Default.STDRXChaSun1 = item.OriginalValues[0];
+            Settings.Default.STDRXChaSun2 = item.OriginalValues[1];
+            Settings.Default.STDRXChaSun3 = item.OriginalValues[2];
 
-            //             marks = TestItemOnAV(SwitchSetting.TXGeLiDu, Settings.Default.chOfTxGeLiDu);
-            //             Settings.Default.STDTXGeLiDu1 = marks[0];
-            //             Settings.Default.STDTXGeLiDu2 = marks[1];
-            //             Settings.Default.STDTXGeLiDu3 = marks[2];
+            item = Test.TestItemFactory.CreateTestItem(Yaguang.VJK3G.Test.TestItemType.TxPower, false);
+            item.Setup();
+            item.Run();
+            Settings.Default.STDTXNaiGongLu = item.OriginalValues[0];
 
         }
 
@@ -237,9 +236,12 @@ namespace Yaguang.VJK3G
         {
             NetworkAnalyzer.Default.ClearMarks();
 
-            NetworkAnalyzer.Default.SetMark("1", Settings.Default.FreqMark1.ToString(), FrequencyUnit.GHz);
-            NetworkAnalyzer.Default.SetMark("2", Settings.Default.FreqMark2.ToString(), FrequencyUnit.GHz);
-            NetworkAnalyzer.Default.SetMark("3", Settings.Default.FreqMark3.ToString(), FrequencyUnit.GHz);
+            NetworkAnalyzer.Default.SetMark("1", Settings.Default.FreqMark1, FrequencyUnit.GHz);
+            NetworkAnalyzer.Default.SetMark("2", Settings.Default.FreqMark2, FrequencyUnit.GHz);
+            NetworkAnalyzer.Default.SetMark("3", Settings.Default.FreqMark3, FrequencyUnit.GHz);
+
+            //tx耐功率, 2G固定频率
+            NetworkAnalyzer.Default.SetOrphanMark("4", Settings.Default.TxPowerFreq, FrequencyUnit.GHz);
         }
     }
 }

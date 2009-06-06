@@ -36,11 +36,18 @@ namespace Yaguang.VJK3G.GUI
             this.tabPageAV = new System.Windows.Forms.TabPage();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.buttonCalTxPower = new System.Windows.Forms.Button();
+            this.buttonCalRxChaSun = new System.Windows.Forms.Button();
+            this.checkBoxSysPowerCalib = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonCalibrate = new System.Windows.Forms.Button();
+            this.buttonCalibrateTxChaSun = new System.Windows.Forms.Button();
             this.labelSTDTxChaSun3 = new System.Windows.Forms.Label();
             this.labelSTDTxChaSun2 = new System.Windows.Forms.Label();
             this.labelSTDTxChaSun1 = new System.Windows.Forms.Label();
@@ -55,41 +62,27 @@ namespace Yaguang.VJK3G.GUI
             this.labelAVGPIBAddr = new System.Windows.Forms.Label();
             this.numericUpDownAVPresetScript = new System.Windows.Forms.NumericUpDown();
             this.testItems = new System.Windows.Forms.TabPage();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonModifyThreshold = new System.Windows.Forms.Button();
             this.textBoxSTDRxGeLiDU = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxSwitchSpeedThresh = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.textBoxPowerResist = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.textBoxZhuBoThresh = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.textBoxTxGeLiDuThresh = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.textBoxChaSunThresh = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.channelOfTXNaiGongLu = new System.Windows.Forms.NumericUpDown();
-            this.ChannelOfTXZhuBo = new System.Windows.Forms.NumericUpDown();
             this.channelOfTxChaSun = new System.Windows.Forms.NumericUpDown();
-            this.channelOfTXGeLiDu = new System.Windows.Forms.NumericUpDown();
-            this.ChannelOfRxNaiGongLu = new System.Windows.Forms.NumericUpDown();
             this.ChannelOfRxGeLiDu = new System.Windows.Forms.NumericUpDown();
-            this.channelOfRxZhuBo = new System.Windows.Forms.NumericUpDown();
             this.ChannelOfRXChaSun = new System.Windows.Forms.NumericUpDown();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBoxRXChaSun = new System.Windows.Forms.CheckBox();
-            this.tabPageOSC = new System.Windows.Forms.TabPage();
-            this.textBoxOSCGPIBAddr = new System.Windows.Forms.TextBox();
-            this.labelOSCGPIBAddr = new System.Windows.Forms.Label();
             this.SwitchControl = new System.Windows.Forms.TabPage();
             this.TCStateGroup = new System.Windows.Forms.GroupBox();
             this.textBoxTC2ForTool = new System.Windows.Forms.TextBox();
@@ -102,18 +95,18 @@ namespace Yaguang.VJK3G.GUI
             this.label4 = new System.Windows.Forms.Label();
             this.labelSCAddr = new System.Windows.Forms.Label();
             this.CtrlCodeGroup = new System.Windows.Forms.GroupBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -122,6 +115,8 @@ namespace Yaguang.VJK3G.GUI
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownSCAddr = new System.Windows.Forms.NumericUpDown();
             this.misc = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -134,14 +129,9 @@ namespace Yaguang.VJK3G.GUI
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.channelOfTXNaiGongLu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChannelOfTXZhuBo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelOfTxChaSun)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.channelOfTXGeLiDu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChannelOfRxNaiGongLu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChannelOfRxGeLiDu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.channelOfRxZhuBo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChannelOfRXChaSun)).BeginInit();
-            this.tabPageOSC.SuspendLayout();
             this.SwitchControl.SuspendLayout();
             this.TCStateGroup.SuspendLayout();
             this.CtrlCodeGroup.SuspendLayout();
@@ -153,7 +143,7 @@ namespace Yaguang.VJK3G.GUI
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(419, 485);
+            this.buttonCancel.Location = new System.Drawing.Point(425, 426);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 25);
             this.buttonCancel.TabIndex = 1;
@@ -163,7 +153,7 @@ namespace Yaguang.VJK3G.GUI
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(338, 485);
+            this.buttonOK.Location = new System.Drawing.Point(344, 426);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 25);
             this.buttonOK.TabIndex = 2;
@@ -173,7 +163,7 @@ namespace Yaguang.VJK3G.GUI
             // 
             // buttonRevertToDefault
             // 
-            this.buttonRevertToDefault.Location = new System.Drawing.Point(50, 488);
+            this.buttonRevertToDefault.Location = new System.Drawing.Point(56, 429);
             this.buttonRevertToDefault.Name = "buttonRevertToDefault";
             this.buttonRevertToDefault.Size = new System.Drawing.Size(75, 23);
             this.buttonRevertToDefault.TabIndex = 4;
@@ -184,7 +174,7 @@ namespace Yaguang.VJK3G.GUI
             // advancedOptions
             // 
             this.advancedOptions.AutoSize = true;
-            this.advancedOptions.Location = new System.Drawing.Point(156, 490);
+            this.advancedOptions.Location = new System.Drawing.Point(162, 431);
             this.advancedOptions.Name = "advancedOptions";
             this.advancedOptions.Size = new System.Drawing.Size(74, 17);
             this.advancedOptions.TabIndex = 5;
@@ -196,7 +186,6 @@ namespace Yaguang.VJK3G.GUI
             // 
             this.tabControl1.Controls.Add(this.tabPageAV);
             this.tabControl1.Controls.Add(this.testItems);
-            this.tabControl1.Controls.Add(this.tabPageOSC);
             this.tabControl1.Controls.Add(this.SwitchControl);
             this.tabControl1.Controls.Add(this.misc);
             this.tabControl1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedIndex", global::Yaguang.VJK3G.Properties.Settings.Default, "OptionPageSelected", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -204,7 +193,7 @@ namespace Yaguang.VJK3G.GUI
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = global::Yaguang.VJK3G.Properties.Settings.Default.OptionPageSelected;
-            this.tabControl1.Size = new System.Drawing.Size(545, 479);
+            this.tabControl1.Size = new System.Drawing.Size(545, 406);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPageAV
@@ -217,7 +206,7 @@ namespace Yaguang.VJK3G.GUI
             this.tabPageAV.Location = new System.Drawing.Point(4, 22);
             this.tabPageAV.Name = "tabPageAV";
             this.tabPageAV.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAV.Size = new System.Drawing.Size(537, 453);
+            this.tabPageAV.Size = new System.Drawing.Size(537, 380);
             this.tabPageAV.TabIndex = 0;
             this.tabPageAV.Text = "矢网";
             this.tabPageAV.UseVisualStyleBackColor = true;
@@ -227,7 +216,7 @@ namespace Yaguang.VJK3G.GUI
             this.checkBox9.AutoSize = true;
             this.checkBox9.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.AutoRecall;
             this.checkBox9.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "AutoRecall", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox9.Location = new System.Drawing.Point(274, 62);
+            this.checkBox9.Location = new System.Drawing.Point(268, 35);
             this.checkBox9.Name = "checkBox9";
             this.checkBox9.Size = new System.Drawing.Size(80, 17);
             this.checkBox9.TabIndex = 5;
@@ -236,11 +225,18 @@ namespace Yaguang.VJK3G.GUI
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.buttonCalTxPower);
+            this.groupBox3.Controls.Add(this.buttonCalRxChaSun);
+            this.groupBox3.Controls.Add(this.checkBoxSysPowerCalib);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.textBox4);
             this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.label30);
+            this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.buttonCalibrate);
+            this.groupBox3.Controls.Add(this.buttonCalibrateTxChaSun);
             this.groupBox3.Controls.Add(this.labelSTDTxChaSun3);
             this.groupBox3.Controls.Add(this.labelSTDTxChaSun2);
             this.groupBox3.Controls.Add(this.labelSTDTxChaSun1);
@@ -251,64 +247,131 @@ namespace Yaguang.VJK3G.GUI
             this.groupBox3.Controls.Add(this.textBoxFreq3);
             this.groupBox3.Controls.Add(this.textBoxFreq2);
             this.groupBox3.Controls.Add(this.textBoxFreq1);
-            this.groupBox3.Location = new System.Drawing.Point(10, 152);
+            this.groupBox3.Location = new System.Drawing.Point(6, 74);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(521, 274);
+            this.groupBox3.Size = new System.Drawing.Size(525, 280);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "频点设置(GHz)";
             // 
+            // buttonCalTxPower
+            // 
+            this.buttonCalTxPower.Location = new System.Drawing.Point(372, 236);
+            this.buttonCalTxPower.Name = "buttonCalTxPower";
+            this.buttonCalTxPower.Size = new System.Drawing.Size(90, 25);
+            this.buttonCalTxPower.TabIndex = 25;
+            this.buttonCalTxPower.Text = "TX耐功率校准";
+            this.buttonCalTxPower.UseVisualStyleBackColor = true;
+            this.buttonCalTxPower.Click += new System.EventHandler(this.buttonCalTxPower_Click);
+            // 
+            // buttonCalRxChaSun
+            // 
+            this.buttonCalRxChaSun.Location = new System.Drawing.Point(270, 236);
+            this.buttonCalRxChaSun.Name = "buttonCalRxChaSun";
+            this.buttonCalRxChaSun.Size = new System.Drawing.Size(83, 25);
+            this.buttonCalRxChaSun.TabIndex = 24;
+            this.buttonCalRxChaSun.Text = "RX插损校准";
+            this.buttonCalRxChaSun.UseVisualStyleBackColor = true;
+            this.buttonCalRxChaSun.Click += new System.EventHandler(this.buttonCalRxChaSun_Click);
+            // 
+            // checkBoxSysPowerCalib
+            // 
+            this.checkBoxSysPowerCalib.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxSysPowerCalib.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.checkBoxSysPowerCalib.Location = new System.Drawing.Point(60, 236);
+            this.checkBoxSysPowerCalib.Name = "checkBoxSysPowerCalib";
+            this.checkBoxSysPowerCalib.Size = new System.Drawing.Size(89, 25);
+            this.checkBoxSysPowerCalib.TabIndex = 23;
+            this.checkBoxSysPowerCalib.Text = "系统功率校准";
+            this.checkBoxSysPowerCalib.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxSysPowerCalib.UseVisualStyleBackColor = true;
+            this.checkBoxSysPowerCalib.CheckedChanged += new System.EventHandler(this.checkBoxSysPowerCalib_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 35);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(84, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "TX耐功率频点:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "TxPowerFreq", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox4.Location = new System.Drawing.Point(109, 33);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(71, 20);
+            this.textBox4.TabIndex = 22;
+            this.textBox4.Text = global::Yaguang.VJK3G.Properties.Settings.Default.TxPowerFreq;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "STDRXChaSun3", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label3.Location = new System.Drawing.Point(419, 154);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = global::Yaguang.VJK3G.Properties.Settings.Default.STDRXChaSun3;
+            // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "STDRXNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label21.Location = new System.Drawing.Point(243, 186);
+            this.label21.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "STDRXChaSun2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label21.Location = new System.Drawing.Point(243, 154);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(43, 13);
-            this.label21.TabIndex = 17;
-            this.label21.Text = global::Yaguang.VJK3G.Properties.Settings.Default.STDRXNaiGongLu;
-            this.label21.Visible = false;
+            this.label21.TabIndex = 19;
+            this.label21.Text = global::Yaguang.VJK3G.Properties.Settings.Default.STDRXChaSun2;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "STDRXChaSun1", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label29.Location = new System.Drawing.Point(81, 154);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(43, 13);
+            this.label29.TabIndex = 18;
+            this.label29.Text = global::Yaguang.VJK3G.Properties.Settings.Default.STDRXChaSun1;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(10, 154);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(46, 13);
+            this.label30.TabIndex = 17;
+            this.label30.Text = "RX插损";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "STDTXNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label6.Location = new System.Drawing.Point(243, 153);
+            this.label6.Location = new System.Drawing.Point(243, 189);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = global::Yaguang.VJK3G.Properties.Settings.Default.STDTXNaiGongLu;
-            this.label6.Visible = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 186);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "RX耐功率";
-            this.label3.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 153);
+            this.label2.Location = new System.Drawing.Point(10, 189);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 14;
             this.label2.Text = "TX耐功率";
-            this.label2.Visible = false;
             // 
-            // buttonCalibrate
+            // buttonCalibrateTxChaSun
             // 
-            this.buttonCalibrate.Location = new System.Drawing.Point(224, 228);
-            this.buttonCalibrate.Name = "buttonCalibrate";
-            this.buttonCalibrate.Size = new System.Drawing.Size(75, 25);
-            this.buttonCalibrate.TabIndex = 13;
-            this.buttonCalibrate.Text = "校准";
-            this.buttonCalibrate.UseVisualStyleBackColor = true;
-            this.buttonCalibrate.Click += new System.EventHandler(this.buttonCalc_Click);
+            this.buttonCalibrateTxChaSun.Location = new System.Drawing.Point(168, 236);
+            this.buttonCalibrateTxChaSun.Name = "buttonCalibrateTxChaSun";
+            this.buttonCalibrateTxChaSun.Size = new System.Drawing.Size(83, 25);
+            this.buttonCalibrateTxChaSun.TabIndex = 13;
+            this.buttonCalibrateTxChaSun.Text = "TX插损校准";
+            this.buttonCalibrateTxChaSun.UseVisualStyleBackColor = true;
+            this.buttonCalibrateTxChaSun.Click += new System.EventHandler(this.buttonCalcTxChaSun_Click);
             // 
             // labelSTDTxChaSun3
             // 
@@ -352,7 +415,7 @@ namespace Yaguang.VJK3G.GUI
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(345, 49);
+            this.label20.Location = new System.Drawing.Point(345, 78);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(40, 13);
             this.label20.TabIndex = 4;
@@ -361,7 +424,7 @@ namespace Yaguang.VJK3G.GUI
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(172, 49);
+            this.label19.Location = new System.Drawing.Point(172, 78);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(40, 13);
             this.label19.TabIndex = 2;
@@ -370,7 +433,7 @@ namespace Yaguang.VJK3G.GUI
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(10, 49);
+            this.label18.Location = new System.Drawing.Point(10, 78);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(40, 13);
             this.label18.TabIndex = 0;
@@ -379,7 +442,7 @@ namespace Yaguang.VJK3G.GUI
             // textBoxFreq3
             // 
             this.textBoxFreq3.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "FreqMark3", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxFreq3.Location = new System.Drawing.Point(402, 46);
+            this.textBoxFreq3.Location = new System.Drawing.Point(402, 75);
             this.textBoxFreq3.Name = "textBoxFreq3";
             this.textBoxFreq3.Size = new System.Drawing.Size(74, 20);
             this.textBoxFreq3.TabIndex = 5;
@@ -388,7 +451,7 @@ namespace Yaguang.VJK3G.GUI
             // textBoxFreq2
             // 
             this.textBoxFreq2.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "FreqMark2", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxFreq2.Location = new System.Drawing.Point(224, 47);
+            this.textBoxFreq2.Location = new System.Drawing.Point(224, 76);
             this.textBoxFreq2.Name = "textBoxFreq2";
             this.textBoxFreq2.Size = new System.Drawing.Size(75, 20);
             this.textBoxFreq2.TabIndex = 3;
@@ -397,7 +460,7 @@ namespace Yaguang.VJK3G.GUI
             // textBoxFreq1
             // 
             this.textBoxFreq1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "FreqMark1", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxFreq1.Location = new System.Drawing.Point(68, 46);
+            this.textBoxFreq1.Location = new System.Drawing.Point(68, 75);
             this.textBoxFreq1.Name = "textBoxFreq1";
             this.textBoxFreq1.Size = new System.Drawing.Size(71, 20);
             this.textBoxFreq1.TabIndex = 1;
@@ -406,7 +469,7 @@ namespace Yaguang.VJK3G.GUI
             // textBoxAVGPIBAddr
             // 
             this.textBoxAVGPIBAddr.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "AVGPIBAddress", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxAVGPIBAddr.Location = new System.Drawing.Point(100, 59);
+            this.textBoxAVGPIBAddr.Location = new System.Drawing.Point(94, 33);
             this.textBoxAVGPIBAddr.Name = "textBoxAVGPIBAddr";
             this.textBoxAVGPIBAddr.Size = new System.Drawing.Size(124, 20);
             this.textBoxAVGPIBAddr.TabIndex = 3;
@@ -416,7 +479,7 @@ namespace Yaguang.VJK3G.GUI
             // labelAVGPIBAddr
             // 
             this.labelAVGPIBAddr.AutoSize = true;
-            this.labelAVGPIBAddr.Location = new System.Drawing.Point(29, 63);
+            this.labelAVGPIBAddr.Location = new System.Drawing.Point(23, 36);
             this.labelAVGPIBAddr.Name = "labelAVGPIBAddr";
             this.labelAVGPIBAddr.Size = new System.Drawing.Size(62, 13);
             this.labelAVGPIBAddr.TabIndex = 2;
@@ -426,7 +489,7 @@ namespace Yaguang.VJK3G.GUI
             // numericUpDownAVPresetScript
             // 
             this.numericUpDownAVPresetScript.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "AVPreset", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDownAVPresetScript.Location = new System.Drawing.Point(360, 59);
+            this.numericUpDownAVPresetScript.Location = new System.Drawing.Point(354, 33);
             this.numericUpDownAVPresetScript.Minimum = new decimal(new int[] {
             1,
             0,
@@ -439,41 +502,57 @@ namespace Yaguang.VJK3G.GUI
             // 
             // testItems
             // 
+            this.testItems.Controls.Add(this.textBox7);
+            this.testItems.Controls.Add(this.label13);
             this.testItems.Controls.Add(this.groupBox5);
             this.testItems.Controls.Add(this.groupBox4);
             this.testItems.Location = new System.Drawing.Point(4, 22);
             this.testItems.Name = "testItems";
             this.testItems.Padding = new System.Windows.Forms.Padding(3);
-            this.testItems.Size = new System.Drawing.Size(537, 453);
+            this.testItems.Size = new System.Drawing.Size(537, 380);
             this.testItems.TabIndex = 3;
             this.testItems.Text = "测试项目";
             this.testItems.UseVisualStyleBackColor = true;
+            // 
+            // textBox7
+            // 
+            this.textBox7.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ExternalTxPowerCaliValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox7.Location = new System.Drawing.Point(158, 27);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(67, 20);
+            this.textBox7.TabIndex = 4;
+            this.textBox7.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ExternalTxPowerCaliValue;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 30);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(117, 13);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "TX耐功率外部修正值";
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.buttonModifyThreshold);
             this.groupBox5.Controls.Add(this.textBoxSTDRxGeLiDU);
             this.groupBox5.Controls.Add(this.label1);
-            this.groupBox5.Controls.Add(this.textBoxSwitchSpeedThresh);
-            this.groupBox5.Controls.Add(this.label27);
             this.groupBox5.Controls.Add(this.textBoxPowerResist);
             this.groupBox5.Controls.Add(this.label26);
-            this.groupBox5.Controls.Add(this.textBoxZhuBoThresh);
-            this.groupBox5.Controls.Add(this.label25);
             this.groupBox5.Controls.Add(this.textBoxTxGeLiDuThresh);
             this.groupBox5.Controls.Add(this.label24);
             this.groupBox5.Controls.Add(this.textBoxChaSunThresh);
             this.groupBox5.Controls.Add(this.label23);
-            this.groupBox5.Location = new System.Drawing.Point(26, 24);
+            this.groupBox5.Location = new System.Drawing.Point(26, 72);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(491, 179);
+            this.groupBox5.Size = new System.Drawing.Size(491, 117);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "项目阀值";
             // 
             // buttonModifyThreshold
             // 
-            this.buttonModifyThreshold.Location = new System.Drawing.Point(193, 137);
+            this.buttonModifyThreshold.Location = new System.Drawing.Point(395, 55);
             this.buttonModifyThreshold.Name = "buttonModifyThreshold";
             this.buttonModifyThreshold.Size = new System.Drawing.Size(75, 23);
             this.buttonModifyThreshold.TabIndex = 12;
@@ -483,47 +562,29 @@ namespace Yaguang.VJK3G.GUI
             // 
             // textBoxSTDRxGeLiDU
             // 
-            this.textBoxSTDRxGeLiDU.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshRxGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxSTDRxGeLiDU.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshTxChaSun", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxSTDRxGeLiDU.Enabled = false;
-            this.textBoxSTDRxGeLiDU.Location = new System.Drawing.Point(241, 86);
+            this.textBoxSTDRxGeLiDU.Location = new System.Drawing.Point(282, 73);
             this.textBoxSTDRxGeLiDU.Name = "textBoxSTDRxGeLiDU";
             this.textBoxSTDRxGeLiDU.Size = new System.Drawing.Size(65, 20);
             this.textBoxSTDRxGeLiDU.TabIndex = 11;
-            this.textBoxSTDRxGeLiDU.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshRxGeLiDu;
+            this.textBoxSTDRxGeLiDU.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshTxChaSun;
+            this.textBoxSTDRxGeLiDU.TextChanged += new System.EventHandler(this.textBoxSTDRxGeLiDU_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(182, 89);
+            this.label1.Location = new System.Drawing.Point(216, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "RX隔离度";
-            // 
-            // textBoxSwitchSpeedThresh
-            // 
-            this.textBoxSwitchSpeedThresh.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshSwitchSpeed", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxSwitchSpeedThresh.Enabled = false;
-            this.textBoxSwitchSpeedThresh.Location = new System.Drawing.Point(397, 86);
-            this.textBoxSwitchSpeedThresh.Name = "textBoxSwitchSpeedThresh";
-            this.textBoxSwitchSpeedThresh.Size = new System.Drawing.Size(67, 20);
-            this.textBoxSwitchSpeedThresh.TabIndex = 9;
-            this.textBoxSwitchSpeedThresh.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshSwitchSpeed;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(333, 89);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(55, 13);
-            this.label27.TabIndex = 8;
-            this.label27.Text = "开关速度";
+            this.label1.Text = "TX插损";
             // 
             // textBoxPowerResist
             // 
             this.textBoxPowerResist.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshPowerResist", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxPowerResist.Enabled = false;
-            this.textBoxPowerResist.Location = new System.Drawing.Point(86, 86);
+            this.textBoxPowerResist.Location = new System.Drawing.Point(91, 73);
             this.textBoxPowerResist.Name = "textBoxPowerResist";
             this.textBoxPowerResist.Size = new System.Drawing.Size(67, 20);
             this.textBoxPowerResist.TabIndex = 7;
@@ -532,91 +593,64 @@ namespace Yaguang.VJK3G.GUI
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(39, 89);
+            this.label26.Location = new System.Drawing.Point(28, 76);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(43, 13);
+            this.label26.Size = new System.Drawing.Size(57, 13);
             this.label26.TabIndex = 6;
-            this.label26.Text = "耐功率";
-            // 
-            // textBoxZhuBoThresh
-            // 
-            this.textBoxZhuBoThresh.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshZhuBo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxZhuBoThresh.Enabled = false;
-            this.textBoxZhuBoThresh.Location = new System.Drawing.Point(397, 39);
-            this.textBoxZhuBoThresh.Name = "textBoxZhuBoThresh";
-            this.textBoxZhuBoThresh.Size = new System.Drawing.Size(67, 20);
-            this.textBoxZhuBoThresh.TabIndex = 5;
-            this.textBoxZhuBoThresh.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshZhuBo;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(357, 42);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(31, 13);
-            this.label25.TabIndex = 4;
-            this.label25.Text = "驻波";
+            this.label26.Text = "TX耐功率";
             // 
             // textBoxTxGeLiDuThresh
             // 
-            this.textBoxTxGeLiDuThresh.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxTxGeLiDuThresh.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshRxGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxTxGeLiDuThresh.Enabled = false;
-            this.textBoxTxGeLiDuThresh.Location = new System.Drawing.Point(239, 39);
+            this.textBoxTxGeLiDuThresh.Location = new System.Drawing.Point(280, 33);
             this.textBoxTxGeLiDuThresh.Name = "textBoxTxGeLiDuThresh";
             this.textBoxTxGeLiDuThresh.Size = new System.Drawing.Size(67, 20);
             this.textBoxTxGeLiDuThresh.TabIndex = 3;
-            this.textBoxTxGeLiDuThresh.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshGeLiDu;
+            this.textBoxTxGeLiDuThresh.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshRxGeLiDu;
+            this.textBoxTxGeLiDuThresh.TextChanged += new System.EventHandler(this.textBoxTxGeLiDuThresh_TextChanged);
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(180, 42);
+            this.label24.Location = new System.Drawing.Point(216, 37);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(57, 13);
+            this.label24.Size = new System.Drawing.Size(58, 13);
             this.label24.TabIndex = 2;
-            this.label24.Text = "TX隔离度";
+            this.label24.Text = "RX隔离度";
             // 
             // textBoxChaSunThresh
             // 
-            this.textBoxChaSunThresh.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshChaSun", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxChaSunThresh.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "ThreshRxChaSun", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxChaSunThresh.Enabled = false;
-            this.textBoxChaSunThresh.Location = new System.Drawing.Point(86, 39);
+            this.textBoxChaSunThresh.Location = new System.Drawing.Point(91, 34);
             this.textBoxChaSunThresh.Name = "textBoxChaSunThresh";
             this.textBoxChaSunThresh.Size = new System.Drawing.Size(67, 20);
             this.textBoxChaSunThresh.TabIndex = 1;
-            this.textBoxChaSunThresh.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshChaSun;
+            this.textBoxChaSunThresh.Text = global::Yaguang.VJK3G.Properties.Settings.Default.ThreshRxChaSun;
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(49, 42);
+            this.label23.Location = new System.Drawing.Point(39, 37);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(31, 13);
+            this.label23.Size = new System.Drawing.Size(46, 13);
             this.label23.TabIndex = 0;
-            this.label23.Text = "插损";
+            this.label23.Text = "RX插损";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.channelOfTXNaiGongLu);
-            this.groupBox4.Controls.Add(this.ChannelOfTXZhuBo);
             this.groupBox4.Controls.Add(this.channelOfTxChaSun);
-            this.groupBox4.Controls.Add(this.channelOfTXGeLiDu);
-            this.groupBox4.Controls.Add(this.ChannelOfRxNaiGongLu);
             this.groupBox4.Controls.Add(this.ChannelOfRxGeLiDu);
-            this.groupBox4.Controls.Add(this.channelOfRxZhuBo);
             this.groupBox4.Controls.Add(this.ChannelOfRXChaSun);
-            this.groupBox4.Controls.Add(this.checkBox8);
             this.groupBox4.Controls.Add(this.checkBox7);
-            this.groupBox4.Controls.Add(this.checkBox6);
-            this.groupBox4.Controls.Add(this.checkBox5);
             this.groupBox4.Controls.Add(this.checkBox4);
-            this.groupBox4.Controls.Add(this.checkBox3);
             this.groupBox4.Controls.Add(this.checkBox2);
-            this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Controls.Add(this.checkBoxRXChaSun);
-            this.groupBox4.Location = new System.Drawing.Point(26, 228);
+            this.groupBox4.Location = new System.Drawing.Point(26, 220);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(491, 219);
+            this.groupBox4.Size = new System.Drawing.Size(491, 128);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "项目选择";
@@ -624,7 +658,7 @@ namespace Yaguang.VJK3G.GUI
             // channelOfTXNaiGongLu
             // 
             this.channelOfTXNaiGongLu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfTxNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.channelOfTXNaiGongLu.Location = new System.Drawing.Point(286, 155);
+            this.channelOfTXNaiGongLu.Location = new System.Drawing.Point(284, 80);
             this.channelOfTXNaiGongLu.Maximum = new decimal(new int[] {
             4,
             0,
@@ -640,29 +674,10 @@ namespace Yaguang.VJK3G.GUI
             this.channelOfTXNaiGongLu.TabIndex = 16;
             this.channelOfTXNaiGongLu.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfTxNaiGongLu;
             // 
-            // ChannelOfTXZhuBo
-            // 
-            this.ChannelOfTXZhuBo.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfTXZhuBo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.ChannelOfTXZhuBo.Location = new System.Drawing.Point(286, 76);
-            this.ChannelOfTXZhuBo.Maximum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.ChannelOfTXZhuBo.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.ChannelOfTXZhuBo.Name = "ChannelOfTXZhuBo";
-            this.ChannelOfTXZhuBo.Size = new System.Drawing.Size(44, 20);
-            this.ChannelOfTXZhuBo.TabIndex = 15;
-            this.ChannelOfTXZhuBo.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfTXZhuBo;
-            // 
             // channelOfTxChaSun
             // 
             this.channelOfTxChaSun.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfTxChaSun", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.channelOfTxChaSun.Location = new System.Drawing.Point(286, 38);
+            this.channelOfTxChaSun.Location = new System.Drawing.Point(103, 82);
             this.channelOfTxChaSun.Maximum = new decimal(new int[] {
             4,
             0,
@@ -678,48 +693,10 @@ namespace Yaguang.VJK3G.GUI
             this.channelOfTxChaSun.TabIndex = 14;
             this.channelOfTxChaSun.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfTxChaSun;
             // 
-            // channelOfTXGeLiDu
-            // 
-            this.channelOfTXGeLiDu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfTxGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.channelOfTXGeLiDu.Location = new System.Drawing.Point(286, 115);
-            this.channelOfTXGeLiDu.Maximum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.channelOfTXGeLiDu.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.channelOfTXGeLiDu.Name = "channelOfTXGeLiDu";
-            this.channelOfTXGeLiDu.Size = new System.Drawing.Size(44, 20);
-            this.channelOfTXGeLiDu.TabIndex = 13;
-            this.channelOfTXGeLiDu.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfTxGeLiDu;
-            // 
-            // ChannelOfRxNaiGongLu
-            // 
-            this.ChannelOfRxNaiGongLu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfRxNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.ChannelOfRxNaiGongLu.Location = new System.Drawing.Point(103, 157);
-            this.ChannelOfRxNaiGongLu.Maximum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.ChannelOfRxNaiGongLu.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.ChannelOfRxNaiGongLu.Name = "ChannelOfRxNaiGongLu";
-            this.ChannelOfRxNaiGongLu.Size = new System.Drawing.Size(50, 20);
-            this.ChannelOfRxNaiGongLu.TabIndex = 12;
-            this.ChannelOfRxNaiGongLu.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfRxNaiGongLu;
-            // 
             // ChannelOfRxGeLiDu
             // 
             this.ChannelOfRxGeLiDu.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfRxGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.ChannelOfRxGeLiDu.Location = new System.Drawing.Point(103, 117);
+            this.ChannelOfRxGeLiDu.Location = new System.Drawing.Point(285, 37);
             this.ChannelOfRxGeLiDu.Maximum = new decimal(new int[] {
             4,
             0,
@@ -734,25 +711,6 @@ namespace Yaguang.VJK3G.GUI
             this.ChannelOfRxGeLiDu.Size = new System.Drawing.Size(50, 20);
             this.ChannelOfRxGeLiDu.TabIndex = 11;
             this.ChannelOfRxGeLiDu.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfRxGeLiDu;
-            // 
-            // channelOfRxZhuBo
-            // 
-            this.channelOfRxZhuBo.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Yaguang.VJK3G.Properties.Settings.Default, "chOfRXZhuBo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.channelOfRxZhuBo.Location = new System.Drawing.Point(103, 79);
-            this.channelOfRxZhuBo.Maximum = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.channelOfRxZhuBo.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.channelOfRxZhuBo.Name = "channelOfRxZhuBo";
-            this.channelOfRxZhuBo.Size = new System.Drawing.Size(50, 20);
-            this.channelOfRxZhuBo.TabIndex = 10;
-            this.channelOfRxZhuBo.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfRXZhuBo;
             // 
             // ChannelOfRXChaSun
             // 
@@ -773,57 +731,18 @@ namespace Yaguang.VJK3G.GUI
             this.ChannelOfRXChaSun.TabIndex = 9;
             this.ChannelOfRXChaSun.Value = global::Yaguang.VJK3G.Properties.Settings.Default.chOfRxChaSun;
             // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemSwitchSpeedChecked;
-            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemSwitchSpeedChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox8.Location = new System.Drawing.Point(370, 94);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(74, 17);
-            this.checkBox8.TabIndex = 8;
-            this.checkBox8.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelSwitchSpeed;
-            this.checkBox8.UseVisualStyleBackColor = true;
-            // 
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
             this.checkBox7.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemTXNaiGongLu;
             this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox7.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemTXNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox7.Location = new System.Drawing.Point(204, 158);
+            this.checkBox7.Location = new System.Drawing.Point(202, 83);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(76, 17);
             this.checkBox7.TabIndex = 7;
             this.checkBox7.Text = "TX耐功率";
             this.checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemTXGeLiDuChecked;
-            this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox6.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemTXGeLiDuChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox6.Location = new System.Drawing.Point(204, 118);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(76, 17);
-            this.checkBox6.TabIndex = 6;
-            this.checkBox6.Text = "TX隔离度";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemTXZhuBoChecked;
-            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemTXZhuBoChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox5.Location = new System.Drawing.Point(204, 79);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(64, 17);
-            this.checkBox5.TabIndex = 5;
-            this.checkBox5.Text = "TX驻波";
-            this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // checkBox4
             // 
@@ -831,25 +750,12 @@ namespace Yaguang.VJK3G.GUI
             this.checkBox4.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemTXChaSunChecked;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox4.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemTXChaSunChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox4.Location = new System.Drawing.Point(204, 41);
+            this.checkBox4.Location = new System.Drawing.Point(21, 85);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(64, 17);
             this.checkBox4.TabIndex = 4;
             this.checkBox4.Text = "TX插损";
             this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemRXNaiGongLuChecked;
-            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemRXNaiGongLuChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox3.Location = new System.Drawing.Point(20, 158);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(77, 17);
-            this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRxNaiGongLu;
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
@@ -857,24 +763,12 @@ namespace Yaguang.VJK3G.GUI
             this.checkBox2.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemRXGeLiDuChecked;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemRXGeLiDuChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(20, 118);
+            this.checkBox2.Location = new System.Drawing.Point(202, 38);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(77, 17);
             this.checkBox2.TabIndex = 2;
             this.checkBox2.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXGeLiDu;
             this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ItemRXZhuBoChecked;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ItemRXZhuBoChecked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(20, 79);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(65, 17);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXZhuBo;
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // checkBoxRXChaSun
             // 
@@ -889,38 +783,6 @@ namespace Yaguang.VJK3G.GUI
             this.checkBoxRXChaSun.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXChaSun;
             this.checkBoxRXChaSun.UseVisualStyleBackColor = true;
             // 
-            // tabPageOSC
-            // 
-            this.tabPageOSC.Controls.Add(this.textBoxOSCGPIBAddr);
-            this.tabPageOSC.Controls.Add(this.labelOSCGPIBAddr);
-            this.tabPageOSC.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOSC.Name = "tabPageOSC";
-            this.tabPageOSC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOSC.Size = new System.Drawing.Size(537, 453);
-            this.tabPageOSC.TabIndex = 1;
-            this.tabPageOSC.Text = "示波器";
-            this.tabPageOSC.UseVisualStyleBackColor = true;
-            // 
-            // textBoxOSCGPIBAddr
-            // 
-            this.textBoxOSCGPIBAddr.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "OSCGPIBAddress", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxOSCGPIBAddr.Location = new System.Drawing.Point(90, 33);
-            this.textBoxOSCGPIBAddr.Name = "textBoxOSCGPIBAddr";
-            this.textBoxOSCGPIBAddr.Size = new System.Drawing.Size(117, 20);
-            this.textBoxOSCGPIBAddr.TabIndex = 1;
-            this.textBoxOSCGPIBAddr.Text = global::Yaguang.VJK3G.Properties.Settings.Default.OSCGPIBAddress;
-            this.textBoxOSCGPIBAddr.Visible = false;
-            // 
-            // labelOSCGPIBAddr
-            // 
-            this.labelOSCGPIBAddr.AutoSize = true;
-            this.labelOSCGPIBAddr.Location = new System.Drawing.Point(19, 36);
-            this.labelOSCGPIBAddr.Name = "labelOSCGPIBAddr";
-            this.labelOSCGPIBAddr.Size = new System.Drawing.Size(62, 13);
-            this.labelOSCGPIBAddr.TabIndex = 0;
-            this.labelOSCGPIBAddr.Text = "GPIB 地址:";
-            this.labelOSCGPIBAddr.Visible = false;
-            // 
             // SwitchControl
             // 
             this.SwitchControl.Controls.Add(this.TCStateGroup);
@@ -929,7 +791,7 @@ namespace Yaguang.VJK3G.GUI
             this.SwitchControl.Controls.Add(this.numericUpDownSCAddr);
             this.SwitchControl.Location = new System.Drawing.Point(4, 22);
             this.SwitchControl.Name = "SwitchControl";
-            this.SwitchControl.Size = new System.Drawing.Size(537, 453);
+            this.SwitchControl.Size = new System.Drawing.Size(537, 380);
             this.SwitchControl.TabIndex = 2;
             this.SwitchControl.Text = "开关控制器";
             this.SwitchControl.UseVisualStyleBackColor = true;
@@ -1036,36 +898,72 @@ namespace Yaguang.VJK3G.GUI
             // 
             // CtrlCodeGroup
             // 
+            this.CtrlCodeGroup.Controls.Add(this.textBox11);
+            this.CtrlCodeGroup.Controls.Add(this.label32);
+            this.CtrlCodeGroup.Controls.Add(this.textBox10);
+            this.CtrlCodeGroup.Controls.Add(this.label31);
             this.CtrlCodeGroup.Controls.Add(this.textBox9);
             this.CtrlCodeGroup.Controls.Add(this.label15);
             this.CtrlCodeGroup.Controls.Add(this.textBox8);
             this.CtrlCodeGroup.Controls.Add(this.label14);
-            this.CtrlCodeGroup.Controls.Add(this.textBox7);
-            this.CtrlCodeGroup.Controls.Add(this.label13);
             this.CtrlCodeGroup.Controls.Add(this.textBox6);
             this.CtrlCodeGroup.Controls.Add(this.label12);
             this.CtrlCodeGroup.Controls.Add(this.textBox5);
             this.CtrlCodeGroup.Controls.Add(this.label11);
-            this.CtrlCodeGroup.Controls.Add(this.textBox4);
-            this.CtrlCodeGroup.Controls.Add(this.label10);
             this.CtrlCodeGroup.Controls.Add(this.textBox3);
             this.CtrlCodeGroup.Controls.Add(this.textBox2);
             this.CtrlCodeGroup.Controls.Add(this.label9);
             this.CtrlCodeGroup.Controls.Add(this.label8);
             this.CtrlCodeGroup.Controls.Add(this.textBox1);
             this.CtrlCodeGroup.Controls.Add(this.label7);
-            this.CtrlCodeGroup.Location = new System.Drawing.Point(8, 218);
+            this.CtrlCodeGroup.Location = new System.Drawing.Point(8, 178);
             this.CtrlCodeGroup.Name = "CtrlCodeGroup";
-            this.CtrlCodeGroup.Size = new System.Drawing.Size(521, 209);
+            this.CtrlCodeGroup.Size = new System.Drawing.Size(521, 187);
             this.CtrlCodeGroup.TabIndex = 0;
             this.CtrlCodeGroup.TabStop = false;
             this.CtrlCodeGroup.Text = "控制码(十六进制)";
             this.CtrlCodeGroup.Visible = false;
             // 
+            // textBox11
+            // 
+            this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeTxPostTxPower", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox11.Location = new System.Drawing.Point(427, 147);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(71, 20);
+            this.textBox11.TabIndex = 21;
+            this.textBox11.Text = global::Yaguang.VJK3G.Properties.Settings.Default.CtrlCodeTxPostTxPower;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(340, 150);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(81, 13);
+            this.label32.TabIndex = 20;
+            this.label32.Text = "TX耐功率后置";
+            // 
+            // textBox10
+            // 
+            this.textBox10.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeTxPreTxPower", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox10.Location = new System.Drawing.Point(94, 147);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(71, 20);
+            this.textBox10.TabIndex = 19;
+            this.textBox10.Text = global::Yaguang.VJK3G.Properties.Settings.Default.CtrlCodeTxPreTxPower;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(9, 150);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(81, 13);
+            this.label31.TabIndex = 18;
+            this.label31.Text = "TX耐功率前导";
+            // 
             // textBox9
             // 
             this.textBox9.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeTXNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox9.Location = new System.Drawing.Point(247, 157);
+            this.textBox9.Location = new System.Drawing.Point(251, 147);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(71, 20);
             this.textBox9.TabIndex = 17;
@@ -1074,7 +972,7 @@ namespace Yaguang.VJK3G.GUI
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(188, 161);
+            this.label15.Location = new System.Drawing.Point(192, 151);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(57, 13);
             this.label15.TabIndex = 16;
@@ -1082,45 +980,26 @@ namespace Yaguang.VJK3G.GUI
             // 
             // textBox8
             // 
-            this.textBox8.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeSwitchSpeed", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox8.Location = new System.Drawing.Point(426, 157);
+            this.textBox8.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeSystemPower", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox8.Location = new System.Drawing.Point(424, 37);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(71, 20);
             this.textBox8.TabIndex = 15;
-            this.textBox8.Text = global::Yaguang.VJK3G.Properties.Settings.Default.CtrlCodeSwitchSpeed;
+            this.textBox8.Text = global::Yaguang.VJK3G.Properties.Settings.Default.CtrlCodeSystemPower;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "LabelSwitchSpeed", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label14.Location = new System.Drawing.Point(352, 161);
+            this.label14.Location = new System.Drawing.Point(340, 41);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 13);
+            this.label14.Size = new System.Drawing.Size(79, 13);
             this.label14.TabIndex = 14;
-            this.label14.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelSwitchSpeed;
-            // 
-            // textBox7
-            // 
-            this.textBox7.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeTXGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox7.Location = new System.Drawing.Point(91, 157);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(71, 20);
-            this.textBox7.TabIndex = 13;
-            this.textBox7.Text = global::Yaguang.VJK3G.Properties.Settings.Default.CtrlCodeTXGeLiDu;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(32, 161);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(57, 13);
-            this.label13.TabIndex = 12;
-            this.label13.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelTXGeLiDu;
+            this.label14.Text = "系统功率校准";
             // 
             // textBox6
             // 
             this.textBox6.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeTXChaSunZhuBo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox6.Location = new System.Drawing.Point(426, 101);
+            this.textBox6.Location = new System.Drawing.Point(425, 89);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(71, 20);
             this.textBox6.TabIndex = 11;
@@ -1129,16 +1008,16 @@ namespace Yaguang.VJK3G.GUI
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(352, 105);
+            this.label12.Location = new System.Drawing.Point(373, 92);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 13);
+            this.label12.Size = new System.Drawing.Size(45, 13);
             this.label12.TabIndex = 10;
-            this.label12.Text = "TX插损驻波";
+            this.label12.Text = "TX插损";
             // 
             // textBox5
             // 
             this.textBox5.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeRXGeLiDu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox5.Location = new System.Drawing.Point(91, 101);
+            this.textBox5.Location = new System.Drawing.Point(91, 88);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(71, 20);
             this.textBox5.TabIndex = 9;
@@ -1147,34 +1026,16 @@ namespace Yaguang.VJK3G.GUI
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(32, 105);
+            this.label11.Location = new System.Drawing.Point(32, 92);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(58, 13);
             this.label11.TabIndex = 8;
             this.label11.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXGeLiDu;
             // 
-            // textBox4
-            // 
-            this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeRXNaiGongLu", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox4.Location = new System.Drawing.Point(247, 101);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(71, 20);
-            this.textBox4.TabIndex = 7;
-            this.textBox4.Text = global::Yaguang.VJK3G.Properties.Settings.Default.CtrlCodeRXNaiGongLu;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(188, 105);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 13);
-            this.label10.TabIndex = 6;
-            this.label10.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRxNaiGongLu;
-            // 
             // textBox3
             // 
             this.textBox3.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Yaguang.VJK3G.Properties.Settings.Default, "CtrlCodeRXChaSunZhuBo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox3.Location = new System.Drawing.Point(426, 38);
+            this.textBox3.Location = new System.Drawing.Point(252, 90);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(71, 20);
             this.textBox3.TabIndex = 5;
@@ -1192,11 +1053,11 @@ namespace Yaguang.VJK3G.GUI
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(352, 41);
+            this.label9.Location = new System.Drawing.Point(192, 92);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(70, 13);
+            this.label9.Size = new System.Drawing.Size(46, 13);
             this.label9.TabIndex = 4;
-            this.label9.Text = "RX插损驻波";
+            this.label9.Text = "RX插损";
             // 
             // label8
             // 
@@ -1237,6 +1098,8 @@ namespace Yaguang.VJK3G.GUI
             // 
             // misc
             // 
+            this.misc.Controls.Add(this.checkBox1);
+            this.misc.Controls.Add(this.checkBox11);
             this.misc.Controls.Add(this.checkBox10);
             this.misc.Controls.Add(this.numericUpDown2);
             this.misc.Controls.Add(this.numericUpDown1);
@@ -1244,10 +1107,35 @@ namespace Yaguang.VJK3G.GUI
             this.misc.Location = new System.Drawing.Point(4, 22);
             this.misc.Name = "misc";
             this.misc.Padding = new System.Windows.Forms.Padding(3);
-            this.misc.Size = new System.Drawing.Size(537, 453);
+            this.misc.Size = new System.Drawing.Size(537, 380);
             this.misc.TabIndex = 4;
             this.misc.Text = "杂项";
             this.misc.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.waitForToolConfirm;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "waitForToolConfirm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(22, 174);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(74, 17);
+            this.checkBox1.TabIndex = 6;
+            this.checkBox1.Text = "夹具确认";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Checked = global::Yaguang.VJK3G.Properties.Settings.Default.ShowNotPassedRecord;
+            this.checkBox11.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox11.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Yaguang.VJK3G.Properties.Settings.Default, "ShowNotPassedRecord", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox11.Location = new System.Drawing.Point(22, 133);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(110, 17);
+            this.checkBox11.TabIndex = 5;
+            this.checkBox11.Text = "显示不合格记录";
+            this.checkBox11.UseVisualStyleBackColor = true;
             // 
             // checkBox10
             // 
@@ -1303,7 +1191,7 @@ namespace Yaguang.VJK3G.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 522);
+            this.ClientSize = new System.Drawing.Size(545, 463);
             this.Controls.Add(this.advancedOptions);
             this.Controls.Add(this.buttonRevertToDefault);
             this.Controls.Add(this.tabControl1);
@@ -1322,20 +1210,15 @@ namespace Yaguang.VJK3G.GUI
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAVPresetScript)).EndInit();
             this.testItems.ResumeLayout(false);
+            this.testItems.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.channelOfTXNaiGongLu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChannelOfTXZhuBo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelOfTxChaSun)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.channelOfTXGeLiDu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChannelOfRxNaiGongLu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChannelOfRxGeLiDu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.channelOfRxZhuBo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChannelOfRXChaSun)).EndInit();
-            this.tabPageOSC.ResumeLayout(false);
-            this.tabPageOSC.PerformLayout();
             this.SwitchControl.ResumeLayout(false);
             this.SwitchControl.PerformLayout();
             this.TCStateGroup.ResumeLayout(false);
@@ -1358,26 +1241,19 @@ namespace Yaguang.VJK3G.GUI
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageAV;
-        private System.Windows.Forms.TabPage tabPageOSC;
         private System.Windows.Forms.NumericUpDown numericUpDownAVPresetScript;
         private System.Windows.Forms.TextBox textBoxAVGPIBAddr;
         private System.Windows.Forms.Label labelAVGPIBAddr;
-        private System.Windows.Forms.TextBox textBoxOSCGPIBAddr;
-        private System.Windows.Forms.Label labelOSCGPIBAddr;
         private System.Windows.Forms.TabPage SwitchControl;
         private System.Windows.Forms.NumericUpDown numericUpDownSCAddr;
         private System.Windows.Forms.Label labelSCAddr;
         private System.Windows.Forms.GroupBox CtrlCodeGroup;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label9;
@@ -1402,41 +1278,28 @@ namespace Yaguang.VJK3G.GUI
         private System.Windows.Forms.TextBox textBoxFreq3;
         private System.Windows.Forms.TextBox textBoxFreq2;
         private System.Windows.Forms.TextBox textBoxFreq1;
-        private System.Windows.Forms.Button buttonCalibrate;
+        private System.Windows.Forms.Button buttonCalibrateTxChaSun;
         private System.Windows.Forms.TabPage testItems;
         private System.Windows.Forms.CheckBox checkBoxRXChaSun;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBoxZhuBoThresh;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.TextBox textBoxTxGeLiDuThresh;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox textBoxChaSunThresh;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBoxSwitchSpeedThresh;
-        private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox textBoxPowerResist;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.TabPage misc;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.NumericUpDown ChannelOfRXChaSun;
         private System.Windows.Forms.NumericUpDown channelOfTXNaiGongLu;
-        private System.Windows.Forms.NumericUpDown ChannelOfTXZhuBo;
         private System.Windows.Forms.NumericUpDown channelOfTxChaSun;
-        private System.Windows.Forms.NumericUpDown channelOfTXGeLiDu;
-        private System.Windows.Forms.NumericUpDown ChannelOfRxNaiGongLu;
         private System.Windows.Forms.NumericUpDown ChannelOfRxGeLiDu;
-        private System.Windows.Forms.NumericUpDown channelOfRxZhuBo;
         private System.Windows.Forms.Button buttonRevertToDefault;
         private System.Windows.Forms.CheckBox advancedOptions;
         private System.Windows.Forms.Label labelSTDTxChaSun3;
@@ -1446,11 +1309,26 @@ namespace Yaguang.VJK3G.GUI
         private System.Windows.Forms.TextBox textBoxSTDRxGeLiDU;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonModifyThreshold;
-        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox10;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.CheckBox checkBoxSysPowerCalib;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button buttonCalTxPower;
+        private System.Windows.Forms.Button buttonCalRxChaSun;
     }
 }

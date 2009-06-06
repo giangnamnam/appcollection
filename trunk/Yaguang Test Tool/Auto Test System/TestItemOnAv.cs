@@ -6,7 +6,7 @@ using Yaguang.VJK3G.Instrument;
 
 namespace Yaguang.VJK3G.Test
 {
-    public class TestItemOnAV : TestItemBase
+    public class TestItemOnAV : TestItemWithSwitch
     {
 
         #region ITestItem Members
@@ -20,7 +20,7 @@ namespace Yaguang.VJK3G.Test
         }
 
 
-        public override void DoTest()
+        public override void ReadData()
         {
             NetworkAnalyzer.Default.ActiveChannel = this.ChannelID;
 
@@ -34,6 +34,12 @@ namespace Yaguang.VJK3G.Test
         {
             this.ChannelID = channelID;
             this.Values = new List<string>();
+        }
+
+        public override void DoSetup()
+        {
+            SwitchController.Default.CurrentSwitch = this.SwitchSetting;
+            Helper.Sleep(Properties.Settings.Default.ItemSwitchHoldTime);
         }
 
     }

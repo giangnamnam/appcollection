@@ -105,6 +105,12 @@ namespace Yaguang.VJK3G.Instrument
             }
         }
 
+        public void SetOrphanMark(string id, string value, FrequencyUnit unit)
+        {
+            string cmd = "Mark" + id + " " + value + unit.ToString();
+            this.ExecuteCommand(cmd);
+        }
+
         public int MarksCount
         {
             get;

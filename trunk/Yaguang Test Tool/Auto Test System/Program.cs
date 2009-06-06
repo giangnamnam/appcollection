@@ -25,7 +25,8 @@ namespace Yaguang.VJK3G.GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("程序发生了异常, 请重新启动程序.\r\n异常信息为: {0}", ex.Message);
+                string msg = string.Format("程序发生了异常, 请重新启动程序.\r\n异常信息为: {0}", ex.Message);
+                MessageBox.Show(msg);
                 Application.Exit();
             }
 

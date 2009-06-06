@@ -29,8 +29,8 @@ namespace Yaguang.VJK3G.GUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.labelCurItemName = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelCurItemName = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelTC1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelTC2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -52,14 +52,9 @@ namespace Yaguang.VJK3G.GUI
             this.listView1 = new System.Windows.Forms.ListView();
             this.ColumnHeaderNo = new System.Windows.Forms.ColumnHeader();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
@@ -68,27 +63,29 @@ namespace Yaguang.VJK3G.GUI
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelCurItemName
-            // 
-            this.labelCurItemName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCurItemName.Font = new System.Drawing.Font("SimSun", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelCurItemName.Location = new System.Drawing.Point(3, 16);
-            this.labelCurItemName.Name = "labelCurItemName";
-            this.labelCurItemName.Size = new System.Drawing.Size(805, 89);
-            this.labelCurItemName.TabIndex = 6;
-            this.labelCurItemName.Text = "¿ÕÏÐ×´Ì¬ ";
-            this.labelCurItemName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.labelCurItemName);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.Location = new System.Drawing.Point(0, 63);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(811, 108);
+            this.groupBox1.Size = new System.Drawing.Size(811, 90);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "²âÊÔÏîÄ¿";
+            // 
+            // labelCurItemName
+            // 
+            this.labelCurItemName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelCurItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 38F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelCurItemName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelCurItemName.Location = new System.Drawing.Point(3, 16);
+            this.labelCurItemName.Name = "labelCurItemName";
+            this.labelCurItemName.Size = new System.Drawing.Size(805, 71);
+            this.labelCurItemName.TabIndex = 0;
+            this.labelCurItemName.Text = "¿ÕÏÐ×´Ì¬";
+            this.labelCurItemName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // statusStrip1
             // 
@@ -255,25 +252,19 @@ namespace Yaguang.VJK3G.GUI
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeaderNo,
             this.columnHeader1,
-            this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4,
             this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9});
+            this.columnHeader8});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 171);
+            this.listView1.Location = new System.Drawing.Point(0, 153);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(811, 514);
+            this.listView1.Size = new System.Drawing.Size(811, 532);
             this.listView1.TabIndex = 13;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.listView1_ColumnWidthChanged);
             // 
             // ColumnHeaderNo
             // 
@@ -285,45 +276,20 @@ namespace Yaguang.VJK3G.GUI
             this.columnHeader1.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXChaSun;
             this.columnHeader1.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColRXChaSunWidth;
             // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXZhuBo;
-            this.columnHeader2.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColRXZhuBoWidth;
-            // 
             // columnHeader3
             // 
             this.columnHeader3.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRXGeLiDu;
             this.columnHeader3.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColRXGeLiDuWidth;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelRxNaiGongLu;
-            this.columnHeader4.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColRXNaiGongLuWidth;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelTXChaSun;
             this.columnHeader5.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColTXChaSunWidth;
             // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelTXZhuBo;
-            this.columnHeader6.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColTxZhuBoWidth;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelTXGeLiDu;
-            this.columnHeader7.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColTxGeLiDuWidth;
-            // 
             // columnHeader8
             // 
             this.columnHeader8.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelTxNaiGongLu;
             this.columnHeader8.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColTxNaiGongLuWidth;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = global::Yaguang.VJK3G.Properties.Settings.Default.LabelSwitchSpeed;
-            this.columnHeader9.Width = global::Yaguang.VJK3G.Properties.Settings.Default.ColSwitchSpeedWidth;
             // 
             // saveFileDialog1
             // 
@@ -366,7 +332,6 @@ namespace Yaguang.VJK3G.GUI
 
         #endregion
 
-        private System.Windows.Forms.Label labelCurItemName;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelTC1;
@@ -386,18 +351,14 @@ namespace Yaguang.VJK3G.GUI
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader ColumnHeaderNo;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ToolStripMenuItem ¹ØÓÚVJK3GToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label labelCurItemName;
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 namespace Yaguang.VJK3G.GUI
@@ -21,19 +22,18 @@ namespace Yaguang.VJK3G.GUI
     {
 
         private IStringStream avStream;
-        private IStringStream oscStream;
 
 
-        private IList<ITestItem> TestItems;
+        private IList<TestItemBase> TestItems;
 
-        private IList<ITestItem> _recheckItems = new List<ITestItem>();
+        private IList<TestItemBase> _recheckItems = new List<TestItemBase>();
 
         public MainForm()
         {
             InitializeComponent();
 
-            this.TestItems = new List<ITestItem>();
-            this.backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
+            this.TestItems = new List<TestItemBase>();
+            this.backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
         }
 
         void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -42,17 +42,10 @@ namespace Yaguang.VJK3G.GUI
         }
 
 
-        private TestItemOnAVWithModifier TXChaSun;
-        private ITestItem TXZhuBo;
-        private TestItemOnAVWithModifier RXChaSun;
-        private ITestItem RXZhuBo;
-        private TestItemOnAVWithModifier RXGeLiDu;
-        private TestItemOnAVWithModifier TXGeLiDu;
-        private TestItemOnAVWithModifier TXPowerResist;
-        private TestItemOnAVWithModifier RXPowerResist;
-        private ITestItem SwitchSpeed;
-
-
+        private TestItemBase TXChaSun;
+        private TestItemBase RXChaSun;
+        private TestItemBase RXGeLiDu;
+        private TestItemBase TXPowerResist;
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
@@ -70,79 +63,10 @@ namespace Yaguang.VJK3G.GUI
 
         private void InitTestItem()
         {
-
-
-            TXChaSun = new TestItemOnAVWithModifier(SwitchSetting.TXChaSunZhuBo,
-                Settings.Default.chOfTxChaSun.ToString());
-            TXChaSun.DataPicker = Helper.Max;
-            TXChaSun.Comparer = Helper.BEThan;
-            TXChaSun.Threshold = float.Parse(Settings.Default.ThreshChaSun);
-            TXChaSun.Name = "TX插损";
-            TXChaSun.Modifier = Helper.MinusBaseForTxChaSun;
-
-            TXZhuBo = new TestItemOnAV(SwitchSetting.TXChaSunZhuBo,
-                Settings.Default.chOfTXZhuBo.ToString());
-            TXZhuBo.DataPicker = Helper.Max;
-            TXZhuBo.Comparer = Helper.LEThan;
-            TXZhuBo.Threshold = float.Parse(Settings.Default.ThreshZhuBo);
-            TXZhuBo.Name = "TX驻波";
-
-
-            RXChaSun = new TestItemOnAVWithModifier(SwitchSetting.RXChaSunZhuBo,
-                Settings.Default.chOfRxChaSun.ToString());
-            RXChaSun.DataPicker = Helper.Max;
-            RXChaSun.Comparer = Helper.BEThan;
-            RXChaSun.Threshold = float.Parse(Settings.Default.ThreshChaSun);
-            RXChaSun.Name = "RX插损";
-            RXChaSun.Modifier = Helper.MinusBaseForTxChaSun;
-
-            RXZhuBo = new TestItemOnAV(SwitchSetting.RXChaSunZhuBo,
-                Settings.Default.chOfTXZhuBo.ToString());
-            RXZhuBo.DataPicker = Helper.Max;
-            RXZhuBo.Comparer = Helper.LEThan;
-            RXZhuBo.Threshold = float.Parse(Settings.Default.ThreshZhuBo);
-            RXZhuBo.Name = "RX驻波";
-
-            RXGeLiDu = new TestItemOnAVWithModifier(SwitchSetting.RXGeLiDu,
-                Settings.Default.chOfRxGeLiDu.ToString());
-            RXGeLiDu.DataPicker = Helper.Min;
-            RXGeLiDu.Comparer = Helper.AbsBEThan;
-            RXGeLiDu.Threshold = float.Parse(Settings.Default.ThreshRxGeLiDu);
-            RXGeLiDu.Name = "RX隔离度";
-            RXGeLiDu.Modifier = Helper.MinusBaseForTxChaSun;
-
-            TXGeLiDu = new TestItemOnAVWithModifier(SwitchSetting.TXGeLiDu,
-                Settings.Default.chOfTxGeLiDu.ToString());
-            TXGeLiDu.DataPicker = Helper.Min;
-            TXGeLiDu.Comparer = Helper.AbsBEThan;
-            TXGeLiDu.Threshold = float.Parse(Settings.Default.ThreshGeLiDu);
-            TXGeLiDu.Name = Settings.Default.LabelTXGeLiDu;
-            TXGeLiDu.Modifier = Helper.MinusBaseForTxChaSun;
-
-            TXPowerResist = new TestItemOnAVWithModifier(SwitchSetting.TXPowerResist,
-                Settings.Default.chOfTxNaiGongLu.ToString());
-            TXPowerResist.DataPicker = Helper.PowerResist;
-            TXPowerResist.Comparer = Helper.BEThan;
-            TXPowerResist.Modifier = Helper.PlusAbsBaseForTXPowerResist;
-            TXPowerResist.Threshold = float.Parse(Settings.Default.ThreshPowerResist);
-            TXPowerResist.Name = "TX耐功率";
-
-            RXPowerResist = new TestItemOnAVWithModifier(SwitchSetting.RXPowerResist,
-                Settings.Default.chOfRxNaiGongLu.ToString());
-            RXPowerResist.DataPicker = Helper.PowerResist;
-            RXPowerResist.Comparer = Helper.BEThan;
-            RXPowerResist.Modifier = Helper.PlusAbsBaseForRXPowerResist;
-            RXPowerResist.Threshold = float.Parse(Settings.Default.ThreshPowerResist);
-            RXPowerResist.Name = "RX耐功率";
-
-
-
-            SwitchSpeed = new TestItemOnOSC(SwitchSetting.SwitchSpeed);
-            SwitchSpeed.DataPicker = Helper.Max;
-            SwitchSpeed.Comparer = Helper.LEThan;
-            SwitchSpeed.Threshold = float.Parse(Settings.Default.ThreshSwitchSpeed);
-            SwitchSpeed.Name = Settings.Default.LabelSwitchSpeed;
-
+            TXChaSun = TestItemFactory.CreateTestItem(TestItemType.TxChaSun, true);
+            RXChaSun = TestItemFactory.CreateTestItem(TestItemType.RxChaSun, true);
+            RXGeLiDu = TestItemFactory.CreateTestItem(TestItemType.RxGeLi, true);
+            TXPowerResist = TestItemFactory.CreateTestItem(TestItemType.TxPower, true);
 
         }
 
@@ -152,8 +76,13 @@ namespace Yaguang.VJK3G.GUI
             {
                 this.InitDevice();
 
-                this.timer1.Enabled = true;
-                this.timer2.Enabled = true;
+                if (!Program.Debug)
+                {
+                    this.timer1.Enabled = true;
+                    this.timer2.Enabled = true;
+                }
+
+
                 SwitchController.Default.SwitchChanged += new EventHandler(sc_SwitchChanged);
             }
 
@@ -224,27 +153,18 @@ namespace Yaguang.VJK3G.GUI
         {
             try
             {
-                this.avStream = GPIB.Open(Settings.Default.AVGPIBAddress);
+                if (Program.Debug)
+                {
+                    this.avStream = new AVStub();
+                }
+                else
+                {
+                    this.avStream = GPIB.Open(Settings.Default.AVGPIBAddress);
+                }
             }
             catch (System.Runtime.InteropServices.COMException e)
             {
                 this.avStream = null;
-                return false;
-            }
-
-            return true;
-        }
-
-
-        private bool OpenOSC()
-        {
-            try
-            {
-                this.oscStream = GPIB.Open(Settings.Default.OSCGPIBAddress);
-            }
-            catch (System.Runtime.InteropServices.COMException e)
-            {
-                this.oscStream = null;
                 return false;
             }
 
@@ -276,13 +196,6 @@ namespace Yaguang.VJK3G.GUI
                 NetworkAnalyzer.Default.Recall(Settings.Default.AVPresetScript);
             }
 
-            if (this.oscStream != null)
-            {
-                Oscillograph.Default.WorkerStream = this.oscStream;
-
-                Oscillograph.Default.Init();
-            }
-
 
             this.EnableTestToolMenuItem(true);
         }
@@ -292,20 +205,18 @@ namespace Yaguang.VJK3G.GUI
             if (!this.OpenSwitch(Settings.Default.SwitchControlAddr))
             {
                 MessageBox.Show("打开开关控制器错误，请检查设备后重新启动程序");
-                goto FAIL;
+                if (!Program.Debug)
+                {
+                    goto FAIL;
+                }
+
             }
 
             if (!this.OpenAV())
             {
                 MessageBox.Show("打开矢网错误，请检查设备后重新启动程序");
-                goto FAIL;
-            }
-
-            if (Settings.Default.ItemSwitchSpeedChecked)
-            {
-                if (!this.OpenOSC())
+                if (!Program.Debug)
                 {
-                    MessageBox.Show("打开示波器错误，请检查设备后重新启动程序");
                     goto FAIL;
                 }
             }
@@ -390,7 +301,7 @@ namespace Yaguang.VJK3G.GUI
             this.UpdateControlState();
         }
 
-        private void RunItem(ITestItem item, bool report)
+        private void RunItem(TestItemBase item, bool report)
         {
             if (report)
             {
@@ -406,6 +317,8 @@ namespace Yaguang.VJK3G.GUI
 
             item.Run();
 
+            System.Diagnostics.Debug.WriteLine(string.Format("the value:{0}", item.TheValue));
+
             if (report)
             {
                 this.backgroundWorker1.ReportProgress(100, item);
@@ -415,11 +328,11 @@ namespace Yaguang.VJK3G.GUI
 
         private bool _run = true;
 
-        private IList<ITestItem> _results = new List<ITestItem>();
+        private IList<TestItemBase> _results = new List<TestItemBase>();
 
         bool RecheckItems()
         {
-            foreach (ITestItem item in this._recheckItems)
+            foreach (TestItemBase item in this._recheckItems)
             {
                 this.RunItem(item, false);
                 if (!item.Passed)
@@ -481,13 +394,13 @@ namespace Yaguang.VJK3G.GUI
 
                 _results.Clear();
 
-                if (_run)
+                if (_run && !Program.Debug && Properties.Settings.Default.waitForToolConfirm)
                 {
                     ShowToolForm();
                 }
 
                 round1passed = true;
-                foreach (ITestItem item in this.TestItems)
+                foreach (TestItemBase item in this.TestItems)
                 {
                     if (!_run)
                     {
@@ -536,19 +449,9 @@ namespace Yaguang.VJK3G.GUI
                 this.TestItems.Add(TXChaSun);
             }
 
-            if (Settings.Default.ItemTXZhuBoChecked)
-            {
-                this.TestItems.Add(TXZhuBo);
-            }
-
             if (Settings.Default.ItemRXChaSunChecked)
             {
                 this.TestItems.Add(RXChaSun);
-            }
-
-            if (Settings.Default.ItemRXZhuBoChecked)
-            {
-                this.TestItems.Add(RXZhuBo);
             }
 
             if (Settings.Default.ItemRXGeLiDuChecked)
@@ -556,31 +459,16 @@ namespace Yaguang.VJK3G.GUI
                 this.TestItems.Add(RXGeLiDu);
             }
 
-            if (Settings.Default.ItemTXGeLiDuChecked)
-            {
-                this.TestItems.Add(TXGeLiDu);
-            }
-
             if (Settings.Default.ItemTXNaiGongLu)
             {
                 this.TestItems.Add(TXPowerResist);
             }
 
-            if (Settings.Default.ItemRXNaiGongLuChecked)
-            {
-                this.TestItems.Add(RXPowerResist);
-            }
-
             if (Settings.Default.ItemRXNaiGongLuChecked
                 || Settings.Default.ItemTXNaiGongLu)
             {
-                this._recheckItems.Add(RXChaSun);
-                this._recheckItems.Add(TXChaSun);
-            }
-
-            if (Settings.Default.ItemSwitchSpeedChecked)
-            {
-                this.TestItems.Add(SwitchSpeed);
+                this._recheckItems.Add(TestItemFactory.CreateTestItem(TestItemType.TxChaSun, true));
+                this._recheckItems.Add(TestItemFactory.CreateTestItem(TestItemType.RxChaSun, true));
             }
 
 
@@ -588,10 +476,10 @@ namespace Yaguang.VJK3G.GUI
 
 
 
-        private void UpdateCurrentItemDisplay(int percentage, ITestItem item)
+        private void UpdateCurrentItemDisplay(int percentage, TestItemBase item)
         {
             string txt = item.Name;
-            Color c = new Color();
+            Color c = Color.Empty;
 
             if (percentage == 0)
             {
@@ -602,16 +490,17 @@ namespace Yaguang.VJK3G.GUI
             {
                 txt += ": " + item.TheValue.ToString();
                 c = item.Passed ? System.Drawing.SystemColors.ControlText : Helper.WarningColor();
-
             }
 
-            this.labelCurItemName.Text = txt;
+            Debug.WriteLine(string.Format("the value on GUI:{0}", txt));
 
+            this.labelCurItemName.Text = txt;
             this.labelCurItemName.ForeColor = c;
+
 
         }
 
-        private bool RoundPassed(IList<ITestItem> round)
+        private bool RoundPassed(IList<TestItemBase> round)
         {
 
             foreach (var item in round)
@@ -633,48 +522,30 @@ namespace Yaguang.VJK3G.GUI
             ListViewItem.ListViewSubItem subRxChaSun = new ListViewItem.ListViewSubItem();
             subRxChaSun.Name = Settings.Default.LabelRXChaSun;
 
-            ListViewItem.ListViewSubItem subRxZhuBo = new ListViewItem.ListViewSubItem();
-            subRxZhuBo.Name = Settings.Default.LabelRXZhuBo;
-
             ListViewItem.ListViewSubItem subRxGeLiDu = new ListViewItem.ListViewSubItem();
             subRxGeLiDu.Name = Settings.Default.LabelRXGeLiDu;
-
-            ListViewItem.ListViewSubItem subRxPowerResist = new ListViewItem.ListViewSubItem();
-            subRxPowerResist.Name = Settings.Default.LabelRxNaiGongLu;
 
             ListViewItem.ListViewSubItem subTxChaSun = new ListViewItem.ListViewSubItem();
             subTxChaSun.Name = Settings.Default.LabelTXChaSun;
 
-            ListViewItem.ListViewSubItem subTxZhuBo = new ListViewItem.ListViewSubItem();
-            subTxZhuBo.Name = Settings.Default.LabelTXZhuBo;
-
-            ListViewItem.ListViewSubItem subTxGeLiDu = new ListViewItem.ListViewSubItem();
-            subTxGeLiDu.Name = Settings.Default.LabelTXGeLiDu;
-
             ListViewItem.ListViewSubItem subTxPowerResist = new ListViewItem.ListViewSubItem();
             subTxPowerResist.Name = Settings.Default.LabelTxNaiGongLu;
 
-            ListViewItem.ListViewSubItem subSwitchSpeed = new ListViewItem.ListViewSubItem();
-            subSwitchSpeed.Name = Settings.Default.LabelSwitchSpeed;
 
             ListViewItem item = new ListViewItem
                 (new ListViewItem.ListViewSubItem[]
                 {
                     subNo,
                     subRxChaSun,
-                    subRxZhuBo,
                     subRxGeLiDu,
-                    subRxPowerResist,
                     subTxChaSun,
-                    subTxZhuBo,
-                    subTxGeLiDu,
                     subTxPowerResist,
-                    subSwitchSpeed
                 }, -1);
 
-            foreach (ITestItem t in this._results)
+            foreach (TestItemBase t in this._results)
             {
                 item.SubItems[t.Name].Text = t.TheValue.ToString(Helper.FloatFormat);
+                Debug.WriteLine(string.Format("{0}:{1}", t.Name, t.TheValue));
             }
 
             if (!RoundPassed(this.TestItems))
@@ -682,22 +553,35 @@ namespace Yaguang.VJK3G.GUI
                 item.ForeColor = Helper.WarningColor();
             }
 
-
-
             return item;
         }
 
+        private void AddTestResult()
+        {
+            ListViewItem item = this.BuildListViewItem();
+            this.listView1.Items.Add(item);
+            item.EnsureVisible();
+        }
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             if (e.UserState == null)// one round is done
             {
-                ListViewItem item = this.BuildListViewItem();
-                this.listView1.Items.Add(item);
-                item.EnsureVisible();
+                bool passed = this.RoundPassed(this.TestItems);
+                if (passed)
+                {
+                    AddTestResult();
+                }
+                else
+                {
+                    if (Properties.Settings.Default.ShowNotPassedRecord)
+                    {
+                        AddTestResult();
+                    }
+                }
             }
             else
             {
-                ITestItem item = e.UserState as ITestItem;
+                TestItemBase item = e.UserState as TestItemBase;
 
                 if (e.ProgressPercentage == 0)
                 {
@@ -711,22 +595,10 @@ namespace Yaguang.VJK3G.GUI
                 {
                     this.UpdateCurrentItemDisplay(e.ProgressPercentage, item);
                 }
-
-
             }
 
         }
 
-        private void toolStripButtonCali_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
-        {
-            //this.listView1.Columns[e.ColumnIndex].
-            //Settings.Default[ColRXChaSunWidth
-        }
 
         private void 关于VJK3GToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -786,7 +658,6 @@ namespace Yaguang.VJK3G.GUI
             this.timer2.Dispose();
             if (Properties.Settings.Default.FirstRun)
             {
-
                 MessageBox.Show("第一次运行程序， 请先配置频点并校正系统");
                 OptionsForm f = new OptionsForm();
                 f.ShowDialog(this);
@@ -795,6 +666,8 @@ namespace Yaguang.VJK3G.GUI
 
 
         }
+
+
 
 
     }

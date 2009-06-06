@@ -2,76 +2,125 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using Yaguang.VJK3G.Instrument;
-
 namespace Yaguang.VJK3G.Test
 {
-    using Instrument;
+    using Predicators;
 
-    public abstract class TestItemBase : Yaguang.VJK3G.Test.ITestItem
+    public abstract class TestItemBase
     {
 
-        public TestItemBase(Instrument.SwitchSetting switchSetting)
-        {
-            this.SwitchSetting = switchSetting;
+        public event EventHandler BeforeSetup;
+        public event EventHandler AfterSetup;
+        public event EventHandler BeforeReadData;
+        public event DataReadEventHandler DataRead;
+        public DataPickers.PickData Pick { get; set; }
 
-            this.SetupCommandsAV = new List<string>();
-            this.SetupCommandsOSC = new List<string>();
-        }
-
-        #region ITestItem Members
-
-
-
-        public SwitchSetting SwitchSetting
+        public IPredicator Predicator
         {
             get;
             set;
         }
 
-        public override void Setup()
+        public float TheValue
         {
-            SwitchController.Default.CurrentSwitch = this.SwitchSetting;
-
-            this.ExecCommands(NetworkAnalyzer.Default, this.SetupCommandsAV);
-            this.ExecCommands(Oscillograph.Default, this.SetupCommandsOSC);
-
-            Helper.Sleep(Properties.Settings.Default.ItemSwitchHoldTime);
+            get;
+            set;
         }
 
-        public override void AfterTest()
+        public bool Passed
         {
-            base.AfterTest();
+            get;
+            set;
+        }
 
-            if (Properties.Settings.Default.ShutDownSwitchAfterTestItem)
+        public string[] OriginalValues
+        {
+            get;
+            set;
+        }
+
+        public IList<string> Values
+        {
+            get;
+            set;
+        }
+
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public void MakeVerdict()
+        {
+            this.TheValue = this.Pick(this.Values);
+
+            this.Passed = this.Predicator.Predicate(this.Values);
+        }
+
+        public void Run()
+        {
+            this.FireBoforeReadDataEvent();
+
+            this.ReadData();
+
+            this.OriginalValues = new string[this.Values.Count];
+            for (int i = 0; i < this.Values.Count; i++)
             {
-                SwitchController.Default.CurrentSwitch = SwitchSetting.Start;
-                Helper.Sleep(Properties.Settings.Default.SwitchOffMillisecond);
+                this.OriginalValues[i] = string.Copy(this.Values[i]);
+            }
+
+            this.FireAfterReadDataEvent();
+
+            this.MakeVerdict();
+        }
+
+
+        public abstract void DoSetup();
+
+        public void Setup()
+        {
+            FireBoforeSetupEvent();
+
+            this.DoSetup();
+
+            FireAfterSetupEvent();
+        }
+
+        public abstract void ReadData();
+
+        void FireBoforeSetupEvent()
+        {
+            if (BeforeSetup != null)
+            {
+                BeforeSetup(this, EventArgs.Empty);
             }
         }
 
-        #endregion
-
-
-        public IList<string> SetupCommandsAV
+        void FireAfterSetupEvent()
         {
-            get;
-            set;
-        }
-
-        public IList<string> SetupCommandsOSC
-        {
-            get;
-            set;
-        }
-
-        public void ExecCommands(GPIBDeviceBase dev, IList<string> commands)
-        {
-            foreach (var s in commands)
+            if (AfterSetup != null)
             {
-                dev.ExecuteCommand(s);
+                AfterSetup(this, EventArgs.Empty);
             }
         }
+
+        void FireBoforeReadDataEvent()
+        {
+            if (BeforeReadData != null)
+            {
+                BeforeReadData(this, EventArgs.Empty);
+            }
+        }
+
+        void FireAfterReadDataEvent()
+        {
+            if (DataRead != null)
+            {
+                DataRead(this, new DataReadEventArgs(this.Values));
+            }
+        }
+
 
     }
 }

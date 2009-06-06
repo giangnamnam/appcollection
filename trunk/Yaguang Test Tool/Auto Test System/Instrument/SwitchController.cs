@@ -1,46 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-
 using Yaguang.VJK3G.IO;
+using Yaguang.VJK3G.Properties;
+using System.Globalization;
 
 namespace Yaguang.VJK3G.Instrument
 {
 
     public enum PortIOMode : int { Input = 0, Output = 1 }
-    public enum SwitchSetting
-    {
-        Start,
-        ToolConfirm,
-        TXChaSunZhuBo,
-        RXChaSunZhuBo,
-        RXGeLiDu,
-        TXGeLiDu,
-        TXPowerResist,
-        RXPowerResist,
-        SwitchSpeed
-    }
-
-    public class SwitchController
+    public class SwitchController : ISwitchController
     {
         private int deviceNo = 0;
         public IntPtr Handle = AC6651.InvalidHandle;
-        private static SwitchController instance = null;
+        private static ISwitchController instance = null;
 
         private SwitchSetting currentSwitchSetting;
-        private IDictionary<SwitchSetting, int> _controlCodes;
 
-        public IDictionary<SwitchSetting, int> ControlCodes
-        {
-            get
-            {
-                return this._controlCodes;
-            }
-            set
-            {
-                this._controlCodes = value;
-            }
-        }
+        public IDictionary<SwitchSetting, int> ControlCodes { get; set; }
 
 
         //         private readonly int ControlCodeStart = 0x0000;
@@ -53,8 +29,8 @@ namespace Yaguang.VJK3G.Instrument
         //         private readonly int ControlCodeRXPowerResist = 0X0D0A;
         //         private readonly int ControlCodeSwitchSpeed = 0x0D44;
 
-        private readonly int PortNoForLowByte = 0;
-        private readonly int PortNoForHiByte = 1;
+        private readonly int PortNoForOutPut = 0;
+        private readonly int PortNoForInput = 1;
 
 
 
@@ -68,8 +44,8 @@ namespace Yaguang.VJK3G.Instrument
 
         private void SwitchTo(SwitchSetting switchSetting)
         {
-            
-            int code = this._controlCodes[switchSetting];
+
+            int code = this.ControlCodes[switchSetting];
             WriteControlCode(code);
             this.currentSwitchSetting = switchSetting;
             System.Diagnostics.Debug.WriteLine(switchSetting);
@@ -125,20 +101,27 @@ namespace Yaguang.VJK3G.Instrument
             get { return this.deviceNo; }
         }
 
-
-
-        public static SwitchController Open(int deviceNo)
+        public static ISwitchController Open(int deviceNo)
         {
             if (instance == null)
             {
-                IntPtr handle = AC6651.OpenDevice(deviceNo);
-                if (handle == AC6651.InvalidHandle)
+                if (!GUI.Program.Debug)
                 {
-                    throw Helper.NewCustomException("初始化AC6651错误");
-                }
+                    IntPtr handle = AC6651.OpenDevice(deviceNo);
+                    if (handle == AC6651.InvalidHandle)
+                    {
+                        throw Helper.NewCustomException("初始化AC6651错误");
+                    }
 
-                instance = new SwitchController(deviceNo);
-                instance.Handle = handle;
+                    SwitchController c = new SwitchController(deviceNo);
+                    c.Handle = handle;
+                    instance = c;
+
+                }
+                else
+                {
+                    instance = new SwitchControllStub();
+                }
             }
 
             return instance;
@@ -152,22 +135,14 @@ namespace Yaguang.VJK3G.Instrument
 
         public void InitControlPort()
         {
-            this.SetPortIOMode(PortNoForHiByte, PortIOMode.Output);
-            this.SetPortIOMode(PortNoForLowByte, PortIOMode.Output);
-            this.SetPortIOMode(2, PortIOMode.Input);
+            this.SetPortIOMode(PortNoForInput, PortIOMode.Input);
+            this.SetPortIOMode(PortNoForOutPut, PortIOMode.Output);
             this.WriteControlCode(0);
         }
 
         public void WriteControlCode(int controlCode)
         {
-            int retcode = AC6651.DO(this.Handle, this.PortNoForLowByte, controlCode);
-            if (retcode != AC6651.Succeed)
-            {
-                throw Helper.NewCustomException(@"StringAC6651DataOutError");
-            }
-
-            controlCode >>= 8;
-            AC6651.DO(this.Handle, this.PortNoForHiByte, controlCode);
+            int retcode = AC6651.DO(this.Handle, this.PortNoForOutPut, controlCode);
             if (retcode != AC6651.Succeed)
             {
                 throw Helper.NewCustomException(@"StringAC6651DataOutError");
@@ -176,29 +151,10 @@ namespace Yaguang.VJK3G.Instrument
 
         public int ReadControlCode()
         {
-            int Code = AC6651.DI(this.Handle, this.PortNoForHiByte);
-            Code <<= 8;
-            Code |= AC6651.DI(this.Handle, this.PortNoForLowByte);
+            int Code = AC6651.DI(this.Handle, this.PortNoForInput);
 
             return Code;
         }
-
-        public void InitPWM()
-        {
-            int RetCode = AC6651.SetTimerMode(this.Handle, 0, 3);
-            if (RetCode != AC6651.Succeed)
-            {
-                throw Helper.NewCustomException("StringAC6651SetTimerModeError");
-            }
-
-            RetCode = AC6651.SetTimerMode(this.Handle, 1, 3);
-            if (RetCode != AC6651.Succeed)
-            {
-                throw Helper.NewCustomException("StringAC6651SetTimerModeError");
-            }
-        }
-
-
 
         private void CheckPortNo(int portNo)
         {
@@ -212,31 +168,23 @@ namespace Yaguang.VJK3G.Instrument
         {
             this.deviceNo = deviceNo;
 
-            this._controlCodes = new Dictionary<SwitchSetting, int>()
+            this.ControlCodes = new Dictionary<SwitchSetting, int>()
             {
-                 {SwitchSetting.Start, int.Parse(Properties.Settings.Default.CtrlCodeZero, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.ToolConfirm, int.Parse(Properties.Settings.Default.CtrlCodeTool, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.TXChaSunZhuBo, int.Parse(Properties.Settings.Default.CtrlCodeTXChaSunZhuBo, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.RXChaSunZhuBo, int.Parse(Properties.Settings.Default.CtrlCodeRXChaSunZhuBo, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.RXGeLiDu, int.Parse(Properties.Settings.Default.CtrlCodeRXGeLiDu, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.TXGeLiDu, int.Parse(Properties.Settings.Default.CtrlCodeTXGeLiDu, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.TXPowerResist, int.Parse(Properties.Settings.Default.CtrlCodeTXNaiGongLu, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.RXPowerResist, int.Parse(Properties.Settings.Default.CtrlCodeRXNaiGongLu, System.Globalization.NumberStyles.HexNumber)},
-                 {SwitchSetting.SwitchSpeed, int.Parse(Properties.Settings.Default.CtrlCodeSwitchSpeed, System.Globalization.NumberStyles.HexNumber)},
+                 {SwitchSetting.Start, int.Parse(Settings.Default.CtrlCodeZero, NumberStyles.HexNumber)},
+                 {SwitchSetting.ToolConfirm, int.Parse(Settings.Default.CtrlCodeTool, NumberStyles.HexNumber)},
+                 {SwitchSetting.TXChaSunZhuBo, int.Parse(Settings.Default.CtrlCodeTXChaSunZhuBo, NumberStyles.HexNumber)},
+                 {SwitchSetting.RXChaSunZhuBo, int.Parse(Settings.Default.CtrlCodeRXChaSunZhuBo, NumberStyles.HexNumber)},
+                 {SwitchSetting.RXGeLiDu, int.Parse(Settings.Default.CtrlCodeRXGeLiDu, NumberStyles.HexNumber)},
+                 {SwitchSetting.TXGeLiDu, int.Parse(Settings.Default.CtrlCodeTXGeLiDu, NumberStyles.HexNumber)},
+                 {SwitchSetting.TXPowerResist, int.Parse(Settings.Default.CtrlCodeTXNaiGongLu, NumberStyles.HexNumber)},
+                 {SwitchSetting.RXPowerResist, int.Parse(Settings.Default.CtrlCodeRXNaiGongLu, NumberStyles.HexNumber)},
+                 {SwitchSetting.SysPowerCalib, int.Parse(Settings.Default.CtrlCodeSystemPower, NumberStyles.HexNumber)},
+                 {SwitchSetting.PreTxPower, int.Parse(Settings.Default.CtrlCodeTxPreTxPower, NumberStyles.HexNumber)},
+                 {SwitchSetting.PostTxPower, int.Parse(Settings.Default.CtrlCodeTxPostTxPower, NumberStyles.HexNumber)},
             };
 
         }
 
-        public Yaguang.VJK3G.IO.AC6651 IO
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
 
         public SwitchSetting CurrentSwitch
         {
@@ -255,18 +203,19 @@ namespace Yaguang.VJK3G.Instrument
         {
             InitControlPort();
             WriteControlCode(0);
-            InitPWM();
+            //InitPWM();
 
-            this.PWMPeriod = 1000;
-            this.PWMLowTTL = 900;
+            //this.PWMPeriod = 1000;
+            //this.PWMLowTTL = 900;
         }
 
         public int TC1
         {
             get
             {
-                int code = AC6651.DI(this.Handle, 2);
-                code &= 0x01;
+                int code = AC6651.DI(this.Handle, PortNoForInput);
+                code &= 0x40;
+                code >>= 2;
                 return code;
             }
         }
@@ -275,9 +224,9 @@ namespace Yaguang.VJK3G.Instrument
         {
             get
             {
-                int code = AC6651.DI(this.Handle, 2);
-                code &= 0x02;
-                code >>= 1;
+                int code = AC6651.DI(this.Handle, PortNoForInput);
+                code &= 0x80;
+                code >>= 3;
                 return code;
             }
         }
@@ -308,8 +257,7 @@ namespace Yaguang.VJK3G.Instrument
 
         public event EventHandler SwitchChanged;
 
-
-        public static SwitchController Default
+        public static ISwitchController Default
         {
             get
             {

@@ -4,5 +4,5 @@ using System.Text;
 
 namespace Yaguang.VJK3G.Test
 {
-    public delegate void TestDoneHandler(TestItemBase sender, EventArgs args);
+    public delegate void DataReadEventHandler(object sender, DataReadEventArgs args);
 }
