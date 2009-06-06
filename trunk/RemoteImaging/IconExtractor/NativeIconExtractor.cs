@@ -68,5 +68,9 @@ namespace ImageProcess
         ///dRatio: double
         [DllImport(dllName, CharSet = CharSet.Ansi)]
         public static extern void SetDwSmpRatio(double dRatio);
+
+
+        [DllImport(dllName, CharSet = CharSet.Ansi)]
+        public static extern void SetLightMode(int iMode);
     }
 }

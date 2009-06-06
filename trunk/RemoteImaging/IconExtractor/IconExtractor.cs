@@ -75,5 +75,15 @@ namespace ImageProcess
         }
 
         #endregion
+
+        #region IIconExtractor Members
+
+
+        public void SetLightMode(int mode)
+        {
+            NativeIconExtractor.SetLightMode(mode);
+        }
+
+        #endregion
     }
 }

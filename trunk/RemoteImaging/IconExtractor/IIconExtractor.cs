@@ -15,6 +15,7 @@ namespace ImageProcess
             double rightExRatio);
         void SetDwSmpRatio(double dRatio);
         void SetROI(int x, int y, int width, int height);
+        void SetLightMode(int iMode);
 
         //基本截取函数
         void AddInImage(string strFileName);
