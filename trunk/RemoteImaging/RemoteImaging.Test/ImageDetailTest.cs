@@ -1,6 +1,7 @@
 ﻿using RemoteImaging.RealtimeDisplay;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using RemoteImaging.Core;
 
 namespace RemoteImaging.Test
 {

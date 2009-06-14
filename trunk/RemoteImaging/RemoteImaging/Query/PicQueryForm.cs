@@ -188,7 +188,7 @@ namespace RemoteImaging.Query
         private void secPicListView_DoubleClick(object sender, EventArgs e)
         {
             FormDetailedPic detail = new FormDetailedPic();
-            detail.Img = RemoteImaging.RealtimeDisplay.ImageDetail.FromPath(this.secPicListView.FocusedItem.Tag as string);
+            detail.Img = RemoteImaging.Core.ImageDetail.FromPath(this.secPicListView.FocusedItem.Tag as string);
             detail.Show(this);
         }
     }

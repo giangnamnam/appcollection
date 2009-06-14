@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RemoteImaging.RealtimeDisplay
+namespace RemoteImaging.Core
 {
     public class ImageDetail
     {

@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 namespace RemoteImaging
 {
+    using Core;
+
     public partial class FormDetailedPic : Form
     {
         public FormDetailedPic()
@@ -17,7 +19,7 @@ namespace RemoteImaging
         }
 
 
-        public RealtimeDisplay.ImageDetail Img
+        public ImageDetail Img
         {
             set
             {

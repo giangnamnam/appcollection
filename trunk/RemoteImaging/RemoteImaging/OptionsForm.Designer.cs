@@ -48,6 +48,9 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label26 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.envModes = new DevExpress.XtraEditors.RadioGroup();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -97,9 +100,6 @@
             this.rightExtRatio = new System.Windows.Forms.TextBox();
             this.leftExtRatio = new System.Windows.Forms.TextBox();
             this.VideoDnExePath = new System.Windows.Forms.TextBox();
-            this.envModes = new DevExpress.XtraEditors.RadioGroup();
-            this.label26 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -109,8 +109,8 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -128,7 +128,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(117, 58);
+            this.label2.Location = new System.Drawing.Point(125, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(295, 13);
             this.label2.TabIndex = 2;
@@ -138,7 +138,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(113, 22);
+            this.label1.Location = new System.Drawing.Point(121, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -147,7 +147,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(45, 25);
+            this.pictureBox1.Location = new System.Drawing.Point(53, 17);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -179,7 +179,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(486, 285);
+            this.tabPage1.Size = new System.Drawing.Size(486, 313);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "目录";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -250,7 +250,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(486, 285);
+            this.tabPage2.Size = new System.Drawing.Size(486, 313);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -331,6 +331,37 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(21, 237);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(55, 13);
+            this.label26.TabIndex = 28;
+            this.label26.Text = "环境模式";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Location = new System.Drawing.Point(93, 242);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(380, 2);
+            this.groupBox6.TabIndex = 27;
+            this.groupBox6.TabStop = false;
+            // 
+            // envModes
+            // 
+            this.envModes.Location = new System.Drawing.Point(78, 261);
+            this.envModes.Name = "envModes";
+            this.envModes.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.envModes.Properties.Appearance.Options.UseBackColor = true;
+            this.envModes.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.envModes.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "顺光"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "逆光"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "强逆光")});
+            this.envModes.Size = new System.Drawing.Size(319, 28);
+            this.envModes.TabIndex = 26;
             // 
             // label20
             // 
@@ -484,7 +515,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(486, 285);
+            this.tabPage4.Size = new System.Drawing.Size(486, 313);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "工具";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -771,37 +802,6 @@
             this.VideoDnExePath.TabIndex = 10;
             this.VideoDnExePath.Text = global::RemoteImaging.Properties.Settings.Default.VideoDnTool;
             // 
-            // envModes
-            // 
-            this.envModes.Location = new System.Drawing.Point(78, 261);
-            this.envModes.Name = "envModes";
-            this.envModes.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.envModes.Properties.Appearance.Options.UseBackColor = true;
-            this.envModes.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.envModes.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "顺光"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "逆光"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "强逆光")});
-            this.envModes.Size = new System.Drawing.Size(319, 28);
-            this.envModes.TabIndex = 26;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(21, 237);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(55, 13);
-            this.label26.TabIndex = 28;
-            this.label26.Text = "环境模式";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Location = new System.Drawing.Point(93, 242);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(380, 2);
-            this.groupBox6.TabIndex = 27;
-            this.groupBox6.TabStop = false;
-            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -832,9 +832,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

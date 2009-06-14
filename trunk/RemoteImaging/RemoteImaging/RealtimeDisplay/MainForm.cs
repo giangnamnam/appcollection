@@ -12,6 +12,8 @@ using DevExpress.XtraNavBar;
 using ImageProcess;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using RemoteImaging.Core;
+using Microsoft.Win32;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -58,6 +60,10 @@ namespace RemoteImaging.RealtimeDisplay
                     int.Parse(setting.SrchRegionWidth),
                     int.Parse(setting.SrchRegionHeight))
                     );
+
+            videoPlayerPath = (string)Registry.LocalMachine.OpenSubKey("Software")
+                .OpenSubKey("Videolan")
+                .OpenSubKey("vlc").GetValue(null);
 
         }
 
@@ -545,6 +551,43 @@ namespace RemoteImaging.RealtimeDisplay
             this.ShowDetailPic(ImageDetail.FromPath(args.Cell.Path));
 
         }
+
+        private void playRelateVideo_Click(object sender, EventArgs e)
+        {
+            Cell c = this.squareListView1.SelectedCell;
+            if (c == null || c.Path == null) return;
+
+            ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
+
+            string root = Path.Combine(Properties.Settings.Default.OutputPath, imgInfo.FromCamera.ToString("D2"));
+
+            string[] videos = VideoSearch.FindVideos(root, imgInfo);
+
+            if (videos.Length == 0)
+            {
+                MessageBox.Show(this, "没有找到相关视频", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (videoPlayerPath == null)
+            {
+                MessageBox.Show(this, "请安装相应播放器", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var file in videos)
+            {
+                sb.Append(file); sb.Append(' ');
+            }
+
+            sb.Append(@"vlc://quit"); sb.Append(' ');
+
+            Process.Start(videoPlayerPath, sb.ToString());
+        }
+
+
+        string videoPlayerPath;
 
     }
 }
