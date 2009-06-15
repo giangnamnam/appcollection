@@ -61,9 +61,17 @@ namespace RemoteImaging.RealtimeDisplay
                     int.Parse(setting.SrchRegionHeight))
                     );
 
-            videoPlayerPath = (string)Registry.LocalMachine.OpenSubKey("Software")
-                .OpenSubKey("Videolan")
-                .OpenSubKey("vlc").GetValue(null);
+            try
+            {
+                videoPlayerPath = (string)Registry.LocalMachine.OpenSubKey("Software")
+                                .OpenSubKey("Videolan")
+                                .OpenSubKey("vlc").GetValue(null);
+            }
+            catch (Exception)
+            {
+                videoPlayerPath = null;
+            }
+
 
         }
 
