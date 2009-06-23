@@ -54,6 +54,8 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.squareListView1 = new MyControls.SquareListView();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.axCamImgCtrl1 = new AxIMGCTRLLib.AxCamImgCtrl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -76,6 +78,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.dnloadVideo = new System.Windows.Forms.ToolStripButton();
             this.videoSearch = new System.Windows.Forms.ToolStripButton();
+            this.playRelateVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.options = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -97,7 +100,6 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.realTimer = new System.Windows.Forms.Timer(this.components);
-            this.playRelateVideo = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -109,6 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
@@ -221,7 +224,7 @@
             this.panelControl3.Controls.Add(this.panelControl5);
             this.panelControl3.Location = new System.Drawing.Point(7, 151);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(173, 337);
+            this.panelControl3.Size = new System.Drawing.Size(100, 337);
             this.panelControl3.TabIndex = 12;
             // 
             // pictureEdit1
@@ -231,7 +234,7 @@
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.pictureEdit1.Size = new System.Drawing.Size(173, 313);
+            this.pictureEdit1.Size = new System.Drawing.Size(100, 313);
             this.pictureEdit1.TabIndex = 2;
             this.pictureEdit1.DoubleClick += new System.EventHandler(this.pictureEdit1_DoubleClick);
             // 
@@ -245,7 +248,7 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(0, 0);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(173, 24);
+            this.panelControl5.Size = new System.Drawing.Size(100, 24);
             this.panelControl5.TabIndex = 1;
             // 
             // pictureBox2
@@ -275,9 +278,11 @@
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.squareListView1);
-            this.panelControl1.Location = new System.Drawing.Point(196, 7);
+            this.panelControl1.Controls.Add(this.splitter1);
+            this.panelControl1.Controls.Add(this.axCamImgCtrl1);
+            this.panelControl1.Location = new System.Drawing.Point(123, 7);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(637, 481);
+            this.panelControl1.Size = new System.Drawing.Size(710, 481);
             this.panelControl1.TabIndex = 10;
             // 
             // squareListView1
@@ -287,17 +292,39 @@
             this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.squareListView1.Location = new System.Drawing.Point(3, 3);
+            this.squareListView1.Location = new System.Drawing.Point(3, 446);
             this.squareListView1.MaxCountOfCells = 25;
             this.squareListView1.Name = "squareListView1";
-            this.squareListView1.NumberOfColumns = 4;
+            this.squareListView1.NumberOfColumns = 6;
+            this.squareListView1.NumberofRows = 2;
             this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
             this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(631, 475);
+            this.squareListView1.Size = new System.Drawing.Size(704, 32);
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
             this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
+            // 
+            // splitter1
+            // 
+            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitter1.Location = new System.Drawing.Point(3, 440);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(704, 6);
+            this.splitter1.TabIndex = 2;
+            this.splitter1.TabStop = false;
+            // 
+            // axCamImgCtrl1
+            // 
+            this.axCamImgCtrl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.axCamImgCtrl1.Enabled = true;
+            this.axCamImgCtrl1.Location = new System.Drawing.Point(3, 3);
+            this.axCamImgCtrl1.Name = "axCamImgCtrl1";
+            this.axCamImgCtrl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCamImgCtrl1.OcxState")));
+            this.axCamImgCtrl1.Size = new System.Drawing.Size(704, 437);
+            this.axCamImgCtrl1.TabIndex = 3;
+            this.axCamImgCtrl1.InfoChanged += new AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEventHandler(this.axCamImgCtrl1_InfoChanged);
             // 
             // simpleButton2
             // 
@@ -324,7 +351,7 @@
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Location = new System.Drawing.Point(7, 7);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(173, 128);
+            this.panelControl2.Size = new System.Drawing.Size(100, 128);
             this.panelControl2.TabIndex = 11;
             // 
             // cameraTree
@@ -361,9 +388,10 @@
             treeNode3,
             treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
-            this.cameraTree.Size = new System.Drawing.Size(173, 104);
+            this.cameraTree.Size = new System.Drawing.Size(100, 104);
             this.cameraTree.TabIndex = 1;
             this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
+            this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
             // 
             // cameraImageList
             // 
@@ -386,7 +414,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(173, 24);
+            this.panelControl4.Size = new System.Drawing.Size(100, 24);
             this.panelControl4.TabIndex = 0;
             // 
             // pictureBox1
@@ -467,9 +495,9 @@
             // 
             this.layoutControlItem5.Control = this.panelControl1;
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(189, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(116, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(647, 491);
+            this.layoutControlItem5.Size = new System.Drawing.Size(720, 491);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -482,7 +510,7 @@
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(183, 138);
+            this.layoutControlItem2.Size = new System.Drawing.Size(110, 138);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -495,7 +523,7 @@
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 144);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(183, 347);
+            this.layoutControlItem4.Size = new System.Drawing.Size(110, 347);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -506,7 +534,7 @@
             // 
             this.splitterItem2.ContentVisible = false;
             this.splitterItem2.CustomizationFormText = "splitterItem2";
-            this.splitterItem2.Location = new System.Drawing.Point(183, 0);
+            this.splitterItem2.Location = new System.Drawing.Point(110, 0);
             this.splitterItem2.Name = "splitterItem2";
             this.splitterItem2.Size = new System.Drawing.Size(6, 491);
             // 
@@ -515,7 +543,7 @@
             this.splitterItem1.CustomizationFormText = "splitterItem1";
             this.splitterItem1.Location = new System.Drawing.Point(0, 138);
             this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(183, 6);
+            this.splitterItem1.Size = new System.Drawing.Size(110, 6);
             // 
             // defaultLookAndFeel1
             // 
@@ -578,6 +606,15 @@
             this.videoSearch.Size = new System.Drawing.Size(88, 22);
             this.videoSearch.Text = "视频检索";
             this.videoSearch.Click += new System.EventHandler(this.videoSearch_Click);
+            // 
+            // playRelateVideo
+            // 
+            this.playRelateVideo.Image = ((System.Drawing.Image)(resources.GetObject("playRelateVideo.Image")));
+            this.playRelateVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.playRelateVideo.Name = "playRelateVideo";
+            this.playRelateVideo.Size = new System.Drawing.Size(118, 22);
+            this.playRelateVideo.Text = "播放相关视频";
+            this.playRelateVideo.Click += new System.EventHandler(this.playRelateVideo_Click);
             // 
             // toolStripSeparator1
             // 
@@ -771,15 +808,6 @@
             this.realTimer.Interval = 1000;
             this.realTimer.Tick += new System.EventHandler(this.realTimer_Tick);
             // 
-            // playRelateVideo
-            // 
-            this.playRelateVideo.Image = ((System.Drawing.Image)(resources.GetObject("playRelateVideo.Image")));
-            this.playRelateVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.playRelateVideo.Name = "playRelateVideo";
-            this.playRelateVideo.Size = new System.Drawing.Size(118, 22);
-            this.playRelateVideo.Text = "播放相关视频";
-            this.playRelateVideo.Click += new System.EventHandler(this.playRelateVideo_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -807,6 +835,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
@@ -891,6 +920,8 @@
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel statusCPUMemUsage;
         private System.Windows.Forms.ToolStripButton playRelateVideo;
+        private System.Windows.Forms.Splitter splitter1;
+        private AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl1;
 
     }
 }

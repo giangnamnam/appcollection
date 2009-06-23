@@ -597,5 +597,30 @@ namespace RemoteImaging.RealtimeDisplay
 
         string videoPlayerPath;
 
+        private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+            TreeNode cameraNode = this.getTopCamera(e.Node);
+            if (!(cameraNode.Tag is Camera)) return;
+
+            this.axCamImgCtrl1.CamImgCtrlStop();
+
+            Camera cam = cameraNode.Tag as Camera;
+
+            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
+            this.axCamImgCtrl1.ImageType = @"JPEG";
+            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
+            this.axCamImgCtrl1.uid = "admin";
+            this.axCamImgCtrl1.pwd = "admin";
+
+            this.axCamImgCtrl1.CamImgCtrlStart();
+
+        }
+
+        private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
+        {
+
+        }
+
     }
 }
