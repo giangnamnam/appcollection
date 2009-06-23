@@ -26,6 +26,8 @@ namespace MyControls
             this.MaxCountOfCells = 25;
             this.cells = new List<Cell>(this.MaxCountOfCells);
             this.numOfColumns = 2;
+            this.numOfRows = 2;
+
 
             this.PopulateCellList();
             this.CalcLayout();
@@ -139,15 +141,15 @@ namespace MyControls
         private void CalcLayout()
         {
             int width = this.ClientRectangle.Width / this.NumberOfColumns;
-            int height = this.ClientRectangle.Height / this.NumberOfColumns;
+            int height = this.ClientRectangle.Height / this.NumberofRows;
 
-            for (int i = 0; i < this.NumberOfColumns; i++)
+            for (int i = 0; i < this.numOfRows; i++)
             {
-                for (int j = 0; j < this.NumberOfColumns; j++)
+                for (int j = 0; j < this.numOfColumns; j++)
                 {
-                    int idx = j * this.NumberOfColumns + i;
-                    this.cells[idx].Rec = new Rectangle(i * width + this.Padding.Left,
-                        j * height + this.Padding.Top,
+                    int idx = j + i * this.numOfColumns;
+                    this.cells[idx].Rec = new Rectangle(j * width + this.Padding.Left,
+                        i * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
                         height - this.Padding.Vertical);
                 }
@@ -232,6 +234,36 @@ namespace MyControls
         }
 
 
+        public int NumberofRows
+        {
+            get
+            {
+                return numOfRows;
+            }
+            set
+            {
+                if (numOfRows == value)
+                    return;
+
+                if (value * numOfColumns > this.MaxCountOfCells)
+                {
+                    throw new ArgumentOutOfRangeException(@"NumberOfRows",
+                        @"Total Number of Cells > Max Number of cells");
+                }
+
+                numOfRows = value;
+
+                if (this.SelectedCell != null)
+                {
+                    this.SelectedCell.Selected = false;
+                }
+
+                this.CalcLayout();
+                this.Invalidate();
+            }
+        }
+
+
         public int NumberOfColumns
         {
             get
@@ -243,7 +275,7 @@ namespace MyControls
                 if (numOfColumns == value)
                     return;
 
-                if (value * value > this.MaxCountOfCells)
+                if (value * numOfRows > this.MaxCountOfCells)
                 {
                     throw new ArgumentOutOfRangeException(@"NumberOfColumns",
                         @"Total Number of Cells > Max Number of cells");
@@ -265,7 +297,7 @@ namespace MyControls
 
         public Cell LastSelectedCell { get; private set; }
         public Cell SelectedCell { get; set; }
-        public int CellsCount { get { return this.NumberOfColumns * this.NumberOfColumns; } }
+        public int CellsCount { get { return this.numOfColumns * this.numOfRows; } }
         public int MaxCountOfCells { get; set; }
 
 
@@ -278,5 +310,6 @@ namespace MyControls
         System.Timers.Timer refreshTimer = new System.Timers.Timer();
         Queue<ImageCell> imgQueue = new Queue<ImageCell>();
         private int numOfColumns;
+        private int numOfRows;
     }
 }
