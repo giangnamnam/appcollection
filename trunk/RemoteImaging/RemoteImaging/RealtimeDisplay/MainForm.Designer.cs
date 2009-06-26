@@ -54,7 +54,6 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.squareListView1 = new MyControls.SquareListView();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.axCamImgCtrl1 = new AxIMGCTRLLib.AxCamImgCtrl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
@@ -275,52 +274,41 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Controls.Add(this.squareListView1);
-            this.panelControl1.Controls.Add(this.splitter1);
             this.panelControl1.Controls.Add(this.axCamImgCtrl1);
+            this.panelControl1.Controls.Add(this.squareListView1);
             this.panelControl1.Location = new System.Drawing.Point(131, 7);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(759, 481);
             this.panelControl1.TabIndex = 10;
+            this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
             // 
             // squareListView1
             // 
             this.squareListView1.AutoDisposeImage = true;
             this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.squareListView1.Location = new System.Drawing.Point(3, 362);
+            this.squareListView1.Location = new System.Drawing.Point(3, 329);
             this.squareListView1.MaxCountOfCells = 25;
             this.squareListView1.Name = "squareListView1";
             this.squareListView1.NumberOfColumns = 6;
-            this.squareListView1.NumberofRows = 2;
+            this.squareListView1.NumberofRows = 3;
             this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
             this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(753, 116);
+            this.squareListView1.Size = new System.Drawing.Size(753, 149);
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
             this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
             // 
-            // splitter1
-            // 
-            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Location = new System.Drawing.Point(3, 356);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(753, 6);
-            this.splitter1.TabIndex = 2;
-            this.splitter1.TabStop = false;
-            // 
             // axCamImgCtrl1
             // 
-            this.axCamImgCtrl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.axCamImgCtrl1.Enabled = true;
-            this.axCamImgCtrl1.Location = new System.Drawing.Point(3, 3);
+            this.axCamImgCtrl1.Location = new System.Drawing.Point(208, 6);
             this.axCamImgCtrl1.Name = "axCamImgCtrl1";
             this.axCamImgCtrl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCamImgCtrl1.OcxState")));
-            this.axCamImgCtrl1.Size = new System.Drawing.Size(753, 353);
+            this.axCamImgCtrl1.Size = new System.Drawing.Size(246, 245);
             this.axCamImgCtrl1.TabIndex = 3;
             this.axCamImgCtrl1.InfoChanged += new AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEventHandler(this.axCamImgCtrl1_InfoChanged);
             // 
@@ -896,7 +884,6 @@
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel statusCPUMemUsage;
         private System.Windows.Forms.ToolStripButton playRelateVideo;
-        private System.Windows.Forms.Splitter splitter1;
         private AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl1;
 
     }

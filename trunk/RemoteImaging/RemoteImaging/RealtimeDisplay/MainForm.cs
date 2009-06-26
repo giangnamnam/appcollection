@@ -553,6 +553,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowPic()
         {
+            if (this.squareListView1.SelectedCell == null)
+                return;
             string p = this.squareListView1.SelectedCell.Path;
             if (p == null) return;
 
@@ -647,6 +649,14 @@ namespace RemoteImaging.RealtimeDisplay
         private void enhanceImg_Click(object sender, EventArgs e)
         {
             this.ShowPic();
+        }
+
+        private void panelControl1_SizeChanged(object sender, EventArgs e)
+        {
+            int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
+            int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
+            this.axCamImgCtrl1.Left = x;
+            this.squareListView1.Height = height - 15;
         }
 
 
