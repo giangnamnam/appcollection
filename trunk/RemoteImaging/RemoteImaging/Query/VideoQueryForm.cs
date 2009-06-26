@@ -23,14 +23,16 @@ namespace RemoteImaging.Query
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
-            this.listView1.Clear();
+            this.picList.Clear();
 
             if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
             {
                 MessageBox.Show("请选择要查询的摄像头ID", "警告");
                 return;
             }
-            string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
+
+
+            int cameraID = int.Parse(this.comboBox1.Text);
 
 
             //judge the input validation
@@ -46,51 +48,66 @@ namespace RemoteImaging.Query
                 MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
                 return;
             }
-            /////
-            string year1 = dateTime1.Year.ToString("D4");
-            string month1 = dateTime1.Month.ToString("D2");
-            string day1 = dateTime1.Day.ToString("D2");
-            string hour1 = dateTime1.Hour.ToString("D2");
-            string minute1 = dateTime1.Minute.ToString("D2");
-            string second1 = dateTime1.Second.ToString("D2");
-
-            string year2 = dateTime2.Year.ToString("D4");
-            string month2 = dateTime2.Month.ToString("D2");
-            string day2 = dateTime2.Day.ToString("D2");
-            string hour2 = dateTime2.Hour.ToString("D2");
-            string minute2 = dateTime2.Minute.ToString("D2");
-            string second2 = dateTime2.Second.ToString("D2");
 
 
-            Query.ImageDirSys startDir = new ImageDirSys(cameraID, year1, month1, day1, hour1, minute1, second1);
-            Query.ImageDirSys endDir = new ImageDirSys(cameraID, year2, month2, day2, hour2, minute2, second2);
-            Query.ImageSearch imageSearch = new ImageSearch();
+            string[] files = VideoSearch.FindVideos(cameraID, dateTime1, dateTime2);
 
-            string[] files = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.VideoType);
             if (files == null)
             {
                 MessageBox.Show("没有搜索到满足条件的视频！", "警告");
                 return;
             }
 
-            this.listView1.Scrollable = true;
-            this.listView1.MultiSelect = false;
-            this.listView1.View = View.LargeIcon;
-            this.listView1.LargeImageList = imageList1;
+            //this.picList.Scrollable = true;
+            //this.picList.MultiSelect = false;
+            //this.picList.View = View.LargeIcon;
+            //this.picList.LargeImageList = imageList1;
 
-            for (int i = 0; i < files.Length; i++)
+            this.videoList.Items.Clear();
+            foreach (var file in files)
             {
-                this.listView1.Items.Add(System.IO.Path.GetFileName(files[i]), 0);
+                this.videoList.Items.Add(file);
             }
+
 
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.listView1.Clear();
+            this.picList.Clear();
             this.imageList1.Images.Clear();
 
             this.Close();
+        }
+
+        private void videoList_ItemActivate(object sender, EventArgs e)
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+            }
+
+            this.axVLCPlugin21.playlist.items.clear();
+
+            foreach (ListViewItem item in this.videoList.SelectedItems)
+            {
+                this.axVLCPlugin21.playlist.add(item.Text, null, null);
+            }
+
+            if (this.axVLCPlugin21.playlist.itemCount > 0)
+            {
+                this.axVLCPlugin21.playlist.play();
+            }
+        }
+
+        private void VideoQueryForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+            }
+
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

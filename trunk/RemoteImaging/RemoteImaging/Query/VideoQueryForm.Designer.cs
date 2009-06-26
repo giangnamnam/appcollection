@@ -41,15 +41,19 @@
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
             this.queryBtn = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.videoList = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.picList = new System.Windows.Forms.ListView();
             this.label5 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelBtn
@@ -158,28 +162,21 @@
             this.queryBtn.UseVisualStyleBackColor = true;
             this.queryBtn.Click += new System.EventHandler(this.queryBtn_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(217, 88);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(683, 246);
-            this.groupBox2.TabIndex = 24;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "视频播放";
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "face.bmp");
             // 
-            // listView2
+            // videoList
             // 
-            this.listView2.Location = new System.Drawing.Point(12, 103);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(199, 430);
-            this.listView2.TabIndex = 25;
-            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.videoList.Location = new System.Drawing.Point(12, 103);
+            this.videoList.Name = "videoList";
+            this.videoList.Size = new System.Drawing.Size(350, 489);
+            this.videoList.TabIndex = 25;
+            this.videoList.UseCompatibleStateImageBehavior = false;
+            this.videoList.View = System.Windows.Forms.View.List;
+            this.videoList.ItemActivate += new System.EventHandler(this.videoList_ItemActivate);
             // 
             // label1
             // 
@@ -190,44 +187,76 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "视频列表：";
             // 
-            // listView1
+            // picList
             // 
-            this.listView1.Location = new System.Drawing.Point(217, 364);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(683, 169);
-            this.listView1.TabIndex = 22;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.picList.Location = new System.Drawing.Point(371, 406);
+            this.picList.Name = "picList";
+            this.picList.Size = new System.Drawing.Size(530, 186);
+            this.picList.TabIndex = 22;
+            this.picList.UseCompatibleStateImageBehavior = false;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(217, 349);
+            this.label5.Location = new System.Drawing.Point(368, 391);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 27;
             this.label5.Text = "相关图片：";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.axVLCPlugin21);
+            this.panel1.Location = new System.Drawing.Point(370, 103);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(529, 285);
+            this.panel1.TabIndex = 28;
+            // 
+            // axVLCPlugin21
+            // 
+            this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.axVLCPlugin21.Enabled = true;
+            this.axVLCPlugin21.Location = new System.Drawing.Point(0, 0);
+            this.axVLCPlugin21.Name = "axVLCPlugin21";
+            this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
+            this.axVLCPlugin21.Size = new System.Drawing.Size(529, 285);
+            this.axVLCPlugin21.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(368, 88);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "视频播放：";
+            // 
             // VideoQueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(913, 545);
+            this.ClientSize = new System.Drawing.Size(913, 604);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.picList);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView2);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.videoList);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.queryBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "VideoQueryForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "搜索视频";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoQueryForm_FormClosing);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,12 +274,14 @@
         private DevExpress.XtraEditors.TimeEdit timeEdit1;
         private DevExpress.XtraEditors.TimeEdit timeEdit2;
         private System.Windows.Forms.Button queryBtn;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView videoList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView picList;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label6;
+        private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
     }
 }
