@@ -600,23 +600,37 @@ namespace RemoteImaging.RealtimeDisplay
 
         string videoPlayerPath;
 
+        private void StartRecord(Camera cam)
+        {
+            this.axCamImgCtrl1.CamImgCtrlStop();
+
+            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
+            this.axCamImgCtrl1.ImageType = @"MPEG";
+            this.axCamImgCtrl1.CameraModel = 1;
+            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
+            this.axCamImgCtrl1.uid = "admin";
+            this.axCamImgCtrl1.pwd = "admin";
+            this.axCamImgCtrl1.RecordingFolderPath
+                = Path.Combine(Properties.Settings.Default.OutputPath, cam.ID.ToString("D2"));
+            this.axCamImgCtrl1.RecordingFormat = 0;
+            this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
+            this.axCamImgCtrl1.UnicastPort = 3939;
+            this.axCamImgCtrl1.ComType = 0;
+
+            this.axCamImgCtrl1.CamImgCtrlStart();
+            this.axCamImgCtrl1.CamImgRecStart();
+        }
+
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
             TreeNode cameraNode = this.getTopCamera(e.Node);
             if (!(cameraNode.Tag is Camera)) return;
 
-            this.axCamImgCtrl1.CamImgCtrlStop();
 
             Camera cam = cameraNode.Tag as Camera;
 
-            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
-            this.axCamImgCtrl1.ImageType = @"JPEG";
-            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
-            this.axCamImgCtrl1.uid = "admin";
-            this.axCamImgCtrl1.pwd = "admin";
-
-            this.axCamImgCtrl1.CamImgCtrlStart();
+            StartRecord(cam);
 
         }
 
@@ -627,7 +641,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void enhanceImg_Click(object sender, EventArgs e)
