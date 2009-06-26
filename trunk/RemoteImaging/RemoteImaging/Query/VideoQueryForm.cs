@@ -105,9 +105,10 @@ namespace RemoteImaging.Query
             if (this.axVLCPlugin21.playlist.isPlaying)
             {
                 this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(1000);
             }
 
-            System.Threading.Thread.Sleep(1000);
+            
         }
     }
 }
