@@ -159,7 +159,7 @@
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACFTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5BeEhvc3QrU3RhdGUBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAwQEAAAIB
         AAAAAQAAAAAAAAAAAAAAAKwBAAAACAAAw0gAAHwkAAAIABgAAABsAGkAdgBlAGkAbQBnAC4AYwBnAGkA
-        AAAIAAoAAABKAFAARQBHAAAACAAIAAAATwBGAEYAAAADACEAAAAIAAIAAAAAAAgAAgAAAAAAAwAAAAAA
+        AAAIAAoAAABKAFAARQBHAAAACAAIAAAATwBGAEYAAAADADIAAAAIAAIAAAAAAAgAAgAAAAAAAwAAAAAA
         AwAAAAAAAwAAAAAACAACAAAAAAADAAAAAAADAOgDAAAIAAIAAAAAAAgAAgAAAAAAAwAAAAAAAwABAAAA
         AwAAAAAAAwAAAAAAAwAAAAAAAwAAAAAAAwAAAAAAAwAAAAAAAwAAAAAAAwABAAAACAACAAAAAAAIAAIA
         AAAAAAMAAAAAAAMAAAAAAAMAAQAAAAMACgAAAAMAAAAAAAgAAgAAAAAAAwAAAAAAAwD///9/CAACAAAA
@@ -342,7 +342,7 @@
         b53fLAWrNh4yAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="enhanceImg.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAeJJREFUOE+Vkt9L
@@ -644,6 +644,9 @@
         AQjnBo0XmkX4eAKwAqr5mrBpEAEBADs=
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>497, 24</value>
+  </metadata>
   <metadata name="realTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>795, 27</value>
   </metadata>

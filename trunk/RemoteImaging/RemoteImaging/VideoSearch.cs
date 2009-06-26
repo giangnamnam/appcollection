@@ -33,5 +33,7 @@ namespace RemoteImaging
                             utcTime.Year, utcTime.Month, utcTime.Day, utcTime.Hour, utcTime.Minute);
             return relativePath;
         }
+
+
     }
 }

@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.BonusSkins.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.CodeRush.Common, Version=9.1.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
     <Reference Include="DevExpress.CodeRush.Core, Version=9.1.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
@@ -98,6 +99,15 @@
     <Compile Include="FormDetailedPic.Designer.cs">
       <DependentUpon>FormDetailedPic.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageProcess\Controls\FilterPreview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageProcess\FilterForms\BrightnessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +160,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDetailedPic.resx">
       <DependentUpon>FormDetailedPic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcess\Controls\FilterPreview.resx">
+      <DependentUpon>FilterPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcess\FilterForms\BrightnessForm.resx">
+      <DependentUpon>BrightnessForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcess\FilterForms\ContrastForm.resx">
+      <DependentUpon>ContrastForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsForm.resx">
@@ -227,6 +249,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MainIcon.ico" />
+    <Content Include="ThirdParty\Libs\AForge.dll" />
+    <Content Include="ThirdParty\Libs\AForge.Imaging.dll" />
+    <Content Include="ThirdParty\Libs\AForge.Math.dll" />
     <None Include="Resources\Square16.5.gif" />
     <None Include="Resources\Square16.4.gif" />
     <None Include="Resources\Square16.3.gif" />

@@ -534,7 +534,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             FormDetailedPic detail = new FormDetailedPic();
             detail.Img = img;
-            detail.Show(this);
+            detail.ShowDialog(this);
+            detail.Dispose();
         }
 
         private void pictureEdit1_DoubleClick(object sender, EventArgs e)
@@ -550,14 +551,16 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        private void ShowPic()
+        {
+            string p = this.squareListView1.SelectedCell.Path;
+            if (p == null) return;
+
+            this.ShowDetailPic(ImageDetail.FromPath(p));
+        }
         private void squareListView1_CellDoubleClick(object sender, CellDoubleClickEventArgs args)
         {
-            if (args.Cell.Path == null)
-            {
-                return;
-            }
-            this.ShowDetailPic(ImageDetail.FromPath(args.Cell.Path));
-
+            ShowPic();
         }
 
         private void playRelateVideo_Click(object sender, EventArgs e)
@@ -621,6 +624,17 @@ namespace RemoteImaging.RealtimeDisplay
         {
 
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void enhanceImg_Click(object sender, EventArgs e)
+        {
+            this.ShowPic();
+        }
+
 
     }
 }
