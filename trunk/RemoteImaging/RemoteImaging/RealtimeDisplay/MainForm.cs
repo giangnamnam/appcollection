@@ -638,12 +638,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
         {
-
+            //https://appcollection.googlecode.com/svn/trunk/RemoteImaging
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-
+            int i = 0;
         }
 
         private void enhanceImg_Click(object sender, EventArgs e)
@@ -657,6 +657,11 @@ namespace RemoteImaging.RealtimeDisplay
             int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
             this.axCamImgCtrl1.Left = x;
             this.squareListView1.Height = height - 15;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
 
 
