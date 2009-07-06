@@ -124,7 +124,7 @@ namespace RemoteImaging.Query
                                    focusedFileName.Substring(7, 2) + "日" + //day
                                    focusedFileName.Substring(9, 2) + "时" + //hour
                                    focusedFileName.Substring(11, 2) + "分" + //minute
-                                   focusedFileName.Substring(13, 2) + "妙";//second
+                                   focusedFileName.Substring(13, 2) + "秒";//second
 
             this.PopulateBigPicList(Path.GetFileName(filePath));
         }
