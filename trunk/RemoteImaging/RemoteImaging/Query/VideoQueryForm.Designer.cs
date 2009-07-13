@@ -211,7 +211,6 @@
             this.videoList.FullRowSelect = true;
             this.videoList.GridLines = true;
             this.videoList.Location = new System.Drawing.Point(12, 121);
-            this.videoList.MultiSelect = false;
             this.videoList.Name = "videoList";
             this.videoList.Size = new System.Drawing.Size(350, 489);
             this.videoList.SmallImageList = this.imageList2;
@@ -219,6 +218,7 @@
             this.videoList.UseCompatibleStateImageBehavior = false;
             this.videoList.View = System.Windows.Forms.View.Details;
             this.videoList.ItemActivate += new System.EventHandler(this.videoList_ItemActivate);
+            this.videoList.DoubleClick += new System.EventHandler(this.videoList_DoubleClick);
             // 
             // imageList2
             // 

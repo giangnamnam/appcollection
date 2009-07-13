@@ -132,8 +132,7 @@ namespace RemoteImaging.Query
             {
                 this.axVLCPlugin21.playlist.play();
             }
-
-            videoList.FocusedItem.BackColor = System.Drawing.Color.Pink;
+            
             bindPiclist();
         }
 
@@ -216,7 +215,7 @@ namespace RemoteImaging.Query
 
         private void picList_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show("图片路径："+this.picList.FocusedItem.Tag.ToString());
+            //MessageBox.Show("图片路径："+this.picList.FocusedItem.Tag.ToString());
             ShowDetailPic(ImageDetail.FromPath(this.picList.FocusedItem.Tag.ToString()));
         }
 
@@ -226,6 +225,11 @@ namespace RemoteImaging.Query
             detail.Img = img;
             detail.ShowDialog(this);
             detail.Dispose();
+        }
+
+        private void videoList_DoubleClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
