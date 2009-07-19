@@ -37,6 +37,10 @@ namespace RemoteImaging.RealtimeDisplay
             imgsQueue = new Queue<ImageDetail[]>();
 
             this.uploadWatcher.ImagesUploaded += uploadWatcher_ImagesUploaded;
+
+
+
+
         }
 
         void worker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)

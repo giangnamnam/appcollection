@@ -625,15 +625,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
             TreeNode cameraNode = this.getTopCamera(e.Node);
             if (!(cameraNode.Tag is Camera)) return;
-
 
             Camera cam = cameraNode.Tag as Camera;
 
             StartRecord(cam);
-
         }
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)

@@ -19,6 +19,10 @@ namespace FTPUploadSimulator
             int count = 0;
             foreach (string file in files)
             {
+                if (!Path.GetExtension(file).Equals(".jpg", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
                 string destPathName = Path.Combine(@"d:\UploadPool\02", Path.GetFileName(file));
                 File.Copy(file, destPathName);
                 ++count;
