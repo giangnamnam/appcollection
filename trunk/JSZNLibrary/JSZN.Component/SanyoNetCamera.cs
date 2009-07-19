@@ -35,7 +35,7 @@ namespace JSZN.Component
 
         public void Connect()
         {
-            string uri = string.Format("http://{0}/cgi-bin/lang.cgi", IPAddress);
+            string uri = string.Format("http://{0}", IPAddress);
 
             HttpWebRequest reqAuthorize = (HttpWebRequest)HttpWebRequest.Create(uri);
             reqAuthorize.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;
