@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SanyoNetCamera.cs">
       <SubType>Component</SubType>
@@ -53,6 +52,12 @@
     <Compile Include="SanyoNetCamera.Designer.cs">
       <DependentUpon>SanyoNetCamera.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JSZN.Net\JSZN.Net.csproj">
+      <Project>{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}</Project>
+      <Name>JSZN.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

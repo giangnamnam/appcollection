@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Net;
 using System.IO;
+using JSZN.Net;
 
 namespace JSZN.Component
 {
@@ -82,12 +83,21 @@ namespace JSZN.Component
         }
 
 
-
         class Header
         {
             byte[] buffer = new byte[32];
+
             public Command Cmd { get; set; }
-            //public 
+            public MAC Mac { get; set; }
+            public int SeqNo { get; set; }
+            public int Ver { get; set; }
+            public int PackNo { get; set; }
+            public int TotalNumOfPackets { get; set; }
+
+            public byte[] GetBytes()
+            {
+                return buffer;
+            }
 
         }
 
