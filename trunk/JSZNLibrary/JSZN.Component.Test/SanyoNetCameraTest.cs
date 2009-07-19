@@ -110,20 +110,7 @@ namespace JSZN.Component.Test
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
-        /// <summary>
-        ///A test for SendCommand
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("JSZN.Component.dll")]
-        public void SendCommandTest()
-        {
-            SanyoNetCamera_Accessor target = new SanyoNetCamera_Accessor(); // TODO: Initialize to an appropriate value
-            UdpClient udp = null; // TODO: Initialize to an appropriate value
-            SanyoNetCamera_Accessor.Header hdr = null; // TODO: Initialize to an appropriate value
-            byte[] data = null; // TODO: Initialize to an appropriate value
-            target.SendCommand(udp, hdr, data);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
+
 
         /// <summary>
         ///A test for SearchCamersAsync

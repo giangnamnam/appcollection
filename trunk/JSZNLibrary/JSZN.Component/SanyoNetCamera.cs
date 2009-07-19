@@ -24,19 +24,21 @@ namespace JSZN.Component
         public static void SearchCamersAsync()
         {
             Header h = new Header(Command.IpQueryStart, MAC.BroadCast);
-            byte[] data = BitConverter.GetBytes(3);
+            byte[] data = BitConverter.GetBytes((ushort)3);
 
-            UdpClient udp = new UdpClient(CameraPort);
+            UdpClient udp = new UdpClient();
             udp.EnableBroadcast = true;
 
+            IPEndPoint dest = new IPEndPoint(System.Net.IPAddress.Broadcast, CameraPort);
+
+            SendCommand(udp, dest, h, data);
         }
 
-        private void SendCommand(UdpClient udp, Header hdr, byte[] data)
+        private static void SendCommand(UdpClient udp, IPEndPoint dest, Header hdr, byte[] data)
         {
             byte[] hdrBytes = hdr.GetBytes();
-            udp.Send(hdrBytes, hdrBytes.Length);
-
-            udp.Send(data, data.Length);
+            udp.Send(hdrBytes, hdrBytes.Length, dest);
+            udp.Send(data, data.Length, dest);
         }
 
 
