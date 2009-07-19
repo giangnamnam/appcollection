@@ -10,15 +10,17 @@ namespace JSZN.Net
         byte[] buffer = new byte[6];
         public static readonly MAC BroadCast = new MAC(0xff, 0xff, 0xff, 0xff, 0xff, 0xff);
 
-        public MAC(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5)
+        public MAC(byte[] bytes, int index)
         {
-            buffer[0] = b0;
-            buffer[1] = b1;
-            buffer[2] = b2;
-            buffer[3] = b3;
-            buffer[4] = b4;
-            buffer[5] = b5;
+            bytes.CopyTo(buffer, 0);
         }
+
+
+        public MAC(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5)
+            : this(new byte[] { b0, b1, b2, b3, b4, b5 }) { }
+
+        public MAC(byte[] bytes) : this(bytes, 0) { }
+
 
         public override string ToString()
         {

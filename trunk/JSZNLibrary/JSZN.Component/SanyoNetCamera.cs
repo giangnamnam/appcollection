@@ -77,9 +77,9 @@ namespace JSZN.Component
             return buff;
         }
 
-        enum Command
+        enum Command : ushort
         {
-            SearchStart, SearchReply, SearchReplyConfirm
+            SearchStart = 0x4031, SearchReply = 0x0031, SearchReplyConfirm = 0x8031,
         }
 
 
@@ -87,16 +87,68 @@ namespace JSZN.Component
         {
             byte[] buffer = new byte[32];
 
-            public Command Cmd { get; set; }
-            public MAC Mac { get; set; }
-            public int SeqNo { get; set; }
-            public int Ver { get; set; }
-            public int PackNo { get; set; }
-            public int TotalNumOfPackets { get; set; }
+            public Command Cmd
+            {
+                get
+                {
+                    ushort cmd = GetUshort(0);
+                    return (Command)cmd;
+                }
+                set
+                {
+                    this.SetShort((ushort)value, 0);
+                }
+            }
+
+            public MAC Mac
+            {
+                get { return new MAC(buffer, 2); }
+                set { value.GetBytes().CopyTo(buffer, 2); }
+            }
+
+            public ushort SeqNo
+            {
+                get { return this.GetUshort(8); }
+                set { this.SetShort(value, 8); }
+            }
+
+            public ushort Ver
+            {
+                get { return this.GetUshort(10); }
+                set { this.SetShort(value, 10); }
+            }
+
+            public ushort PackNo
+            {
+                get { return this.GetUshort(12); }
+                set { this.SetShort(value, 12); }
+            }
+
+            public ushort TotalNumOfPackets
+            {
+                get { return this.GetUshort(14); }
+                set { this.SetShort(value, 14); }
+            }
 
             public byte[] GetBytes()
             {
                 return buffer;
+            }
+
+            public void Parse(byte[] buffer, int startIndex)
+            {
+                buffer.CopyTo(this.buffer, startIndex);
+            }
+
+            private void SetShort(ushort value, int index)
+            {
+                byte[] bytes = BitConverter.GetBytes(value);
+                bytes.CopyTo(buffer, index);
+            }
+
+            private ushort GetUshort(int index)
+            {
+                return BitConverter.ToUInt16(buffer, index);
             }
 
         }
