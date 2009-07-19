@@ -8,6 +8,7 @@ using System.Web;
 using System.Net;
 using System.IO;
 using JSZN.Net;
+using System.Net.Sockets;
 
 namespace JSZN.Component
 {
@@ -18,10 +19,27 @@ namespace JSZN.Component
             InitializeComponent();
         }
 
+
+
         public static void SearchCamersAsync()
         {
+            Header h = new Header(Command.IpQueryStart, MAC.BroadCast);
+            byte[] data = BitConverter.GetBytes(3);
+
+            UdpClient udp = new UdpClient(CameraPort);
+            udp.EnableBroadcast = true;
 
         }
+
+        private void SendCommand(UdpClient udp, Header hdr, byte[] data)
+        {
+            byte[] hdrBytes = hdr.GetBytes();
+            udp.Send(hdrBytes, hdrBytes.Length);
+
+            udp.Send(data, data.Length);
+        }
+
+
 
         public SanyoNetCamera(IContainer container)
         {
@@ -79,7 +97,7 @@ namespace JSZN.Component
 
         enum Command : ushort
         {
-            SearchStart = 0x4031, SearchReply = 0x0031, SearchReplyConfirm = 0x8031,
+            IpQueryStart = 0x4031, IpQueryReply = 0x0031, IpQueryReplyConfirm = 0x8031,
         }
 
 
@@ -87,17 +105,20 @@ namespace JSZN.Component
         {
             byte[] buffer = new byte[32];
 
+            public Header(Command cmd, MAC destMAC)
+            {
+                this.Cmd = cmd;
+                this.Mac = destMAC;
+
+                this.PackNo = 1;
+                this.TotalNumOfPackets = 1;
+                this.SeqNo = 1;
+            }
+
             public Command Cmd
             {
-                get
-                {
-                    ushort cmd = GetUshort(0);
-                    return (Command)cmd;
-                }
-                set
-                {
-                    this.SetShort((ushort)value, 0);
-                }
+                get { return (Command)this.GetUshort(0); }
+                set { this.SetShort((ushort)value, 0); }
             }
 
             public MAC Mac
@@ -132,7 +153,7 @@ namespace JSZN.Component
 
             public byte[] GetBytes()
             {
-                return buffer;
+                return (byte[])buffer.Clone();
             }
 
             public void Parse(byte[] buffer, int startIndex)
@@ -153,6 +174,8 @@ namespace JSZN.Component
 
         }
 
+        static int CameraPort = 10001;
+        static int PCPort = 10000;
 
         CookieContainer cookies;
     }
