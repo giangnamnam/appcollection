@@ -9,6 +9,7 @@ using System.Net;
 using System.IO;
 using JSZN.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace JSZN.Component
 {
@@ -23,22 +24,78 @@ namespace JSZN.Component
 
         public static void SearchCamersAsync()
         {
+            Thread t = new Thread(DoSearch);
+            t.IsBackground = true;
+
+            UdpClient udp = new UdpClient(PCPort);
+
+            t.Start(udp);
+            Thread.Sleep(3000);
+            t.Interrupt();
+            t.Join();
+        }
+
+        private static void DoSearch(object state)
+        {
+            UdpClient udp = (UdpClient)state;
+
             Header h = new Header(Command.IpQueryStart, MAC.BroadCast);
             byte[] data = BitConverter.GetBytes((ushort)3);
 
-            UdpClient udp = new UdpClient();
             udp.EnableBroadcast = true;
 
-            IPEndPoint dest = new IPEndPoint(System.Net.IPAddress.Broadcast, CameraPort);
+            IPEndPoint brdcstIp = new IPEndPoint(System.Net.IPAddress.Broadcast, CameraPort);
+            SendCommand(udp, brdcstIp, h, data);
 
-            SendCommand(udp, dest, h, data);
+            IPEndPoint srcHost = new IPEndPoint(System.Net.IPAddress.Any, 0);
+
+            byte[] reply = null;
+
+            do
+            {
+                try
+                {
+                    reply = udp.Receive(ref srcHost);
+                }
+                catch (System.Threading.ThreadInterruptedException)
+                {
+                    return;
+                }
+
+                if (reply.Length == 44)
+                {
+                    Command c = (Command)BitConverter.ToUInt16(reply, 0);
+                    if (c == Command.IpQueryReply) HandleIpQueryReplyPacket(reply, udp, brdcstIp);
+                }
+
+            } while (reply.Length > 0);
+        }
+
+
+        private static void HandleIpQueryReplyPacket(byte[] buffer, UdpClient udp, IPEndPoint dst)
+        {
+            byte[] ipBytes = new byte[4];
+            Array.Copy(buffer, 32, ipBytes, 0, ipBytes.Length);
+            IPAddress ip = new IPAddress(ipBytes);
+            string ipString = ip.ToString();
+
+            if (!ipFound.Contains(ipString)) ipFound.Add(ipString);
+
+            Header h = new Header(Command.IpQueryReplyConfirm, MAC.BroadCast);
+            Header ipSearchReplyHdr = Header.Parse(buffer, 0);
+            SendCommand(udp, dst, h, ipSearchReplyHdr.Mac.GetBytes());
+
         }
 
         private static void SendCommand(UdpClient udp, IPEndPoint dest, Header hdr, byte[] data)
         {
             byte[] hdrBytes = hdr.GetBytes();
-            udp.Send(hdrBytes, hdrBytes.Length, dest);
-            udp.Send(data, data.Length, dest);
+
+            byte[] buffer = new byte[hdrBytes.Length + data.Length];
+            hdrBytes.CopyTo(buffer, 0);
+            data.CopyTo(buffer, hdrBytes.Length);
+
+            udp.Send(buffer, buffer.Length, dest);
         }
 
 
@@ -102,10 +159,18 @@ namespace JSZN.Component
             IpQueryStart = 0x4031, IpQueryReply = 0x0031, IpQueryReplyConfirm = 0x8031,
         }
 
+        class UdpState
+        {
+            public UdpClient u;
+            public bool canceled;
+        }
 
         class Header
         {
             byte[] buffer = new byte[32];
+
+
+            public Header() { }
 
             public Header(Command cmd, MAC destMAC)
             {
@@ -158,9 +223,11 @@ namespace JSZN.Component
                 return (byte[])buffer.Clone();
             }
 
-            public void Parse(byte[] buffer, int startIndex)
+            public static Header Parse(byte[] buffer, int startIndex)
             {
-                buffer.CopyTo(this.buffer, startIndex);
+                Header h = new Header();
+                buffer.CopyTo(h.buffer, startIndex);
+                return h;
             }
 
             private void SetShort(ushort value, int index)
@@ -178,6 +245,9 @@ namespace JSZN.Component
 
         static int CameraPort = 10001;
         static int PCPort = 10000;
+        static IList<string> ipFound = new List<string>();
+        static object locker = new object();
+        static volatile bool cancel;
 
         CookieContainer cookies;
     }
