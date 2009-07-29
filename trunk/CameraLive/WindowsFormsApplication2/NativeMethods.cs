@@ -5,9 +5,6 @@ using System.Text;
 
 namespace WindowsFormsApplication2
 {
-
-
-
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public struct CvRect
     {
@@ -82,7 +79,7 @@ namespace WindowsFormsApplication2
         /// Return Type: void
         ///frames: Frame*
         [System.Runtime.InteropServices.DllImportAttribute(FaceDetectDll, EntryPoint = "ReleaseMem")]
-        public static extern void ReleaseMem(ref Frame frames);
+        public static extern void ReleaseMem();
 
 
         /// Return Type: void

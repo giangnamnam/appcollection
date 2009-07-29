@@ -222,7 +222,7 @@ namespace WindowsFormsApplication2
         }
 
         int i = 0;
-
+        Queue<Frame> FrameHistory = new Queue<Frame>();
 
         unsafe private void timer1_Tick(object sender, EventArgs e)
         {
@@ -266,24 +266,23 @@ namespace WindowsFormsApplication2
             System.Diagnostics.Debug.WriteLine("after convert");
 
             bool groupCaptured = NativeMethods.PreProcessFrame(ref f);
+            FrameHistory.Enqueue(f);
+
             if (groupCaptured)
             {
-                IntPtr frames = IntPtr.Zero;
-                int count = NativeMethods.GetGroupedFrames(ref frames);
-                Console.WriteLine(count);
-                if (count <= 0) return;
-                Frame* pFrame = (Frame*)frames;
+                Frame[] frames = FrameHistory.ToArray();
 
-                Debug.WriteLine("frame: " + frames.ToString());
+                Array.ForEach(frames,
+                    frame => { if (frame.searchRect == IntPtr.Zero) Cv.Release(ref frame.image); });
 
-                FrameArray frameGroup = new FrameArray();
-                frameGroup.count = count;
-                frameGroup.frames = pFrame;
+                Frame[] framesToSearchIn = Array.FindAll(frames, frame => frame.searchRect != IntPtr.Zero);
+
+                if (framesToSearchIn.Length <= 0) return;
 
                 lock (locker)
                 {
                     //System.Diagnostics.Debug.WriteLine(string.Format("enqueue: {0:x}", f.image));
-                    frameQueue.Enqueue(frameGroup);
+                    frameQueue.Enqueue(frames);
                     go.Set();
                 }
 
@@ -296,7 +295,7 @@ namespace WindowsFormsApplication2
         {
             while (true)
             {
-                FrameArray frames = null;
+                Frame[] frames = null;
                 lock (locker)
                 {
                     if (frameQueue.Count > 0)
@@ -307,42 +306,21 @@ namespace WindowsFormsApplication2
 
                 if (frames != null)
                 {
-                    for (int i = 0; i < frames.count; i++)
+                    for (int i = 0; i < frames.Length; ++i)
                     {
-                        Frame f = frames.frames[i];
+                        Frame frame = frames[i];
+                        //NativeMethods.AddInFrame(ref frame);
+                        IplImage ipl = new IplImage(frame.image);
+                        Bitmap bmp = BitmapConverter.ToBitmap(ipl);
+                        ipl.Dispose();
 
-                        System.Diagnostics.Debug.WriteLine(string.Format("dequeue: {0:x}", f.image));
-
-                        IplImage ipl = new IplImage(f.image);
-                        ipl.IsEnabledDispose = false;
-
-                        System.Diagnostics.Debug.WriteLine(ipl);
-
-                        NativeMethods.AddInFrame(ref f);
-
-
-                        CvRect* rect = (CvRect*)f.searchRect;
-                        ipl.DrawRect(rect->x, rect->y, rect->x + rect->width, rect->y + rect->height, CvColor.Yellow, 3);
-
-                        try
-                        {
-                            System.Diagnostics.Debug.WriteLine("before");
-                            pictureFiltered.Image = ipl.ToBitmap();
-                            System.Diagnostics.Debug.WriteLine("after");
-                        }
-                        catch (System.Exception ex)
-                        {
-                            Debug.WriteLine(ex.Message);
-                        }
-
-
-                        //this.timer1.Enabled = false;
+                        this.pictureFiltered.Image = bmp;
 
                     }
 
                     IntPtr target = IntPtr.Zero;
 
-                    int count = NativeMethods.SearchFaces(ref target);
+                    int count = 0; NativeMethods.SearchFaces(ref target);
                     Target* pTarget = (Target*)target;
 
                     for (int i = 0; i < count; i++)
@@ -360,6 +338,7 @@ namespace WindowsFormsApplication2
                         }
                     }
 
+                    NativeMethods.ReleaseMem();
 
                 }
                 else
@@ -473,7 +452,7 @@ namespace WindowsFormsApplication2
         }
 
         object locker = new object();
-        Queue<FrameArray> frameQueue = new Queue<FrameArray>();
+        Queue<Frame[]> frameQueue = new Queue<Frame[]>();
         AutoResetEvent go = new AutoResetEvent(false);
     }
 
