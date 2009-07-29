@@ -6,11 +6,7 @@
 Frame *LastFrame = new Frame; 
 Frame *MyFrame = new Frame; 
 
-
-
-Frame ImageFrame[100];gfdf
-
-
+Frame ImageFrame[100];
 int Index = 0;
 int Index1 = 0;
 int ImageCount = 0;//ImageFrame的中image的个数
