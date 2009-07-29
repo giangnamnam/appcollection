@@ -21,7 +21,7 @@ struct Frame
 	IplImage *image;//转换后需要搜索人脸的大图片,薛晓利给出
 	CvRect *searchRect;//搜索脸的范围，薛晓利给出
 	long timeStamp;//沈斌给出
-	const char *fileName;
+	const char *fileName; 
 };
 
 extern "C"

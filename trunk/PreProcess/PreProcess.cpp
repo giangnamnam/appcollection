@@ -174,7 +174,7 @@ PREPROCESS_API bool PreProcessFrame(Frame *frame)
 	}
 	else //当前帧没检测到
 	{
-		if(temp1 = 0)//如果初始时刻没检测到人
+		if(temp1 == 0)//如果初始时刻没检测到人
 		{
 			temp1 = temp2 = 3;
 		}
