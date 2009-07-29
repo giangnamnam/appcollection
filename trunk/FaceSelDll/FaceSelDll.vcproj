@@ -90,7 +90,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="Copy .\FaceSel.h ..\..\FaceSelDemo\FaceSel.h&#x0D;&#x0A;Copy .\Debug\FaceSelDllD.dll ..\..\FaceSelDemo\FaceSelDllD.dll&#x0D;&#x0A;Copy .\Debug\FaceSelDllD.lib ..\..\FaceSelDemo\FaceSelDllD.lib&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -198,6 +198,10 @@
 			</File>
 			<File
 				RelativePath=".\FaceSelect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\frame.h"
 				>
 			</File>
 		</Filter>
