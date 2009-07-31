@@ -286,7 +286,7 @@ namespace WindowsFormsApplication2
             if (groupCaptured)
             {
                 Frame[] frames = FrameHistory.ToArray();
-
+                FrameHistory.Clear();
 
                 if (frames.Length <= 0) return;
 
@@ -299,13 +299,6 @@ namespace WindowsFormsApplication2
 
 
             }
-
-            //Debug.WriteLine(current.searchRect);
-
-
-
-            //FrameHistory.Enqueue(dummy);
-
 
 
         }
