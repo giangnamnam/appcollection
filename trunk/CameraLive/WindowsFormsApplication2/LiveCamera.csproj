@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="OpenCvSharp, Version=2.0.3493.23408, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Debug\OpenCvSharp.dll</HintPath>
+      <HintPath>Reference\OpenCvSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -103,6 +103,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Reference\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
