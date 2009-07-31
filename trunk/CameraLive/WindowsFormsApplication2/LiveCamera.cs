@@ -352,7 +352,10 @@ namespace WindowsFormsApplication2
 
                 }
                 else
+                {
+                    Debug.WriteLine("zzzzzzzzzzzzz.....");
                     go.WaitOne();
+                }
             }
         }
 
