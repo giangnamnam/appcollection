@@ -26,7 +26,7 @@ struct Frame
 
 extern "C"
 {
-	PREPROCESS_API bool PreProcessFrame(Frame *frame);
+	PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame);
 	PREPROCESS_API int GetGroupedFrames(Frame** frames);//取得当前的分组, 返回组里面的图片数目
 	PREPROCESS_API void ReleaseMem(Frame *frames);//释放相关内存,主程序退出时调用
 }

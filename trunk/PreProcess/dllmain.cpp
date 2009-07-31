@@ -1,5 +1,8 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
+#include "PreProcess.h"
+
+extern Frame LastFrame;
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -10,6 +13,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	{
 	case DLL_PROCESS_ATTACH:
 	case DLL_THREAD_ATTACH:
+		LastFrame.searchRect = NULL;
+		LastFrame.image = NULL;
+		break;
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
 		break;

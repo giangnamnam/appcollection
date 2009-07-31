@@ -1,37 +1,39 @@
 // PreProcess.cpp : Defines the exported functions for the DLL application.
 #include "stdafx.h"
-#include "PreProcess.h"
+#include "PreProcess.h" 
 //#include <Strsafe.h>
 
-Frame *LastFrame = new Frame; 
-Frame *MyFrame = new Frame; 
+Frame LastFrame ; 
 
-Frame ImageFrame[100];
-int Index = 0;
-int Index1 = 0;
+//int Index = 0;
+//int Index1 = 0;
 int ImageCount = 0;//ImageFrame的中image的个数
-int ImageCount_1 = 0;//备份ImageFrame的中image的个数
+//int ImageCount_1 = 0;//备份ImageFrame的中image的个数
 
-int CallTime = 0;//定义调用次数计数器
+int CallTime = 0;//定义调用次数计数器 
 int temp1 = 0;//用于标示分组结束的标志
 int temp2 = 0;//用于标示分组结束的标志
-bool FirstLoop = 0; 
+//bool FirstLoop = false; 
 
+IplImage* CurrentImage;
 IplImage* BackGroundImage;//上一帧灰度图
 IplImage* DiffImage_1;//上一帧差分图的二值化图
 
 //每次从摄像头获得一张图片后调用，当完成一个分组后返回true
-PREPROCESS_API bool PreProcessFrame(Frame *frame)
+PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 {
-	MyFrame = frame; 
+	Frame TempFrame;
+	TempFrame = LastFrame;
+
 	CallTime++;
 	if(CallTime > 10)//防止溢出
 	{
 		CallTime = 10;
 	}
-	IplImage* Image = MyFrame->image;  
 
-	CvSize ImageSize = cvSize(Image->width,Image->height);
+	CurrentImage = frame.image; 
+
+	CvSize ImageSize = cvSize(CurrentImage->width,CurrentImage->height);
 	IplImage* GrayImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的灰度图
 	IplImage* GxImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的X方向梯度图
 	IplImage* GyImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的Y方向梯度图
@@ -56,7 +58,7 @@ PREPROCESS_API bool PreProcessFrame(Frame *frame)
 	KX = cvMat(3,3,CV_8S,Kx);//构建掩模内核
 	KY = cvMat(3,3,CV_8S,Ky);//构建掩模内核
 
-	cvCvtColor(Image,GrayImage,CV_BGR2GRAY);//将当前帧转化为灰度图
+	cvCvtColor(CurrentImage,GrayImage,CV_BGR2GRAY);//将当前帧转化为灰度图
 	cvSmooth(GrayImage,GrayImage,CV_GAUSSIAN,7,7);//进行平滑处理
 	cvFilter2D(GrayImage,GxImage,&KX,cvPoint(-1,-1));//得到X方向的梯度图
 	cvFilter2D(GrayImage,GyImage,&KY,cvPoint(-1,-1));//得到Y方向的梯度图
@@ -134,9 +136,12 @@ PREPROCESS_API bool PreProcessFrame(Frame *frame)
 
 	if(y2 != 0)//如果检测到运动目标，则，画框，保存结构体
 	{
-		cvRectangle(LastFrame->image,cvPoint(x1,y1),cvPoint(x2,y2),CV_RGB(255,0,0),3,CV_AA,0);  
+		cvRectangle(TempFrame.image,cvPoint(x1,y1),cvPoint(x2,y2),CV_RGB(255,0,0),3,CV_AA,0);  
 
 		rect = cvRect(x1,y1,x2-x1,y2-y1);
+		
+		TempFrame.searchRect = new CvRect(rect);
+		//TempFrame.groupCaptured = false;
 
 		if((y1 < 360) && ((x2-x1) < 450))//如果连续检测到框为单人大小，则自动划分为一组
 		{
@@ -151,26 +156,13 @@ PREPROCESS_API bool PreProcessFrame(Frame *frame)
 		{
 			if(temp1 == 0)//如果初始时刻检测到多人
 			{
-				temp1 = temp2 = 2;
+				temp1 = temp2 = 2; 
 			}
 			temp1 = temp2;
 			temp2 = 2;
 		} 
 
-		ImageFrame[Index] = *LastFrame;  
-		//ImageFrame[Index].searchRect = new CvRect(rect);
-		if (FirstLoop == 0)
-		{
-		ImageFrame[Index].searchRect = new CvRect(rect);
-		}
-		else
-		{
-		delete ImageFrame[Index].searchRect;
-		ImageFrame[Index].searchRect = new CvRect(rect);
-		}
-
-		Index++;
-		ImageCount++;
+	
 	}
 	else //当前帧没检测到
 	{
@@ -190,36 +182,17 @@ PREPROCESS_API bool PreProcessFrame(Frame *frame)
 	cvReleaseImage(&pyr); 
 
 	LastFrame = frame;
+	*lastFrame = TempFrame;
 
 	if((((temp1 != temp2) && temp2 !=3) || ((temp1 !=3) && (temp2 == 3))) &&(ImageCount != 0))//若完成一个分组，则返回true
 	{
-		Index1 = Index;
-		ImageCount_1 = ImageCount; 
-		ImageCount = 0;
-		if((100 - Index) < 20)
-		{
-			Index = 0;
-			FirstLoop = 1;  
-		}
-		return true; 
+		return true;
 	}
+
+	
+
 	return false;
 }
 
 
-PREPROCESS_API int GetGroupedFrames(Frame** frames)//取得当前的分组, 返回组里面的图片数目
-{
-	//*frames = &ImageFrame[Index1 - ImageCount_1]; 
-	*frames = new Frame[ImageCount_1];
-	for (int i=0;i<ImageCount_1;i++)
-	{
-		(*frames)[i] = ImageFrame[Index1 - ImageCount_1 + i]; 
-	}
 
-	return ImageCount_1;
-}
-
-PREPROCESS_API void ReleaseMem(Frame *frames)//释放相关内存,主程序退出时调用
-{
-	delete frames;
-}
