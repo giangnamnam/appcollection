@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace WindowsFormsApplication2
 {
@@ -14,7 +15,7 @@ namespace WindowsFormsApplication2
         public int height;
     }
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public struct Frame
     {
         public int dataLen;
@@ -24,7 +25,7 @@ namespace WindowsFormsApplication2
         /// IplImage*
         public System.IntPtr image;
 
-        /// cvRect*
+        /// CvRect*
         public System.IntPtr searchRect;
 
         /// int
@@ -66,7 +67,7 @@ namespace WindowsFormsApplication2
         ///frame: Frame*
         [System.Runtime.InteropServices.DllImportAttribute(PreProcessDLLName, EntryPoint = "PreProcessFrame")]
         [return: System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)]
-        public static extern bool PreProcessFrame(ref Frame frame);
+        public static extern bool PreProcessFrame(Frame frame, ref Frame lastFrame);
 
 
         /// Return Type: int

@@ -224,7 +224,7 @@ namespace WindowsFormsApplication2
         int i = 0;
         Queue<Frame> FrameHistory = new Queue<Frame>();
 
-        unsafe private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
             byte[] image = sanyoNetCamera1.GetImage();
 
@@ -247,6 +247,7 @@ namespace WindowsFormsApplication2
             Frame f = new Frame();
             f.timeStamp = 0;
             f.searchRect = IntPtr.Zero;
+            f.image = IntPtr.Zero;
 
             System.Diagnostics.Debug.WriteLine("before convert");
 
@@ -265,19 +266,29 @@ namespace WindowsFormsApplication2
 
             System.Diagnostics.Debug.WriteLine("after convert");
 
-            bool groupCaptured = NativeMethods.PreProcessFrame(ref f);
-            FrameHistory.Enqueue(f);
+            Frame lastFrame = new Frame();
+
+            bool groupCaptured = NativeMethods.PreProcessFrame(f, ref lastFrame);
+
+            if (lastFrame.searchRect == IntPtr.Zero)
+            {
+                if (lastFrame.image != IntPtr.Zero)
+                {
+                    Debug.WriteLine("==========release memory=======");
+                    Cv.Release(ref lastFrame.image);
+                }
+            }
+            else
+            {
+                FrameHistory.Enqueue(lastFrame);
+            }
 
             if (groupCaptured)
             {
                 Frame[] frames = FrameHistory.ToArray();
 
-                Array.ForEach(frames,
-                    frame => { if (frame.searchRect == IntPtr.Zero) Cv.Release(ref frame.image); });
 
-                Frame[] framesToSearchIn = Array.FindAll(frames, frame => frame.searchRect != IntPtr.Zero);
-
-                if (framesToSearchIn.Length <= 0) return;
+                if (frames.Length <= 0) return;
 
                 lock (locker)
                 {
@@ -286,7 +297,15 @@ namespace WindowsFormsApplication2
                     go.Set();
                 }
 
+
             }
+
+            //Debug.WriteLine(current.searchRect);
+
+
+
+            //FrameHistory.Enqueue(dummy);
+
 
 
         }
@@ -309,10 +328,10 @@ namespace WindowsFormsApplication2
                     for (int i = 0; i < frames.Length; ++i)
                     {
                         Frame frame = frames[i];
-                        //NativeMethods.AddInFrame(ref frame);
+                        NativeMethods.AddInFrame(ref frame);
                         IplImage ipl = new IplImage(frame.image);
                         Bitmap bmp = BitmapConverter.ToBitmap(ipl);
-                        ipl.Dispose();
+                        ipl.IsEnabledDispose = false;
 
                         this.pictureFiltered.Image = bmp;
 
@@ -320,7 +339,7 @@ namespace WindowsFormsApplication2
 
                     IntPtr target = IntPtr.Zero;
 
-                    int count = 0; NativeMethods.SearchFaces(ref target);
+                    int count = NativeMethods.SearchFaces(ref target);
                     Target* pTarget = (Target*)target;
 
                     for (int i = 0; i < count; i++)
@@ -456,13 +475,10 @@ namespace WindowsFormsApplication2
         AutoResetEvent go = new AutoResetEvent(false);
     }
 
-    unsafe class FrameArray
+    class foo
     {
-        public int count;
-        public Frame* frames;
+        public Frame f;
     }
-
-
 
     public delegate void GetAString();
 }

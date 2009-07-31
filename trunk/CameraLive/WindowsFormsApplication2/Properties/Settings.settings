@@ -15,7 +15,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="cameraIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">192.168.0.4</Value>
     </Setting>
     <Setting Name="FramePerSec" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>

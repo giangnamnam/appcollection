@@ -69,8 +69,6 @@ namespace WindowsFormsApplication2
 
             return File.ReadAllBytes(file);
 
-
-
         }
 
         public byte[] GetImage()

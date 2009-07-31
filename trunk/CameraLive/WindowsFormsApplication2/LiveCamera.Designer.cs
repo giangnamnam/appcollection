@@ -33,22 +33,22 @@
             this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.framesPerSec = new System.Windows.Forms.Label();
             this.live = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cameraIP = new System.Windows.Forms.TextBox();
-            this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             this.pictureFiltered = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureFace = new System.Windows.Forms.PictureBox();
             this.sanyoNetCamera1 = new WindowsFormsApplication2.SanyoNetCamera(this.components);
+            this.cameraIP = new System.Windows.Forms.TextBox();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFiltered)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -84,19 +84,6 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "图片保存目录：";
             // 
-            // trackBar1
-            // 
-            this.trackBar1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::WindowsFormsApplication2.Properties.Settings.Default, "FramePerSec", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.trackBar1.Enabled = false;
-            this.trackBar1.Location = new System.Drawing.Point(92, 401);
-            this.trackBar1.Maximum = 25;
-            this.trackBar1.Minimum = 1;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(277, 48);
-            this.trackBar1.TabIndex = 12;
-            this.trackBar1.Value = global::WindowsFormsApplication2.Properties.Settings.Default.FramePerSec;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -118,6 +105,8 @@
             // live
             // 
             this.live.AutoSize = true;
+            this.live.Checked = true;
+            this.live.CheckState = System.Windows.Forms.CheckState.Checked;
             this.live.Location = new System.Drawing.Point(12, 244);
             this.live.Name = "live";
             this.live.Size = new System.Drawing.Size(74, 19);
@@ -133,25 +122,6 @@
             this.label3.Size = new System.Drawing.Size(66, 15);
             this.label3.TabIndex = 16;
             this.label3.Text = "摄像头IP：";
-            // 
-            // cameraIP
-            // 
-            this.cameraIP.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::WindowsFormsApplication2.Properties.Settings.Default, "cameraIP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cameraIP.Location = new System.Drawing.Point(12, 284);
-            this.cameraIP.Name = "cameraIP";
-            this.cameraIP.Size = new System.Drawing.Size(419, 21);
-            this.cameraIP.TabIndex = 17;
-            this.cameraIP.Text = global::WindowsFormsApplication2.Properties.Settings.Default.cameraIP;
-            this.cameraIP.TextChanged += new System.EventHandler(this.cameraIP_TextChanged);
-            // 
-            // textBoxOutputFolder
-            // 
-            this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::WindowsFormsApplication2.Properties.Settings.Default, "OutputFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxOutputFolder.Location = new System.Drawing.Point(12, 334);
-            this.textBoxOutputFolder.Name = "textBoxOutputFolder";
-            this.textBoxOutputFolder.Size = new System.Drawing.Size(419, 21);
-            this.textBoxOutputFolder.TabIndex = 10;
-            this.textBoxOutputFolder.Text = global::WindowsFormsApplication2.Properties.Settings.Default.OutputFolder;
             // 
             // pictureFiltered
             // 
@@ -187,6 +157,38 @@
             this.sanyoNetCamera1.Password = "admin";
             this.sanyoNetCamera1.UserName = "admin";
             // 
+            // cameraIP
+            // 
+            this.cameraIP.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::WindowsFormsApplication2.Properties.Settings.Default, "cameraIP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cameraIP.Location = new System.Drawing.Point(12, 284);
+            this.cameraIP.Name = "cameraIP";
+            this.cameraIP.Size = new System.Drawing.Size(419, 21);
+            this.cameraIP.TabIndex = 17;
+            this.cameraIP.Text = global::WindowsFormsApplication2.Properties.Settings.Default.cameraIP;
+            this.cameraIP.TextChanged += new System.EventHandler(this.cameraIP_TextChanged);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::WindowsFormsApplication2.Properties.Settings.Default, "FramePerSec", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.trackBar1.Enabled = false;
+            this.trackBar1.Location = new System.Drawing.Point(92, 401);
+            this.trackBar1.Maximum = 25;
+            this.trackBar1.Minimum = 1;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(277, 48);
+            this.trackBar1.TabIndex = 12;
+            this.trackBar1.Value = global::WindowsFormsApplication2.Properties.Settings.Default.FramePerSec;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
+            // textBoxOutputFolder
+            // 
+            this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::WindowsFormsApplication2.Properties.Settings.Default, "OutputFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxOutputFolder.Location = new System.Drawing.Point(12, 334);
+            this.textBoxOutputFolder.Name = "textBoxOutputFolder";
+            this.textBoxOutputFolder.Size = new System.Drawing.Size(419, 21);
+            this.textBoxOutputFolder.TabIndex = 10;
+            this.textBoxOutputFolder.Text = global::WindowsFormsApplication2.Properties.Settings.Default.OutputFolder;
+            // 
             // LiveCamera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -214,9 +216,9 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFiltered)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -34,7 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenCvSharp, Version=2.0.3493.23408, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="OpenCvSharp, Version=2.0.3493.23408, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Debug\OpenCvSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -65,6 +68,7 @@
     <Compile Include="MyFooClass.cs" />
     <Compile Include="MyFooClassUITypeEditor.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="PreProcess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LiveCamera.resx">
