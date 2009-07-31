@@ -316,6 +316,7 @@ namespace WindowsFormsApplication2
                 {
                     for (int i = 0; i < frames.Length; ++i)
                     {
+                        Debug.WriteLine("addin frame");
                         Frame frame = frames[i];
                         NativeMethods.AddInFrame(ref frame);
                         IplImage ipl = new IplImage(frame.image);
