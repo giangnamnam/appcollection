@@ -296,11 +296,7 @@ namespace WindowsFormsApplication2
                     frameQueue.Enqueue(frames);
                     go.Set();
                 }
-
-
             }
-
-
         }
 
         unsafe void SearchFace()
@@ -351,6 +347,8 @@ namespace WindowsFormsApplication2
                     }
 
                     NativeMethods.ReleaseMem();
+
+                    Array.ForEach(frames, f => Cv.Release(ref f.image));
 
                 }
                 else

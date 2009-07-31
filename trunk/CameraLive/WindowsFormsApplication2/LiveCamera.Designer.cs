@@ -45,6 +45,7 @@
             this.cameraIP = new System.Windows.Forms.TextBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
+            this.preProcess = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFiltered)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureFace)).BeginInit();
@@ -189,11 +190,22 @@
             this.textBoxOutputFolder.TabIndex = 10;
             this.textBoxOutputFolder.Text = global::WindowsFormsApplication2.Properties.Settings.Default.OutputFolder;
             // 
+            // preProcess
+            // 
+            this.preProcess.AutoSize = true;
+            this.preProcess.Location = new System.Drawing.Point(107, 244);
+            this.preProcess.Name = "preProcess";
+            this.preProcess.Size = new System.Drawing.Size(62, 19);
+            this.preProcess.TabIndex = 21;
+            this.preProcess.Text = "预处理";
+            this.preProcess.UseVisualStyleBackColor = true;
+            // 
             // LiveCamera
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 527);
+            this.Controls.Add(this.preProcess);
             this.Controls.Add(this.pictureFace);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureFiltered);
@@ -242,6 +254,7 @@
         private System.Windows.Forms.Button button1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.PictureBox pictureFace;
+        private System.Windows.Forms.CheckBox preProcess;
     }
 }
 
