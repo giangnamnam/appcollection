@@ -184,7 +184,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 	LastFrame = frame;
 	*lastFrame = TempFrame;
 
-	if((((temp1 != temp2) && temp2 !=3) || ((temp1 !=3) && (temp2 == 3))) &&(ImageCount != 0))//若完成一个分组，则返回true
+	if((((temp1 != temp2) && temp2 !=3) || ((temp1 !=3) && (temp2 == 3))))//若完成一个分组，则返回true
 	{
 		return true;
 	}
