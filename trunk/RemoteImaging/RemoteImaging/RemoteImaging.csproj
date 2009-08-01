@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,9 +55,14 @@
     <Reference Include="DevExpress.XtraTreeList.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraVerticalGrid.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="JSZN.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="MyControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Reference\MyControls.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp, Version=2.0.3493.23408, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IconExtractor\thirdparty\libs\OpenCvSharp\OpenCvSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -94,6 +100,7 @@
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Converter.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,7 +147,6 @@
     </Compile>
     <Compile Include="RealtimeDisplay\Camera.cs" />
     <Compile Include="RealtimeDisplay\FileHandle.cs" />
-    <Compile Include="RealtimeDisplay\IconExtractorStub.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="RealtimeDisplay\ImageClassifier.cs" />
     <Compile Include="Core\ImageDetail.cs" />
@@ -260,6 +266,7 @@
     <Content Include="CamConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <Content Include="ThirdParty\Libs\AForge.dll" />
     <Content Include="ThirdParty\Libs\AForge.Imaging.dll" />
@@ -271,9 +278,13 @@
     <None Include="Resources\Square16.1.gif" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IconExtractor\IconExtractor.csproj">
+    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
       <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
-      <Name>IconExtractor</Name>
+      <Name>ImageProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MotionDetect\MotionDetect.csproj">
+      <Project>{408A61BC-629F-4A57-80BE-7D18825BF5B2}</Project>
+      <Name>MotionDetect</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

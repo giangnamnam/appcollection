@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
+using JSZN.Component;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -75,6 +76,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        private Presenter presenter;
         Camera allCamera = new Camera() { ID = -1 };
 
         private TreeNode getTopCamera(TreeNode node)
@@ -162,7 +164,17 @@ namespace RemoteImaging.RealtimeDisplay
                 cells[i] = newCell;
             }
 
-            this.squareListView1.ShowImages(cells);
+            if (this.InvokeRequired)
+            {
+                Action<ImageCell[]> action = cs => this.squareListView1.ShowImages(cs);
+                this.Invoke(action, cells);
+            }
+            else
+            {
+                this.squareListView1.ShowImages(cells);
+            }
+
+
         }
 
         #endregion
@@ -170,13 +182,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            IIconExtractor extractor = IconExtractor.Default;
-
-            ImageUploadWatcher watcher =
-                new ImageUploadWatcher() { PathToWatch = Properties.Settings.Default.ImageUploadPool, };
-
-            Presenter p = new Presenter(this, watcher, extractor);
-            p.Start();
+            
         }
 
         #region IImageScreen Members
@@ -283,19 +289,19 @@ namespace RemoteImaging.RealtimeDisplay
             float maxFaceWidthRatio,
             Rectangle SearchRectangle)
         {
-            IconExtractor.Default.SetExRatio(topRatio,
+            NativeIconExtractor.SetExRatio(topRatio,
                                     bottomRatio,
                                     leftRatio,
                                     rightRatio);
 
-            IconExtractor.Default.SetROI(SearchRectangle.Left,
+            NativeIconExtractor.SetROI(SearchRectangle.Left,
                 SearchRectangle.Top,
                 SearchRectangle.Width - 1,
                 SearchRectangle.Height - 1);
 
-            IconExtractor.Default.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
 
-            IconExtractor.Default.SetLightMode(envMode);
+            NativeIconExtractor.SetLightMode(envMode);
         }
 
 
@@ -632,6 +638,18 @@ namespace RemoteImaging.RealtimeDisplay
             if (!(cameraNode.Tag is Camera)) return;
 
             Camera cam = cameraNode.Tag as Camera;
+
+            SanyoNetCamera camera = new SanyoNetCamera();
+            camera.IPAddress = cam.IpAddress;
+            camera.UserName = "admin";
+            camera.Password = "admin";
+
+            camera.Connect();
+
+            presenter = new Presenter(this, camera);
+
+            presenter.Start();
+
 
             StartRecord(cam);
         }

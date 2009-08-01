@@ -9,14 +9,12 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public static class ImageClassifier
     {
-        private static string BuildDestDirectory(string outputPathRoot,
-            string subFoldername,
-            ImageDetail image)
+        public static string BuildDestDirectory(string outputPathRoot,
+            DateTime dt,
+            string subFoldername
+            )
         {
             StringBuilder sb = new StringBuilder();
-            DateTime dt = image.CaptureTime;
-            sb.Append(image.FromCamera.ToString("D2"));
-            sb.Append(Path.AltDirectorySeparatorChar);
             sb.Append(dt.Year.ToString("D4"));
             sb.Append(Path.AltDirectorySeparatorChar);
             sb.Append(dt.Month.ToString("D2"));
@@ -35,16 +33,16 @@ namespace RemoteImaging.RealtimeDisplay
 
         public static void ClassifyImages(ImageDetail[] images)
         {
-            string outputPathRoot = Properties.Settings.Default.OutputPath;
-            foreach (ImageDetail image in images)
-            {
-                string destDirectory = BuildDestDirectory(outputPathRoot, Properties.Settings.Default.BigImageDirectoryName, image);
-                if (!Directory.Exists(destDirectory))
-                {
-                    Directory.CreateDirectory(destDirectory);
-                }
-                image.MoveTo(destDirectory);
-            }
+            //             string outputPathRoot = Properties.Settings.Default.OutputPath;
+            //             foreach (ImageDetail image in images)
+            //             {
+            //                 string destDirectory = BuildDestDirectory(outputPathRoot, Properties.Settings.Default.BigImageDirectoryName, image);
+            //                 if (!Directory.Exists(destDirectory))
+            //                 {
+            //                     Directory.CreateDirectory(destDirectory);
+            //                 }
+            //                 image.MoveTo(destDirectory);
+            //             }
         }
     }
 }

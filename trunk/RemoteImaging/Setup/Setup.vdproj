@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_02E572B7F8C34FF8B2531B73065E4D4D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_099F969C94BA4223B7CB9A92F7188231"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -29,12 +23,6 @@
         {
         "MsmKey" = "8:_09A5F51AE0D8D86C640FE77670715406"
         "OwnerKey" = "8:_57424BFB685EDC8758480A66C8622B4C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0F8D07C3ACE448D2B786E4DCFD41D567"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -113,6 +101,24 @@
         {
         "MsmKey" = "8:_18845AC4FF9EC0CFA748C38CBEE65542"
         "OwnerKey" = "8:_69713E5A43A701A8B2AB14879CB25201"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1E206B82E9AA02A6BFD9FDB712B39ADA"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1E206B82E9AA02A6BFD9FDB712B39ADA"
+        "OwnerKey" = "8:_5C65EC566FCAA6947FBB0437629BAC61"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1E206B82E9AA02A6BFD9FDB712B39ADA"
+        "OwnerKey" = "8:_321F7C2FB0233AD25FB1A26FF090007C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -202,13 +208,13 @@
         "Entry"
         {
         "MsmKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
-        "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
-        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -219,14 +225,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2B95FD458FAF4EBB87B43F5AC0F25BD2"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_28F375949A1890530B32A775AB79BA02"
+        "OwnerKey" = "8:_313621EBEE22909783EBF3327383CBD7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3079734FD2E344FDBD04CFE09614C138"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_28F375949A1890530B32A775AB79BA02"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_313621EBEE22909783EBF3327383CBD7"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_321F7C2FB0233AD25FB1A26FF090007C"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -255,6 +273,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_35FD8CE74543A3ACA0E7874EAFE2632E"
+        "OwnerKey" = "8:_28F375949A1890530B32A775AB79BA02"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_393D0B0CF19E7A70E1E2FE2052842644"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
         "MsmSig" = "8:_UNDEFINED"
@@ -267,20 +291,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_39D0F16C17F241BB88A43D8D3FD97F13"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3A568C0EEBCD2FE0DF1802EFC8F0172F"
         "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3D1663563B3D441CA45FE0F1CAB41475"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_3A568C0EEBCD2FE0DF1802EFC8F0172F"
+        "OwnerKey" = "8:_E4C3E2A5FF9148C066880696BB716BAB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -293,12 +311,6 @@
         {
         "MsmKey" = "8:_4502C0F2C5609AE0E4672304EB1C4378"
         "OwnerKey" = "8:_616E2BBCA373B73A9A8F77BD7DE03C3F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_461E51C2B82342F8B88F4D0B4F592C14"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -357,12 +369,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5156311F488345A89AD05BC27C7014FD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -393,6 +399,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_5C65EC566FCAA6947FBB0437629BAC61"
+        "OwnerKey" = "8:_321F7C2FB0233AD25FB1A26FF090007C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5C65EC566FCAA6947FBB0437629BAC61"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5CB02F476F385AABE75A872F48AA2ECD"
         "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
         "MsmSig" = "8:_UNDEFINED"
@@ -407,12 +425,6 @@
         {
         "MsmKey" = "8:_5DDA0EF5655D4E8953ACC3CB09299F1E"
         "OwnerKey" = "8:_8201CFF1CDFE1087381F7108D1DEC6DC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6139525460624E519808421769B9915B"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -435,14 +447,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6212562F1B43469E9D71E1A9712A8A7D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_68F286CD937547019DD46CC796AC4C3F"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_66C757A46490DD1E37951C63723E34EA"
+        "OwnerKey" = "8:_90DE5396EF88570DE810E0387E3D33A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -502,25 +508,25 @@
         "Entry"
         {
         "MsmKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
-        "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
         "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
-        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
+        "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
-        "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
+        "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
+        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -549,13 +555,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6DF8FFF36B084AECBAE600AFB41FB3ED"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_6C4AF8F0210BAB3452BFCA11E89A8610"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6E81E8EBE51B4F059DD03D0896AA748F"
+        "MsmKey" = "8:_6DF8FFF36B084AECBAE600AFB41FB3ED"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -657,24 +663,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7115E2E562AE4E5F8B4469C9E87CBDCD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_71AB7DD6452B4B5CA0322F143FEB3C0E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7218F8805BDD4949A97403555B3172C3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7CEBCCE8AEE01A17CA9AB4B0670AD349"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
         "MsmSig" = "8:_UNDEFINED"
@@ -693,12 +681,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_81FDDFC06A884A63B3D99C134C3A3A83"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8201CFF1CDFE1087381F7108D1DEC6DC"
         "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
@@ -706,13 +688,13 @@
         "Entry"
         {
         "MsmKey" = "8:_8201CFF1CDFE1087381F7108D1DEC6DC"
-        "OwnerKey" = "8:_C02F333A553133C3E4F0EAEF26D83352"
+        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_8201CFF1CDFE1087381F7108D1DEC6DC"
-        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
+        "OwnerKey" = "8:_C02F333A553133C3E4F0EAEF26D83352"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -759,38 +741,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_83B2F3E8185B4139B0F558A07BA36F53"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_879643214FA549A99B2F79A531AF4A1E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_894360A0B8AC4202A6199827ADC3DEF7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8A83AEDB18924F018ED130C25D374C56"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8C49673241724525A29A883C3F83018A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8DA2608175204C709EE9E037D81CC4AD"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_90DE5396EF88570DE810E0387E3D33A3"
+        "OwnerKey" = "8:_6C4AF8F0210BAB3452BFCA11E89A8610"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_90DE5396EF88570DE810E0387E3D33A3"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -839,12 +803,6 @@
         {
         "MsmKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9FED8F565F3D42E19A24412181A65345"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -921,32 +879,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AC5977BC6D057A9FD1B68315B9D963AE"
-        "OwnerKey" = "8:_39D0F16C17F241BB88A43D8D3FD97F13"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AC5977BC6D057A9FD1B68315B9D963AE"
-        "OwnerKey" = "8:_C31690FF3395401C8C53E90BAFFDB2A1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AE578E03FDB5412CB5266B6067BA6DA2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
         "OwnerKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
-        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -963,26 +897,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B244F02B30F24B62B872FB999B5B7F04"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B28F5ACC0AD14F9A91A8E2235B410F8E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B60B9604E91B4410994AA7D532C02650"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BC03EE355BDD4EC58EF3C50D397348FB"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1001,12 +917,6 @@
         {
         "MsmKey" = "8:_C02F333A553133C3E4F0EAEF26D83352"
         "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C31690FF3395401C8C53E90BAFFDB2A1"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1083,8 +993,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C84ADC8F2B8E4ACD93AE6B282012B545"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_C9667401F3F542292597555DCA8A0481"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1097,12 +1007,6 @@
         {
         "MsmKey" = "8:_CB7721EC78B5EF1D0A065094567B9371"
         "OwnerKey" = "8:_616E2BBCA373B73A9A8F77BD7DE03C3F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CBB82B8B18024104AABDFF1ABAF229C5"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1143,26 +1047,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DE857F29834B45BB804BE81F7CD8AD3D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
         "OwnerKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
-        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
-        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1175,6 +1061,18 @@
         {
         "MsmKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
         "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
+        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1227,6 +1125,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E4C3E2A5FF9148C066880696BB716BAB"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E687B7AA479A442C91938BACB742B19E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1247,6 +1151,18 @@
         {
         "MsmKey" = "8:_EBE0943EC02F704742F8EA8933A8D227"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F2E61469B2C241E340F3E84D211B07E2"
+        "OwnerKey" = "8:_3A568C0EEBCD2FE0DF1802EFC8F0172F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F2E61469B2C241E340F3E84D211B07E2"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1276,18 +1192,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
-        "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
-        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
         "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1295,6 +1199,18 @@
         {
         "MsmKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
+        "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1306,18 +1222,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
-        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
-        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1330,13 +1234,19 @@
         "Entry"
         {
         "MsmKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
-        "OwnerKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
+        "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F885AC9E89B744B38967110A2A62717E"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
+        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
+        "OwnerKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1359,38 +1269,50 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FFDBC1A85E5942C2A8EE57D6E264DABA"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8201CFF1CDFE1087381F7108D1DEC6DC"
+        "OwnerKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FFDBC1A85E5942C2A8EE57D6E264DABA"
+        "OwnerKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C31690FF3395401C8C53E90BAFFDB2A1"
+        "OwnerKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_39D0F16C17F241BB88A43D8D3FD97F13"
+        "OwnerKey" = "8:_BC3E8D9EAEA8F975D28692959FD008A9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AC5977BC6D057A9FD1B68315B9D963AE"
+        "OwnerKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4FE80CD95ED16F3AAE0334D628D3615F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1402,13 +1324,73 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_321F7C2FB0233AD25FB1A26FF090007C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5C65EC566FCAA6947FBB0437629BAC61"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1E206B82E9AA02A6BFD9FDB712B39ADA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C407361D5EEC65E627FAE7EBEC36CA48"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6C4AF8F0210BAB3452BFCA11E89A8610"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_90DE5396EF88570DE810E0387E3D33A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_313621EBEE22909783EBF3327383CBD7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_28F375949A1890530B32A775AB79BA02"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C9667401F3F542292597555DCA8A0481"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E4C3E2A5FF9148C066880696BB716BAB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3A568C0EEBCD2FE0DF1802EFC8F0172F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F2E61469B2C241E340F3E84D211B07E2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1421,18 +1403,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6F125B6714B1A04414561A70A64BD318"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2354C41C983C2048F64251965D5E4E2F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4FE80CD95ED16F3AAE0334D628D3615F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1487,42 +1457,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_915A794344BA51C19EF5AA0D6A454F62"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F7A107AE7CEC76E0B674475BBB760855"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AEBAB43066E3D91C9192D8172D8CECBA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BC3E8D9EAEA8F975D28692959FD008A9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DF2D0CAE2D93929D524381FA6B877A90"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6B1B16A20D3F83FFFCB9A97663F09973"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1663,6 +1597,12 @@
         "OwnerKey" = "8:_57424BFB685EDC8758480A66C8622B4C"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8201CFF1CDFE1087381F7108D1DEC6DC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1681,6 +1621,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -1697,6 +1645,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -1726,26 +1682,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_02E572B7F8C34FF8B2531B73065E4D4D"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\HDCDownloader.exe"
-            "TargetName" = "8:HDCDownloader.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_099F969C94BA4223B7CB9A92F7188231"
             {
             "SourcePath" = "8:..\\IconExtractor\\data\\haarcascade_frontalface_alt2.xml"
@@ -1784,26 +1720,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0F8D07C3ACE448D2B786E4DCFD41D567"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DlLang\\Francais.ini"
-            "TargetName" = "8:Francais.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_07A3F89CAD5F4946AADD3A58CF93EF46"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1002CA6866F89E96B9AFC29CCDE6C090"
@@ -1902,6 +1818,37 @@
                     }
                 }
             "SourcePath" = "8:DevExpress.DXCore.AssemblyResolver.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1E206B82E9AA02A6BFD9FDB712B39ADA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AForge, Version=1.1.0.0, Culture=neutral, PublicKeyToken=9a0d19ffd4e7fe67, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1E206B82E9AA02A6BFD9FDB712B39ADA"
+                    {
+                    "Name" = "8:AForge.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AForge.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
@@ -2032,12 +1979,23 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2B95FD458FAF4EBB87B43F5AC0F25BD2"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_28F375949A1890530B32A775AB79BA02"
             {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\Microsoft.VC80.CRT.manifest"
-            "TargetName" = "8:Microsoft.VC80.CRT.manifest"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Interop.AXVLC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_28F375949A1890530B32A775AB79BA02"
+                    {
+                    "Name" = "8:Interop.AXVLC.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Interop.AXVLC.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2049,15 +2007,26 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3079734FD2E344FDBD04CFE09614C138"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_313621EBEE22909783EBF3327383CBD7"
             {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DlLang\\English.ini"
-            "TargetName" = "8:English.ini"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AxInterop.AXVLC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_313621EBEE22909783EBF3327383CBD7"
+                    {
+                    "Name" = "8:AxInterop.AXVLC.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AxInterop.AXVLC.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_07A3F89CAD5F4946AADD3A58CF93EF46"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2069,7 +2038,38 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_321F7C2FB0233AD25FB1A26FF090007C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_321F7C2FB0233AD25FB1A26FF090007C"
+                    {
+                    "Name" = "8:AForge.Imaging.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AForge.Imaging.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_338E26AD2E8B54462FBF3DCC68293137"
@@ -2087,6 +2087,26 @@
                 }
             "SourcePath" = "8:DevExpress.Xpo.v9.1.dll"
             "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_35FD8CE74543A3ACA0E7874EAFE2632E"
+            {
+            "SourcePath" = "8:axvlc.dll"
+            "TargetName" = "8:axvlc.dll"
             "Tag" = "8:"
             "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
@@ -2134,37 +2154,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_39D0F16C17F241BB88A43D8D3FD97F13"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MFCM80, Version=8.0.50727.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_39D0F16C17F241BB88A43D8D3FD97F13"
-                    {
-                    "Name" = "8:mfcm80.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\mfcm80.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3A568C0EEBCD2FE0DF1802EFC8F0172F"
             {
             "AssemblyRegister" = "3:1"
@@ -2196,26 +2185,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D1663563B3D441CA45FE0F1CAB41475"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\libavcodec.dll"
-            "TargetName" = "8:libavcodec.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4502C0F2C5609AE0E4672304EB1C4378"
             {
             "AssemblyRegister" = "3:1"
@@ -2245,26 +2214,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_461E51C2B82342F8B88F4D0B4F592C14"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\mfc80.dll"
-            "TargetName" = "8:mfc80.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_47463FF942684BDB85D3D80715BF1BE5"
@@ -2420,26 +2369,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5156311F488345A89AD05BC27C7014FD"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\HDCDownloader.ini"
-            "TargetName" = "8:HDCDownloader.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57424BFB685EDC8758480A66C8622B4C"
             {
             "AssemblyRegister" = "3:1"
@@ -2491,6 +2420,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5C65EC566FCAA6947FBB0437629BAC61"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AForge.Math, Version=1.1.0.0, Culture=neutral, PublicKeyToken=ec69efb6646d15f1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5C65EC566FCAA6947FBB0437629BAC61"
+                    {
+                    "Name" = "8:AForge.Math.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AForge.Math.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5CB02F476F385AABE75A872F48AA2ECD"
             {
             "AssemblyRegister" = "3:1"
@@ -2540,26 +2500,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6139525460624E519808421769B9915B"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\msvcr80.dll"
-            "TargetName" = "8:msvcr80.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_616E2BBCA373B73A9A8F77BD7DE03C3F"
@@ -2624,12 +2564,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6212562F1B43469E9D71E1A9712A8A7D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_66C757A46490DD1E37951C63723E34EA"
             {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DLViewer.ini"
-            "TargetName" = "8:DLViewer.ini"
+            "SourcePath" = "8:ImgCtrl.dll"
+            "TargetName" = "8:ImgCtrl.dll"
             "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2641,27 +2581,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_68F286CD937547019DD46CC796AC4C3F"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\VwLang\\Espanol.ini"
-            "TargetName" = "8:Espanol.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_BE8FF6C87A2F44A3BE488026C10BACA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_69713E5A43A701A8B2AB14879CB25201"
@@ -2757,10 +2677,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6DF8FFF36B084AECBAE600AFB41FB3ED"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6C4AF8F0210BAB3452BFCA11E89A8610"
             {
-            "SourcePath" = "8:..\\IconExtractor\\thirdparty\\libs\\opencv\\cxts001.dll"
-            "TargetName" = "8:cxts001.dll"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AxInterop.IMGCTRLLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_6C4AF8F0210BAB3452BFCA11E89A8610"
+                    {
+                    "Name" = "8:AxInterop.IMGCTRLLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AxInterop.IMGCTRLLib.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
@@ -2774,15 +2705,15 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6E81E8EBE51B4F059DD03D0896AA748F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6DF8FFF36B084AECBAE600AFB41FB3ED"
             {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\Microsoft.VC80.MFC.manifest"
-            "TargetName" = "8:Microsoft.VC80.MFC.manifest"
+            "SourcePath" = "8:..\\IconExtractor\\thirdparty\\libs\\opencv\\cxts001.dll"
+            "TargetName" = "8:cxts001.dll"
             "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2859,66 +2790,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7115E2E562AE4E5F8B4469C9E87CBDCD"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\VwLang\\Francais.ini"
-            "TargetName" = "8:Francais.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_BE8FF6C87A2F44A3BE488026C10BACA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_71AB7DD6452B4B5CA0322F143FEB3C0E"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DlLang\\Deutsch.ini"
-            "TargetName" = "8:Deutsch.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_07A3F89CAD5F4946AADD3A58CF93EF46"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7218F8805BDD4949A97403555B3172C3"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\IJL15.DLL"
-            "TargetName" = "8:IJL15.DLL"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7CEBCCE8AEE01A17CA9AB4B0670AD349"
             {
             "AssemblyRegister" = "3:1"
@@ -2948,26 +2819,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_81FDDFC06A884A63B3D99C134C3A3A83"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DualCodecMiddle.dll"
-            "TargetName" = "8:DualCodecMiddle.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8201CFF1CDFE1087381F7108D1DEC6DC"
@@ -3001,106 +2852,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_83B2F3E8185B4139B0F558A07BA36F53"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\msvcp80.dll"
-            "TargetName" = "8:msvcp80.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_879643214FA549A99B2F79A531AF4A1E"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\StorageSearch.dll"
-            "TargetName" = "8:StorageSearch.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_894360A0B8AC4202A6199827ADC3DEF7"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DCodecH264Decoder.ax"
-            "TargetName" = "8:DCodecH264Decoder.ax"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A83AEDB18924F018ED130C25D374C56"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\mfc80u.dll"
-            "TargetName" = "8:mfc80u.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8C49673241724525A29A883C3F83018A"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\VwLang\\Deutsch.ini"
-            "TargetName" = "8:Deutsch.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_BE8FF6C87A2F44A3BE488026C10BACA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8DA2608175204C709EE9E037D81CC4AD"
             {
             "SourcePath" = "8:..\\IconExtractor\\thirdparty\\libs\\opencv\\cvaux100.dll"
@@ -3119,6 +2870,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_90DE5396EF88570DE810E0387E3D33A3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Interop.IMGCTRLLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_90DE5396EF88570DE810E0387E3D33A3"
+                    {
+                    "Name" = "8:Interop.IMGCTRLLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Interop.IMGCTRLLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_915A794344BA51C19EF5AA0D6A454F62"
@@ -3150,26 +2932,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FED8F565F3D42E19A24412181A65345"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\ImgCtrl.dll"
-            "TargetName" = "8:ImgCtrl.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A29A8818963C0D88F319DC7A20DC68A0"
@@ -3316,57 +3078,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AC5977BC6D057A9FD1B68315B9D963AE"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:MFCMIFC80, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_AC5977BC6D057A9FD1B68315B9D963AE"
-                    {
-                    "Name" = "8:MFCMIFC80.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MFCMIFC80.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE578E03FDB5412CB5266B6067BA6DA2"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DCBitmapSource.ax"
-            "TargetName" = "8:DCBitmapSource.ax"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AEBAB43066E3D91C9192D8172D8CECBA"
             {
             "AssemblyRegister" = "3:1"
@@ -3396,86 +3107,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B244F02B30F24B62B872FB999B5B7F04"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DlLang\\Espanol.ini"
-            "TargetName" = "8:Espanol.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_07A3F89CAD5F4946AADD3A58CF93EF46"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B28F5ACC0AD14F9A91A8E2235B410F8E"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\VwLang\\Japanese.ini"
-            "TargetName" = "8:Japanese.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_BE8FF6C87A2F44A3BE488026C10BACA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B60B9604E91B4410994AA7D532C02650"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\HDCSourceFilter.ax"
-            "TargetName" = "8:HDCSourceFilter.ax"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BC03EE355BDD4EC58EF3C50D397348FB"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\HDCSourceFilter.ini"
-            "TargetName" = "8:HDCSourceFilter.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BC3E8D9EAEA8F975D28692959FD008A9"
@@ -3538,37 +3169,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C31690FF3395401C8C53E90BAFFDB2A1"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MFCM80U, Version=8.0.50727.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_C31690FF3395401C8C53E90BAFFDB2A1"
-                    {
-                    "Name" = "8:mfcm80u.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\mfcm80u.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C384E2B736ECBF1371F3E9D5204312C3"
@@ -3684,12 +3284,23 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C84ADC8F2B8E4ACD93AE6B282012B545"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C9667401F3F542292597555DCA8A0481"
             {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DlLang\\Japanese.ini"
-            "TargetName" = "8:Japanese.ini"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:JSZN.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C9667401F3F542292597555DCA8A0481"
+                    {
+                    "Name" = "8:JSZN.Component.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:JSZN.Component.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_07A3F89CAD5F4946AADD3A58CF93EF46"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3701,7 +3312,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CB7721EC78B5EF1D0A065094567B9371"
@@ -3733,26 +3344,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBB82B8B18024104AABDFF1ABAF229C5"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DLViewer.exe"
-            "TargetName" = "8:DLViewer.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D2CB14F5A38441981D8AA518DB544719"
@@ -3837,26 +3428,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DE857F29834B45BB804BE81F7CD8AD3D"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\VwLang\\English.ini"
-            "TargetName" = "8:English.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_BE8FF6C87A2F44A3BE488026C10BACA7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DF2D0CAE2D93929D524381FA6B877A90"
             {
             "AssemblyRegister" = "3:1"
@@ -3919,6 +3490,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E4C3E2A5FF9148C066880696BB716BAB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MotionDetect, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E4C3E2A5FF9148C066880696BB716BAB"
+                    {
+                    "Name" = "8:MotionDetect.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MotionDetect.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E687B7AA479A442C91938BACB742B19E"
             {
             "SourcePath" = "8:..\\IconExtractor\\data\\haarcascade_frontalface_default.xml"
@@ -3953,6 +3555,37 @@
                     }
                 }
             "SourcePath" = "8:DevExpress.CodeRush.VSCore.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F2E61469B2C241E340F3E84D211B07E2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:OpenCvSharp, Version=2.0.3493.23408, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F2E61469B2C241E340F3E84D211B07E2"
+                    {
+                    "Name" = "8:OpenCvSharp.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:OpenCvSharp.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
@@ -4103,26 +3736,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F885AC9E89B744B38967110A2A62717E"
-            {
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\DLViewer.vbs"
-            "TargetName" = "8:DLViewer.vbs"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F93F9D79DE18786E8058DE1B24671636"
             {
             "AssemblyRegister" = "3:1"
@@ -4154,37 +3767,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FFDBC1A85E5942C2A8EE57D6E264DABA"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:msvcm80, Version=8.0.50727.762, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_FFDBC1A85E5942C2A8EE57D6E264DABA"
-                    {
-                    "Name" = "8:msvcm80.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\RemoteImaging\\VideoDownLoadTool\\msvcm80.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5B62422F73DF46DCAFF9EB25178FBB2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -4212,39 +3794,6 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_5B62422F73DF46DCAFF9EB25178FBB2E"
-                    {
-                    "Name" = "8:VideoDownLoadTool"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_347F68C0140549E38DED26C8F7EFD5AE"
-                        "Folders"
-                        {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_07A3F89CAD5F4946AADD3A58CF93EF46"
-                            {
-                            "Name" = "8:DlLang"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_86EF725C892947BD8ACA9D252F8CC202"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_BE8FF6C87A2F44A3BE488026C10BACA7"
-                            {
-                            "Name" = "8:VwLang"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_A2E2DE1268484FFF84554729726826FC"
-                                "Folders"
-                                {
-                                }
-                            }
-                        }
-                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_B74A402045504CFF99F7B0B11C595E39"

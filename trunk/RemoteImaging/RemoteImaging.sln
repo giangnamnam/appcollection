@@ -13,9 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTPUploadSimulator", "FTPUploadSimulator\FTPUploadSimulator.csproj", "{56CC7C1F-2C4A-49D1-A92B-8A66BDA8D934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IconExtractor", "IconExtractor\IconExtractor.csproj", "{C917EC7F-9A59-4845-9108-87056AC61D4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessing", "IconExtractor\ImageProcessing.csproj", "{C917EC7F-9A59-4845-9108-87056AC61D4F}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{69103411-682D-4FC4-8052-50A826FE3DD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetect", "MotionDetect\MotionDetect.csproj", "{408A61BC-629F-4A57-80BE-7D18825BF5B2}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -76,6 +78,16 @@ Global
 		{69103411-682D-4FC4-8052-50A826FE3DD7}.Release|Any CPU.ActiveCfg = Release
 		{69103411-682D-4FC4-8052-50A826FE3DD7}.Release|Mixed Platforms.ActiveCfg = Release
 		{69103411-682D-4FC4-8052-50A826FE3DD7}.Release|Win32.ActiveCfg = Release
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

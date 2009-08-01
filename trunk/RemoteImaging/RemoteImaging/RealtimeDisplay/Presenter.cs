@@ -3,16 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using ImageProcess;
 using RemoteImaging.Core;
+using JSZN.Component;
+using MotionDetect;
+using System.Drawing;
+using OpenCvSharp;
+using System.Threading;
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public class Presenter : IImageScreenObserver
     {
         IImageScreen screen;
-        ImageUploadWatcher uploadWatcher;
-        IIconExtractor extractor;
+        ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
-        System.Collections.Generic.Queue<ImageDetail[]> imgsQueue;
+
+        Queue<Frame[]> framesQueue = new Queue<Frame[]>();
+        Queue<Frame> frameSeq = new Queue<Frame>();
+
+        object locker = new object();
+        AutoResetEvent go = new AutoResetEvent(false);
+
+        Thread motionDetectThread = null;
+
 
         /// <summary>
         /// Initializes a new instance of the Presenter class.
@@ -20,41 +32,23 @@ namespace RemoteImaging.RealtimeDisplay
         /// <param name="screen"></param>
         /// <param name="uploadWatcher"></param>
         public Presenter(IImageScreen screen,
-            ImageUploadWatcher uploadWatcher,
-            IIconExtractor extractor)
+            ICamera camera)
         {
             this.screen = screen;
-            this.uploadWatcher = uploadWatcher;
-            this.extractor = extractor;
+            this.camera = camera;
 
             this.screen.Observer = this;
             this.worker = new System.ComponentModel.BackgroundWorker();
             worker.WorkerReportsProgress = true;
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-            worker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(worker_ProgressChanged);
             worker.DoWork += worker_DoWork;
-
-            imgsQueue = new Queue<ImageDetail[]>();
-
-            this.uploadWatcher.ImagesUploaded += uploadWatcher_ImagesUploaded;
-
-
-
-
         }
 
-        void worker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            screen.StepProgress();
-        }
 
         void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            ImageDetail[] imgs = e.Argument as ImageDetail[];
-            worker.ReportProgress(50);
-            ImageDetail[] retImgs = this.ExtractIcons(imgs);
-            worker.ReportProgress(100);
-            e.Result = retImgs;
+            this.SearchFace();
+
         }
 
         void worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -71,10 +65,10 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
 
-            if (imgsQueue.Count > 0)
+            if (framesQueue.Count > 0)
             {
                 screen.ShowProgress = true;
-                worker.RunWorkerAsync(imgsQueue.Dequeue());
+                worker.RunWorkerAsync(framesQueue.Dequeue());
             }
             else
             {
@@ -83,9 +77,76 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private void DetectMotion()
+        {
+            while (true)
+            {
+                byte[] image = camera.CaptureImageBytes();
+
+                MemoryStream memStream = new MemoryStream(image);
+                Bitmap bmp = null;
+                try
+                {
+                    bmp = (Bitmap)Image.FromStream(memStream);
+                }
+                catch (System.ArgumentException)
+                {
+                    return;
+                }
+
+                Frame f = new Frame();
+                f.timeStamp = DateTime.Now.Ticks;
+                f.image = IntPtr.Zero;
+                f.cameraID = 2;
+
+                IplImage ipl = BitmapConverter.ToIplImage(bmp);
+                ipl.IsEnabledDispose = false;
+                f.image = ipl.CvPtr;
+
+                Frame lastFrame = new Frame();
+
+                bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(f, ref lastFrame);
+
+                if (lastFrame.searchRect.Width == 0 || lastFrame.searchRect.Height == 0)
+                {
+                    if (lastFrame.image != IntPtr.Zero)
+                    {
+                        Cv.Release(ref lastFrame.image);
+                    }
+                }
+                else
+                {
+                    frameSeq.Enqueue(lastFrame);
+                }
+
+                if (groupCaptured)
+                {
+                    Frame[] frames = frameSeq.ToArray();
+                    framesQueue.Clear();
+
+                    if (frames.Length <= 0) return;
+
+                    lock (locker)
+                    {
+                        framesQueue.Enqueue(frames);
+                        go.Set();
+                    }
+                }
+
+                Thread.Sleep(200);
+            }
+
+
+        }
+
         public void Start()
         {
-            this.uploadWatcher.Start();
+            motionDetectThread = new Thread(this.DetectMotion);
+            motionDetectThread.IsBackground = true;
+            motionDetectThread.Start();
+
+            this.worker.RunWorkerAsync();
+
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
@@ -142,39 +203,116 @@ namespace RemoteImaging.RealtimeDisplay
             return returnImgsArray;
         }
 
-        private ImageDetail[] ExtractIcons(ImageDetail[] imgs)
+
+        unsafe ImageDetail[] SaveImage(Target[] targets)
         {
-            string destFolder = PrepareDestFolder(imgs[0]);
-            extractor.SetOutputDir(destFolder);
-            Array.ForEach<ImageDetail>(imgs, img => extractor.AddInImage(img.Path));
+            IList<ImageDetail> imgs = new List<ImageDetail>();
 
-            string iconFilesString = extractor.SelectBestImage();
+            foreach (Target t in targets)
+            {
+                Frame* frame = (Frame*)t.BaseFrame;
+                IplImage ipl = new IplImage(frame->image);
+                ipl.IsEnabledDispose = false;
 
-            ImageDetail[] iconImgs = BuildIconImages(destFolder, imgs, iconFilesString);
+                string path = frame->GetFileName();
+                DateTime dt = DateTime.FromBinary(frame->timeStamp);
 
-            System.Diagnostics.Debug.WriteLine("icon imgs:");
-            Array.ForEach(iconImgs, img => System.Diagnostics.Debug.WriteLine(img.Path));
+                string root = Path.Combine(Properties.Settings.Default.OutputPath, frame->cameraID.ToString("d2"));
 
-            return iconImgs;
+                string folder = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                path = Path.Combine(folder, path);
+                ipl.SaveImage(path);
+
+                for (int j = 0; j < t.FaceCount; ++j)
+                {
+                    IntPtr* f = ((IntPtr*)(t.FaceData)) + j;
+                    IplImage iplFace = new IplImage(*f);
+                    iplFace.IsEnabledDispose = false;
+
+                    string folderFace = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.IconDirectoryName);
+                    string bigImgFileName = frame->GetFileName();
+                    int idx = bigImgFileName.IndexOf('.');
+                    bigImgFileName.Insert(idx, "-" + j.ToString("d4"));
+
+                    string facePath = Path.Combine(folderFace, bigImgFileName);
+
+                    iplFace.SaveImage(facePath);
+
+                    imgs.Add(ImageDetail.FromPath(facePath));
+
+                }
+            }
+
+            return (ImageDetail[])imgs;
+
         }
 
 
-        void uploadWatcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
+
+
+
+
+        unsafe void SearchFace()
         {
-            ImageDetail[] imgsToProcess = args.Images;
-
-            System.Threading.Thread.Sleep(1000);
-
-            ImageClassifier.ClassifyImages(imgsToProcess);
-
-            this.imgsQueue.Enqueue(imgsToProcess);
-
-            if (!this.worker.IsBusy)
+            while (true)
             {
-                screen.ShowProgress = true;
-                worker.RunWorkerAsync(this.imgsQueue.Dequeue());
+                Frame[] frames = null;
+                lock (locker)
+                {
+                    if (framesQueue.Count > 0)
+                    {
+                        frames = framesQueue.Dequeue();
+                    }
+                }
+
+                if (frames != null)
+                {
+                    for (int i = 0; i < frames.Length; ++i)
+                    {
+                        Frame frame = frames[i];
+                        NativeIconExtractor.AddInFrame(ref frame);
+                        IplImage ipl = new IplImage(frame.image);
+                        ipl.IsEnabledDispose = false;
+                    }
+
+                    IntPtr target = IntPtr.Zero;
+
+                    int count = NativeIconExtractor.SearchFaces(ref target);
+                    if (count <= 0) continue;
+
+                    Target* pTarget = (Target*)target;
+
+                    IList<Target> targets = new List<Target>();
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        Target face = pTarget[i];
+                        targets.Add(face);
+                    }
+
+
+                    ImageDetail[] imgs = this.SaveImage((Target[])targets);
+
+                    this.screen.ShowImages(imgs);
+
+                    NativeIconExtractor.ReleaseMem();
+
+                    Array.ForEach(frames, f => Cv.Release(ref f.image));
+                }
+                else
+                {
+                    go.WaitOne();
+                }
             }
         }
+
+
+
 
         #region IImageScreenObserver Members
 

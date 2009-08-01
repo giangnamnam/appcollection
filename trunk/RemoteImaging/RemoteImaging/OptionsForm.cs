@@ -190,8 +190,8 @@ namespace RemoteImaging
                 fileHandle.CreateElement(SaveNodeType.WarnDisk, "500MB", DateTime.Now.ToShortDateString());
 
             }
-            InitRadiobutton(SaveNodeType.Video, gBoxImgFileSet);
-            InitRadiobutton(SaveNodeType.WarnDisk, gBoxDiskSet);
+            //InitRadiobutton(SaveNodeType.Video, gBoxImgFileSet);
+            //InitRadiobutton(SaveNodeType.WarnDisk, gBoxDiskSet);
             textBox2.Enabled = false;
             textBox1.Enabled = false;
         }
