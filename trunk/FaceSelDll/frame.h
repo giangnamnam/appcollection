@@ -5,9 +5,10 @@
 
 struct Frame
 {
+	BYTE cameraID;
 	IplImage *image;//cv ×ª»»ºóµÄÍ¼Æ¬
 	CvRect searchRect;//ËÑË÷Á³µÄ·¶Î§
-	long timeStamp;
+	LONGLONG timeStamp;
 };
 
 struct ByteArray
