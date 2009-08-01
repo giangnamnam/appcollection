@@ -23,8 +23,6 @@ namespace RemoteImaging
                 Cameras.Add(
                     new Camera() { ID = id, IpAddress = camElement.Attribute("ip").Value, Name = camElement.Attribute("name").Value });
             }
-
-
         }
 
         public void Save()

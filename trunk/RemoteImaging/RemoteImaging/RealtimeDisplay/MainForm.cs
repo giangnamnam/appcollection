@@ -14,7 +14,6 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
-using RemoteImaging.FileHandler;
 
 namespace RemoteImaging.RealtimeDisplay
 {
