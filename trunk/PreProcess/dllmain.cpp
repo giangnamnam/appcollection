@@ -13,7 +13,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	{
 	case DLL_PROCESS_ATTACH:
 	case DLL_THREAD_ATTACH:
-		LastFrame.searchRect = NULL;
+		LastFrame.searchRect = CvRect();
 		LastFrame.image = NULL;
 		break;
 	case DLL_THREAD_DETACH:

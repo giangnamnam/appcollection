@@ -140,7 +140,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 		rect = cvRect(x1,y1,x2-x1,y2-y1);
 		
-		TempFrame.searchRect = new CvRect(rect);
+		TempFrame.searchRect = rect;
 		//TempFrame.groupCaptured = false;
 
 		if((y1 < 360) && ((x2-x1) < 450))//如果连续检测到框为单人大小，则自动划分为一组
@@ -161,8 +161,6 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 			temp1 = temp2;
 			temp2 = 2;
 		} 
-
-	
 	}
 	else //当前帧没检测到
 	{
@@ -188,8 +186,6 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 	{
 		return true;
 	}
-
-	
 
 	return false;
 }

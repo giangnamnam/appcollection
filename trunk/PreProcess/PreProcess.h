@@ -16,12 +16,9 @@
 
 struct Frame
 {
-	int dataLength;//沈斌给出
-	BYTE *data;//原始数据，沈斌给出
 	IplImage *image;//转换后需要搜索人脸的大图片,薛晓利给出
-	CvRect *searchRect;//搜索脸的范围，薛晓利给出
+	CvRect searchRect;//搜索脸的范围，薛晓利给出
 	long timeStamp;//沈斌给出
-	const char *fileName; 
 };
 
 extern "C"
