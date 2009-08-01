@@ -245,8 +245,7 @@ namespace WindowsFormsApplication2
             //lastImageTime = time;
 
             Frame f = new Frame();
-            f.timeStamp = 0;
-            f.searchRect = IntPtr.Zero;
+            f.timeStamp = (int)DateTime.Now.Ticks;
             f.image = IntPtr.Zero;
 
             System.Diagnostics.Debug.WriteLine("before convert");
@@ -268,9 +267,13 @@ namespace WindowsFormsApplication2
 
             Frame lastFrame = new Frame();
 
+            Debug.WriteLine("input frame: " + f.timeStamp.ToString());
+
             bool groupCaptured = NativeMethods.PreProcessFrame(f, ref lastFrame);
 
-            if (lastFrame.searchRect == IntPtr.Zero)
+            Debug.WriteLineIf(lastFrame.image != IntPtr.Zero, "output frame: " + lastFrame.timeStamp.ToString());
+
+            if (lastFrame.searchRect.Width == 0 || lastFrame.searchRect.Height == 0)
             {
                 if (lastFrame.image != IntPtr.Zero)
                 {

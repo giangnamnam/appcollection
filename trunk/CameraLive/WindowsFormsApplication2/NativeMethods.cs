@@ -3,35 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using OpenCvSharp;
 
 namespace WindowsFormsApplication2
 {
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public struct CvRect
-    {
-        public int x;
-        public int y;
-        public int width;
-        public int height;
-    }
 
     [StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public struct Frame
     {
-        public int dataLen;
-
-        public System.IntPtr data;
-
         /// IplImage*
         public System.IntPtr image;
 
-        /// CvRect*
-        public System.IntPtr searchRect;
+        public CvRect searchRect;
 
         /// int
         public int timeStamp;
 
-        public System.IntPtr fileName;
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
