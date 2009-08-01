@@ -4861,7 +4861,7 @@ bool CFaceSelect::CheckOverExpo( IplImage *pSrcImg )
 //20090716 Defined Interface
 void CFaceSelect::AddInFrame(Frame *frame)//依次添加一组图片
 {
-	if( AddInImage( frame->image, *(frame->searchRect) ) )
+	if( AddInImage( frame->image, frame->searchRect ) )
 	{
 		cvSeqPush( m_cvFrameSeq, &frame );
 	}

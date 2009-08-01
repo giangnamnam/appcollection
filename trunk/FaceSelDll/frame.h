@@ -5,12 +5,9 @@
 
 struct Frame
 {
-	int dataLength;
-	byte *data;//原始数据
 	IplImage *image;//cv 转换后的图片
-	CvRect *searchRect;//搜索脸的范围
+	CvRect searchRect;//搜索脸的范围
 	long timeStamp;
-	const char* fileName;
 };
 
 struct ByteArray
