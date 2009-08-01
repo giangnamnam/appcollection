@@ -229,7 +229,16 @@ namespace WindowsFormsApplication2
             byte[] image = sanyoNetCamera1.GetImage();
 
             MemoryStream memStream = new MemoryStream(image);
-            Bitmap bmp = (Bitmap)Image.FromStream(memStream);
+            Bitmap bmp = null;
+            try
+            {
+                bmp = (Bitmap)Image.FromStream(memStream);
+            }
+            catch (System.ArgumentException)
+            {
+                return;
+            }
+
 
 
             if (this.pictureBox1.Image != null)
