@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
+using RemoteImaging.FileHandler;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -369,7 +370,7 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Properties.Settings setting = Properties.Settings.Default;
 
-                    Configuration.Instance.Cameras = frm.Cameras;
+                    Configuration.Instance.Cameras = frm.Cameras;//这里添加设置摄像机的 IP 和 ID 对应的设置类文件 ResetCameraInfo
                     Configuration.Instance.Save();
 
                     setting.Save();
@@ -377,6 +378,9 @@ namespace RemoteImaging.RealtimeDisplay
                     InitStatusBar();
 
                     this.Cameras = frm.Cameras.ToArray<Camera>();
+
+                    frm.setFileStore();
+                    frm.setImageAndVideo();
 
                     var minFaceWidth = int.Parse(setting.MinFaceWidth);
                     float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
@@ -661,6 +665,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        private void tsbFileSet_Click(object sender, EventArgs e)
+        {
+        }
 
     }
 }
