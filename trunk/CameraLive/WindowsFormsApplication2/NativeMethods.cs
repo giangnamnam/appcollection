@@ -21,16 +21,6 @@ namespace WindowsFormsApplication2
 
     }
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public struct ByteArray
-    {
-
-        /// byte*
-        public System.IntPtr bytes;
-
-        /// int
-        public int length;
-    }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public struct Target
@@ -42,7 +32,7 @@ namespace WindowsFormsApplication2
         /// int
         public int FaceCount;
 
-        /// ByteArray*
+        /// IplImage*
         public System.IntPtr FaceData;
     }
 
