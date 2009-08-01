@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace JSZN.Component
 {
-    interface ICamera
+    public interface ICamera
     {
         Image CaptureImage();
         byte[] CaptureImageBytes();
