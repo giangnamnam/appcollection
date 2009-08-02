@@ -17,6 +17,6 @@ namespace ImageProcess
         public CvRect searchRect;
 
         /// int
-        public Int64 timeStamp;
+        public long timeStamp;
     }
 }

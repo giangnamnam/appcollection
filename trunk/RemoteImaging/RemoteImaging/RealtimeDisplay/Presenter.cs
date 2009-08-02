@@ -37,6 +37,11 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
+            motionDetectThread = new Thread(this.DetectMotion);
+            motionDetectThread.IsBackground = true;
+            motionDetectThread.Name = "motion detect";
+
+
             this.screen.Observer = this;
             this.worker = new System.ComponentModel.BackgroundWorker();
             worker.WorkerReportsProgress = true;
@@ -103,28 +108,28 @@ namespace RemoteImaging.RealtimeDisplay
                 ipl.IsEnabledDispose = false;
                 f.image = ipl.CvPtr;
 
-                Frame lastFrame = new Frame();
+                Frame frameToRelease = new Frame();
 
-                bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(f, ref lastFrame);
+                bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(f, ref frameToRelease);
 
-                if (lastFrame.searchRect.Width == 0 || lastFrame.searchRect.Height == 0)
+                if (frameToRelease.searchRect.Width == 0 || frameToRelease.searchRect.Height == 0)
                 {
-                    if (lastFrame.image != IntPtr.Zero)
+                    if (frameToRelease.image != IntPtr.Zero)
                     {
-                        Cv.Release(ref lastFrame.image);
+                        Cv.Release(ref frameToRelease.image);
                     }
                 }
                 else
                 {
-                    frameSeq.Enqueue(lastFrame);
+                    frameSeq.Enqueue(frameToRelease);
                 }
 
                 if (groupCaptured)
                 {
                     Frame[] frames = frameSeq.ToArray();
-                    framesQueue.Clear();
+                    frameSeq.Clear();
 
-                    if (frames.Length <= 0) return;
+                    if (frames.Length <= 0) continue;
 
                     lock (locker)
                     {
@@ -141,11 +146,16 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void Start()
         {
-            motionDetectThread = new Thread(this.DetectMotion);
-            motionDetectThread.IsBackground = true;
-            motionDetectThread.Start();
+            if (!motionDetectThread.IsAlive)
+            {
+                motionDetectThread.Start();
+            }
 
-            this.worker.RunWorkerAsync();
+            if (!this.worker.IsBusy)
+            {
+                this.worker.RunWorkerAsync();
+            }
+
 
         }
 
@@ -217,7 +227,8 @@ namespace RemoteImaging.RealtimeDisplay
                 string path = frame->GetFileName();
                 DateTime dt = DateTime.FromBinary(frame->timeStamp);
 
-                string root = Path.Combine(Properties.Settings.Default.OutputPath, frame->cameraID.ToString("d2"));
+                string root = Path.Combine(Properties.Settings.Default.OutputPath,
+                    frame->cameraID.ToString("d2"));
 
                 string folder = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
                 if (!Directory.Exists(folder))
@@ -235,20 +246,33 @@ namespace RemoteImaging.RealtimeDisplay
                     iplFace.IsEnabledDispose = false;
 
                     string folderFace = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.IconDirectoryName);
+
+                    if (!Directory.Exists(folderFace))
+                    {
+                        Directory.CreateDirectory(folderFace);
+                    }
+
                     string bigImgFileName = frame->GetFileName();
                     int idx = bigImgFileName.IndexOf('.');
-                    bigImgFileName.Insert(idx, "-" + j.ToString("d4"));
+                    string faceFileName = bigImgFileName.Insert(idx, "-" + j.ToString("d4"));
 
-                    string facePath = Path.Combine(folderFace, bigImgFileName);
+                    string facePath = Path.Combine(folderFace, faceFileName);
+
 
                     iplFace.SaveImage(facePath);
 
                     imgs.Add(ImageDetail.FromPath(facePath));
 
                 }
+
+
+
             }
 
-            return (ImageDetail[])imgs;
+            ImageDetail[] details = new ImageDetail[imgs.Count];
+            imgs.CopyTo(details, 0);
+
+            return details;
 
         }
 
@@ -274,31 +298,35 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     for (int i = 0; i < frames.Length; ++i)
                     {
-                        Frame frame = frames[i];
-                        NativeIconExtractor.AddInFrame(ref frame);
-                        IplImage ipl = new IplImage(frame.image);
-                        ipl.IsEnabledDispose = false;
+                        NativeIconExtractor.AddInFrame(ref frames[i]);
                     }
+
 
                     IntPtr target = IntPtr.Zero;
 
                     int count = NativeIconExtractor.SearchFaces(ref target);
-                    if (count <= 0) continue;
-
-                    Target* pTarget = (Target*)target;
-
-                    IList<Target> targets = new List<Target>();
-
-                    for (int i = 0; i < count; i++)
+                    if (count > 0)
                     {
-                        Target face = pTarget[i];
-                        targets.Add(face);
+                        Target* pTarget = (Target*)target;
+
+                        IList<Target> targets = new List<Target>();
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            Target face = pTarget[i];
+                            targets.Add(face);
+                        }
+
+                        Target[] tgArr = new Target[targets.Count];
+
+                        targets.CopyTo(tgArr, 0);
+
+
+                        ImageDetail[] imgs = this.SaveImage(tgArr);
+                        this.screen.ShowImages(imgs);
+
                     }
 
-
-                    ImageDetail[] imgs = this.SaveImage((Target[])targets);
-
-                    this.screen.ShowImages(imgs);
 
                     NativeIconExtractor.ReleaseMem();
 

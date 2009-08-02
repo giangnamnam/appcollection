@@ -11,7 +11,7 @@ namespace RemoteImaging
         public static string ToFileName(this DateTime dt)
         {
             string name = string.Format("{0:d2}{1:d2}{2:d2}{3:d2}{4:d2}{5:d2}{6:d3}",
-                dt.Year,
+                dt.Year - 2000,
                 dt.Month,
                 dt.Day,
                 dt.Hour,

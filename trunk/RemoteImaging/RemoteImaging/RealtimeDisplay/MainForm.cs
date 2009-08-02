@@ -164,16 +164,8 @@ namespace RemoteImaging.RealtimeDisplay
                 cells[i] = newCell;
             }
 
-            if (this.InvokeRequired)
-            {
-                Action<ImageCell[]> action = cs => this.squareListView1.ShowImages(cs);
-                this.Invoke(action, cells);
-            }
-            else
-            {
-                this.squareListView1.ShowImages(cells);
-            }
 
+            this.squareListView1.ShowImages(cells);
 
         }
 
@@ -182,7 +174,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            
+
         }
 
         #region IImageScreen Members
@@ -632,6 +624,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.CamImgRecStart();
         }
 
+
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeNode cameraNode = this.getTopCamera(e.Node);
@@ -643,13 +636,11 @@ namespace RemoteImaging.RealtimeDisplay
             camera.IPAddress = cam.IpAddress;
             camera.UserName = "admin";
             camera.Password = "admin";
-
             camera.Connect();
 
             presenter = new Presenter(this, camera);
 
             presenter.Start();
-
 
             StartRecord(cam);
         }

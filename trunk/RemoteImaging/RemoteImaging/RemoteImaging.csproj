@@ -122,6 +122,7 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MockCamera.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
