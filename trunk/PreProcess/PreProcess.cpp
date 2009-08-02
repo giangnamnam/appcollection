@@ -136,7 +136,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 	if(y2 != 0)//如果检测到运动目标，则，画框，保存结构体
 	{
-		cvRectangle(TempFrame.image,cvPoint(x1,y1),cvPoint(x2,y2),CV_RGB(255,0,0),3,CV_AA,0);  
+		//cvRectangle(TempFrame.image,cvPoint(x1,y1),cvPoint(x2,y2),CV_RGB(255,0,0),3,CV_AA,0);  
 
 		rect = cvRect(x1,y1,x2-x1,y2-y1);
 		
