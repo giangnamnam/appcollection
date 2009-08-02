@@ -11,13 +11,14 @@ namespace WindowsFormsApplication2
     [StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public struct Frame
     {
+		public byte cameraID;
         /// IplImage*
         public System.IntPtr image;
 
         public CvRect searchRect;
 
         /// int
-        public int timeStamp;
+        public long timeStamp;
 
     }
 
