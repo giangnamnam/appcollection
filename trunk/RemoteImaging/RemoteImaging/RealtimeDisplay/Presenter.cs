@@ -138,7 +138,7 @@ namespace RemoteImaging.RealtimeDisplay
                     }
                 }
 
-                Thread.Sleep(200);
+                Thread.Sleep(250);
             }
 
 
