@@ -28,7 +28,6 @@ namespace RemoteImaging
             this.dataGridCameras.Columns[0].DataPropertyName = "Name";
             this.dataGridCameras.Columns[1].DataPropertyName = "ID";
             this.dataGridCameras.Columns[2].DataPropertyName = "IpAddress";
-
         }
 
 
@@ -126,6 +125,7 @@ namespace RemoteImaging
         }
 
 
+
         private BindingList<Camera> camList =
             new BindingList<Camera>();
 
@@ -177,10 +177,6 @@ namespace RemoteImaging
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-            timer.Interval = 3000;
-            timer.Enabled = true;
             //comboBox1.SelectedIndex = 2;
 
             if (!fileHandle.IsXmlExists())
@@ -190,19 +186,31 @@ namespace RemoteImaging
                 fileHandle.CreateElement(SaveNodeType.WarnDisk, "500MB", DateTime.Now.ToShortDateString());
 
             }
-            //InitRadiobutton(SaveNodeType.Video, gBoxImgFileSet);
-            //InitRadiobutton(SaveNodeType.WarnDisk, gBoxDiskSet);
+            InitRadiobutton(SaveNodeType.Video, gBoxImgFileSet);
+            InitRadiobutton(SaveNodeType.WarnDisk, gBoxDiskSet);
             textBox2.Enabled = false;
             textBox1.Enabled = false;
         }
 
         #region 设置保存
-        public void setImageAndVideo()
+        public void setImageAndVideo() //磁盘空间报警   未完善设置
         {
             if (ckbImageAndVideo.Checked)
             {
                 string val = textBox2.Text.Trim();
-                fileHandle.CreateElement(SaveNodeType.Video, val, DateTime.Now.ToString());
+                bool res = false;
+                try
+                {
+                    int temp = Convert.ToInt32(val);
+                    res = true;
+                }
+                catch (Exception ex)
+                {
+                    val = "3";
+                    return;
+                }
+                if (res)
+                    fileHandle.CreateElement(SaveNodeType.Video, val, DateTime.Now.ToString());
             }
             else
             {
@@ -210,13 +218,39 @@ namespace RemoteImaging
                 fileHandle.CreateElement(SaveNodeType.Video, val, DateTime.Now.ToString());
 
             }
-            picIndex = 0;
-            msg = "参数成功设置！！";
-            ShowResDialog();
         }
 
         public void setFileStore()
         {
+            #region
+            //if (ckbDiskSet.Checked)
+            //{
+            //    string val = textBox1.Text.Trim();
+            //    if ((val.Length < 3) || (!val.Substring(val.Length - 2, 2).Equals("MB")))
+            //    {
+            //        ShowResDialog(1, "参数错误，应以MB结尾！");
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
+            //    }
+            //}
+            //else
+            //{
+            //    string val = comboBox1.Text;
+            //    if ((val.Length < 3) || (!val.Substring(val.Length - 2, 2).Equals("MB")))
+            //    {
+            //        ShowResDialog(10, "参数错误，应以MB结尾！");
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
+            //    }
+            //}
+            #endregion
+
             if (ckbDiskSet.Checked)
             {
                 string val = textBox1.Text.Trim();
@@ -225,34 +259,20 @@ namespace RemoteImaging
             else
             {
                 string val = comboBox1.Text;
+                if (val == "")
+                    val = "500MB";
                 fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
             }
-            picIndex = 0;
-            msg = "参数成功设置！！";
-            ShowResDialog();
         }
         #endregion
 
         #region 弹出窗口的操作
-        bool temp = true;
-        private string msg = "";//提示的消息
-        private int picIndex = 0;//图片的索引
-
-        private void timer_Elapsed(object source, ElapsedEventArgs args)
+        public void ShowResDialog(int picIndex, string msg)
         {
-            temp = true;
-        }
-
-        private void ShowResDialog()
-        {
-            if (temp)
-            {
-                AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
-                asr.HeightMax = 157;
-                asr.WidthMax = 217;
-                asr.ScrollShow();
-                temp = false;
-            }
+            AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
+            asr.HeightMax = 169;
+            asr.WidthMax = 175;
+            asr.ScrollShow();
         }
         #endregion
 
@@ -309,5 +329,12 @@ namespace RemoteImaging
             }
             return val;
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBox2.Text.Trim();
+
+        }
+
     }
 }

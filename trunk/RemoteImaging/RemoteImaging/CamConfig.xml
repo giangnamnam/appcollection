@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <cameras>
-  <cam id="1" name="南门" ip="192.168.167.1"/>
-  <cam id="2" name="北门" ip="192.168.167.2"/>
+  <cam id="1" name="南门" ip="192.168.167.1" MAC="8.0.7B.88.18.93"/>
+  <cam id="2" name="北门" ip="192.168.167.2" MAC="8.0.7B.88.2E.3E"/>
 </cameras>

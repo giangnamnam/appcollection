@@ -11,7 +11,7 @@ namespace RemoteImaging
 {
     public partial class AlertSettingRes : Form
     {
-       public AlertSettingRes(string reMsg, int index)
+        public AlertSettingRes(string reMsg, int index)
         {
             InitializeComponent();
             this.ShowInTaskbar = false;
@@ -34,7 +34,7 @@ namespace RemoteImaging
 
             Screen screen = screens[0];//获取屏幕变量
 
-            this.Location = new Point(screen.WorkingArea.Width - widthMax - 1, screen.WorkingArea.Height - 20);//WorkingArea为Windows桌面的工作区
+            this.Location = new Point(screen.WorkingArea.Width - widthMax - 1, screen.WorkingArea.Height - 127);//WorkingArea为Windows桌面的工作区
 
             this.timer2.Interval = StayTime;
 
@@ -125,6 +125,12 @@ namespace RemoteImaging
         private void timer1_Tick(object sender, EventArgs e)
         {
             ScrollUp();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
         }
     }
 }

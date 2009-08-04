@@ -88,7 +88,7 @@
             this.VideoDnExePath = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.gBoxDiskSet = new System.Windows.Forms.GroupBox();
-            this.label32 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.ckbDiskSet = new System.Windows.Forms.CheckBox();
@@ -97,6 +97,7 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gBoxImgFileSet = new System.Windows.Forms.GroupBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.ckbImageAndVideo = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -718,7 +719,7 @@
             // 
             // gBoxDiskSet
             // 
-            this.gBoxDiskSet.Controls.Add(this.label32);
+            this.gBoxDiskSet.Controls.Add(this.label40);
             this.gBoxDiskSet.Controls.Add(this.label33);
             this.gBoxDiskSet.Controls.Add(this.textBox1);
             this.gBoxDiskSet.Controls.Add(this.ckbDiskSet);
@@ -733,27 +734,28 @@
             this.gBoxDiskSet.TabStop = false;
             this.gBoxDiskSet.Text = "磁盘空间预警设置";
             // 
-            // label32
+            // label40
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(271, 73);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(77, 12);
-            this.label32.TabIndex = 19;
-            this.label32.Text = "时，立即提示";
+            this.label40.AutoSize = true;
+            this.label40.ForeColor = System.Drawing.Color.Red;
+            this.label40.Location = new System.Drawing.Point(306, 72);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(143, 12);
+            this.label40.TabIndex = 24;
+            this.label40.Text = "应该以\'MB\'结尾，如500MB";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(99, 73);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(89, 12);
+            this.label33.Size = new System.Drawing.Size(113, 12);
             this.label33.TabIndex = 18;
-            this.label33.Text = "当磁盘空间不足";
+            this.label33.Text = "预警磁盘空间，最小";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(191, 69);
+            this.textBox1.Location = new System.Drawing.Point(218, 69);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(68, 21);
             this.textBox1.TabIndex = 17;
@@ -811,6 +813,7 @@
             // 
             // gBoxImgFileSet
             // 
+            this.gBoxImgFileSet.Controls.Add(this.label39);
             this.gBoxImgFileSet.Controls.Add(this.ckbImageAndVideo);
             this.gBoxImgFileSet.Controls.Add(this.label36);
             this.gBoxImgFileSet.Controls.Add(this.textBox2);
@@ -826,6 +829,16 @@
             this.gBoxImgFileSet.TabIndex = 22;
             this.gBoxImgFileSet.TabStop = false;
             this.gBoxImgFileSet.Text = "图片保存期限设置";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.ForeColor = System.Drawing.Color.Red;
+            this.label39.Location = new System.Drawing.Point(182, 71);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(65, 12);
+            this.label39.TabIndex = 23;
+            this.label39.Text = "请输入数字";
             // 
             // ckbImageAndVideo
             // 
@@ -854,6 +867,7 @@
             this.textBox2.Size = new System.Drawing.Size(27, 21);
             this.textBox2.TabIndex = 20;
             this.textBox2.Text = "3";
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label37
             // 
@@ -1153,7 +1167,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.GroupBox gBoxDiskSet;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox ckbDiskSet;
@@ -1171,5 +1184,7 @@
         private System.Windows.Forms.RadioButton rabOneDay;
         private System.Windows.Forms.Button btnImgSetting;
         private System.Windows.Forms.CheckBox ckbImageAndVideo;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label40;
     }
 }

@@ -12,5 +12,9 @@ namespace RemoteImaging
         public string Name { get; set; }
 
         public string IpAddress { get; set; }
+
+        public string Mac { get; set; }
+
+        public bool Status { get; set; }
     }
 }

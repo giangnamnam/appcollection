@@ -19,10 +19,7 @@ namespace RemoteImaging
         #region 构造函数
         public FileHandle()
         {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-            timer.Interval = 3000;
-            timer.Enabled = true;
+
         }
         #endregion
 
@@ -154,7 +151,7 @@ namespace RemoteImaging
             string upLoadPool = Properties.Settings.Default.ImageUploadPool;
             string diskName = string.Format("\"{0}\"", "" + outPutPath.Substring(0, 2) + "");
 
-            UInt64 allCount = DiskSize(diskName,"Size");//"\"D:\"" -- > "D:"  //当前磁盘总的大小
+            UInt64 allCount = DiskSize(diskName, "Size");//"\"D:\"" -- > "D:"  //当前磁盘总的大小
 
             UInt64 freeCount = DiskSize(diskName, "FreeSpace");
 
@@ -173,45 +170,37 @@ namespace RemoteImaging
             xmlDoc.Load(xmlPath);
             XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
             string nodeValue = xRoot.SelectSingleNode(String.Format("/Root/{0}/Value", SaveNodeType.WarnDisk)).FirstChild.Value.ToString();
-
-            string diskPath =  Properties.Settings.Default.OutputPath.Substring(0,2);
+            string node = nodeValue.Substring(0, nodeValue.Length - 2);
+            string diskPath = Properties.Settings.Default.OutputPath.Substring(0, 2);
             string diskName = string.Format("\"{0}\"", "" + diskPath + "");
+
             UInt64 freeCount = DiskSize(diskName, "FreeSpace");
 
-            if (freeCount < Convert.ToUInt64(nodeValue))
+            if (freeCount < Convert.ToUInt64(node))
             {
-                picIndex = 0;
-                msg = "内存空间不足！！";
-                ShowResDialog();
+                ShowResDialog(0, "内存空间不足！！");
             }
 
         }
 
         #region 弹出窗口的操作
-        bool temp = true;
-        private string msg = "";//提示的消息
-        private int picIndex = 0;//图片的索引
 
-        private void timer_Elapsed(object source, ElapsedEventArgs args)
+        /// <summary>
+        /// 弹出窗口
+        /// </summary>
+        /// <param name="picIndex">图片索引</param>
+        /// <param name="msg">显示消息</param>
+        public void ShowResDialog(int picIndex, string msg)
         {
-            temp = true;
-        }
-
-        private void ShowResDialog()
-        {
-            if (temp)
-            {
-                AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
-                asr.HeightMax = 157;
-                asr.WidthMax = 217;
-                asr.ScrollShow();
-                temp = false;
-            }
+            AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
+            asr.HeightMax = 169;
+            asr.WidthMax = 175;
+            asr.ScrollShow();
         }
         #endregion
 
         //取得disk大小
-        public static UInt64 DiskSize(string path,string propertys)
+        public static UInt64 DiskSize(string path, string propertys)
         {
             ManagementObject size = new ManagementObject("win32_logicaldisk.deviceid=" + path);
             size.Get();

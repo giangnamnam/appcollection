@@ -350,6 +350,7 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
         }
 
+        FileHandle fh = new FileHandle();
         private void options_Click(object sender, EventArgs e)
         {
             using (OptionsForm frm = new OptionsForm())
@@ -358,7 +359,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                 foreach (Camera item in Configuration.Instance.Cameras)
                 {
-                    camCopy.Add(new Camera() { ID = item.ID, Name = item.Name, IpAddress = item.IpAddress });
+                    camCopy.Add(new Camera() { ID = item.ID, Name = item.Name, IpAddress = item.IpAddress, Mac = item.Mac, Status = item.Status });
                 }
 
 
@@ -394,6 +395,7 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
+                    frm.ShowResDialog(0, "参数已成功设置！！");
                 }
             }
 
