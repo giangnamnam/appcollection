@@ -7,7 +7,7 @@ using OpenCvSharp;
 
 namespace ImageProcess
 {
-    [StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayoutAttribute(LayoutKind.Sequential)]
     public struct Frame
     {
         public byte cameraID;

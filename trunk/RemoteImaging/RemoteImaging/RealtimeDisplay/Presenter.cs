@@ -16,12 +16,17 @@ namespace RemoteImaging.RealtimeDisplay
         IImageScreen screen;
         ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
+        System.Timers.Timer timer = new System.Timers.Timer();
 
         Queue<Frame[]> framesQueue = new Queue<Frame[]>();
-        Queue<Frame> frameSeq = new Queue<Frame>();
+        Queue<Frame> motionFrames = new Queue<Frame>();
+        Queue<Frame> rawFrames = new Queue<Frame>();
 
         object locker = new object();
-        AutoResetEvent go = new AutoResetEvent(false);
+        object rawFrameLocker = new object();
+
+        AutoResetEvent goSearch = new AutoResetEvent(false);
+        AutoResetEvent goDetectMotion = new AutoResetEvent(false);
 
         Thread motionDetectThread = null;
 
@@ -47,6 +52,14 @@ namespace RemoteImaging.RealtimeDisplay
             worker.WorkerReportsProgress = true;
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             worker.DoWork += worker_DoWork;
+
+            this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
+            this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+        }
+
+        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.QueryRawFrame();
         }
 
 
@@ -82,70 +95,95 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private void QueryRawFrame()
+        {
+            byte[] image = camera.CaptureImageBytes();
+
+            MemoryStream memStream = new MemoryStream(image);
+            Bitmap bmp = null;
+            try
+            {
+                bmp = (Bitmap)Image.FromStream(memStream);
+            }
+            catch (System.ArgumentException)//图片格式出错
+            {
+                return;
+            }
+
+            Frame f = new Frame();
+            f.timeStamp = DateTime.Now.Ticks;
+            f.image = IntPtr.Zero;
+            f.cameraID = 2;
+
+            IplImage ipl = BitmapConverter.ToIplImage(bmp);
+            ipl.IsEnabledDispose = false;
+            f.image = ipl.CvPtr;
+
+            lock (this.rawFrameLocker) rawFrames.Enqueue(f);
+
+            goDetectMotion.Set();
+        }
+
+
         private void DetectMotion()
         {
             while (true)
             {
-                byte[] image = camera.CaptureImageBytes();
+                Frame newFrame = new Frame();
 
-                MemoryStream memStream = new MemoryStream(image);
-                Bitmap bmp = null;
-                try
+                lock (this.rawFrameLocker)
                 {
-                    bmp = (Bitmap)Image.FromStream(memStream);
-                }
-                catch (System.ArgumentException)
-                {
-                    return;
-                }
-
-                Frame f = new Frame();
-                f.timeStamp = DateTime.Now.Ticks;
-                f.image = IntPtr.Zero;
-                f.cameraID = 2;
-
-                IplImage ipl = BitmapConverter.ToIplImage(bmp);
-                ipl.IsEnabledDispose = false;
-                f.image = ipl.CvPtr;
-
-                Frame frameToRelease = new Frame();
-
-                bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(f, ref frameToRelease);
-
-                if (frameToRelease.searchRect.Width == 0 || frameToRelease.searchRect.Height == 0)
-                {
-                    if (frameToRelease.image != IntPtr.Zero)
+                    if (rawFrames.Count > 0)
                     {
-                        Cv.Release(ref frameToRelease.image);
+                        newFrame = rawFrames.Dequeue();
                     }
+                }
+
+                if (newFrame.image != IntPtr.Zero)
+                {
+                    Frame frameToProcess = new Frame();
+
+                    bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+
+                    if (frameToProcess.searchRect.Width == 0 || frameToProcess.searchRect.Height == 0)
+                    {
+                        if (frameToProcess.image != IntPtr.Zero)
+                        {
+                            Cv.Release(ref frameToProcess.image);
+                        }
+                    }
+                    else
+                    {
+                        motionFrames.Enqueue(frameToProcess);
+                    }
+
+                    if (groupCaptured)
+                    {
+                        Frame[] frames = motionFrames.ToArray();
+                        motionFrames.Clear();
+
+                        if (frames.Length <= 0) continue;
+
+                        lock (locker) framesQueue.Enqueue(frames);
+
+                        goSearch.Set();
+
+                    }
+
                 }
                 else
-                {
-                    frameSeq.Enqueue(frameToRelease);
-                }
+                    goDetectMotion.WaitOne();
 
-                if (groupCaptured)
-                {
-                    Frame[] frames = frameSeq.ToArray();
-                    frameSeq.Clear();
-
-                    if (frames.Length <= 0) continue;
-
-                    lock (locker)
-                    {
-                        framesQueue.Enqueue(frames);
-                        go.Set();
-                    }
-                }
-
-                Thread.Sleep(250);
             }
-
-
         }
 
         public void Start()
         {
+
+            this.timer.Enabled = false;
+            this.timer.Enabled = true;
+
+
             if (!motionDetectThread.IsAlive)
             {
                 motionDetectThread.Start();
@@ -155,6 +193,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.worker.RunWorkerAsync();
             }
+
 
 
         }
@@ -170,49 +209,27 @@ namespace RemoteImaging.RealtimeDisplay
             return destFolder;
         }
 
-        private ImageDetail[] BuildIconImages(string destFolder, ImageDetail[] bigImgs, string iconFilesString)
+
+        private static void SaveFrame(Frame frame)
         {
-            string[] iconFiles = iconFilesString.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            IplImage ipl = new IplImage(frame.image);
+            ipl.IsEnabledDispose = false;
 
-            IDictionary<int, IList<string>> iconGroup = new Dictionary<int, IList<string>>();
+            string path = frame.GetFileName();
+            DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-            //分组
-            for (int i = 0; i < iconFiles.Length; i += 2)
+            string root = Path.Combine(Properties.Settings.Default.OutputPath,
+                      frame.cameraID.ToString("d2"));
+
+            string folder = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
+            if (!Directory.Exists(folder))
             {
-                int idxOfBigPic = int.Parse(iconFiles[i + 1]);
-                if (!iconGroup.ContainsKey(idxOfBigPic))
-                {
-                    iconGroup.Add(idxOfBigPic, new List<string>());
-                }
-
-                iconGroup[idxOfBigPic].Add(iconFiles[i]);
+                Directory.CreateDirectory(folder);
             }
 
-            IList<ImageDetail> returnImgs = new List<ImageDetail>();
-            foreach (var iconSubGroup in iconGroup)
-            {
-                for (int i = 0; i < iconSubGroup.Value.Count; i++)
-                {
-                    int idx = iconSubGroup.Key;
-                    string bigPicPath = bigImgs[idx].Path;
-                    string bigpicExtension = Path.GetExtension(bigPicPath);
-                    string bigPicNameWithoutExtention = Path.GetFileNameWithoutExtension(bigPicPath);
-                    string iconFileName = string.Format("{0}-{1:d4}{2}", bigPicNameWithoutExtention, i, bigpicExtension);
-                    string iconFilePath = Path.Combine(destFolder, iconFileName);
-
-                    //rename file
-                    string origIconFilePath = Path.Combine(destFolder, iconSubGroup.Value[i]);
-                    File.Move(origIconFilePath, iconFilePath);
-                    returnImgs.Add(ImageDetail.FromPath(iconFilePath));
-                }
-            }
-
-            ImageDetail[] returnImgsArray = new ImageDetail[returnImgs.Count];
-            returnImgs.CopyTo(returnImgsArray, 0);
-
-            return returnImgsArray;
+            path = Path.Combine(folder, path);
+            ipl.SaveImage(path);
         }
-
 
         unsafe ImageDetail[] SaveImage(Target[] targets)
         {
@@ -221,29 +238,21 @@ namespace RemoteImaging.RealtimeDisplay
             foreach (Target t in targets)
             {
                 Frame* frame = (Frame*)t.BaseFrame;
-                IplImage ipl = new IplImage(frame->image);
-                ipl.IsEnabledDispose = false;
 
-                string path = frame->GetFileName();
-                DateTime dt = DateTime.FromBinary(frame->timeStamp);
+                SaveFrame(*frame);
 
                 string root = Path.Combine(Properties.Settings.Default.OutputPath,
-                    frame->cameraID.ToString("d2"));
+                                            frame->cameraID.ToString("D2"));
 
-                string folder = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
+                DateTime dt = DateTime.FromBinary(frame->timeStamp);
 
-                path = Path.Combine(folder, path);
-                ipl.SaveImage(path);
 
                 for (int j = 0; j < t.FaceCount; ++j)
                 {
                     IntPtr* f = ((IntPtr*)(t.FaceData)) + j;
                     IplImage iplFace = new IplImage(*f);
                     iplFace.IsEnabledDispose = false;
+
 
                     string folderFace = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.IconDirectoryName);
 
@@ -257,7 +266,6 @@ namespace RemoteImaging.RealtimeDisplay
                     string faceFileName = bigImgFileName.Insert(idx, "-" + j.ToString("d4"));
 
                     string facePath = Path.Combine(folderFace, faceFileName);
-
 
                     iplFace.SaveImage(facePath);
 
@@ -333,9 +341,7 @@ namespace RemoteImaging.RealtimeDisplay
                     Array.ForEach(frames, f => Cv.Release(ref f.image));
                 }
                 else
-                {
-                    go.WaitOne();
-                }
+                    goSearch.WaitOne();
             }
         }
 
