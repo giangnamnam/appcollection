@@ -154,6 +154,7 @@ namespace RemoteImaging.RealtimeDisplay
                     }
                     else
                     {
+                        SaveFrame(frameToProcess);
                         motionFrames.Enqueue(frameToProcess);
                     }
 
@@ -239,7 +240,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame* frame = (Frame*)t.BaseFrame;
 
-                SaveFrame(*frame);
+                //SaveFrame(*frame);
 
                 string root = Path.Combine(Properties.Settings.Default.OutputPath,
                                             frame->cameraID.ToString("D2"));
