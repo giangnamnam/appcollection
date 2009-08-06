@@ -19,6 +19,8 @@ IplImage* CurrentImage;
 IplImage* BackGroundImage;//上一帧灰度图
 IplImage* DiffImage_1;//上一帧差分图的二值化图
 
+bool drawRect = false;
+
 //每次从摄像头获得一张图片后调用，当完成一个分组后返回true
 PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 {
@@ -136,8 +138,8 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 	if(y2 != 0)//如果检测到运动目标，则，画框，保存结构体
 	{
-		//cvRectangle(TempFrame.image,cvPoint(x1,y1),cvPoint(x2,y2),CV_RGB(255,0,0),3,CV_AA,0);  
-
+		if (drawRect) cvRectangle(TempFrame.image,cvPoint(x1,y1),cvPoint(x2,y2),CV_RGB(255,0,0),3,CV_AA,0);  
+		
 		rect = cvRect(x1,y1,x2-x1,y2-y1);
 		
 		TempFrame.searchRect = rect;
@@ -188,6 +190,12 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 	}
 
 	return false;
+}
+
+
+void SetDrawRect(bool draw)
+{
+	drawRect = draw;
 }
 
 
