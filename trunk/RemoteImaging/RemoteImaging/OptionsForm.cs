@@ -336,5 +336,10 @@ namespace RemoteImaging
 
         }
 
+        private void drawMotionRect_CheckedChanged(object sender, EventArgs e)
+        {
+            MotionDetect.MotionDetect.SetDrawRect(this.drawMotionRect.Checked);
+        }
+
     }
 }

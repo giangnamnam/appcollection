@@ -27,16 +27,16 @@
       <Value Profile="(Default)">6</Value>
     </Setting>
     <Setting Name="IconLeftExtRatio" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="IconRightExtRatio" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="IconTopExtRatio" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="IconBottomExtRatio" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">0.5</Value>
     </Setting>
     <Setting Name="MinFaceWidth" Type="System.String" Scope="User">
       <Value Profile="(Default)">60</Value>
