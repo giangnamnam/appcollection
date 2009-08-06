@@ -286,5 +286,17 @@ namespace RemoteImaging.Properties {
                 this["FPs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DrawMotionRect {
+            get {
+                return ((bool)(this["DrawMotionRect"]));
+            }
+            set {
+                this["DrawMotionRect"] = value;
+            }
+        }
     }
 }
