@@ -39,6 +39,9 @@ namespace RemoteImaging.RealtimeDisplay
             Properties.Settings setting = Properties.Settings.Default;
 
             InitStatusBar();
+
+            MotionDetect.MotionDetect.SetDrawRect(setting.DrawMotionRect);
+
             float left = float.Parse(setting.IconLeftExtRatio);
             float top = float.Parse(setting.IconTopExtRatio);
             float right = float.Parse(setting.IconRightExtRatio);

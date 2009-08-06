@@ -42,7 +42,9 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
-            motionDetectThread = new Thread(this.DetectMotion);
+            motionDetectThread =
+                Properties.Settings.Default.DetectMotion ?
+                new Thread(this.DetectMotion) : new Thread(this.BypassDetectMotion);
             motionDetectThread.IsBackground = true;
             motionDetectThread.Name = "motion detect";
 
@@ -125,20 +127,26 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private Frame GetNewFrame()
+        {
+            Frame newFrame = new Frame();
+
+            lock (this.rawFrameLocker)
+            {
+                if (rawFrames.Count > 0)
+                {
+                    newFrame = rawFrames.Dequeue();
+                }
+            }
+            return newFrame;
+        }
+
+
         private void DetectMotion()
         {
             while (true)
             {
-                Frame newFrame = new Frame();
-
-                lock (this.rawFrameLocker)
-                {
-                    if (rawFrames.Count > 0)
-                    {
-                        newFrame = rawFrames.Dequeue();
-                    }
-                }
-
+                Frame newFrame = GetNewFrame();
                 if (newFrame.image != IntPtr.Zero)
                 {
                     Frame frameToProcess = new Frame();
@@ -178,6 +186,36 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        void BypassDetectMotion()
+        {
+            while (true)
+            {
+                Frame f = this.GetNewFrame();
+
+                if (f.image != IntPtr.Zero)
+                {
+                    IplImage ipl = new IplImage(f.image);
+                    ipl.IsEnabledDispose = false;
+                    f.searchRect.Width = ipl.Width;
+                    f.searchRect.Height = ipl.Height;
+
+                    motionFrames.Enqueue(f);
+
+                    if (motionFrames.Count == 6)
+                    {
+                        Frame[] frames = motionFrames.ToArray();
+                        motionFrames.Clear();
+                        lock (locker) framesQueue.Enqueue(frames);
+                        goSearch.Set();
+                    }
+                }
+                else
+                    goDetectMotion.WaitOne();
+
+            }
+
+        }
+
         public void Start()
         {
 
@@ -194,9 +232,6 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.worker.RunWorkerAsync();
             }
-
-
-
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
