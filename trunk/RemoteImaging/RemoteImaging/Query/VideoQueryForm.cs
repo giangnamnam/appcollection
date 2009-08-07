@@ -226,10 +226,5 @@ namespace RemoteImaging.Query
             detail.ShowDialog(this);
             detail.Dispose();
         }
-
-        private void videoList_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
     }
 }

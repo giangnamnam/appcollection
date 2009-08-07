@@ -218,7 +218,6 @@
             this.videoList.UseCompatibleStateImageBehavior = false;
             this.videoList.View = System.Windows.Forms.View.Details;
             this.videoList.ItemActivate += new System.EventHandler(this.videoList_ItemActivate);
-            this.videoList.DoubleClick += new System.EventHandler(this.videoList_DoubleClick);
             // 
             // imageList2
             // 
