@@ -85,7 +85,7 @@ namespace IPLab
             this.contrastTrackBar.Maximum = 5000;
             this.contrastTrackBar.Minimum = 1;
             this.contrastTrackBar.Name = "contrastTrackBar";
-            this.contrastTrackBar.Size = new System.Drawing.Size(300, 48);
+            this.contrastTrackBar.Size = new System.Drawing.Size(300, 42);
             this.contrastTrackBar.TabIndex = 17;
             this.contrastTrackBar.TickFrequency = 200;
             this.contrastTrackBar.Value = 1;
@@ -166,7 +166,6 @@ namespace IPLab
             {
             }
         }
-
 
     }
 }

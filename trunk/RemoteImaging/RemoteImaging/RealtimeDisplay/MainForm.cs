@@ -15,15 +15,19 @@ using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
+using System.Timers;
+using System.Threading;
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen
     {
+        Configuration config = new Configuration();
+        System.Timers.Timer time = null;
         public MainForm()
         {
             InitializeComponent();
-
+            config.GetLineCameras();
 
             cpuCounter = new PerformanceCounter();
             ramCounter = new PerformanceCounter("Memory", "Available MBytes");
@@ -32,9 +36,13 @@ namespace RemoteImaging.RealtimeDisplay
             cpuCounter.CounterName = "% Processor Time";
             cpuCounter.InstanceName = "_Total";
 
-            Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
-            Configuration.Instance.Cameras.CopyTo(cams, 0);
-            this.Cameras = cams;
+            //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
+            //Configuration.Instance.Cameras.CopyTo(cams, 0);
+            //this.Cameras = cams;
+            time = new System.Timers.Timer();
+            time.Elapsed +=new ElapsedEventHandler(time_Elapsed);
+            time.Interval = 3000;
+            time.Enabled = true;
 
             Properties.Settings setting = Properties.Settings.Default;
 
@@ -79,6 +87,105 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        delegate void DataCallBack();
+        Camera[] cams = null;
+        private void time_Elapsed(object source, ElapsedEventArgs args)
+        {
+            if (config.Cameras != null)
+            {
+                cams = new Camera[config.Cameras.Count];
+                config.Cameras.CopyTo(cams, 0);
+                DataCallBack dcb = new DataCallBack(this.SetTreeNode);
+                this.Invoke(dcb, null);
+                time.Interval = 30000;
+            }
+        }
+
+        //动态 更新 Tree的方法
+        private void SetTreeNode()
+        {
+            this.cameraTree.Nodes.Clear();
+            
+            TreeNode rootNode = new TreeNode()
+            {
+                Text = "所有摄像头",
+                ImageIndex = 0,
+                SelectedImageIndex = 0
+            };
+
+            Array.ForEach(cams, camera =>
+            {
+
+                TreeNode camNode = new TreeNode()
+                {
+                    Text = camera.Name,
+                    ImageIndex = 1,
+                    SelectedImageIndex = 1,
+                    Tag = camera,
+                };
+
+                Action<string> setupCamera = (ip) =>
+                {
+                    using (FormConfigCamera form = new FormConfigCamera())
+                    {
+                        StringBuilder sb = new StringBuilder(form.Text);
+                        sb.Append("-[");
+                        sb.Append(ip);
+                        sb.Append("]");
+
+                        form.Navigate(ip);
+                        form.Text = sb.ToString();
+                        form.ShowDialog(this);
+                    }
+                };
+
+                TreeNode setupNode = new TreeNode()
+                {
+                    Text = "设置",
+                    ImageIndex = 2,
+                    SelectedImageIndex = 2,
+                    Tag = setupCamera,
+                };
+                TreeNode propertyNode = new TreeNode()
+                {
+                    Text = "属性",
+                    ImageIndex = 3,
+                    SelectedImageIndex = 3,
+                };
+                TreeNode ipNode = new TreeNode()
+                {
+                    Text = "IP地址:" + camera.IpAddress,
+                    ImageIndex = 4,
+                    SelectedImageIndex = 4
+                };
+                TreeNode idNode = new TreeNode()
+                {
+                    Text = "编号:" + camera.ID.ToString(),
+                    ImageIndex = 5,
+                    SelectedImageIndex = 5
+                };
+
+                if (!camera.Status)
+                {
+                    SetNodeUnClick(camNode);
+                }
+
+                propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
+                camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
+                rootNode.Nodes.Add(camNode);
+
+            });
+
+            this.cameraTree.Nodes.Add(rootNode);
+
+            this.cameraTree.ExpandAll();
+        }
+
+        private void SetNodeUnClick(TreeNode rootNode)
+        {
+            rootNode.BackColor = System.Drawing.Color.Gray;
+            rootNode.Text = rootNode.Text+"(不可用)";
+        }
         private Presenter presenter;
         Camera allCamera = new Camera() { ID = -1 };
 
@@ -616,8 +723,8 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.ImageType = @"MPEG";
             this.axCamImgCtrl1.CameraModel = 1;
             this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
-            this.axCamImgCtrl1.uid = "admin";
-            this.axCamImgCtrl1.pwd = "admin";
+            this.axCamImgCtrl1.uid = "guest";
+            this.axCamImgCtrl1.pwd = "guest";
             this.axCamImgCtrl1.RecordingFolderPath
                 = Path.Combine(Properties.Settings.Default.OutputPath, cam.ID.ToString("D2"));
             this.axCamImgCtrl1.RecordingFormat = 0;
@@ -639,8 +746,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             SanyoNetCamera camera = new SanyoNetCamera();
             camera.IPAddress = cam.IpAddress;
-            camera.UserName = "admin";
-            camera.Password = "admin";
+            camera.UserName = "guest";
+            camera.Password = "guest";
             camera.Connect();
 
             presenter = new Presenter(this, camera);
@@ -680,7 +787,15 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void tsbFileSet_Click(object sender, EventArgs e)
         {
+            
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if ((config.thread != null) && (config.thread.IsAlive))
+            {
+                config.thread.Abort();
+            }
+        }
     }
 }

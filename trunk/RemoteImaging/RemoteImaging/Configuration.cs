@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Threading;
 
 namespace RemoteImaging
 {
@@ -13,23 +14,22 @@ namespace RemoteImaging
         /// </summary>
         public Configuration()
         {
-            lineCameras();
-            #region
-            //Thread thread = new Thread(new ParameterizedThreadStart(lineCameras));
-            //thread.Start();
-            //Thread.Sleep(3000);
+            List<Camera> lineCam = new List<Camera>();
+            XDocument camXMLDoc = XDocument.Load("CamConfig.xml");
+            var camsElements = camXMLDoc.Root.Descendants("cam");
 
-            //XDocument camXMLDoc = XDocument.Load(Properties.Settings.Default.CamConfigFile);
-            //var camsElements = camXMLDoc.Root.Descendants("cam");
-
-            //Cameras = new List<Camera>();
-            //foreach (XElement camElement in camsElements)
-            //{
-            //    int id = int.Parse((string)camElement.Attribute("id"));
-            //    Cameras.Add(
-            //        new Camera() { ID = id, IpAddress = camElement.Attribute("ip").Value, Name = camElement.Attribute("name").Value });
-            //}
-            #endregion
+            foreach (XElement camElement in camsElements)
+            {
+                int id = int.Parse((string)camElement.Attribute("id"));
+                lineCam.Add(new Camera()
+                {
+                    ID = id,
+                    IpAddress = camElement.Attribute("ip").Value,
+                    Name = camElement.Attribute("name").Value,
+                    Mac = camElement.Attribute("MAC").Value,
+                });
+            }
+            Cameras = lineCam;
         }
 
         public void Save()
@@ -56,7 +56,6 @@ namespace RemoteImaging
 
         }
 
-
         public static Configuration Instance
         {
             get
@@ -72,31 +71,31 @@ namespace RemoteImaging
 
 
         private static Configuration instance;
-
+        public Thread thread = null;
         //获得在线摄像机 
-        private void lineCameras()
+        public void GetLineCameras()
         {
             List<Camera> lineCam = new List<Camera>();
             List<Camera> trueLineCamera = new List<Camera>();
-            XDocument camXMLDoc = XDocument.Load(Properties.Settings.Default.CamConfigFile);
+            XDocument camXMLDoc = XDocument.Load("CamConfig.xml");
             var camsElements = camXMLDoc.Root.Descendants("cam");
 
             foreach (XElement camElement in camsElements)
             {
                 int id = int.Parse((string)camElement.Attribute("id"));
-                lineCam.Add(new Camera() { ID = id, IpAddress = camElement.Attribute("ip").Value, Name = camElement.Attribute("name").Value, Mac = camElement.Attribute("MAC").Value, });
-
+                lineCam.Add(new Camera()
+                {
+                    ID = id,
+                    IpAddress = camElement.Attribute("ip").Value,
+                    Name = camElement.Attribute("name").Value,
+                    Mac = camElement.Attribute("MAC").Value,
+                });
             }
 
-            foreach (Camera camera in lineCam)
-            {
-                CheckLiveCamera gs = new CheckLiveCamera(camera);
-                Camera gsCam = new Camera();
-                gsCam = gs.LineCamera;
-                trueLineCamera.Add(gsCam);
-
-            }
-            Cameras = trueLineCamera;
+            CheckLiveCamera gs = new CheckLiveCamera(lineCam,this);
+            thread = new Thread(new ParameterizedThreadStart(gs.Run));
+            thread.IsBackground = true;
+            thread.Start();
         }
 
     }

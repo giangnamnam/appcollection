@@ -138,13 +138,13 @@ namespace RemoteImaging
         }
 
         //磁盘空间报警
-        public void DiskWarn(SaveNodeType savaType)
+        public void DiskWarn()
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(xmlPath);
             XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
-            string nodeValue = xRoot.SelectSingleNode(String.Format("/Root/{0}/Value", savaType)).FirstChild.Value.ToString();
-            string nodeSettime = xRoot.SelectSingleNode("/Root" + "/" + savaType.ToString() + "/SettedTime").FirstChild.Value.ToString();
+            string nodeValue = xRoot.SelectSingleNode(String.Format("/Root/{0}/Value", SaveNodeType.WarnDisk.ToString())).FirstChild.Value.ToString();
+            string nodeSettime = xRoot.SelectSingleNode("/Root" + "/" + SaveNodeType.WarnDisk.ToString() + "/SettedTime").FirstChild.Value.ToString();
 
 
             string outPutPath = Properties.Settings.Default.OutputPath;
