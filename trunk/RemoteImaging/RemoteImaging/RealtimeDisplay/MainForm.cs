@@ -191,6 +191,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private TreeNode getTopCamera(TreeNode node)
         {
+            if (node.Parent == null) return node;
+
             while (node.Tag == null || !(node.Tag is Camera))
             {
                 node = node.Parent;
