@@ -8,6 +8,7 @@ using MotionDetect;
 using System.Drawing;
 using OpenCvSharp;
 using System.Threading;
+using System.Diagnostics;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -151,7 +152,12 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Frame frameToProcess = new Frame();
 
+
+
                     bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+
+
+                    Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
                     if (frameToProcess.searchRect.Width == 0 || frameToProcess.searchRect.Height == 0)
                     {

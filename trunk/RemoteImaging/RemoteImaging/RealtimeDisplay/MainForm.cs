@@ -744,19 +744,34 @@ namespace RemoteImaging.RealtimeDisplay
             TreeNode cameraNode = this.getTopCamera(e.Node);
             if (!(cameraNode.Tag is Camera)) return;
 
-            Camera cam = cameraNode.Tag as Camera;
+            ICamera Icam = null;
+            
+            if (!string.IsNullOrEmpty(Program.directory))
+            {
+                Camera cam = cameraNode.Tag as Camera;
 
-            SanyoNetCamera camera = new SanyoNetCamera();
-            camera.IPAddress = cam.IpAddress;
-            camera.UserName = "guest";
-            camera.Password = "guest";
-            camera.Connect();
+                SanyoNetCamera camera = new SanyoNetCamera();
+                camera.IPAddress = cam.IpAddress;
+                camera.UserName = "guest";
+                camera.Password = "guest";
+                camera.Connect();
 
-            presenter = new Presenter(this, camera);
+                Icam = camera;
+
+                StartRecord(cam);
+
+            }
+            else
+            {
+                MockCamera mc = new MockCamera(Program.directory);
+                Icam = mc;
+            }
+
+            presenter = new Presenter(this, Icam);
 
             presenter.Start();
 
-            StartRecord(cam);
+            
         }
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
