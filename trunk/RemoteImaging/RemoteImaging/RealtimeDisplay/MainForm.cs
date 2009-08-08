@@ -746,7 +746,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             ICamera Icam = null;
             
-            if (!string.IsNullOrEmpty(Program.directory))
+            if (string.IsNullOrEmpty(Program.directory))
             {
                 Camera cam = cameraNode.Tag as Camera;
 

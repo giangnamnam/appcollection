@@ -18,7 +18,9 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
-            directory = argv[1];
+            if (argv.Length > 0) directory = argv[0];
+
+            directory = argv[0];
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

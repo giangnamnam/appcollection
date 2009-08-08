@@ -26,10 +26,6 @@ namespace RemoteImaging
 
         public byte[] CaptureImageBytes()
         {
-            if (idx == files.Length - 1)
-            {
-                idx = 0;
-            }
             string file = files[idx++];
 
             System.Diagnostics.Debug.WriteLine(idx);

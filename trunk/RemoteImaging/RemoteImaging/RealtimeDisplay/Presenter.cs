@@ -206,6 +206,7 @@ namespace RemoteImaging.RealtimeDisplay
                     f.searchRect.Height = ipl.Height;
 
                     motionFrames.Enqueue(f);
+                    SaveFrame(f);
 
                     if (motionFrames.Count == 6)
                     {
