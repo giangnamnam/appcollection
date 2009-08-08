@@ -1324,7 +1324,7 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 			
 			int iNeighbour;
 			if (m_iLightCondition==0)
-				iNeighbour=1;
+				iNeighbour=3;
 			if (m_iLightCondition==1)
 				iNeighbour=2;
 			if (m_iLightCondition==2)
@@ -1363,8 +1363,8 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 		int iNeighbour_a, iNeighbour_b;
 		if (m_iLightCondition==0)
 		{
-			iNeighbour_a=1;
-			iNeighbour_b=1;
+			iNeighbour_a=3;
+			iNeighbour_b=3;
 		}
 		if (m_iLightCondition==1)
 		{
@@ -1590,6 +1590,13 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 			{
 				bRealFace = false;
 			}
+			//*
+			else
+			{
+				bRealFace = true;
+			}
+			//*/
+#ifdef __TERE
 			else
 			{
 				bRealFace = true;
@@ -1693,6 +1700,7 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 				}
 				cvReleaseImage(&SubFace);
 			}
+#endif
 		}
 		if (m_iLightCondition==1)
 		{
@@ -1928,6 +1936,8 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 		if (rSave.y+rSave.height > pImage->height)
 			rSave.height = pImage->height-rSave.y;
 		IplImage *pSaveImg = GetSubImage(pImage,rSave);
+		char buf[255];
+		::GetCurrentDirectory( 255, buf );
 		cvSaveImage(sFileName, pSaveImg);
 		cvReleaseImage(&pSaveImg);
 
