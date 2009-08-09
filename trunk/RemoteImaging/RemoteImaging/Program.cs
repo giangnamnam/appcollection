@@ -24,8 +24,6 @@ namespace RemoteImaging
                 directory = argv[0];
             }
 
-            directory = argv[0];
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

@@ -19,6 +19,10 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetect", "MotionDetect\MotionDetect.csproj", "{408A61BC-629F-4A57-80BE-7D18825BF5B2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PreProcess", "..\PreProcess\PreProcess.vcproj", "{665D7EEC-EB5E-4381-A552-B860E07A1FAC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceSelDll", "..\FaceSelDll\FaceSelDll.vcproj", "{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = RemoteImaging.vsmdi
@@ -88,6 +92,26 @@ Global
 		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{408A61BC-629F-4A57-80BE-7D18825BF5B2}.Release|Win32.ActiveCfg = Release|Any CPU
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Debug|Win32.Build.0 = Debug|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Release|Any CPU.ActiveCfg = Release|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Release|Win32.ActiveCfg = Release|Win32
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC}.Release|Win32.Build.0 = Release|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Debug|Win32.Build.0 = Debug|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Release|Any CPU.ActiveCfg = Release|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Release|Win32.ActiveCfg = Release|Win32
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
