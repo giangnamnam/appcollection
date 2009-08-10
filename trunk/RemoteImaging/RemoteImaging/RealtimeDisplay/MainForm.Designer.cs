@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusUploadFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -93,10 +93,10 @@
             this.column5by5 = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMonitoring = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -136,9 +136,9 @@
             this.statusCPUMemUsage,
             this.statusProgressBar,
             this.statusTime});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 581);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 584);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(897, 28);
+            this.statusStrip1.Size = new System.Drawing.Size(897, 25);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -149,7 +149,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusUploadFolder.Image = ((System.Drawing.Image)(resources.GetObject("statusUploadFolder.Image")));
             this.statusUploadFolder.Name = "statusUploadFolder";
-            this.statusUploadFolder.Size = new System.Drawing.Size(161, 23);
+            this.statusUploadFolder.Size = new System.Drawing.Size(151, 20);
             this.statusUploadFolder.Text = "toolStripStatusLabel1";
             this.statusUploadFolder.Click += new System.EventHandler(this.statusUploadFolder_Click);
             // 
@@ -160,7 +160,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusOutputFolder.Image = ((System.Drawing.Image)(resources.GetObject("statusOutputFolder.Image")));
             this.statusOutputFolder.Name = "statusOutputFolder";
-            this.statusOutputFolder.Size = new System.Drawing.Size(161, 23);
+            this.statusOutputFolder.Size = new System.Drawing.Size(151, 20);
             this.statusOutputFolder.Text = "toolStripStatusLabel2";
             this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
             // 
@@ -170,7 +170,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusCPUMemUsage.Name = "statusCPUMemUsage";
-            this.statusCPUMemUsage.Size = new System.Drawing.Size(145, 23);
+            this.statusCPUMemUsage.Size = new System.Drawing.Size(135, 20);
             this.statusCPUMemUsage.Text = "toolStripStatusLabel1";
             // 
             // statusProgressBar
@@ -188,7 +188,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(415, 23);
+            this.statusTime.Size = new System.Drawing.Size(445, 20);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -207,10 +207,10 @@
             this.layoutControl1.HiddenItems.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
             this.layoutControlItem3});
-            this.layoutControl1.Location = new System.Drawing.Point(0, 90);
+            this.layoutControl1.Location = new System.Drawing.Point(0, 89);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(897, 491);
+            this.layoutControl1.Size = new System.Drawing.Size(897, 495);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -219,9 +219,9 @@
             this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl3.Controls.Add(this.pictureEdit1);
             this.panelControl3.Controls.Add(this.panelControl5);
-            this.panelControl3.Location = new System.Drawing.Point(7, 202);
+            this.panelControl3.Location = new System.Drawing.Point(7, 204);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(108, 282);
+            this.panelControl3.Size = new System.Drawing.Size(108, 284);
             this.panelControl3.TabIndex = 12;
             // 
             // pictureEdit1
@@ -231,7 +231,7 @@
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.pictureEdit1.Size = new System.Drawing.Size(108, 258);
+            this.pictureEdit1.Size = new System.Drawing.Size(108, 260);
             this.pictureEdit1.TabIndex = 2;
             this.pictureEdit1.DoubleClick += new System.EventHandler(this.pictureEdit1_DoubleClick);
             // 
@@ -278,7 +278,7 @@
             this.panelControl1.Controls.Add(this.squareListView1);
             this.panelControl1.Location = new System.Drawing.Point(131, 7);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(759, 477);
+            this.panelControl1.Size = new System.Drawing.Size(759, 481);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
             // 
@@ -299,7 +299,7 @@
             this.squareListView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.squareListView1.Location = new System.Drawing.Point(3, 325);
+            this.squareListView1.Location = new System.Drawing.Point(3, 329);
             this.squareListView1.MaxCountOfCells = 25;
             this.squareListView1.Name = "squareListView1";
             this.squareListView1.NumberOfColumns = 6;
@@ -337,7 +337,7 @@
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Location = new System.Drawing.Point(7, 7);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(108, 179);
+            this.panelControl2.Size = new System.Drawing.Size(108, 181);
             this.panelControl2.TabIndex = 11;
             // 
             // cameraTree
@@ -349,32 +349,32 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "192.168.1.2";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "Node4";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "2";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "南门";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "Node3";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "192.168.1.1";
-            treeNode5.ImageIndex = 2;
-            treeNode5.Name = "Node5";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "3";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "北门";
+            treeNode7.ImageIndex = 1;
+            treeNode7.Name = "Node1";
+            treeNode7.SelectedImageIndex = 1;
+            treeNode7.Text = "192.168.1.2";
+            treeNode8.ImageIndex = 2;
+            treeNode8.Name = "Node4";
+            treeNode8.SelectedImageIndex = 2;
+            treeNode8.Text = "2";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "Node0";
+            treeNode9.Text = "南门";
+            treeNode10.ImageIndex = 1;
+            treeNode10.Name = "Node3";
+            treeNode10.SelectedImageIndex = 1;
+            treeNode10.Text = "192.168.1.1";
+            treeNode11.ImageIndex = 2;
+            treeNode11.Name = "Node5";
+            treeNode11.SelectedImageIndex = 2;
+            treeNode11.Text = "3";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode6});
+            treeNode9,
+            treeNode12});
             this.cameraTree.SelectedImageIndex = 0;
-            this.cameraTree.Size = new System.Drawing.Size(108, 155);
+            this.cameraTree.Size = new System.Drawing.Size(108, 157);
             this.cameraTree.TabIndex = 1;
             this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
@@ -472,7 +472,7 @@
             this.splitterItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(897, 491);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(897, 495);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
@@ -483,7 +483,7 @@
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
             this.layoutControlItem5.Location = new System.Drawing.Point(124, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(769, 487);
+            this.layoutControlItem5.Size = new System.Drawing.Size(769, 491);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -496,7 +496,7 @@
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(118, 189);
+            this.layoutControlItem2.Size = new System.Drawing.Size(118, 191);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -507,9 +507,9 @@
             // 
             this.layoutControlItem4.Control = this.panelControl3;
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 195);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 197);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(118, 292);
+            this.layoutControlItem4.Size = new System.Drawing.Size(118, 294);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -522,12 +522,12 @@
             this.splitterItem2.CustomizationFormText = "splitterItem2";
             this.splitterItem2.Location = new System.Drawing.Point(118, 0);
             this.splitterItem2.Name = "splitterItem2";
-            this.splitterItem2.Size = new System.Drawing.Size(6, 487);
+            this.splitterItem2.Size = new System.Drawing.Size(6, 491);
             // 
             // splitterItem1
             // 
             this.splitterItem1.CustomizationFormText = "splitterItem1";
-            this.splitterItem1.Location = new System.Drawing.Point(0, 189);
+            this.splitterItem1.Location = new System.Drawing.Point(0, 191);
             this.splitterItem1.Name = "splitterItem1";
             this.splitterItem1.Size = new System.Drawing.Size(118, 6);
             // 
@@ -632,21 +632,21 @@
             this.searchPic.Image = ((System.Drawing.Image)(resources.GetObject("searchPic.Image")));
             this.searchPic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.searchPic.Name = "searchPic";
-            this.searchPic.Size = new System.Drawing.Size(81, 23);
+            this.searchPic.Size = new System.Drawing.Size(73, 22);
             this.searchPic.Text = "图像检索";
             this.searchPic.Click += new System.EventHandler(this.searchPic_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // videoSearch
             // 
             this.videoSearch.Image = ((System.Drawing.Image)(resources.GetObject("videoSearch.Image")));
             this.videoSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.videoSearch.Name = "videoSearch";
-            this.videoSearch.Size = new System.Drawing.Size(81, 23);
+            this.videoSearch.Size = new System.Drawing.Size(73, 22);
             this.videoSearch.Text = "视频检索";
             this.videoSearch.Click += new System.EventHandler(this.videoSearch_Click);
             // 
@@ -655,28 +655,28 @@
             this.playRelateVideo.Image = ((System.Drawing.Image)(resources.GetObject("playRelateVideo.Image")));
             this.playRelateVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.playRelateVideo.Name = "playRelateVideo";
-            this.playRelateVideo.Size = new System.Drawing.Size(107, 23);
+            this.playRelateVideo.Size = new System.Drawing.Size(97, 22);
             this.playRelateVideo.Text = "播放相关视频";
             this.playRelateVideo.Click += new System.EventHandler(this.playRelateVideo_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // options
             // 
             this.options.Image = ((System.Drawing.Image)(resources.GetObject("options.Image")));
             this.options.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.options.Name = "options";
-            this.options.Size = new System.Drawing.Size(81, 23);
+            this.options.Size = new System.Drawing.Size(73, 22);
             this.options.Text = "系统设置";
             this.options.Click += new System.EventHandler(this.options_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // column3by3
             // 
@@ -684,7 +684,7 @@
             this.column3by3.Image = global::RemoteImaging.Properties.Resources.Square16_3;
             this.column3by3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.column3by3.Name = "column3by3";
-            this.column3by3.Size = new System.Drawing.Size(23, 23);
+            this.column3by3.Size = new System.Drawing.Size(23, 22);
             this.column3by3.Text = "按3x3显示";
             this.column3by3.Click += new System.EventHandler(this.column3by3_Click);
             // 
@@ -694,7 +694,7 @@
             this.column4by4.Image = global::RemoteImaging.Properties.Resources.Square16_4;
             this.column4by4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.column4by4.Name = "column4by4";
-            this.column4by4.Size = new System.Drawing.Size(23, 23);
+            this.column4by4.Size = new System.Drawing.Size(23, 22);
             this.column4by4.Text = "按4x4显示";
             this.column4by4.Click += new System.EventHandler(this.column4by4_Click);
             // 
@@ -704,7 +704,7 @@
             this.column5by5.Image = global::RemoteImaging.Properties.Resources.Square16_5;
             this.column5by5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.column5by5.Name = "column5by5";
-            this.column5by5.Size = new System.Drawing.Size(23, 23);
+            this.column5by5.Size = new System.Drawing.Size(23, 22);
             this.column5by5.Text = "按5x5显示";
             this.column5by5.Click += new System.EventHandler(this.column5by5_Click);
             // 
@@ -714,30 +714,21 @@
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.IsLink = true;
             this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(77, 23);
+            this.aboutButton.Size = new System.Drawing.Size(69, 22);
             this.aboutButton.Text = "关于系统";
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(77, 23);
-            this.toolStripButton1.Text = "FTP管理";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // enhanceImg
             // 
             this.enhanceImg.Image = ((System.Drawing.Image)(resources.GetObject("enhanceImg.Image")));
             this.enhanceImg.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.enhanceImg.Name = "enhanceImg";
-            this.enhanceImg.Size = new System.Drawing.Size(81, 23);
+            this.enhanceImg.Size = new System.Drawing.Size(73, 22);
             this.enhanceImg.Text = "图片增强";
             this.enhanceImg.Click += new System.EventHandler(this.enhanceImg_Click);
             // 
@@ -756,19 +747,28 @@
             this.column5by5,
             this.aboutButton,
             this.toolStripSeparator4,
-            this.toolStripButton1,
-            this.enhanceImg,
-            this.toolStripSeparator5});
+            this.tsbMonitoring,
+            this.toolStripSeparator5,
+            this.enhanceImg});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(897, 26);
+            this.mainToolStrip.Size = new System.Drawing.Size(897, 25);
             this.mainToolStrip.TabIndex = 4;
             this.mainToolStrip.Text = "toolStrip2";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbMonitoring
+            // 
+            this.tsbMonitoring.Image = ((System.Drawing.Image)(resources.GetObject("tsbMonitoring.Image")));
+            this.tsbMonitoring.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMonitoring.Name = "tsbMonitoring";
+            this.tsbMonitoring.Size = new System.Drawing.Size(49, 22);
+            this.tsbMonitoring.Text = "布控";
+            this.tsbMonitoring.Click += new System.EventHandler(this.tsbMonitoring_Click);
             // 
             // MainForm
             // 
@@ -879,10 +879,10 @@
         private System.Windows.Forms.ToolStripButton column5by5;
         private System.Windows.Forms.ToolStripLabel aboutButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton enhanceImg;
         private System.Windows.Forms.ToolStrip mainToolStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton tsbMonitoring;
 
     }
 }

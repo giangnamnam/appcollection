@@ -282,14 +282,13 @@ namespace RemoteImaging.Query
             {
                 string[] files = Directory.GetFiles(searchPath);
 
-                string subFileName1 = fileName.Substring(0, fileName.IndexOf('-'));
+                string subFileName1 = fileName.Substring(0, fileName.IndexOf('-'));//02_090807144104343-0000 --> 02_090807144104343
                 foreach (string file in files)
                 {
-                    string fileName1 = System.IO.Path.GetFileNameWithoutExtension(file);
-                    if (IsValidImageFile(fileName1))
+                    if (System.IO.Path.GetExtension(file).Equals(".jpg"))
                     {
-                        string subFileName2 = fileName1.Substring(0, fileName1.IndexOf('-'));
-                        if (subFileName1 == subFileName2)
+                        string fileName1 = System.IO.Path.GetFileNameWithoutExtension(file);//02_090807143831296
+                        if (subFileName1 == fileName1)
                         {
                             fileList.Add(file);
                         }
@@ -312,7 +311,7 @@ namespace RemoteImaging.Query
 
         private bool IsValidImageFile(string fileName)
         {
-            Regex fileNameRegex = new Regex("\\d{2}_\\d{12}-\\d{4}");
+            Regex fileNameRegex = new Regex("\\d{2}_\\d{15}-\\d{4}");
             Match m =fileNameRegex.Match(fileName);
             if(m.Success)
             {

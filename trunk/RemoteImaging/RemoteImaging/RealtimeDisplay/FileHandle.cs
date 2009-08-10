@@ -56,9 +56,8 @@ namespace RemoteImaging
         }
         #endregion
 
-        #region 删除文件和空间报警
-        //删除图片和录像
-        public static void DelVidAndImg(SaveNodeType savaType, int cameraId)//这个方法没有指定特定的摄像机 D:\ImageOutput
+        #region 删除图片和录像
+        public static void DelVidAndImg(SaveNodeType savaType, int cameraId)//没有指定特定的摄像机 D:\ImageOutput
         {
             string fileUrl = Properties.Settings.Default.OutputPath;//D:\ImageOutPut
             //string fileUrl = string.Format(Properties.Settings.Default.OutputPath+"\\{0:d2}\\", cameraId);
@@ -136,8 +135,9 @@ namespace RemoteImaging
             }
 
         }
+        #endregion
 
-        //磁盘空间报警
+        #region 磁盘空间报警
         public void DiskWarn()
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -151,7 +151,7 @@ namespace RemoteImaging
             string upLoadPool = Properties.Settings.Default.ImageUploadPool;
             string diskName = string.Format("\"{0}\"", "" + outPutPath.Substring(0, 2) + "");
 
-            UInt64 allCount = DiskSize(diskName, "Size");//"\"D:\"" -- > "D:"  //当前磁盘总的大小
+            UInt64 allCount = DiskSize(diskName, "Size");//"\"D:\"" -- > "D:"  //disk all size
 
             UInt64 freeCount = DiskSize(diskName, "FreeSpace");
 
@@ -182,9 +182,9 @@ namespace RemoteImaging
             }
 
         }
+        #endregion
 
-        #region 弹出窗口的操作
-
+        #region 弹出窗口
         /// <summary>
         /// 弹出窗口
         /// </summary>
@@ -199,6 +199,7 @@ namespace RemoteImaging
         }
         #endregion
 
+
         //取得disk大小
         public static UInt64 DiskSize(string path, string propertys)
         {
@@ -209,10 +210,8 @@ namespace RemoteImaging
             return a;
         }
 
-        /// <summary>
-        /// 获得磁盘剩余空间大小
-        /// </summary>
-        /// <param name="disk">'D:' || "D:"</param>
+
+        //获得磁盘剩余空间大小  'D:' || "D:"
         public static UInt64 GetDiskFreeSpaceSize(string disk)
         {
             WqlObjectQuery woq = new WqlObjectQuery("SELECT * FROM Win32_LogicalDisk WHERE DeviceID = " + disk + "");
@@ -264,8 +263,6 @@ namespace RemoteImaging
             }
             return fileCount;
         }
-        #endregion
-
         #endregion
 
         #region xml文件的操作
@@ -339,8 +336,10 @@ namespace RemoteImaging
             xNode.AppendChild(xThrNode);
             AppendXmlNode(xmlDoc, xNode, nodeType);
         }
-
         #endregion
+
+
+
     }
     public enum SaveNodeType
     {

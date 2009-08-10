@@ -779,11 +779,6 @@ namespace RemoteImaging.RealtimeDisplay
             //https://appcollection.googlecode.com/svn/trunk/RemoteImaging
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            int i = 0;
-        }
-
         private void enhanceImg_Click(object sender, EventArgs e)
         {
             this.ShowPic();
@@ -813,6 +808,11 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 config.thread.Abort();
             }
+        }
+
+        private void tsbMonitoring_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
