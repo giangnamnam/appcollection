@@ -42,6 +42,8 @@ private:
 	CvMemStorage* m_cvSeqFaceSeqStorage;
 	CvSeq* m_cvSeqFaceStorage;
 	CvMemStorage* m_cvSeqFaceStorageStorage;
+	CvSeq* m_cvRealFaceSeq;
+	CvMemStorage* m_cvRealFaceSeqStorage;
 
 	double m_dSglBkgProportion; //可能出现的单边背景区域
 	double m_dFaceProportion;	//脸部区域在直方图中最少所占的比重

@@ -47,6 +47,8 @@ void CFaceSelect::InitClass()//Michael Add 20090507
 	m_cvSeqFaceStorageStorage = cvCreateMemStorage(0);
 	m_cvSeqFaceStorage = cvCreateSeq(0, sizeof(CvSeq), sizeof(CvMemStorage*), \
 		m_cvSeqFaceStorageStorage);
+	m_cvRealFaceSeqStorage = cvCreateMemStorage(0);
+	m_cvRealFaceSeq = cvCreateSeq(0, sizeof(CvSeq), sizeof(int), m_cvRealFaceSeqStorage);
 
 	InitCascade(cascade_name_face, m_cascade_face, m_casMem_face);
 
@@ -70,6 +72,8 @@ CFaceSelect::CFaceSelect(void)
 , m_cvFrameSeq(NULL)
 , m_cascade_face(NULL)
 , m_cvSeqFaceSeq(NULL)
+, m_cvRealFaceSeq(NULL)
+, m_cvRealFaceSeqStorage(NULL)
 , m_cvSeqFaceSeqStorage(NULL)
 , m_cvSeqFaceStorage(NULL)
 , m_cvSeqFaceStorageStorage(NULL)
@@ -132,7 +136,11 @@ void CFaceSelect::ReleaseImageSeq()
 
 	cvClearSeq(m_cvImageSeq);
 	cvClearSeq(m_cvFrameSeq);
+	cvClearSeq(m_cvRealFaceSeq);
+	cvReleaseMemStorage(&m_cvRealFaceSeqStorage);
 	cvReleaseMemStorage(&m_cvSeqStorage);
+	m_cvRealFaceSeq = NULL;
+	m_cvRealFaceSeqStorage = NULL;
 	m_cvImageSeq = NULL;
 	m_cvFrameSeq = NULL;
 	m_cvSeqStorage = NULL;
@@ -1321,17 +1329,9 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 		{
 			//Debug 测时
 			//double t0 = (double)cvGetTickCount();
-			
-			int iNeighbour;
-			if (m_iLightCondition==0)
-				iNeighbour=3;
-			if (m_iLightCondition==1)
-				iNeighbour=2;
-			if (m_iLightCondition==2)
-				iNeighbour=2;
 
 			faces = cvSpecialHaarDetectObjects( max_size, imgBinary, imgGray, m_cascade_face, storage,
-				1.1, iNeighbour, CV_HAAR_DO_CANNY_PRUNING,
+				1.1, 3, CV_HAAR_DO_CANNY_PRUNING,
 				rcMinSize );
 
 			//Debug 测时
@@ -1343,7 +1343,45 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 			//		fprintf(fp,"%gms\n ",t);
 			//		fclose( fp );
 			//#endif
+		}
+		int iRealFace = faces?faces->total:0;
+		cvSeqPush(m_cvRealFaceSeq, &iRealFace);
 
+		CvSeq *facesec = 0;
+		CvMemStorage *storagesec = cvCreateMemStorage(0);
+		if( m_cascade_face )
+		{
+			//Debug 测时
+			//double t0 = (double)cvGetTickCount();
+			
+			int iNeighbour;
+			if (m_iLightCondition==0)
+				iNeighbour=1;
+			if (m_iLightCondition==1)
+				iNeighbour=2;
+			if (m_iLightCondition==2)
+				iNeighbour=2;
+
+			facesec = cvSpecialHaarDetectObjects( max_size, imgBinary, imgGray, m_cascade_face, storagesec,
+				1.1, iNeighbour, CV_HAAR_DO_CANNY_PRUNING,
+				rcMinSize );
+
+			if (faces==0)
+			{
+				faces = facesec;
+			}
+			else
+			{
+				for (int i=0; i<(facesec?facesec->total:0); i++)
+				{
+					CvRect* rec = (CvRect*)cvGetSeqElem( facesec, i );
+					cvSeqPush( faces, rec );
+				}
+			}
+		}
+		
+		if (m_cascade_face)
+		{
 			if (bScale == 1)
 			{
 				pFaces = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), pStorage );
@@ -1354,6 +1392,7 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 				pFaces = cvCloneSeq(faces, pStorage);
 			}		
 		}
+		cvReleaseMemStorage(&storagesec);
 	}
 	else
 	{
@@ -1363,8 +1402,8 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 		int iNeighbour_a, iNeighbour_b;
 		if (m_iLightCondition==0)
 		{
-			iNeighbour_a=3;
-			iNeighbour_b=3;
+			iNeighbour_a=1;
+			iNeighbour_b=1;
 		}
 		if (m_iLightCondition==1)
 		{
@@ -1384,6 +1423,19 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 			//double t0 = (double)cvGetTickCount();
 
 			faces = cvSpecialHaarDetectObjects( max_size, imgBinary, imgGray, m_cascade_face, storage,
+				1.1, 3, CV_HAAR_DO_CANNY_PRUNING,
+				rcMinSize );		
+		}
+		int iRealFace = faces?faces->total:0;
+
+		CvSeq* facesext = 0;
+		CvMemStorage* storagext = cvCreateMemStorage(0);
+		if( m_cascade_face )
+		{
+			//Debug 测时
+			//double t0 = (double)cvGetTickCount();
+
+			facesext = cvSpecialHaarDetectObjects( max_size, imgBinary, imgGray, m_cascade_face, storagext,
 				1.1, iNeighbour_a, CV_HAAR_DO_CANNY_PRUNING,
 				rcMinSize );		
 		}
@@ -1393,26 +1445,33 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 		SpecialEqualizeHist(imgGray, iMaxIdx, fMaxVal, imgGray);
 
 		CvSeq *facesec = 0;
+		CvSeq *facesecext = 0;
 		CvMemStorage *storagesec = cvCreateMemStorage(0);
+		CvMemStorage *storagesecext = cvCreateMemStorage(0);
 		if( m_cascade_face )
 		{
 			//Debug 测时
 			//double t0 = (double)cvGetTickCount();
 
 			facesec = cvSpecialHaarDetectObjects( max_size, imgBinary, imgGray, m_cascade_face, storagesec,
+				1.1, 3, CV_HAAR_DO_CANNY_PRUNING,
+				rcMinSize );
+		}
+		iRealFace += facesec?facesec->total:0;
+		cvSeqPush(m_cvRealFaceSeq, &iRealFace);
+
+		if( m_cascade_face )
+		{
+			//Debug 测时
+			//double t0 = (double)cvGetTickCount();
+
+			facesecext = cvSpecialHaarDetectObjects( max_size, imgBinary, imgGray, m_cascade_face, storagesecext,
 				1.1, iNeighbour_b, CV_HAAR_DO_CANNY_PRUNING,
 				rcMinSize );
+		}
 
-			//Debug 测时
-			//double t = (double)cvGetTickCount() - t0;
-			//t /= ((double)cvGetTickFrequency()*1000);
-			//#ifdef TIME_ANA
-			//		FILE *fp;
-			//		fp = fopen("time_faceDetect.txt","w+");
-			//		fprintf(fp,"%gms\n ",t);
-			//		fclose( fp );
-			//#endif	
-
+		if( m_cascade_face )
+		{
 			if (faces==0)
 			{
 				faces = facesec;
@@ -1425,7 +1484,34 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 					cvSeqPush( faces, rec );
 				}
 			}
+
+			if (faces==0)
+			{
+				faces = facesext;
+			}
+			else
+			{
+				for (int i=0; i<(facesext?facesext->total:0); i++)
+				{
+					CvRect* rec = (CvRect*)cvGetSeqElem( facesext, i );
+					cvSeqPush( faces, rec );
+				}
+			}
+
+			if (faces==0)
+			{
+				faces = facesecext;
+			}
+			else
+			{
+				for (int i=0; i<(facesecext?facesecext->total:0); i++)
+				{
+					CvRect* rec = (CvRect*)cvGetSeqElem( facesecext, i );
+					cvSeqPush( faces, rec );
+				}
+			}
 		}
+
 		if (m_cascade_face)
 		{
 			if (bScale == 1)
@@ -1438,7 +1524,9 @@ CvSeq* CFaceSelect::FaceDetect( IplImage* pImage,  CvMemStorage* pStorage, CvSiz
 				pFaces = cvCloneSeq(faces, pStorage);
 			}
 		}
+		cvReleaseMemStorage(&storagext);
 		cvReleaseMemStorage(&storagesec);
+		cvReleaseMemStorage(&storagesecext);
 	}
 
 	//Michael Add 20090508 -- Transfer face in cvROI to Whole Image
@@ -1590,13 +1678,6 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 			{
 				bRealFace = false;
 			}
-			//*
-			else
-			{
-				bRealFace = true;
-			}
-			//*/
-#ifdef __TERE
 			else
 			{
 				bRealFace = true;
@@ -1700,7 +1781,6 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 				}
 				cvReleaseImage(&SubFace);
 			}
-#endif
 		}
 		if (m_iLightCondition==1)
 		{
@@ -1936,8 +2016,6 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 		if (rSave.y+rSave.height > pImage->height)
 			rSave.height = pImage->height-rSave.y;
 		IplImage *pSaveImg = GetSubImage(pImage,rSave);
-		char buf[255];
-		::GetCurrentDirectory( 255, buf );
 		cvSaveImage(sFileName, pSaveImg);
 		cvReleaseImage(&pSaveImg);
 
@@ -2889,6 +2967,7 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 
 	IplImage **ppImage;
 	CvSeq **ppFace;
+	int* piRealFaceNum = 0;
 	int iFaceNum = 0;
 	bool bSizeInited = 0;
 	int iSFactor = 0;
@@ -2919,6 +2998,8 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 	{
 		ppImage = CV_GET_SEQ_ELEM(IplImage*, m_cvImageSeq, i);
 		ppFace = CV_GET_SEQ_ELEM(CvSeq*, m_cvSeqFaceSeq, i);
+		piRealFaceNum = CV_GET_SEQ_ELEM(int, m_cvRealFaceSeq, i);
+
 		CvSeq *pFace = *ppFace;
 
 		//////////////////////////////////////////////////////////////////////////
@@ -2927,7 +3008,53 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 		cvClearSeq(sqSglFrmJudge);
 		//////////////////////////////////////////////////////////////////////////
 
-		for (int j=0; j<(pFace?pFace->total:0); j++)
+		for (int j=0; j<(pFace?(*piRealFaceNum):0); j++)
+		{
+			bool bRealFace;
+			CvRect* FaceRect = (CvRect*)cvGetSeqElem( pFace, j );
+
+			if ((FaceRect->height > iBasicSize*m_dFaceChangeRatio)||(FaceRect->width > iBasicSize*m_dFaceChangeRatio))
+			{
+				bRealFace = false;
+			}
+			else
+			{
+				bRealFace = true;
+				dConf = 0.0f;
+				dEnhConf = 0.0f;
+
+				//* //检测并保存人脸
+				IplImage *SubFace = GetSubImage(*ppImage, *FaceRect);
+				FaceJudge(SubFace, dJdgFactor, iSFactor, dSize, dSVariant, dVVariant, dHVariant, dContrast, dVariant);
+				cvReleaseImage(&SubFace);
+			}
+
+			if (bRealFace == false)
+			{
+				continue;
+			}
+			else
+			{
+				static double stcdStdSize = dSize;
+				dSizeFactor = stcdStdSize/dSize*10;
+
+				if (iSFactor<31)
+				{
+					dJdgFactor = dJdgFactor / (dJdgFactor<10 ? 2.5:3.5);
+				}
+				dJdgFactor = dJdgFactor<1?dJdgFactor*3:dJdgFactor;
+				dCombin = (dJdgFactor+dVariant+dContrast)/3;
+			}
+
+			double dcost = dCombin*((double)(10-m_iSizeWeight))+dSizeFactor*((double)m_iSizeWeight);
+
+			//////////////////////////////////////////////////////////////////////////
+			//去除覆盖框
+			MergeResultRectSeq(sqSglFrmRect, sqSglFrmJudge, FaceRect, &dcost);
+			//////////////////////////////////////////////////////////////////////////
+		}
+
+		for (int j=(pFace?(*piRealFaceNum):0); j<(pFace?pFace->total:0); j++)
 		{
 			bool bRealFace;
 			CvRect* FaceRect = (CvRect*)cvGetSeqElem( pFace, j );
@@ -4566,6 +4693,7 @@ void CFaceSelect::ClearImageSeq()
 
 		cvClearSeq(m_cvImageSeq);
 		cvClearSeq(m_cvFrameSeq);
+		cvClearSeq(m_cvRealFaceSeq);
 	}
 
 	//if( m_cvSeqStorage )
