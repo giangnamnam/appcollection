@@ -97,7 +97,7 @@ namespace RemoteImaging.RealtimeDisplay
                 config.Cameras.CopyTo(cams, 0);
                 DataCallBack dcb = new DataCallBack(this.SetTreeNode);
                 this.Invoke(dcb, null);
-                time.Interval = 30000;
+                time.Interval = 5000;
             }
         }
 
@@ -812,7 +812,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void tsbMonitoring_Click(object sender, EventArgs e)
         {
-
+            Monitoring monitoring = new Monitoring();
+            monitoring.ShowDialog();
         }
     }
 }

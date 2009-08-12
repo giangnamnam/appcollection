@@ -15,7 +15,7 @@ namespace RemoteImaging
         public Configuration()
         {
             List<Camera> lineCam = new List<Camera>();
-            XDocument camXMLDoc = XDocument.Load("CamConfig.xml");
+            XDocument camXMLDoc = XDocument.Load(fileName);
             var camsElements = camXMLDoc.Root.Descendants("cam");
 
             foreach (XElement camElement in camsElements)
@@ -34,7 +34,7 @@ namespace RemoteImaging
 
         public void Save()
         {
-            XDocument doc = XDocument.Load(Properties.Settings.Default.CamConfigFile);
+            XDocument doc = XDocument.Load(fileName);
             doc.Root.RemoveNodes();
 
             foreach (Camera cam in Cameras)
@@ -68,7 +68,7 @@ namespace RemoteImaging
             }
         }
 
-
+        public string fileName = Properties.Settings.Default.CamConfigFile;
 
         private static Configuration instance;
         public Thread thread = null;
@@ -77,7 +77,7 @@ namespace RemoteImaging
         {
             List<Camera> lineCam = new List<Camera>();
             List<Camera> trueLineCamera = new List<Camera>();
-            XDocument camXMLDoc = XDocument.Load("CamConfig.xml");
+            XDocument camXMLDoc = XDocument.Load(fileName);
             var camsElements = camXMLDoc.Root.Descendants("cam");
 
             foreach (XElement camElement in camsElements)

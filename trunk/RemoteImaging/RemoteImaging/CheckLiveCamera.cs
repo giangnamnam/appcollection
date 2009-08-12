@@ -323,10 +323,9 @@ namespace RemoteImaging
 
                 strMAC = string.Format("{0:x000}.{1:x000}.{2:x000}.{3:x000}.{4:x000}.{5:x000}", resBuffer[2].ToString("X"), resBuffer[3].ToString("X"), resBuffer[4].ToString("X"), resBuffer[5].ToString("X"), resBuffer[6].ToString("X"), resBuffer[7].ToString("X"));
 
-                strIP = string.Format("{0:x2}.{1:x000}.{2:x000}.{3:x000}", resBuffer[32].ToString(), resBuffer[33].ToString(), resBuffer[34].ToString(), resBuffer[35].ToString());
-
                 if (strMAC != "")
                 {
+                    strIP = string.Format("{0:x2}.{1:x000}.{2:x000}.{3:x000}", resBuffer[32].ToString(), resBuffer[33].ToString(), resBuffer[34].ToString(), resBuffer[35].ToString());
                     for (int i = 0; i < listCamera.Count; i++)
                     {
                         Camera cam = new Camera();
@@ -342,6 +341,10 @@ namespace RemoteImaging
                             trueCamera[i] = resCam;
                             config.Cameras = trueCamera.ToList();
                             config.Save();
+                        }
+                        else 
+                        {
+                            count++;
                         }
                     }
                 }
