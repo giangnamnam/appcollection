@@ -79,7 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(170, 112);
+            this.ClientSize = new System.Drawing.Size(170, 109);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
@@ -87,6 +87,7 @@
             this.MaximumSize = new System.Drawing.Size(176, 134);
             this.MinimumSize = new System.Drawing.Size(176, 134);
             this.Name = "AlertSettingRes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AlertSettingRes";
             this.Load += new System.EventHandler(this.AlertSettingRes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
