@@ -28,16 +28,6 @@ namespace RemoteImaging
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
 
-            //ImageUploadWatcher watcher = new ImageUploadWatcher();
-            //watcher.PathToWatch = @"d:\test";
-            //watcher.ImagesUploaded += new ImageUploadHandler(watcher_ImagesUploaded);
-            //watcher.Start();
-
-            //while (true)
-            //{
-            //    System.Threading.Thread.Sleep(500);
-            //}
-
         }
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)

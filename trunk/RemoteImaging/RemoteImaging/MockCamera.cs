@@ -30,7 +30,6 @@ namespace RemoteImaging
 
             System.Diagnostics.Debug.WriteLine(idx);
 
-
             return System.IO.File.ReadAllBytes(file);
         }
 

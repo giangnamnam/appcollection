@@ -143,6 +143,12 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private static bool IsStaticFrame(Frame aFrame)
+        {
+            return aFrame.image != null
+                    && (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
+        }
+
         private void DetectMotion()
         {
             while (true)
@@ -152,19 +158,13 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Frame frameToProcess = new Frame();
 
-
-
                     bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
-
 
                     Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
-                    if (frameToProcess.searchRect.Width == 0 || frameToProcess.searchRect.Height == 0)
+                    if (IsStaticFrame(frameToProcess))
                     {
-                        if (frameToProcess.image != IntPtr.Zero)
-                        {
-                            Cv.Release(ref frameToProcess.image);
-                        }
+                        Cv.Release(ref frameToProcess.image);
                     }
                     else
                     {
@@ -274,6 +274,42 @@ namespace RemoteImaging.RealtimeDisplay
             ipl.SaveImage(path);
         }
 
+        private static string RootFolderForCamera(int cameraID)
+        {
+            return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
+        }
+
+
+        private static unsafe string FolderForFaces(int camID, DateTime dt)
+        {
+            string folderForFaces = ImageClassifier.BuildDestDirectory(RootFolderForCamera(camID),
+                                    dt, Properties.Settings.Default.IconDirectoryName);
+
+            if (!Directory.Exists(folderForFaces))
+                Directory.CreateDirectory(folderForFaces);
+
+            return folderForFaces;
+        }
+
+
+        private static unsafe string GetFaceFileName(string bigImagePath, int indexOfFace)
+        {
+            int idx = bigImagePath.IndexOf('.');
+            string faceFileName = bigImagePath.Insert(idx, "-" + indexOfFace.ToString("d4"));
+            return faceFileName;
+        }
+
+        private static unsafe string GetFacePath(Frame* frame, DateTime dt, int j)
+        {
+            string folderFace = FolderForFaces(frame->cameraID, dt);
+
+            string faceFileName = GetFaceFileName(frame->GetFileName(), j);
+
+            string facePath = Path.Combine(folderFace, faceFileName);
+            return facePath;
+        }
+
+
         unsafe ImageDetail[] SaveImage(Target[] targets)
         {
             IList<ImageDetail> imgs = new List<ImageDetail>();
@@ -282,41 +318,21 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame* frame = (Frame*)t.BaseFrame;
 
-                //SaveFrame(*frame);
-
-                string root = Path.Combine(Properties.Settings.Default.OutputPath,
-                                            frame->cameraID.ToString("D2"));
-
                 DateTime dt = DateTime.FromBinary(frame->timeStamp);
-
 
                 for (int j = 0; j < t.FaceCount; ++j)
                 {
                     IntPtr* f = ((IntPtr*)(t.FaceData)) + j;
-                    IplImage iplFace = new IplImage(*f);
-                    iplFace.IsEnabledDispose = false;
+                    IplImage aFace = new IplImage(*f);
+                    aFace.IsEnabledDispose = false;
 
+                    string facePath = GetFacePath(frame, dt, j);
 
-                    string folderFace = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.IconDirectoryName);
-
-                    if (!Directory.Exists(folderFace))
-                    {
-                        Directory.CreateDirectory(folderFace);
-                    }
-
-                    string bigImgFileName = frame->GetFileName();
-                    int idx = bigImgFileName.IndexOf('.');
-                    string faceFileName = bigImgFileName.Insert(idx, "-" + j.ToString("d4"));
-
-                    string facePath = Path.Combine(folderFace, faceFileName);
-
-                    iplFace.SaveImage(facePath);
+                    aFace.SaveImage(facePath);
 
                     imgs.Add(ImageDetail.FromPath(facePath));
 
                 }
-
-
 
             }
 
