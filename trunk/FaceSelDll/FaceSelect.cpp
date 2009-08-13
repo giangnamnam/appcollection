@@ -3026,6 +3026,14 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				//* //ºÏ≤‚≤¢±£¥Ê»À¡≥
 				IplImage *SubFace = GetSubImage(*ppImage, *FaceRect);
 				FaceJudge(SubFace, dJdgFactor, iSFactor, dSize, dSVariant, dVVariant, dHVariant, dContrast, dVariant);
+
+				dConf = 0.0f;
+				rateFace( SubFace, dConf );
+				if (dConf == 0.0)
+				{
+					bRealFace = false;
+				}
+
 				cvReleaseImage(&SubFace);
 			}
 
