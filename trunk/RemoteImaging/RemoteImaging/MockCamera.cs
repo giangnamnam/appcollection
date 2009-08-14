@@ -14,6 +14,7 @@ namespace RemoteImaging
         public MockCamera(string path)
         {
             files = System.IO.Directory.GetFiles(path);
+            Array.Sort(files);
 
         }
 

@@ -368,7 +368,6 @@ namespace RemoteImaging.RealtimeDisplay
                         NativeIconExtractor.AddInFrame(ref frames[i]);
                     }
 
-
                     IntPtr target = IntPtr.Zero;
 
                     int count = NativeIconExtractor.SearchFaces(ref target);
