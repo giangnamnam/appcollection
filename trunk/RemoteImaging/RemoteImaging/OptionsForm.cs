@@ -341,7 +341,5 @@ namespace RemoteImaging
             MotionDetect.MotionDetect.SetDrawRect(this.drawMotionRect.Checked);
         }
 
-
-
     }
 }

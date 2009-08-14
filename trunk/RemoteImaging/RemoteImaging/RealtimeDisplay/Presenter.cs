@@ -378,7 +378,15 @@ namespace RemoteImaging.RealtimeDisplay
 
                         IList<Target> targets = new List<Target>();
 
-                        for (int i = 0; i < count; i++)
+                        int upLimit = count;
+
+                        if (frames.Length > 1
+                            && Properties.Settings.Default.removeDuplicatedFace)
+                        {
+                            upLimit = Math.Min(count, Properties.Settings.Default.MaxDupFaces);
+                        }
+
+                        for (int i = 0; i < upLimit; i++)
                         {
                             Target face = pTarget[i];
                             targets.Add(face);

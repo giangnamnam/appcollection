@@ -310,5 +310,29 @@ namespace RemoteImaging.Properties {
                 this["DetectMotion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool removeDuplicatedFace {
+            get {
+                return ((bool)(this["removeDuplicatedFace"]));
+            }
+            set {
+                this["removeDuplicatedFace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int MaxDupFaces {
+            get {
+                return ((int)(this["MaxDupFaces"]));
+            }
+            set {
+                this["MaxDupFaces"] = value;
+            }
+        }
     }
 }
