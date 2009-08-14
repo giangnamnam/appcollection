@@ -380,7 +380,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                         int upLimit = count;
 
-                        if (frames.Length > 1
+                        if (frames.Length > 1 && Properties.Settings.Default.DetectMotion
                             && Properties.Settings.Default.removeDuplicatedFace)
                         {
                             upLimit = Math.Min(count, Properties.Settings.Default.MaxDupFaces);
