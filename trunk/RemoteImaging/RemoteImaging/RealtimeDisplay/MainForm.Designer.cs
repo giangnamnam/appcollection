@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusUploadFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -95,8 +95,8 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbMonitoring = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -176,7 +176,7 @@
             // statusProgressBar
             // 
             this.statusProgressBar.Name = "statusProgressBar";
-            this.statusProgressBar.Size = new System.Drawing.Size(200, 22);
+            this.statusProgressBar.Size = new System.Drawing.Size(200, 19);
             this.statusProgressBar.Step = 1;
             this.statusProgressBar.Visible = false;
             // 
@@ -285,10 +285,10 @@
             // axCamImgCtrl1
             // 
             this.axCamImgCtrl1.Enabled = true;
-            this.axCamImgCtrl1.Location = new System.Drawing.Point(105, 6);
+            this.axCamImgCtrl1.Location = new System.Drawing.Point(108, 6);
             this.axCamImgCtrl1.Name = "axCamImgCtrl1";
             this.axCamImgCtrl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCamImgCtrl1.OcxState")));
-            this.axCamImgCtrl1.Size = new System.Drawing.Size(704, 353);
+            this.axCamImgCtrl1.Size = new System.Drawing.Size(539, 306);
             this.axCamImgCtrl1.TabIndex = 3;
             this.axCamImgCtrl1.InfoChanged += new AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEventHandler(this.axCamImgCtrl1_InfoChanged);
             // 
@@ -349,30 +349,30 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "Node1";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "192.168.1.2";
-            treeNode8.ImageIndex = 2;
-            treeNode8.Name = "Node4";
-            treeNode8.SelectedImageIndex = 2;
-            treeNode8.Text = "2";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "南门";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "Node3";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "192.168.1.1";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node5";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "3";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "北门";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "192.168.1.2";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "Node4";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "2";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "南门";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "Node3";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "192.168.1.1";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "Node5";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "3";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode12});
+            treeNode3,
+            treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(108, 157);
             this.cameraTree.TabIndex = 1;
@@ -756,11 +756,6 @@
             this.mainToolStrip.TabIndex = 4;
             this.mainToolStrip.Text = "toolStrip2";
             // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
             // tsbMonitoring
             // 
             this.tsbMonitoring.Image = ((System.Drawing.Image)(resources.GetObject("tsbMonitoring.Image")));
@@ -769,6 +764,11 @@
             this.tsbMonitoring.Size = new System.Drawing.Size(49, 22);
             this.tsbMonitoring.Text = "布控";
             this.tsbMonitoring.Click += new System.EventHandler(this.tsbMonitoring_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // MainForm
             // 

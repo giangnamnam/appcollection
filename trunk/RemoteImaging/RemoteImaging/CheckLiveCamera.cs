@@ -340,7 +340,7 @@ namespace RemoteImaging
                             resCam.Mac = cam.Mac;
                             trueCamera[i] = resCam;
                             config.Cameras = trueCamera.ToList();
-                            config.Save();
+                            //config.Save();
                         }
                         else 
                         {
