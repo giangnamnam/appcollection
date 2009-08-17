@@ -68,15 +68,7 @@ namespace RemoteImaging
             }
         }
 
-        public void ScrollShow()
-        {
-            this.Width = widthMax;
-            this.Height = 0;
-            this.Show();
-            this.timer1.Enabled = true;
-
-        }
-
+     
         public int StayTime = 5000;
 
         private void ScrollUp()

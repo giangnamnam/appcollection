@@ -286,7 +286,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
 
+            if (c == null) return;
+
+            this.StartCamera(c);
+           
         }
 
         #region IImageScreen Members
@@ -507,7 +512,6 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
-                    frm.ShowResDialog(0, "参数已成功设置！！");
                 }
             }
 
@@ -577,16 +581,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void cameraTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node.Tag == null)
-                return;
-
-            Action<string> setupCamera = e.Node.Tag as Action<string>;
-            if (setupCamera != null)
-            {
-                Camera cam = this.getTopCamera(e.Node).Tag as Camera;
-                setupCamera(cam.IpAddress);
-
-            }
+           
 
         }
 
@@ -739,16 +734,12 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void StartCamera(Camera cam)
         {
-            TreeNode cameraNode = this.getTopCamera(e.Node);
-            if (!(cameraNode.Tag is Camera)) return;
-
             ICamera Icam = null;
-            
+
             if (string.IsNullOrEmpty(Program.directory))
             {
-                Camera cam = cameraNode.Tag as Camera;
 
                 SanyoNetCamera camera = new SanyoNetCamera();
                 camera.IPAddress = cam.IpAddress;
@@ -760,6 +751,8 @@ namespace RemoteImaging.RealtimeDisplay
 
                 StartRecord(cam);
 
+                Properties.Settings.Default.LastSelCamID = cam.ID;
+
             }
             else
             {
@@ -770,8 +763,14 @@ namespace RemoteImaging.RealtimeDisplay
             presenter = new Presenter(this, Icam);
 
             presenter.Start();
+        }
+        private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
 
-            
+            TreeNode cameraNode = this.getTopCamera(e.Node);
+            if (!(cameraNode.Tag is Camera)) return;
+
+            StartCamera(cameraNode.Tag as Camera);
         }
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
@@ -808,6 +807,9 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 config.thread.Abort();
             }
+
+            Properties.Settings.Default.Save();
+            
         }
 
         private void tsbMonitoring_Click(object sender, EventArgs e)
@@ -815,5 +817,20 @@ namespace RemoteImaging.RealtimeDisplay
             Monitoring monitoring = new Monitoring();
             monitoring.ShowDialog();
         }
+
+        private void SetupCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.cameraTree.SelectedNode == null) return;
+
+            Action<string> setupCamera = this.cameraTree.SelectedNode.Tag as Action<string>;
+            if (setupCamera == null) return;
+
+            Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
+            setupCamera(cam.IpAddress);
+
+
+        }
+
+       
     }
 }

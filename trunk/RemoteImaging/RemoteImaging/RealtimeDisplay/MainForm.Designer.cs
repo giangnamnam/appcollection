@@ -59,6 +59,8 @@
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.cameraTree = new System.Windows.Forms.TreeView();
+            this.contextMenuStripForCamTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SetupCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -111,6 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
+            this.contextMenuStripForCamTreeView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -221,7 +224,7 @@
             this.panelControl3.Controls.Add(this.panelControl5);
             this.panelControl3.Location = new System.Drawing.Point(7, 204);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(108, 284);
+            this.panelControl3.Size = new System.Drawing.Size(176, 284);
             this.panelControl3.TabIndex = 12;
             // 
             // pictureEdit1
@@ -231,7 +234,7 @@
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.pictureEdit1.Size = new System.Drawing.Size(108, 260);
+            this.pictureEdit1.Size = new System.Drawing.Size(176, 260);
             this.pictureEdit1.TabIndex = 2;
             this.pictureEdit1.DoubleClick += new System.EventHandler(this.pictureEdit1_DoubleClick);
             // 
@@ -245,7 +248,7 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(0, 0);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(108, 24);
+            this.panelControl5.Size = new System.Drawing.Size(176, 24);
             this.panelControl5.TabIndex = 1;
             // 
             // pictureBox2
@@ -276,9 +279,9 @@
             // 
             this.panelControl1.Controls.Add(this.axCamImgCtrl1);
             this.panelControl1.Controls.Add(this.squareListView1);
-            this.panelControl1.Location = new System.Drawing.Point(131, 7);
+            this.panelControl1.Location = new System.Drawing.Point(199, 7);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(759, 481);
+            this.panelControl1.Size = new System.Drawing.Size(691, 481);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
             // 
@@ -288,7 +291,7 @@
             this.axCamImgCtrl1.Location = new System.Drawing.Point(108, 6);
             this.axCamImgCtrl1.Name = "axCamImgCtrl1";
             this.axCamImgCtrl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCamImgCtrl1.OcxState")));
-            this.axCamImgCtrl1.Size = new System.Drawing.Size(539, 306);
+            this.axCamImgCtrl1.Size = new System.Drawing.Size(704, 353);
             this.axCamImgCtrl1.TabIndex = 3;
             this.axCamImgCtrl1.InfoChanged += new AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEventHandler(this.axCamImgCtrl1_InfoChanged);
             // 
@@ -306,7 +309,7 @@
             this.squareListView1.NumberofRows = 3;
             this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
             this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(753, 149);
+            this.squareListView1.Size = new System.Drawing.Size(685, 149);
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
@@ -337,14 +340,16 @@
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Location = new System.Drawing.Point(7, 7);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(108, 181);
+            this.panelControl2.Size = new System.Drawing.Size(176, 181);
             this.panelControl2.TabIndex = 11;
             // 
             // cameraTree
             // 
             this.cameraTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cameraTree.ContextMenuStrip = this.contextMenuStripForCamTreeView;
             this.cameraTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cameraTree.FullRowSelect = true;
+            this.cameraTree.HideSelection = false;
             this.cameraTree.ImageIndex = 0;
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
@@ -374,10 +379,24 @@
             treeNode3,
             treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
-            this.cameraTree.Size = new System.Drawing.Size(108, 157);
+            this.cameraTree.Size = new System.Drawing.Size(176, 157);
             this.cameraTree.TabIndex = 1;
             this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
+            // 
+            // contextMenuStripForCamTreeView
+            // 
+            this.contextMenuStripForCamTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SetupCameraToolStripMenuItem});
+            this.contextMenuStripForCamTreeView.Name = "contextMenuStripForCamTreeView";
+            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(95, 26);
+            // 
+            // SetupCameraToolStripMenuItem
+            // 
+            this.SetupCameraToolStripMenuItem.Name = "SetupCameraToolStripMenuItem";
+            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.SetupCameraToolStripMenuItem.Text = "设置";
+            this.SetupCameraToolStripMenuItem.Click += new System.EventHandler(this.SetupCameraToolStripMenuItem_Click);
             // 
             // cameraImageList
             // 
@@ -400,7 +419,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(108, 24);
+            this.panelControl4.Size = new System.Drawing.Size(176, 24);
             this.panelControl4.TabIndex = 0;
             // 
             // pictureBox1
@@ -481,9 +500,9 @@
             // 
             this.layoutControlItem5.Control = this.panelControl1;
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(124, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(192, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(769, 491);
+            this.layoutControlItem5.Size = new System.Drawing.Size(701, 491);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -496,7 +515,7 @@
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(118, 191);
+            this.layoutControlItem2.Size = new System.Drawing.Size(186, 191);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -509,7 +528,7 @@
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 197);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(118, 294);
+            this.layoutControlItem4.Size = new System.Drawing.Size(186, 294);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -520,7 +539,7 @@
             // 
             this.splitterItem2.ContentVisible = false;
             this.splitterItem2.CustomizationFormText = "splitterItem2";
-            this.splitterItem2.Location = new System.Drawing.Point(118, 0);
+            this.splitterItem2.Location = new System.Drawing.Point(186, 0);
             this.splitterItem2.Name = "splitterItem2";
             this.splitterItem2.Size = new System.Drawing.Size(6, 491);
             // 
@@ -529,7 +548,7 @@
             this.splitterItem1.CustomizationFormText = "splitterItem1";
             this.splitterItem1.Location = new System.Drawing.Point(0, 191);
             this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(118, 6);
+            this.splitterItem1.Size = new System.Drawing.Size(186, 6);
             // 
             // defaultLookAndFeel1
             // 
@@ -802,6 +821,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
+            this.contextMenuStripForCamTreeView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -883,6 +903,8 @@
         private System.Windows.Forms.ToolStrip mainToolStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton tsbMonitoring;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripForCamTreeView;
+        private System.Windows.Forms.ToolStripMenuItem SetupCameraToolStripMenuItem;
 
     }
 }

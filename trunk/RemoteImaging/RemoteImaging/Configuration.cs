@@ -49,6 +49,20 @@ namespace RemoteImaging
             doc.Save(Properties.Settings.Default.CamConfigFile);
         }
 
+
+        public Camera FindCameraByID(int ID)
+        {
+            try
+            {
+                return this.Cameras.First(c =>  c.ID == ID);
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            	
+            }
+        }
+
         public IList<Camera> Cameras
         {
             get;

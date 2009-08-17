@@ -272,7 +272,7 @@ namespace RemoteImaging
             AlertSettingRes asr = new AlertSettingRes(msg, picIndex);
             asr.HeightMax = 169;
             asr.WidthMax = 175;
-            asr.ScrollShow();
+            asr.ShowDialog(this);
         }
         #endregion
 

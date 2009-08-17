@@ -337,13 +337,13 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastCamIP {
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int LastSelCamID {
             get {
-                return ((string)(this["LastCamIP"]));
+                return ((int)(this["LastSelCamID"]));
             }
             set {
-                this["LastCamIP"] = value;
+                this["LastSelCamID"] = value;
             }
         }
     }

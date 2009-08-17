@@ -80,8 +80,8 @@
     <Setting Name="MaxDupFaces" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="LastCamIP" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="LastSelCamID" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
     </Setting>
   </Settings>
 </SettingsFile>
