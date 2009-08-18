@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteImaging", "RemoteImaging\RemoteImaging.csproj", "{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1} = {6D0D5B2A-D5C7-4ABB-96AC-8A152E18FEE1}
+		{665D7EEC-EB5E-4381-A552-B860E07A1FAC} = {665D7EEC-EB5E-4381-A552-B860E07A1FAC}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AD5B1FD-D3F1-45D6-B054-FD2ABA085E4F}"
 	ProjectSection(SolutionItems) = preProject
