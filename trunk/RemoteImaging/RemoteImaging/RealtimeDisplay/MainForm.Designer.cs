@@ -99,6 +99,7 @@
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.tsbMonitoring = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.ViewCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -387,14 +388,15 @@
             // contextMenuStripForCamTreeView
             // 
             this.contextMenuStripForCamTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ViewCameraToolStripMenuItem,
             this.SetupCameraToolStripMenuItem});
             this.contextMenuStripForCamTreeView.Name = "contextMenuStripForCamTreeView";
-            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(95, 26);
+            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(153, 70);
             // 
             // SetupCameraToolStripMenuItem
             // 
             this.SetupCameraToolStripMenuItem.Name = "SetupCameraToolStripMenuItem";
-            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.SetupCameraToolStripMenuItem.Text = "设置";
             this.SetupCameraToolStripMenuItem.Click += new System.EventHandler(this.SetupCameraToolStripMenuItem_Click);
             // 
@@ -789,6 +791,13 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
+            // ViewCameraToolStripMenuItem
+            // 
+            this.ViewCameraToolStripMenuItem.Name = "ViewCameraToolStripMenuItem";
+            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ViewCameraToolStripMenuItem.Text = "查看";
+            this.ViewCameraToolStripMenuItem.Click += new System.EventHandler(this.ViewCameraToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -905,6 +914,7 @@
         private System.Windows.Forms.ToolStripButton tsbMonitoring;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripForCamTreeView;
         private System.Windows.Forms.ToolStripMenuItem SetupCameraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ViewCameraToolStripMenuItem;
 
     }
 }

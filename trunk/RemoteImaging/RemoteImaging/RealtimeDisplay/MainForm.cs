@@ -15,15 +15,13 @@ using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
-using System.Timers;
-using System.Threading;
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen
     {
         Configuration config = new Configuration();
-        System.Timers.Timer time = null;
+        Timer time = null;
         public MainForm()
         {
             InitializeComponent();
@@ -39,8 +37,8 @@ namespace RemoteImaging.RealtimeDisplay
             //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             //Configuration.Instance.Cameras.CopyTo(cams, 0);
             //this.Cameras = cams;
-            time = new System.Timers.Timer();
-            time.Elapsed +=new ElapsedEventHandler(time_Elapsed);
+            time = new Timer();
+            time.Tick  += time_Elapsed;
             time.Interval = 3000;
             time.Enabled = true;
 
@@ -87,9 +85,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+       
+       
+
         delegate void DataCallBack();
         Camera[] cams = null;
-        private void time_Elapsed(object source, ElapsedEventArgs args)
+        private void time_Elapsed(object source, EventArgs args)
         {
             if (config.Cameras != null)
             {
@@ -782,10 +783,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
-            TreeNode cameraNode = this.getTopCamera(e.Node);
-            if (!(cameraNode.Tag is Camera)) return;
-
-            StartCamera(cameraNode.Tag as Camera);
+            
         }
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
@@ -844,6 +842,17 @@ namespace RemoteImaging.RealtimeDisplay
             setupCamera(cam.IpAddress);
 
 
+        }
+
+        private void ViewCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.cameraTree.SelectedNode == null) return;
+
+            Action<string> setupCamera = this.cameraTree.SelectedNode.Tag as Action<string>;
+            if (setupCamera == null) return;
+
+            Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
+            StartCamera(cam);
         }
 
        
