@@ -745,7 +745,18 @@ namespace RemoteImaging.RealtimeDisplay
                 camera.IPAddress = cam.IpAddress;
                 camera.UserName = "guest";
                 camera.Password = "guest";
-                camera.Connect();
+
+                try
+                {
+                    camera.Connect();
+                }
+                catch (System.Net.Sockets.SocketException)
+                {
+                    MessageBox.Show("无法连接摄像头，请检查摄像头");
+                    return;
+                	
+                }
+                
 
                 Icam = camera;
 
