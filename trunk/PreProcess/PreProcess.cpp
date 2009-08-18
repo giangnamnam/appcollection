@@ -16,7 +16,7 @@ All right reserved!
 *************************************************************************************************************/
 #include "stdafx.h"
 #include "PreProcess.h" 
-#include "iostream"
+#include "iostream" 
 
 Frame LastFrame ;  
 
@@ -40,7 +40,7 @@ int xRightAlarm = 1000;
 int yBottomAlarm = 500;
 
 int faceCount = 1200; 
-int groupCount = 5;
+int groupCount = 5;  
 
 //计算选定区域内像素点的数值之和,并将数值返回
 int RegionSum(const int left_x, const int left_y, const int right_x, const int right_y, IplImage *img)
@@ -93,130 +93,165 @@ void ReadImgPoint()
 	int bk1 = 0;
 	int bk2 = 0;
 	int bk3 = 0; 
-	int bk4 = 0; 
+	int bk4 = 0;
+	//int bk5 = 0; 
 
 	f = fopen("C:/ImgPoint.txt", "r");//打开文件，准备读入警戒区域的坐标位置 
 
-	while(!feof(f))
+	if (f)//如果文件存在
 	{
-		fgets(str, 50, f);//将文件中的内容读入字符串
-	}
-
-	for (int i=0; i<50; i++)//找到四个空格的位置
-	{
-		if (str[i] == ' ')
+		while(!feof(f))
 		{
-			if (bk1 == 0)
+			fgets(str, 50, f);//将文件中的内容读入字符串
+		}
+
+		for (int i=0; i<50; i++)//找到四个空格的位置
+		{
+			if (str[i] == ' ')
 			{
-				bk1 = i;
-			}
-			else if (bk2 == 0)
-			{
-				bk2 = i;
-			}
-			else if (bk3 == 0)
-			{
-				bk3 = i;
-			}
-			else if (bk4 == 0)
-			{
-				bk4 = i;
+				if (bk1 == 0)
+				{
+					bk1 = i;
+				}
+				else if (bk2 == 0)
+				{
+					bk2 = i;
+				}
+				else if (bk3 == 0)
+				{
+					bk3 = i;
+				}
+				else if (bk4 == 0)
+				{
+					bk4 = i;
+				}
+				/*else if (bk5 == 0)
+				{
+				bk5 = i;
+				}*/
 			}
 		}
-	}
-	char *data1 = new char[bk1];
-	char *data2 = new char[bk2-bk1-1];
-	char *data3 = new char[bk3-bk2-1];
-	char *data4 = new char[bk4-bk3-1];
+		char *data1 = new char[bk1];
+		char *data2 = new char[bk2-bk1-1];
+		char *data3 = new char[bk3-bk2-1];
+		char *data4 = new char[bk4-bk3-1];
+		//char *data5 = new char[bk5-bk4-1]; 
 
-	for (int i=0; i<bk1; i++)//将四个空格隔开的数据读入字符串
-	{
-		data1[i] = str[i];
-	}
-	int j=0;
-	for (int i=bk1+1; i<bk2; i++)
-	{
-		data2[j] = str[i];
+		for (int i=0; i<bk1; i++)//将四个空格隔开的数据读入字符串
+		{
+			data1[i] = str[i];
+		}
+		int j=0;
+		for (int i=bk1+1; i<bk2; i++)
+		{
+			data2[j] = str[i];
+			j++;
+		}
+		j=0;
+		for (int i=bk2+1; i<bk3; i++)
+		{
+			data3[j] = str[i];
+			j++;
+		}
+		j = 0;
+		for (int i=bk3+1; i<bk4; i++)
+		{
+			data4[j] = str[i];
+			j++;
+		}
+		j = 0;
+		/*for (int i=bk4+1; i<bk5; i++)
+		{
+		data5[j] = str[i];
 		j++;
+		}*/
+
+		xLeftAlarm = atoi(data1);//将四个字符串转换为数值
+		yTopAlarm = atoi(data2);
+		xRightAlarm = atoi(data3);
+		yBottomAlarm = atoi(data4);
+		//faceCount = atoi(data5); 
+
+		delete []data1;
+		delete []data2;
+		delete []data3; 
+		delete []data4;
+		//delete []data5;
+
+		fclose(f);
 	}
-	j=0;
-	for (int i=bk2+1; i<bk3; i++)
+	else//如果文件不存在
 	{
-		data3[j] = str[i];
-		j++;
+		xLeftAlarm = 100;//将四个字符串转换为数值
+		yTopAlarm = 500;
+		xRightAlarm = 1000;
+		yBottomAlarm = 600;
 	}
-	j = 0;
-	for (int i=bk3+1; i<bk4; i++)
-	{
-		data4[j] = str[i];
-		j++;
-	}
-	j = 0;
-
-	xLeftAlarm = atoi(data1);//将四个字符串转换为数值
-	yTopAlarm = atoi(data2);
-	xRightAlarm = atoi(data3);
-	yBottomAlarm = atoi(data4);  
-
-	delete []data1;
-	delete []data2;
-	delete []data3; 
-	delete []data4;
-
-	fclose(f);
+	
 }
 
 void ReadPreProcess()
 {
+	
 	FILE *f;
 	char str[50]; 
 	int bk1 = 0;
 	int bk2 = 0;
+	int fileExist = 0;
 
-	f = fopen("C:/PreProcess.txt", "r");//打开文件，准备读入警戒区域的坐标位置 
-
-	while(!feof(f))
+	f = fopen("C:/PreProcess.txt", "r");//打开文件，准备读入警戒区域的坐标位置
+		
+	if (f)//如果文件存在，读取内容
 	{
-		fgets(str, 50, f);//将文件中的内容读入字符串
-	}
-
-	for (int i=0; i<50; i++)//找到四个空格的位置
-	{
-		if (str[i] == ' ')
+		while(!feof(f))
 		{
-			if (bk1 == 0)
+			fgets(str, 50, f);//将文件中的内容读入字符串
+		}
+
+		for (int i=0; i<50; i++)//找到四个空格的位置
+		{
+			if (str[i] == ' ')
 			{
-				bk1 = i;
-			}
-			else if (bk2 == 0)
-			{
-				bk2 = i;
+				if (bk1 == 0)
+				{
+					bk1 = i;
+				}
+				else if (bk2 == 0)
+				{
+					bk2 = i;
+				}
 			}
 		}
+
+		char *data1 = new char[bk1];
+		char *data2 = new char[bk2-bk1-1];
+
+		for (int i=0; i<bk1; i++)//将四个空格隔开的数据读入字符串
+		{
+			data1[i] = str[i];
+		}
+		int j=0;
+		for (int i=bk1+1; i<bk2; i++)
+		{
+			data2[j] = str[i];
+			j++;
+		}
+		j=0;
+
+		faceCount = atoi(data1);
+		groupCount = atoi(data2);
+
+		delete []data1;
+		delete []data2;
+
+		fclose(f);
 	}
-
-	char *data1 = new char[bk1];
-	char *data2 = new char[bk2-bk1-1];
-
-	for (int i=0; i<bk1; i++)//将四个空格隔开的数据读入字符串
+	else//如果文件不存在
 	{
-		data1[i] = str[i];
+		faceCount = 1200; 
+		groupCount = 5;
 	}
-	int j=0;
-	for (int i=bk1+1; i<bk2; i++)
-	{
-		data2[j] = str[i];
-		j++;
-	}
-	j=0;
-
-	faceCount = atoi(data1);
-	groupCount = atoi(data2);
-
-	delete []data1;
-	delete []data2;
-
-	fclose(f);
+	
 }
 
 //每次从摄像头获得一张图片后调用，当完成一个分组后返回true, 分组没结束，则返回false
@@ -280,13 +315,13 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 	if(!firstFrameRec)//如果是第一帧
 	{
-		firstFrameRec = true;
+		firstFrameRec = true; 
 		lastGrayImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
 		lastDiffImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
 		cvCopy(GrayImage,lastGrayImage,NULL);//如果是第一帧，设置为背景
 
 		ReadImgPoint();//读入布控选择的警戒区域位置
-		ReadPreProcess();
+		ReadPreProcess();  
 
 		//防止左上角坐标超出范围
 		xLeftAlarm = xLeftAlarm>0 ? xLeftAlarm:0;
