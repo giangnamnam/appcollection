@@ -9,7 +9,11 @@ namespace ImageProcess
     public static class NativeIconExtractor
     {
 
+#if DEBUG
         const string FaceSearchDll = "FaceSelDllD.dll";
+#else
+        const string FaceSearchDll = "FaceSelDll.dll";
+#endif
 
         /// Return Type: void
         ///x: int
