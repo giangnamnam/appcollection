@@ -20,27 +20,33 @@ namespace RemoteImaging.RealtimeDisplay
         string filePath = "";
         Point startPoint = new Point();
         Point endPoint = new Point();
-        float widthPerc = 0;//比例
-        float heightPerc = 0;
-        string fileName = Application.StartupPath + "\\ImgPoint.txt";
+        double widthPerc = 0;//比例
+        double heightPerc = 0;
+        string fileName = "C:\\ImgPoint.txt";
         bool hasMouse = false;
         bool trueClick = false;//clicked button "框背景"
         List<string> listPointStr = null;//Save the coordinates for string 
 
         private void btnBrowserImage_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                filePath = openFileDialog1.FileName;
-                SuofangImage();
+                ofd.InitialDirectory = Application.StartupPath;
+                ofd.RestoreDirectory = true;
+                ofd.Filter = "Jpeg 文件|*.jpg";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = ofd.FileName;
+                    SuofangImage();
+                }
             }
         }
         protected void SuofangImage()
         {
             Bitmap bmap = new Bitmap(filePath);
             Image img = (Image)bmap;
-            widthPerc = img.Width / pictureBox1.Width; //宽的比例
-            heightPerc = img.Height / pictureBox1.Height; //长的比例
+            widthPerc = img.Width*1.0 / pictureBox1.Width; //宽的比例
+            heightPerc = img.Height * 1.0 / pictureBox1.Height; //长的比例
             Bitmap b = new Bitmap(pictureBox1.Width, pictureBox1.Height);//缩放
             Graphics g = Graphics.FromImage(b);
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
@@ -59,7 +65,6 @@ namespace RemoteImaging.RealtimeDisplay
             trueClick = true;
         }
 
-
         //control's image whether is null
         protected bool chechLiveImg()
         {
@@ -73,19 +78,23 @@ namespace RemoteImaging.RealtimeDisplay
 
         protected void SaveFile()
         {
-            FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs, Encoding.Default);
-            foreach (string str in listPointStr)
+            if ((listPointStr != null) && (listPointStr.Count >= 1))
             {
-                sw.WriteLine(str);
+                FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+                foreach (string str in listPointStr)
+                {
+                    sw.WriteLine(str);
+                }
+                sw.Dispose();
+                fs.Dispose();
+                listPointStr.Clear();
             }
-            sw.Dispose();
-            fs.Dispose();
-            listPointStr.Clear();
         }
 
         protected string GetContent()
         {
+            //454, 330
             startPoint.X = Convert.ToInt32(startPoint.X * widthPerc);
             startPoint.Y = Convert.ToInt32(startPoint.Y * heightPerc);
             endPoint.X = Convert.ToInt32(endPoint.X * widthPerc);
@@ -143,12 +152,16 @@ namespace RemoteImaging.RealtimeDisplay
                 }
             }
         }
+
         private void MyDrawReversibleRectangle(Point p1, Point p2)
         {
             Rectangle rc = new Rectangle();
 
             p1 = PointToScreen(p1);
             p2 = PointToScreen(p2);
+
+            
+
             if (p1.X < p2.X)
             {
                 rc.X = p1.X;
@@ -170,8 +183,10 @@ namespace RemoteImaging.RealtimeDisplay
                 rc.Height = p1.Y - p2.Y;
             }
 
+
+
             ControlPaint.DrawReversibleFrame(rc,
-                            Color.Red, FrameStyle.Dashed);
+                            Color.Black, FrameStyle.Thick);
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -189,9 +204,9 @@ namespace RemoteImaging.RealtimeDisplay
                     startPoint = endPoint;
                     endPoint = temp;
                 }
-                //grah = Graphics.FromImage(pictureBox1.Image);
-                //grah.DrawRectangle(Pens.Red, GetRectangle());
-                //grah.Dispose();
+               //Graphics grah = Graphics.FromImage(pictureBox1.Image);
+               // grah.DrawRectangle(Pens.Red, GetRectangle());
+               // grah.Dispose();
                 listPointStr.Add(GetContent());
                 hasMouse = false;
 
@@ -207,29 +222,31 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //SendMessage(pictureBox1.Handle.ToInt32(), 0x304, 0, 0);
-            if ((listPointStr != null) && (listPointStr.Count >= 1))
-            {
-                listPointStr.RemoveAt(listPointStr.Count - 1);
-                if (listPointStr.Count == 0)
-                {
-                    SuofangImage();
-                }
-                else
-                {
-                    SuofangImage();
-                    foreach (string str in listPointStr)
-                    {
-                        string[] arrPoint = str.Split(' ');
-                        Point sPoint = new Point(Convert.ToInt32(Convert.ToInt32(arrPoint[0]) / widthPerc), Convert.ToInt32(Convert.ToInt32(arrPoint[1]) / heightPerc));
-                        Point ePoint = new Point(Convert.ToInt32(Convert.ToInt32(arrPoint[2]) / widthPerc), Convert.ToInt32(Convert.ToInt32(arrPoint[3]) / heightPerc));
+            pictureBox1.Invalidate();
 
-                        Graphics grah = Graphics.FromImage(pictureBox1.Image);
-                        grah.DrawRectangle(Pens.Red,new Rectangle(sPoint.X,sPoint.Y,ePoint.X-sPoint.X,ePoint.Y-sPoint.Y));
-                        grah.Dispose();
-                    }
-                }
-            }
+            ////SendMessage(pictureBox1.Handle.ToInt32(), 0x304, 0, 0);
+            //if ((listPointStr != null) && (listPointStr.Count >= 1))
+            //{
+            //    listPointStr.RemoveAt(listPointStr.Count - 1);
+            //    if (listPointStr.Count == 0)
+            //    {
+            //        SuofangImage();
+            //    }
+            //    else
+            //    {
+            //        SuofangImage();
+            //        foreach (string str in listPointStr)
+            //        {
+            //            string[] arrPoint = str.Split(' ');
+            //            Point sPoint = new Point(Convert.ToInt32(Convert.ToInt32(arrPoint[0]) / widthPerc), Convert.ToInt32(Convert.ToInt32(arrPoint[1]) / heightPerc));
+            //            Point ePoint = new Point(Convert.ToInt32(Convert.ToInt32(arrPoint[2]) / widthPerc), Convert.ToInt32(Convert.ToInt32(arrPoint[3]) / heightPerc));
+
+            //            Graphics grah = Graphics.FromImage(pictureBox1.Image);
+            //            grah.DrawRectangle(Pens.Red,new Rectangle(sPoint.X,sPoint.Y,ePoint.X-sPoint.X,ePoint.Y-sPoint.Y));
+            //            grah.Dispose();
+            //        }
+            //    }
+            //}
         }
     }
 }
