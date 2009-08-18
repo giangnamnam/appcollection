@@ -752,9 +752,13 @@ namespace RemoteImaging.RealtimeDisplay
                 }
                 catch (System.Net.Sockets.SocketException)
                 {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头");
+                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
                     return;
-                	
+                }
+                catch (System.Net.WebException)
+                {
+                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
+                    return;
                 }
                 
 
