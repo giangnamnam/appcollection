@@ -828,7 +828,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void tsbMonitoring_Click(object sender, EventArgs e)
         {
             Monitoring monitoring = new Monitoring();
-            monitoring.ShowDialog();
+            monitoring.ShowDialog(this);
         }
 
         private void SetupCameraToolStripMenuItem_Click(object sender, EventArgs e)
