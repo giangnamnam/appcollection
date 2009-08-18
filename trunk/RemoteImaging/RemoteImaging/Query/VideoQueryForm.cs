@@ -84,7 +84,7 @@ namespace RemoteImaging.Query
                     if (getPicFiles(file).Length > 0)
                         lvl.ImageIndex = 0;
                     else
-                        lvl.ImageIndex = 2;
+                        lvl.ImageIndex = 1;
                 }
             }
         }

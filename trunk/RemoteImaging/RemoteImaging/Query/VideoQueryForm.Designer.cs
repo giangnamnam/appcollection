@@ -223,9 +223,8 @@
             // 
             this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "png-0019.png");
-            this.imageList2.Images.SetKeyName(1, "png-0005.png");
-            this.imageList2.Images.SetKeyName(2, "png-0020.png");
+            this.imageList2.Images.SetKeyName(0, "png-0005.png");
+            this.imageList2.Images.SetKeyName(1, "png-0652.png");
             // 
             // label1
             // 
@@ -286,7 +285,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(906, 616);
+            this.ClientSize = new System.Drawing.Size(906, 618);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
