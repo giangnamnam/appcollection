@@ -132,7 +132,7 @@ namespace RemoteImaging.Query
             {
                 this.axVLCPlugin21.playlist.play();
             }
-            
+
             bindPiclist();
         }
 
@@ -143,9 +143,10 @@ namespace RemoteImaging.Query
             this.picList.Clear();
             this.imageList1.Images.Clear();
             string[] fileArr = getPicFiles(videoList.FocusedItem.Text);//得到图片路径
-            if (fileArr.Length == 0) {
-                MessageBox.Show("没有符合的图片", "警告"); 
-                return; 
+            if (fileArr.Length == 0)
+            {
+                MessageBox.Show("没有符合的图片", "警告");
+                return;
             }
             for (int i = 0; i < fileArr.Length; ++i)
             {

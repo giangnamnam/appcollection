@@ -11,9 +11,9 @@ namespace RemoteImaging.Query
         public static string BigIconPath = Properties.Settings.Default.BigImageDirectoryName;
         public static string IconPath = Properties.Settings.Default.IconDirectoryName;
         public static string VideoPath = Properties.Settings.Default.VideoDirectoryName;
-        public enum SearchType{PicType,VideoType};
+        public enum SearchType { PicType, VideoType };
 
-        public ImageDirSys(string camera,string year,string month,string day,string hour,string minute,string second )
+        public ImageDirSys(string camera, string year, string month, string day, string hour, string minute, string second)
         {
             this.CameraID = camera;
             this.Year = year;
@@ -41,7 +41,7 @@ namespace RemoteImaging.Query
         }
         public string Day
         {
-            get; 
+            get;
             set;
         }
         public string Hour

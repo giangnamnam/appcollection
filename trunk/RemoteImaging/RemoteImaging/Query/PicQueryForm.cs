@@ -95,13 +95,13 @@ namespace RemoteImaging.Query
             }
 
         }
-            //以前
-            //02_090702150918-0001.jpg -->大图片
-            //02_090702152518-0006-0000.jpg--> 小图片
+        //以前
+        //02_090702150918-0001.jpg -->大图片
+        //02_090702152518-0006-0000.jpg--> 小图片
 
-            //现在 
-            //02_090807144104343.jpg-->大图片
-            //02_090807144104343-0000.jpg-->小图片
+        //现在 
+        //02_090807144104343.jpg-->大图片
+        //02_090807144104343-0000.jpg-->小图片
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
             string filePath = this.bestPicListView.FocusedItem.Tag as string;

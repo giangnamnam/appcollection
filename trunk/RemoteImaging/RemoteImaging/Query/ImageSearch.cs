@@ -11,7 +11,7 @@ namespace RemoteImaging.Query
 {
     public class ImageSearch
     {
-        public string[] SearchImages(ImageDirSys startDir,ImageDirSys endDir,ImageDirSys.SearchType searchType)
+        public string[] SearchImages(ImageDirSys startDir, ImageDirSys endDir, ImageDirSys.SearchType searchType)
         {
             int startYear = int.Parse(startDir.Year);
             int startMonth = int.Parse(startDir.Month);
@@ -39,7 +39,7 @@ namespace RemoteImaging.Query
 
             ArrayList fileList = new ArrayList();
 
-            
+
             if (startYear == endYear &&
                 startMonth == endMonth &&
                 startDay == endDay)//int the same day
@@ -52,8 +52,8 @@ namespace RemoteImaging.Query
                 if (Directory.Exists(searchPath))
                 {
                     string[] files = Directory.GetFiles(searchPath);
-                    foreach(string file in files)
-                    {                  
+                    foreach (string file in files)
+                    {
                         DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
                         DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
 
@@ -77,7 +77,7 @@ namespace RemoteImaging.Query
                             }
                         }
                     }
-                }                
+                }
             }
             else if (startYear == endYear &&
                      startMonth == endMonth &&
@@ -97,8 +97,8 @@ namespace RemoteImaging.Query
                         foreach (string file in files)
                         {
                             DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
-                            DateTime dateIime2 = new DateTime(endYear,endMonth,endDay,endHour,endMinute,endSecond);
-                            
+                            DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
+
                             string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
                             if (IsValidImageFile(fileName))
                             {
@@ -179,14 +179,14 @@ namespace RemoteImaging.Query
             }
             else if (startYear < endYear)//accross year
             {
-                for(int i = startYear; i <= endYear; i++)
+                for (int i = startYear; i <= endYear; i++)
                 {
-                    int tmpMonth1,tmpMonth2;
-                    if(i == startYear)
+                    int tmpMonth1, tmpMonth2;
+                    if (i == startYear)
                         tmpMonth1 = startMonth;
-                    else  
+                    else
                         tmpMonth1 = 1;
-                    if(i == endYear)
+                    if (i == endYear)
                         tmpMonth2 = endMonth;
                     else
                         tmpMonth2 = 12;
@@ -194,27 +194,27 @@ namespace RemoteImaging.Query
 
                     for (int j = tmpMonth1; j <= tmpMonth2; j++)
                     {
-                        int tmpDay1,tmpDay2;
-                        if(i == startYear)
+                        int tmpDay1, tmpDay2;
+                        if (i == startYear)
                             tmpDay1 = startDay;
                         else
                             tmpDay1 = 1;
-                        if(i == endYear)
+                        if (i == endYear)
                             tmpDay2 = endDay;
                         else
                             tmpDay2 = 31;
 
-                        for(int k = tmpDay1; k <= tmpDay2; k++)
+                        for (int k = tmpDay1; k <= tmpDay2; k++)
                         {
                             string searchPath = beginDir + "\\" +
                                                 startDir.CameraID + "\\" +
                                                 i.ToString() + "\\" +
                                                 j.ToString("D2") + "\\" +
                                                 k.ToString("D2") + "\\" + subSearchPath + "\\";
-                            if(Directory.Exists(searchPath))
+                            if (Directory.Exists(searchPath))
                             {
                                 string[] files = Directory.GetFiles(searchPath);
-                                
+
                                 foreach (string file in files)
                                 {
                                     DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
@@ -243,10 +243,10 @@ namespace RemoteImaging.Query
                                 }
                             }
                         }
-                      }
                     }
                 }
-            
+            }
+
 
             if (fileList.Count > 0)
             {
@@ -312,13 +312,13 @@ namespace RemoteImaging.Query
         private bool IsValidImageFile(string fileName)
         {
             Regex fileNameRegex = new Regex("\\d{2}_\\d{15}-\\d{4}");
-            Match m =fileNameRegex.Match(fileName);
-            if(m.Success)
+            Match m = fileNameRegex.Match(fileName);
+            if (m.Success)
             {
                 return true;
-            
+
             }
- 
+
             return false;
         }
     }
