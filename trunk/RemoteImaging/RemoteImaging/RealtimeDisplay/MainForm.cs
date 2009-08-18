@@ -98,7 +98,7 @@ namespace RemoteImaging.RealtimeDisplay
                 config.Cameras.CopyTo(cams, 0);
                 DataCallBack dcb = new DataCallBack(this.SetTreeNode);
                 this.Invoke(dcb, null);
-                time.Interval = 5000;
+                time.Enabled = false;
             }
         }
 
