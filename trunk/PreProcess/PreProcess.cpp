@@ -25,20 +25,61 @@ IplImage *currentImage;//当前帧的图片
 IplImage *lastGrayImage;//上一帧灰度图
 IplImage *lastDiffImage;//上一帧差分图的二值化图
 
-bool drawRect = false; //标志是否画框
-
 int xLeftAlarm = 100; //定义并初始化警戒区域的两个坐标点位置
-int yTopAlarm = 400;
+int yTopAlarm = 500;
 int xRightAlarm = 1000;
-int yBottomAlarm = 500; 
+int yBottomAlarm = 600; 
 
 int minLeftX = 3000;//定义并初始化框框的两个坐标点位置
 int minLeftY = 3000; 
 int maxRightX = 0;
 int maxRightY = 0;
 
-int faceCount = 900; //画框的阈值
-int groupCount = 5;//单人分组图片个数 
+int faceCount = 500; //画框的阈值
+int groupCount = 5;//单人分组图片个数
+
+bool drawAlarmArea = false;//标志是否画出警戒区域
+bool drawRect = false; //标志是否画框
+
+//标识是否画出红色的框框,通过UI来设定
+void SetDrawRect(bool draw)
+{
+	drawRect = draw;
+}
+
+void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int rightY, bool draw)
+{
+	xLeftAlarm = leftX;
+	yTopAlarm = leftY;
+	xRightAlarm = rightX;
+	yBottomAlarm = rightY; 
+	drawAlarmArea = draw;
+
+	if (xRightAlarm < xLeftAlarm)//防止左上角横坐标小于右下角横坐标
+	{
+		int temp;
+		temp = xLeftAlarm;
+		xLeftAlarm = xRightAlarm;
+		xRightAlarm = temp;
+	}
+	if (yBottomAlarm < yTopAlarm)//防止左上角纵坐标小于右下角纵坐标
+	{
+		int temp;
+		temp = yTopAlarm;
+		yTopAlarm = yBottomAlarm;
+		yBottomAlarm = temp;
+	}
+	if (xRightAlarm == xLeftAlarm)//防止两个横坐标相等
+	{
+		xLeftAlarm = 100;
+		xRightAlarm = 1000;
+	}
+	if (yTopAlarm == yBottomAlarm)//防止两个纵坐标相等
+	{
+		yTopAlarm = 500;
+		yBottomAlarm = 600;
+	}
+}
 
 //计算选定区域内像素点的数值之和,并将数值返回
 int RegionSum(const int left_x, const int left_y, const int right_x, const int right_y, IplImage *img)
@@ -82,99 +123,7 @@ bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y
 	{
 		return false;
 	}
-}
-
-//读取C盘根目录下ImgPoint.txt文件，得到警戒区域的坐标位置
-void ReadImgPoint()
-{
-	FILE *f;
-	char str[50]; 
-	int bk1 = 0;
-	int bk2 = 0;
-	int bk3 = 0; 
-	int bk4 = 0;
-
-	f = fopen("C:/ImgPoint.txt", "r");//打开文件，准备读入警戒区域的坐标位置 
-
-	if (f)//如果文件存在
-	{
-		while(!feof(f))
-		{
-			fgets(str, 50, f);//将文件中的内容读入字符串
-		}
-
-		for (int i=0; i<50; i++)//找到四个空格的位置
-		{
-			if (str[i] == ' ')
-			{
-				if (bk1 == 0)
-				{
-					bk1 = i;
-				}
-				else if (bk2 == 0)
-				{
-					bk2 = i;
-				}
-				else if (bk3 == 0)
-				{
-					bk3 = i;
-				}
-				else if (bk4 == 0)
-				{
-					bk4 = i;
-				}
-			}
-		}
-		char *data1 = new char[bk1];
-		char *data2 = new char[bk2-bk1-1];
-		char *data3 = new char[bk3-bk2-1];
-		char *data4 = new char[bk4-bk3-1]; 
-
-		for (int i=0; i<bk1; i++)//将四个空格隔开的数据读入字符串
-		{
-			data1[i] = str[i];
-		}
-		int j=0;
-		for (int i=bk1+1; i<bk2; i++)
-		{
-			data2[j] = str[i];
-			j++;
-		}
-		j=0;
-		for (int i=bk2+1; i<bk3; i++)
-		{
-			data3[j] = str[i];
-			j++;
-		}
-		j = 0;
-		for (int i=bk3+1; i<bk4; i++)
-		{
-			data4[j] = str[i];
-			j++;
-		}
-		j = 0;
-
-		xLeftAlarm = atoi(data1);//将四个字符串转换为数值
-		yTopAlarm = atoi(data2);
-		xRightAlarm = atoi(data3);
-		yBottomAlarm = atoi(data4);
-
-		delete []data1;
-		delete []data2;
-		delete []data3; 
-		delete []data4;
-
-		fclose(f);
-	}
-	else//如果文件不存在,采用默认值
-	{
-		xLeftAlarm = 100;
-		yTopAlarm = 500;
-		xRightAlarm = 1000;
-		yBottomAlarm = 600;
-	}
-
-}
+} 
 
 //读取C盘根目录下的PreProcess.txt文件，得到画框的阈值和单人分组的图片个数
 void ReadPreProcess()
@@ -349,7 +298,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 	height = GrayImage->height;
 	width = GrayImage->width; 
-	step = GrayImage->widthStep;
+	step = GrayImage->widthStep; 
 
 	bool alarm = false;//警戒区域是否有运动目标   
 
@@ -360,47 +309,9 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		firstFrameRec = true; 
 		lastGrayImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
 		lastDiffImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
-		cvCopy(GrayImage,lastGrayImage,NULL);//如果是第一帧，设置为背景
+		cvCopy(GrayImage,lastGrayImage,NULL);//如果是第一帧，设置为背景 
 
-		ReadImgPoint();//读入布控选择的警戒区域位置
 		ReadPreProcess();  
-
-		//防止左上角坐标超出范围
-		xLeftAlarm = xLeftAlarm>0 ? xLeftAlarm:0;
-		xLeftAlarm = xLeftAlarm>(width-10) ? (width-10):xLeftAlarm;
-		yTopAlarm = yTopAlarm>0 ? yTopAlarm:0;
-		yTopAlarm = yTopAlarm>(height-10) ? (height-10):yTopAlarm;
-
-		//防止右下角坐标超出范围
-		xRightAlarm = xRightAlarm>0 ? xRightAlarm:10;
-		xRightAlarm = xRightAlarm>width ? width:xRightAlarm;
-		yBottomAlarm = yBottomAlarm>0 ? yBottomAlarm:10;
-		yBottomAlarm = yBottomAlarm>height ? height:yBottomAlarm;
-
-		if (xRightAlarm < xLeftAlarm)//防止左上角横坐标小于右下角横坐标
-		{
-			int temp;
-			temp = xLeftAlarm;
-			xLeftAlarm = xRightAlarm;
-			xRightAlarm = temp;
-		}
-		if (yBottomAlarm < yTopAlarm)//防止左上角纵坐标小于右下角纵坐标
-		{
-			int temp;
-			temp = yTopAlarm;
-			yTopAlarm = yBottomAlarm;
-			yBottomAlarm = temp;
-		}
-		if (xRightAlarm == xLeftAlarm)//防止两个横坐标相等
-		{
-			xLeftAlarm = 100;
-			xRightAlarm = 1000;
-		}
-		if (yTopAlarm == yBottomAlarm)//防止两个纵坐标相等
-		{
-			yTopAlarm = 500;
-			yBottomAlarm = 600;
-		}
 	}
 	else
 	{
@@ -415,7 +326,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 			cvPyrUp(pyr,DiffImage_2,7);
 			cvReleaseImage(&pyr);
 
-			//cvRectangle(TempFrame.image, cvPoint(xLeftAlarm, yTopAlarm), cvPoint(xRightAlarm, yBottomAlarm), CV_RGB(0,255,0),1, CV_AA, 0);
+			if(drawAlarmArea)	cvRectangle(TempFrame.image, cvPoint(xLeftAlarm, yTopAlarm), cvPoint(xRightAlarm, yBottomAlarm), CV_RGB(0, 0, 255), 3, CV_AA, 0);
 			alarm = AlarmArea(xLeftAlarm, yTopAlarm, xRightAlarm, yBottomAlarm, DiffImage_2); 
 		}
 
@@ -508,10 +419,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 }
 
-void SetDrawRect(bool draw)
-{
-	drawRect = draw;
-}
+
 
 
 
