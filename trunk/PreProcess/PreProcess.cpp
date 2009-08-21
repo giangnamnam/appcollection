@@ -16,29 +16,29 @@ All right reserved!
 #include "PreProcess.h" 
 #include "iostream" 
 
-Frame LastFrame ;  
+Frame LastFrame ;//存储上一帧的frame  
 
 bool firstFrameRec = false;//第一帧是否收到
 bool secondFrameRec = false;//第二帧是否收到
 
-IplImage *currentImage;
+IplImage *currentImage;//当前帧的图片
 IplImage *lastGrayImage;//上一帧灰度图
 IplImage *lastDiffImage;//上一帧差分图的二值化图
 
 bool drawRect = false; //标志是否画框
 
-int xLeftAlarm = 100; //定义警戒区域的两个坐标点位置
+int xLeftAlarm = 100; //定义并初始化警戒区域的两个坐标点位置
 int yTopAlarm = 400;
 int xRightAlarm = 1000;
-int yBottomAlarm = 500;
+int yBottomAlarm = 500; 
 
-int minLeftX = 3000;
+int minLeftX = 3000;//定义并初始化框框的两个坐标点位置
 int minLeftY = 3000; 
 int maxRightX = 0;
 int maxRightY = 0;
 
-int faceCount = 900; 
-int groupCount = 5;  
+int faceCount = 900; //画框的阈值
+int groupCount = 5;//单人分组图片个数 
 
 //计算选定区域内像素点的数值之和,并将数值返回
 int RegionSum(const int left_x, const int left_y, const int right_x, const int right_y, IplImage *img)
@@ -84,6 +84,7 @@ bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y
 	}
 }
 
+//读取C盘根目录下ImgPoint.txt文件，得到警戒区域的坐标位置
 void ReadImgPoint()
 {
 	FILE *f;
@@ -165,9 +166,9 @@ void ReadImgPoint()
 
 		fclose(f);
 	}
-	else//如果文件不存在
+	else//如果文件不存在,采用默认值
 	{
-		xLeftAlarm = 100;//将四个字符串转换为数值
+		xLeftAlarm = 100;
 		yTopAlarm = 500;
 		xRightAlarm = 1000;
 		yBottomAlarm = 600;
@@ -175,6 +176,7 @@ void ReadImgPoint()
 
 }
 
+//读取C盘根目录下的PreProcess.txt文件，得到画框的阈值和单人分组的图片个数
 void ReadPreProcess()
 {
 
@@ -230,7 +232,7 @@ void ReadPreProcess()
 
 		fclose(f);
 	}
-	else//如果文件不存在
+	else//如果文件不存在,采用默认值
 	{
 		faceCount = 900; 
 		groupCount = 5;
@@ -238,6 +240,7 @@ void ReadPreProcess()
 
 }
 
+//找到框框的两个横坐标位置
 void FindRectX(IplImage *img, const int leftY, const int rightY)
 {
 	int count = (img->width - 100)/20 + 1;
@@ -271,6 +274,7 @@ void FindRectX(IplImage *img, const int leftY, const int rightY)
 	delete []rightX;
 }
 
+//找到框框的两个纵坐标位置
 void FindRectY(IplImage *img, const int leftX, const int rightX)
 {
 	int count = (img->height - 100)/20 + 1;
@@ -368,11 +372,35 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		yTopAlarm = yTopAlarm>(height-10) ? (height-10):yTopAlarm;
 
 		//防止右下角坐标超出范围
-		xRightAlarm = xRightAlarm>(width-8) ? (width-8):xRightAlarm;
-		xRightAlarm = xRightAlarm>xLeftAlarm ? xRightAlarm:(xRightAlarm+1);
-		yBottomAlarm = yBottomAlarm>(height-8) ? (height-8):yBottomAlarm;
-		yBottomAlarm = yBottomAlarm>yTopAlarm ? yBottomAlarm:(yTopAlarm+1);
+		xRightAlarm = xRightAlarm>0 ? xRightAlarm:10;
+		xRightAlarm = xRightAlarm>width ? width:xRightAlarm;
+		yBottomAlarm = yBottomAlarm>0 ? yBottomAlarm:10;
+		yBottomAlarm = yBottomAlarm>height ? height:yBottomAlarm;
 
+		if (xRightAlarm < xLeftAlarm)//防止左上角横坐标小于右下角横坐标
+		{
+			int temp;
+			temp = xLeftAlarm;
+			xLeftAlarm = xRightAlarm;
+			xRightAlarm = temp;
+		}
+		if (yBottomAlarm < yTopAlarm)//防止左上角纵坐标小于右下角纵坐标
+		{
+			int temp;
+			temp = yTopAlarm;
+			yTopAlarm = yBottomAlarm;
+			yBottomAlarm = temp;
+		}
+		if (xRightAlarm == xLeftAlarm)//防止两个横坐标相等
+		{
+			xLeftAlarm = 100;
+			xRightAlarm = 1000;
+		}
+		if (yTopAlarm == yBottomAlarm)//防止两个纵坐标相等
+		{
+			yTopAlarm = 500;
+			yBottomAlarm = 600;
+		}
 	}
 	else
 	{
