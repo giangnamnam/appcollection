@@ -20,7 +20,7 @@ struct ByteArray
 
 struct Target
 {
-	Frame *BaseFrame;//大图片
+	Frame BaseFrame;//大图片
 	int FaceCount;//脸数量
 	IplImage** FaceData;//脸数据
 };

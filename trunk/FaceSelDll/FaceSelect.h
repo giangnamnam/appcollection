@@ -199,7 +199,7 @@ private:
 
 //20090716 Defined Interface
 public:
-	void AddInFrame(Frame *frame);//依次添加一组图片
+	void AddInFrame(Frame frame);//依次添加一组图片
 	int SearchFaces(Target** targets);//一组添加完后，调用这个函数，返回脸数目	
 	void ReleaseTargets()//显示调用释放内存
 	{

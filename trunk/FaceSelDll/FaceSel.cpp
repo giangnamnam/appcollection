@@ -44,7 +44,7 @@ void SetExRatio( double topExRatio, double bottomExRatio, double leftExRatio, do
 
 
 /////////////////////////////////20090716 newly defined/////////////////////////////////////////
-void AddInFrame(Frame *frame)//依次添加一组图片
+void AddInFrame(Frame frame)//依次添加一组图片
 {
 	g_FaceSelect.AddInFrame( frame );
 }

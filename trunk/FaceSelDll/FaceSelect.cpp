@@ -40,7 +40,7 @@ void CFaceSelect::InitClass()//Michael Add 20090507
 	m_cvSeqStorage = cvCreateMemStorage(0);
 	m_cvImageSeq = cvCreateSeq(0, sizeof(CvSeq), sizeof(IplImage*), m_cvSeqStorage);
 	//20090716 Defined Interface
-	m_cvFrameSeq = cvCreateSeq(0, sizeof(CvSeq), sizeof(Frame*), m_cvSeqStorage );
+	m_cvFrameSeq = cvCreateSeq(0, sizeof(CvSeq), sizeof(Frame), m_cvSeqStorage );
 	//End -- 20090716 Defined Interface
 	m_cvSeqFaceSeqStorage = cvCreateMemStorage(0);
 	m_cvSeqFaceSeq = cvCreateSeq(0, sizeof(CvSeq), sizeof(CvSeq*), m_cvSeqFaceSeqStorage);
@@ -3027,6 +3027,13 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				IplImage *SubFace = GetSubImage(*ppImage, *FaceRect);
 				FaceJudge(SubFace, dJdgFactor, iSFactor, dSize, dSVariant, dVVariant, dHVariant, dContrast, dVariant);
 
+				dConf = 0.0f;
+				rateFace( SubFace, dConf );
+				if (dConf == 0.0)
+				{
+					bRealFace = false;
+				}
+
 				cvReleaseImage(&SubFace);
 			}
 
@@ -3491,6 +3498,10 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				}
 			}
 
+			//////////////////////////////////////////////////////////////////////////
+			//test
+			//bRealFace = false;
+
 			if (bRealFace == false)
 			{
 				continue;
@@ -3598,7 +3609,7 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 			int curFaces = facesCntArray[i];
 			if( curFaces > 0 )
 			{
-				targetArray[curId].BaseFrame = *((Frame**)cvGetSeqElem( m_cvFrameSeq, i ));
+				targetArray[curId].BaseFrame = *((Frame*)cvGetSeqElem( m_cvFrameSeq, i ));
 				targetArray[curId].FaceCount = curFaces;
 				targetArray[curId].FaceData = new IplImage*[curFaces];
 				for( int j = 0; j < curFaces; j++ )
@@ -3841,6 +3852,10 @@ void CFaceSelect::MultiObjectJudge(CvSeq *sqFrmRect, CvSeq *sqFrmJudge, int iFrm
 				CvHistogram **ppHistB = CV_GET_SEQ_ELEM(CvHistogram*, m_sqHist, j*2+1);
 
 				bSameFace = HistCompare(*ppHistA, *ppHistB, pHist_a, pHist_b);
+
+				//////////////////////////////////////////////////////////////////////////
+				//test
+				//bSameFace = false;
 
 				if (bSameFace==true)
 				{
@@ -4998,9 +5013,9 @@ bool CFaceSelect::CheckOverExpo( IplImage *pSrcImg )
 ////////////////End -- Michael Add for OverExposure Ana////////////////////
 
 //20090716 Defined Interface
-void CFaceSelect::AddInFrame(Frame *frame)//依次添加一组图片
+void CFaceSelect::AddInFrame(Frame frame)//依次添加一组图片
 {
-	if( AddInImage( frame->image, frame->searchRect ) )
+	if( AddInImage( frame.image, frame.searchRect ) )
 	{
 		cvSeqPush( m_cvFrameSeq, &frame );
 	}
@@ -5019,7 +5034,7 @@ void CFaceSelect::ReleaseTargets( Target* &targets, int &nCnt )
 
 	for( int i = 0; i < nCnt; i++ )
 	{
-		targets[i].BaseFrame = 0;
+		//targets[i].BaseFrame = 0;
 		for( int j = 0; j < targets[i].FaceCount; j++ )
 		{
 			cvReleaseImage( &(targets[i].FaceData[j]) );
