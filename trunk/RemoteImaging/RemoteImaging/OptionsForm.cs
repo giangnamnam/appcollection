@@ -134,6 +134,9 @@ namespace RemoteImaging
         private void buttonOK_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.EnvMode = this.envModes.SelectedIndex;
+            Properties.Settings.Default.BrightMode = this.rgBrightMode.Properties.Items[rgBrightMode.SelectedIndex].Value.ToString();
+            Properties.Settings.Default.CurIp = this.textBox4.Text;
+            Properties.Settings.Default.ComName = this.comboBox2.Text;
         }
 
 
@@ -336,10 +339,9 @@ namespace RemoteImaging
 
         }
 
-        private void drawMotionRect_CheckedChanged(object sender, EventArgs e)
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MotionDetect.MotionDetect.SetDrawRect(this.drawMotionRect.Checked);
+            Properties.Settings.Default.ComName = comboBox2.Text;
         }
-
     }
 }

@@ -96,6 +96,16 @@
             this.rabTwoDay = new System.Windows.Forms.RadioButton();
             this.rabOneDay = new System.Windows.Forms.RadioButton();
             this.btnImgSetting = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.rgBrightMode = new DevExpress.XtraEditors.RadioGroup();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -123,6 +133,8 @@
             this.tabPage5.SuspendLayout();
             this.gBoxDiskSet.SuspendLayout();
             this.gBoxImgFileSet.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -140,7 +152,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 66);
+            this.label2.Location = new System.Drawing.Point(98, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(293, 12);
             this.label2.TabIndex = 2;
@@ -150,7 +162,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(111, 29);
+            this.label1.Location = new System.Drawing.Point(112, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -159,7 +171,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(43, 29);
+            this.pictureBox1.Location = new System.Drawing.Point(44, 28);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -172,6 +184,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(5, 71);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -395,7 +408,6 @@
             this.drawMotionRect.TabIndex = 36;
             this.drawMotionRect.Text = "标识运动检测结果";
             this.drawMotionRect.UseVisualStyleBackColor = true;
-            this.drawMotionRect.CheckedChanged += new System.EventHandler(this.drawMotionRect_CheckedChanged);
             // 
             // label27
             // 
@@ -818,6 +830,109 @@
             this.btnImgSetting.Text = "设置";
             this.btnImgSetting.UseVisualStyleBackColor = true;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.textBox4);
+            this.tabPage4.Controls.Add(this.label24);
+            this.tabPage4.Controls.Add(this.label30);
+            this.tabPage4.Controls.Add(this.comboBox2);
+            this.tabPage4.Controls.Add(this.label22);
+            this.tabPage4.Controls.Add(this.label23);
+            this.tabPage4.Controls.Add(this.label20);
+            this.tabPage4.Controls.Add(this.label21);
+            this.tabPage4.Controls.Add(this.rgBrightMode);
+            this.tabPage4.Location = new System.Drawing.Point(4, 21);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(486, 314);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "相机设置";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(37, 199);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 21);
+            this.textBox4.TabIndex = 37;
+            this.textBox4.Text = "192.168.0.6";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(10, 172);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(41, 12);
+            this.label24.TabIndex = 35;
+            this.label24.Text = "IP地址";
+            // 
+            // label30
+            // 
+            this.label30.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label30.Location = new System.Drawing.Point(61, 177);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(410, 2);
+            this.label30.TabIndex = 36;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(37, 129);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(100, 20);
+            this.comboBox2.TabIndex = 34;
+            this.comboBox2.Text = "COM4";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(10, 93);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(47, 12);
+            this.label22.TabIndex = 32;
+            this.label22.Text = "COM接口";
+            // 
+            // label23
+            // 
+            this.label23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label23.Location = new System.Drawing.Point(61, 98);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(410, 2);
+            this.label23.TabIndex = 33;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(10, 19);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(53, 12);
+            this.label20.TabIndex = 30;
+            this.label20.Text = "光照模式";
+            // 
+            // label21
+            // 
+            this.label21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label21.Location = new System.Drawing.Point(61, 24);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(410, 2);
+            this.label21.TabIndex = 31;
+            // 
+            // rgBrightMode
+            // 
+            this.rgBrightMode.EditValue = "Indoor_Front";
+            this.rgBrightMode.Location = new System.Drawing.Point(28, 45);
+            this.rgBrightMode.Name = "rgBrightMode";
+            this.rgBrightMode.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.rgBrightMode.Properties.Appearance.Options.UseBackColor = true;
+            this.rgBrightMode.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.rgBrightMode.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("Indoor_Front", "室内顺光"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("Indoor_Back", "室内逆光"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("Outdoor", "室外")});
+            this.rgBrightMode.Size = new System.Drawing.Size(332, 26);
+            this.rgBrightMode.TabIndex = 27;
+            // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -977,6 +1092,9 @@
             this.gBoxDiskSet.PerformLayout();
             this.gBoxImgFileSet.ResumeLayout(false);
             this.gBoxImgFileSet.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1064,5 +1182,15 @@
         private System.Windows.Forms.CheckBox drawMotionRect;
         private System.Windows.Forms.CheckBox detectMotion;
         private System.Windows.Forms.CheckBox removeDuplication;
+        private System.Windows.Forms.TabPage tabPage4;
+        private DevExpress.XtraEditors.RadioGroup rgBrightMode;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

@@ -24,6 +24,7 @@ namespace RemoteImaging.Query
             setListViewColumns();
         }
 
+        ImageSearch imgSearch = new ImageSearch();
         private void queryBtn_Click(object sender, EventArgs e)
         {
             this.picList.Clear();
@@ -60,45 +61,40 @@ namespace RemoteImaging.Query
             }
 
             this.videoList.Items.Clear();
-
+            
             foreach (string file in files)
             {
-                DateTime dTime = getDateTimeStr(file);//"2009-6-29 14:00:00"
+                DateTime dTime =imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
-                if (radioButton1.Checked == true)
-                {
-                    if (getPicFiles(file).Length > 0)
-                    {
-                        lvl.Text = file;
-                        lvl.SubItems.Add(dTime.ToString());
-                        videoList.Items.Add(lvl);
-                        lvl.ImageIndex = 0;
-                    }
-                }
+                lvl.Text = file;
+                lvl.SubItems.Add(dTime.ToString());
+                videoList.Items.Add(lvl);
+                lvl.ImageIndex = 0;
+                #region
+                //if (radioButton1.Checked == true)
+                //{
+                //    if (imgSearch.getPicFiles(file,this.comboBox1.Text,true).Length > 0)
+                //    {
+                //        lvl.Text = file;
+                //        lvl.SubItems.Add(dTime.ToString());
+                //        videoList.Items.Add(lvl);
+                //        lvl.ImageIndex = 0;
+                //    }
+                //}
 
-                if (radioButton2.Checked == true)
-                {
-                    lvl.Text = file;
-                    lvl.SubItems.Add(dTime.ToString());
-                    videoList.Items.Add(lvl);
-                    if (getPicFiles(file).Length > 0)
-                        lvl.ImageIndex = 0;
-                    else
-                        lvl.ImageIndex = 1;
-                }
+                //if (radioButton2.Checked == true)
+                //{
+                //    lvl.Text = file;
+                //    lvl.SubItems.Add(dTime.ToString());
+                //    videoList.Items.Add(lvl);
+                //    if (imgSearch.getPicFiles(file,this.comboBox1.Text,true).Length > 0)
+                //        lvl.ImageIndex = 0;
+                //    else
+                //        lvl.ImageIndex = 1;
+                //}
+                #endregion
             }
         }
-
-        private DateTime getDateTimeStr(string temp)
-        {
-            Int32 index = temp.IndexOf("NORMAL") + 7;
-            string str = temp.Substring(index, 14);//20090629\06\00
-            DateTime time = new DateTime(Convert.ToInt32(str.Substring(0, 4)), Convert.ToInt32(str.Substring(4, 2)),
-                Convert.ToInt32(str.Substring(6, 2)), Convert.ToInt32(str.Substring(9, 2)), Convert.ToInt32(str.Substring(12, 2)), 0);
-            time = time.ToLocalTime(); //time = time.AddHours(8);
-            return time;
-        }
-
 
         private void setListViewColumns()//添加ListView行头
         {
@@ -137,12 +133,13 @@ namespace RemoteImaging.Query
         }
 
 
-        #region 绑定picList();
+        #region 绑定picList()
+
         void bindPiclist()
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr = getPicFiles(videoList.FocusedItem.Text);//得到图片路径
+            string[] fileArr =imgSearch. getPicFiles(videoList.FocusedItem.Text, this.comboBox1.Text,true);//得到图片路径
             if (fileArr.Length == 0)
             {
                 MessageBox.Show("没有符合的图片", "警告");
@@ -164,42 +161,6 @@ namespace RemoteImaging.Query
             this.picList.MultiSelect = false;
             this.picList.View = View.LargeIcon;
             this.picList.LargeImageList = imageList1;
-        }
-
-        string[] getPicFiles(string path)
-        {
-            ArrayList filesArr = new ArrayList();
-            DateTime dTime = getDateTimeStr(path);
-            string imgPath = Properties.Settings.Default.OutputPath + "\\" +
-                int.Parse(this.comboBox1.Text).ToString("D2") + "\\" +
-                dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
-                dTime.Day.ToString("D2") + "\\" +
-                Properties.Settings.Default.BigImageDirectoryName + "\\";
-            if (Directory.Exists(imgPath))
-            {
-                string[] files = Directory.GetFiles(imgPath);
-                foreach (string file in files)
-                {
-                    string strExtName = Path.GetExtension(file);
-                    string dPath = Path.GetFileNameWithoutExtension(file);
-                    if (strExtName.Equals(".jpg"))
-                    {
-                        string hourStr = dPath.Substring(9, 2);
-                        string minuStr = dPath.Substring(11, 2);
-                        if (dTime.Hour.ToString("D2").Equals(hourStr) && dTime.Minute.ToString("D2").Equals(minuStr))
-                        {
-                            filesArr.Add(file);
-                        }
-                    }
-                }
-            }
-
-            string[] fileCollections = new string[filesArr.Count];
-            for (int i = 0; i < filesArr.Count; i++)
-            {
-                fileCollections[i] = filesArr[i].ToString();
-            }
-            return fileCollections;
         }
 
         #endregion

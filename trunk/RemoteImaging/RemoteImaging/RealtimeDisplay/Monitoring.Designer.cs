@@ -35,15 +35,15 @@
             this.btnBrowserImage = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(479, 200);
+            this.button2.Location = new System.Drawing.Point(476, 207);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -53,7 +53,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(479, 250);
+            this.button3.Location = new System.Drawing.Point(476, 257);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -63,7 +63,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(479, 300);
+            this.button4.Location = new System.Drawing.Point(476, 307);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -73,7 +73,7 @@
             // 
             // btnBrowserImage
             // 
-            this.btnBrowserImage.Location = new System.Drawing.Point(479, 22);
+            this.btnBrowserImage.Location = new System.Drawing.Point(476, 29);
             this.btnBrowserImage.Name = "btnBrowserImage";
             this.btnBrowserImage.Size = new System.Drawing.Size(75, 23);
             this.btnBrowserImage.TabIndex = 5;
@@ -105,31 +105,34 @@
             this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 354);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "label1";
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(476, 127);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(96, 16);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "在图片上画框";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Monitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 418);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(588, 391);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.btnBrowserImage);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(594, 413);
+            this.MinimumSize = new System.Drawing.Size(594, 413);
             this.Name = "Monitoring";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Monitoring";
@@ -147,9 +150,9 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnBrowserImage;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.CheckBox checkBox1;
 
     }
 }

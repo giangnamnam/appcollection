@@ -149,6 +149,7 @@
       <DependentUpon>VideoQueryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RealtimeDisplay\Camera.cs" />
+    <Compile Include="RealtimeDisplay\CameraUpdateSettings.cs" />
     <Compile Include="RealtimeDisplay\FileHandle.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="RealtimeDisplay\ImageClassifier.cs" />
@@ -280,7 +281,12 @@
     <Content Include="CamConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Library\JSZN.Component.dll" />
+
+    <Content Include="CamSettingsConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\JSZN.Component.dll" />
+
     <Content Include="MainIcon.ico" />
     <Content Include="SetVal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

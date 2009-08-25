@@ -346,5 +346,41 @@ namespace RemoteImaging.Properties {
                 this["LastSelCamID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Indoor_Front")]
+        public string BrightMode {
+            get {
+                return ((string)(this["BrightMode"]));
+            }
+            set {
+                this["BrightMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM4")]
+        public string ComName {
+            get {
+                return ((string)(this["ComName"]));
+            }
+            set {
+                this["ComName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.6")]
+        public string CurIp {
+            get {
+                return ((string)(this["CurIp"]));
+            }
+            set {
+                this["CurIp"] = value;
+            }
+        }
     }
 }

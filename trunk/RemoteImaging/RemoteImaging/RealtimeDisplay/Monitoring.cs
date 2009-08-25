@@ -16,16 +16,16 @@ namespace RemoteImaging.RealtimeDisplay
         public Monitoring()
         {
             InitializeComponent();
+            
         }
         string filePath = "";
         Point startPoint = new Point();
         Point endPoint = new Point();
         double widthPerc = 0;//比例
         double heightPerc = 0;
-        string fileName = "C:\\ImgPoint.txt";
         bool hasMouse = false;
         bool trueClick = false;//clicked button "框背景"
-        List<string> listPointStr = null;//Save the coordinates for string 
+        string listPointStr ="";//Save the coordinates for string 
 
         private void btnBrowserImage_Click(object sender, EventArgs e)
         {
@@ -45,7 +45,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             Bitmap bmap = new Bitmap(filePath);
             Image img = (Image)bmap;
-            widthPerc = img.Width*1.0 / pictureBox1.Width; //宽的比例
+            widthPerc = img.Width * 1.0 / pictureBox1.Width; //宽的比例
             heightPerc = img.Height * 1.0 / pictureBox1.Height; //长的比例
             Bitmap b = new Bitmap(pictureBox1.Width, pictureBox1.Height);//缩放
             Graphics g = Graphics.FromImage(b);
@@ -58,10 +58,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (listPointStr == null)
-                listPointStr = new List<string>();
-            else
-                listPointStr.Clear();
             trueClick = true;
         }
 
@@ -71,43 +67,27 @@ namespace RemoteImaging.RealtimeDisplay
             return (pictureBox1.Image != null) ? true : false;
         }
 
-        private Rectangle GetRectangle()
-        {
-            return new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
-        }
-
-        protected void SaveFile()
-        {
-            if ((listPointStr != null) && (listPointStr.Count >= 1))
-            {
-                FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-                StreamWriter sw = new StreamWriter(fs, Encoding.Default);
-                foreach (string str in listPointStr)
-                {
-                    sw.WriteLine(str);
-                }
-                sw.Dispose();
-                fs.Dispose();
-                listPointStr.Clear();
-            }
-        }
-
-        protected string GetContent()
-        {
-            //454, 330
-            startPoint.X = Convert.ToInt32(startPoint.X * widthPerc);
-            startPoint.Y = Convert.ToInt32(startPoint.Y * heightPerc);
-            endPoint.X = Convert.ToInt32(endPoint.X * widthPerc);
-            endPoint.Y = Convert.ToInt32(endPoint.Y * heightPerc);
-            label1.Text = "startPoint.X: " + startPoint.X.ToString() + " startPoint.Y :" + startPoint.Y.ToString() + " endPoint.X: " + endPoint.X.ToString() + " endPoint.Y :" + endPoint.Y.ToString() + " width:" + (endPoint.X - startPoint.X).ToString() + " height: " + (endPoint.Y - startPoint.Y).ToString();
-            return startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " ";
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
-            if (chechLiveImg())
+            if (listPointStr!="")
             {
-                SaveFile();
+                string[] strPoints = listPointStr.Split(' ');
+                int oPointx = Convert.ToInt32(strPoints[0]);
+                int oPointy = Convert.ToInt32(strPoints[1]);
+                int tPointx = Convert.ToInt32(strPoints[2]);
+                int tPointy = Convert.ToInt32(strPoints[3]);
+                if ((System.Math.Abs( oPointx- tPointx) > 50)
+                    && (System.Math.Abs(oPointy - tPointy) > 50))
+                {
+                    if (chechLiveImg())
+                    {
+                       SetAlarmArea(oPointx, oPointy, tPointx, tPointy,checkBox1.Checked?true:false);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("布防的范围至少为50x50!", "警告");
+                }
             }
         }
 
@@ -160,7 +140,7 @@ namespace RemoteImaging.RealtimeDisplay
             p1 = PointToScreen(p1);
             p2 = PointToScreen(p2);
 
-            
+
 
             if (p1.X < p2.X)
             {
@@ -183,8 +163,6 @@ namespace RemoteImaging.RealtimeDisplay
                 rc.Height = p1.Y - p2.Y;
             }
 
-
-
             ControlPaint.DrawReversibleFrame(rc,
                             Color.Black, FrameStyle.Thick);
         }
@@ -195,7 +173,6 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 endPoint.X = e.Location.X;
                 endPoint.Y = e.Location.Y;
-                //label1.Text = "startPoint.X: " + startPoint.X.ToString() + " startPoint.Y :" + startPoint.Y.ToString() + " endPoint.X: " + endPoint.X.ToString() + " endPoint.Y :" + endPoint.Y.ToString() + " width:" + (endPoint.X - startPoint.X).ToString() + " height: " + (endPoint.Y - startPoint.Y).ToString();
 
                 if ((startPoint.X > endPoint.X) || (startPoint.Y > endPoint.Y))
                 {
@@ -203,11 +180,17 @@ namespace RemoteImaging.RealtimeDisplay
                     temp = startPoint;
                     startPoint = endPoint;
                     endPoint = temp;
+                    if (startPoint.X < 0) startPoint.X = 0;
+                    if (startPoint.Y < 0) startPoint.Y = 0;
                 }
-               //Graphics grah = Graphics.FromImage(pictureBox1.Image);
-               // grah.DrawRectangle(Pens.Red, GetRectangle());
-               // grah.Dispose();
-                listPointStr.Add(GetContent());
+                else
+                {
+                    if (endPoint.X > pictureBox1.Width) endPoint.X = pictureBox1.Width;
+                    if (endPoint.Y > pictureBox1.Height) endPoint.Y = pictureBox1.Height;
+                }
+             
+                listPointStr = GetContent();
+
                 hasMouse = false;
 
                 endPoint.X = 0;
@@ -217,13 +200,29 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        protected string GetContent()
+        {
+            startPoint.X = Convert.ToInt32(startPoint.X * widthPerc);
+            startPoint.Y = Convert.ToInt32(startPoint.Y * heightPerc);
+            endPoint.X = Convert.ToInt32(endPoint.X * widthPerc);
+            endPoint.Y = Convert.ToInt32(endPoint.Y * heightPerc);
+            //label1.Text = "startPoint.X: " + startPoint.X.ToString() + " startPoint.Y :" + startPoint.Y.ToString() +
+            //    " endPoint.X: " + endPoint.X.ToString() + " endPoint.Y :" + endPoint.Y.ToString() +
+            //    " width:" + (System.Math.Abs(endPoint.X - startPoint.X)).ToString() + " height: " + (System.Math.Abs(endPoint.Y - startPoint.Y)).ToString();
+            return startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " ";
+        }
+
+        [DllImport("PreProcess.dll", EntryPoint = "SetAlarmArea")]
+        public static extern void SetAlarmArea(int leftX, int leftY, int rightX, int rightY, bool draw);
+
         [DllImport("User32.dll", EntryPoint = "SendMessageA")]
         public static extern int SendMessage(int hwnd, int msg, int wparam, int lparam);
 
         private void button3_Click(object sender, EventArgs e)
         {
             pictureBox1.Invalidate();
-
+            listPointStr = "";
+            #region
             ////SendMessage(pictureBox1.Handle.ToInt32(), 0x304, 0, 0);
             //if ((listPointStr != null) && (listPointStr.Count >= 1))
             //{
@@ -247,6 +246,7 @@ namespace RemoteImaging.RealtimeDisplay
             //        }
             //    }
             //}
+            #endregion
         }
     }
 }

@@ -15,13 +15,15 @@ using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
+using System.Threading;
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen
     {
         Configuration config = new Configuration();
-        Timer time = null;
+       System.Timers.Timer time = null;
+        Thread thread = null;
         public MainForm()
         {
             InitializeComponent();
@@ -37,10 +39,18 @@ namespace RemoteImaging.RealtimeDisplay
             //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             //Configuration.Instance.Cameras.CopyTo(cams, 0);
             //this.Cameras = cams;
-            time = new Timer();
-            time.Tick  += time_Elapsed;
+            time = new System.Timers.Timer();
+            time.Elapsed  += time_Elapsed;
             time.Interval = 3000;
             time.Enabled = true;
+            
+            FileHandle fh = new FileHandle();//删除无效视频
+            fh.DeleteInvalidVideo();
+
+            //根据光亮值改变摄像机
+            //CameraUpdateSettings cus = new CameraUpdateSettings(Properties.Settings.Default.ComName, Properties.Settings.Default.BrightMode, "192.168.0.6");
+            //thread= new Thread(new ParameterizedThreadStart(cus.ReadPort));
+            //thread.Start();
 
             Properties.Settings setting = Properties.Settings.Default;
 
@@ -513,6 +523,10 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
+                    //根据光亮值修改摄像机
+                    CameraUpdateSettings cus = new CameraUpdateSettings(setting.ComName, setting.BrightMode, setting.CurIp);
+                    thread = new Thread(new ParameterizedThreadStart(cus.ReadPort));
+                    thread.Start();
                 }
             }
 
@@ -583,7 +597,6 @@ namespace RemoteImaging.RealtimeDisplay
         private void cameraTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
            
-
         }
 
 
@@ -716,7 +729,9 @@ namespace RemoteImaging.RealtimeDisplay
         private void StartRecord(Camera cam)
         {
             this.axCamImgCtrl1.CamImgCtrlStop();
-
+           
+            Properties.Settings.Default.CurIp = cam.IpAddress;
+          
             this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
             this.axCamImgCtrl1.ImageType = @"MPEG";
             this.axCamImgCtrl1.CameraModel = 1;
