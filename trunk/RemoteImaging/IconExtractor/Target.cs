@@ -10,8 +10,8 @@ namespace ImageProcess
     public struct Target
     {
 
-        /// Frame*
-        public System.IntPtr BaseFrame;
+        /// Frame
+        public Frame BaseFrame;
 
         /// int
         public int FaceCount;

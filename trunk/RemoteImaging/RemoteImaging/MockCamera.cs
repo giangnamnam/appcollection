@@ -18,6 +18,9 @@ namespace RemoteImaging
 
         }
 
+        public bool Repeat { get; set; }
+
+
         #region ICamera Members
 
         public System.Drawing.Image CaptureImage()
@@ -28,6 +31,12 @@ namespace RemoteImaging
         public byte[] CaptureImageBytes()
         {
             string file = files[idx++];
+
+            if (Repeat)
+            {
+                if (idx == this.files.Length) idx = 0;
+            }
+
 
             System.Diagnostics.Debug.WriteLine(idx);
 

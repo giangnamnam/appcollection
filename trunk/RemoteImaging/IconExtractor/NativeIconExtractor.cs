@@ -69,7 +69,7 @@ namespace ImageProcess
         /// Return Type: void
         ///frame: Frame*
         [DllImport(FaceSearchDll, EntryPoint = "AddInFrame")]
-        public static extern void AddInFrame(ref Frame frame);
+        public static extern void AddInFrame(Frame frame);
 
 
         /// Return Type: int

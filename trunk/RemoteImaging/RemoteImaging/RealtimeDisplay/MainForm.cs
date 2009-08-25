@@ -526,6 +526,7 @@ namespace RemoteImaging.RealtimeDisplay
                     //根据光亮值修改摄像机
                     CameraUpdateSettings cus = new CameraUpdateSettings(setting.ComName, setting.BrightMode, setting.CurIp);
                     thread = new Thread(new ParameterizedThreadStart(cus.ReadPort));
+                    thread.IsBackground = true;
                     thread.Start();
                 }
             }
@@ -788,6 +789,7 @@ namespace RemoteImaging.RealtimeDisplay
             else
             {
                 MockCamera mc = new MockCamera(Program.directory);
+                mc.Repeat = true;
                 Icam = mc;
             }
 

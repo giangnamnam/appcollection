@@ -299,11 +299,11 @@ namespace RemoteImaging.RealtimeDisplay
             return faceFileName;
         }
 
-        private static unsafe string GetFacePath(Frame* frame, DateTime dt, int j)
+        private static unsafe string GetFacePath(Frame frame, DateTime dt, int j)
         {
-            string folderFace = FolderForFaces(frame->cameraID, dt);
+            string folderFace = FolderForFaces(frame.cameraID, dt);
 
-            string faceFileName = GetFaceFileName(frame->GetFileName(), j);
+            string faceFileName = GetFaceFileName(frame.GetFileName(), j);
 
             string facePath = Path.Combine(folderFace, faceFileName);
             return facePath;
@@ -316,9 +316,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             foreach (Target t in targets)
             {
-                Frame* frame = (Frame*)t.BaseFrame;
+                Frame frame = t.BaseFrame;
 
-                DateTime dt = DateTime.FromBinary(frame->timeStamp);
+                DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
                 for (int j = 0; j < t.FaceCount; ++j)
                 {
@@ -365,7 +365,9 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     for (int i = 0; i < frames.Length; ++i)
                     {
-                        NativeIconExtractor.AddInFrame(ref frames[i]);
+                        DateTime dt = DateTime.FromBinary(frames[i].timeStamp);
+
+                        NativeIconExtractor.AddInFrame(frames[i]);
                     }
 
                     IntPtr target = IntPtr.Zero;
@@ -389,12 +391,13 @@ namespace RemoteImaging.RealtimeDisplay
                         {
                             Target face = pTarget[i];
 
-                            Frame *pFm = (Frame*) face.BaseFrame;
+                            Frame frm = face.BaseFrame;
 
-                            int idx = Array.FindIndex(frames, f => pFm->cameraID == f.cameraID && pFm->image == f.image && pFm->timeStamp == f.timeStamp);
+                            int idx = Array.FindIndex(frames, fm => fm.cameraID == frm.cameraID
+                                                                && fm.image == frm.image
+                                                                && fm.timeStamp == frm.timeStamp);
 
                             Debug.Assert(idx != -1);
-
 
                             targets.Add(face);
                         }
