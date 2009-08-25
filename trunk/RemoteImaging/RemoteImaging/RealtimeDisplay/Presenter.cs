@@ -388,6 +388,14 @@ namespace RemoteImaging.RealtimeDisplay
                         for (int i = 0; i < upLimit; i++)
                         {
                             Target face = pTarget[i];
+
+                            Frame *pFm = (Frame*) face.BaseFrame;
+
+                            int idx = Array.FindIndex(frames, f => pFm->cameraID == f.cameraID && pFm->image == f.image && pFm->timeStamp == f.timeStamp);
+
+                            Debug.Assert(idx != -1);
+
+
                             targets.Add(face);
                         }
 
