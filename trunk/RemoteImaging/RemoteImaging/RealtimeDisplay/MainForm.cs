@@ -22,12 +22,12 @@ namespace RemoteImaging.RealtimeDisplay
     public partial class MainForm : Form, IImageScreen
     {
         Configuration config = new Configuration();
-       System.Timers.Timer time = null;
-        Thread thread = null;
+        System.Timers.Timer time = null;
         public MainForm()
         {
             InitializeComponent();
             config.GetLineCameras();
+            Properties.Settings setting = Properties.Settings.Default;
 
             cpuCounter = new PerformanceCounter();
             ramCounter = new PerformanceCounter("Memory", "Available MBytes");
@@ -44,15 +44,8 @@ namespace RemoteImaging.RealtimeDisplay
             time.Interval = 3000;
             time.Enabled = true;
             
-            FileHandle fh = new FileHandle();//删除无效视频
-            fh.DeleteInvalidVideo();
-
-            //根据光亮值改变摄像机
-            //CameraUpdateSettings cus = new CameraUpdateSettings(Properties.Settings.Default.ComName, Properties.Settings.Default.BrightMode, "192.168.0.6");
-            //thread= new Thread(new ParameterizedThreadStart(cus.ReadPort));
-            //thread.Start();
-
-            Properties.Settings setting = Properties.Settings.Default;
+            //FileHandle fh = new FileHandle();//删除无效视频
+            //fh.DeleteInvalidVideo();
 
             InitStatusBar();
 
@@ -479,6 +472,9 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         FileHandle fh = new FileHandle();
+        Thread thread = null;
+        string tempComName = "";
+        int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
             using (OptionsForm frm = new OptionsForm())
@@ -524,7 +520,9 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionHeight))
                                    );
                     //根据光亮值修改摄像机
-                    CameraUpdateSettings cus = new CameraUpdateSettings(setting.ComName, setting.BrightMode, setting.CurIp);
+                    if (thread != null)
+                        thread.Abort();
+                    CameraUpdateSettings cus = new CameraUpdateSettings(setting.ComName, (BrightType)setting.BrightMode, setting.CurIp);
                     thread = new Thread(new ParameterizedThreadStart(cus.ReadPort));
                     thread.IsBackground = true;
                     thread.Start();
@@ -731,8 +729,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
             this.axCamImgCtrl1.CamImgCtrlStop();
            
-            Properties.Settings.Default.CurIp = cam.IpAddress;
-          
             this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
             this.axCamImgCtrl1.ImageType = @"MPEG";
             this.axCamImgCtrl1.CameraModel = 1;
@@ -748,6 +744,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.axCamImgCtrl1.CamImgCtrlStart();
             this.axCamImgCtrl1.CamImgRecStart();
+
+            //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
 
 
@@ -837,7 +835,10 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 config.thread.Abort();
             }
-
+            if ((thread != null) && (thread.IsAlive))
+            {
+                thread.Abort();
+            }
             Properties.Settings.Default.Save();
             
         }

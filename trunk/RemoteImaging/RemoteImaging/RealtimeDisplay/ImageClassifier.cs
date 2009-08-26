@@ -26,7 +26,9 @@ namespace RemoteImaging.RealtimeDisplay
                 sb.Append(subFoldername);
                 sb.Append(Path.AltDirectorySeparatorChar);
             }
-
+            string temp = dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
+            sb.Append(temp);
+            sb.Append(Path.AltDirectorySeparatorChar);
             string destPath = Path.Combine(outputPathRoot, sb.ToString());
             return destPath;
         }

@@ -15,14 +15,17 @@ namespace RemoteImaging.RealtimeDisplay
     public class CameraUpdateSettings
     {
        SerialPort sp;
-       private string Model{get;set;}
+       private BrightType Model{get;set;}
        private string Ip { get; set; }
-       public CameraUpdateSettings(string name,string brighMode,string ip)
+       private string ComName { get; set; }
+       
+        public CameraUpdateSettings(string name,BrightType brighMode,string ip)
         {
             Model = brighMode;
             Ip = ip;
+            ComName = name;
             Hashtable hsAll = new Hashtable();
-           
+            
             MemberInfo[] mebInfo = typeof(BrightType).GetMembers();
             foreach (MemberInfo mi in mebInfo)
             {
@@ -39,7 +42,7 @@ namespace RemoteImaging.RealtimeDisplay
                 }
             }
             this.ListSettings = hsAll;
-            sp = new SerialPort(name);
+            sp = new SerialPort(ComName);
         }
 
        private Hashtable InitHashTable(string type)
@@ -57,7 +60,7 @@ namespace RemoteImaging.RealtimeDisplay
                    shutter = Convert.ToInt32(xn.Attributes["shutter"].Value),
                    agc = Convert.ToInt32(xn.Attributes["agc"].Value)
                };
-               listStr.Add(Model + xn.Attributes["value"].Value, cp);
+               listStr.Add(Model.ToString() + xn.Attributes["value"].Value, cp);
            }
            return listStr;
        }
@@ -81,7 +84,7 @@ namespace RemoteImaging.RealtimeDisplay
            }
        }
 
-        /// <summary>
+       /// <summary>
         /// 读取端口
         /// </summary>
         /// <param name="modle">BrightType</param>
@@ -97,15 +100,15 @@ namespace RemoteImaging.RealtimeDisplay
                {
                    int temp = Convert.ToInt32(sp.ReadLine());
                    if (count == 5)
-                   {
-                       int good = GetBestValue(arrInt.ToArray()) / 4;//获得中间值
-                       Console.WriteLine("good data:" + good.ToString());
+                   { 
+                       int good =(GetBestValue(arrInt.ToArray()) / 4 + 5)/10*10;//获得中间值
+                       //Console.WriteLine("good data:" + good.ToString());
                        CameraParam setVal = new CameraParam();
-                       setVal = GetSettingString(Model + good.ToString(), Model);//获得相匹配的字符串
+                       setVal = GetSettingString(Model.ToString() + good.ToString(), Model.ToString());//获得相匹配的字符串
                        if (setVal != null) this.SettingCamera(setVal, Ip); //设置相机
                        count = 0;
                        sp.Close();
-                       Thread.Sleep(5000);
+                       Thread.Sleep(2500);
                    }
                    else
                    {
@@ -151,7 +154,6 @@ namespace RemoteImaging.RealtimeDisplay
        {
            SetCamera sd = new SetCamera(cp, Ip);
            sd.Connect();
-           sd.SendHttpRequest();
        }
     }
 
@@ -161,15 +163,15 @@ namespace RemoteImaging.RealtimeDisplay
         /// <summary>
         /// 室内顺光
         /// </summary>
-        Indoor_Front,
+        Indoor_Front=0,
         /// <summary>
         /// 室内逆光
         /// </summary>
-        Indoor_Back,
+        Indoor_Back = 1,
         /// <summary>
         /// 室外
         /// </summary>
-        Outdoor,
+        Outdoor=2,
         /// <summary>
         /// 红外
         /// </summary>
@@ -236,6 +238,10 @@ namespace RemoteImaging.RealtimeDisplay
             cookie = httpRequest.CookieContainer;
             httpResponse.Close();
 
+            if (cookie.Count > 0) 
+            {
+                SendHttpRequest();
+            }
         }
 
         /// <summary>

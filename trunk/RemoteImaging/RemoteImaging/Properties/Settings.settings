@@ -83,8 +83,8 @@
     <Setting Name="LastSelCamID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
-    <Setting Name="BrightMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Indoor_Front</Value>
+    <Setting Name="BrightMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="ComName" Type="System.String" Scope="User">
       <Value Profile="(Default)">COM4</Value>

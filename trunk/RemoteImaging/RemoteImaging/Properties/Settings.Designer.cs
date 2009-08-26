@@ -349,10 +349,10 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Indoor_Front")]
-        public string BrightMode {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int BrightMode {
             get {
-                return ((string)(this["BrightMode"]));
+                return ((int)(this["BrightMode"]));
             }
             set {
                 this["BrightMode"] = value;
