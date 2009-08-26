@@ -10,7 +10,7 @@ All right reserved!
 
 当前版本：3.1
 作    者：薛晓利
-完成日期：2009年8月11日  
+完成日期：2009年8月21日  
 *************************************************************************************************************/
 #include "stdafx.h"
 #include "PreProcess.h" 
@@ -28,7 +28,7 @@ IplImage *lastDiffImage;//上一帧差分图的二值化图
 int xLeftAlarm = 100; //定义并初始化警戒区域的两个坐标点位置
 int yTopAlarm = 500;
 int xRightAlarm = 1000;
-int yBottomAlarm = 600; 
+int yBottomAlarm = 600;  
 
 int minLeftX = 3000;//定义并初始化框框的两个坐标点位置
 int minLeftY = 3000; 
@@ -54,31 +54,6 @@ void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int 
 	xRightAlarm = rightX;
 	yBottomAlarm = rightY; 
 	drawAlarmArea = draw;
-
-	if (xRightAlarm < xLeftAlarm)//防止左上角横坐标小于右下角横坐标
-	{
-		int temp;
-		temp = xLeftAlarm;
-		xLeftAlarm = xRightAlarm;
-		xRightAlarm = temp;
-	}
-	if (yBottomAlarm < yTopAlarm)//防止左上角纵坐标小于右下角纵坐标
-	{
-		int temp;
-		temp = yTopAlarm;
-		yTopAlarm = yBottomAlarm;
-		yBottomAlarm = temp;
-	}
-	if (xRightAlarm == xLeftAlarm)//防止两个横坐标相等
-	{
-		xLeftAlarm = 100;
-		xRightAlarm = 1000;
-	}
-	if (yTopAlarm == yBottomAlarm)//防止两个纵坐标相等
-	{
-		yTopAlarm = 500;
-		yBottomAlarm = 600;
-	}
 }
 
 //计算选定区域内像素点的数值之和,并将数值返回
@@ -183,10 +158,9 @@ void ReadPreProcess()
 	}
 	else//如果文件不存在,采用默认值
 	{
-		faceCount = 900; 
+		faceCount = 500; 
 		groupCount = 5;
 	}
-
 }
 
 //找到框框的两个横坐标位置
@@ -261,7 +235,7 @@ void FindRectY(IplImage *img, const int leftX, const int rightX)
 PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 {
 	Frame TempFrame;
-	TempFrame = LastFrame;
+	TempFrame = LastFrame; 
 
 	currentImage = frame.image; 
 
@@ -323,11 +297,11 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 			cvAnd(DiffImage,lastDiffImage,DiffImage_2);//进行“与”运算，得到前一帧灰度图的“准确”运动目标
 			cvPyrDown(DiffImage_2,pyr,7);//向下采样
 			cvErode(pyr,pyr,0,1);//腐蚀，消除小的噪声
-			cvPyrUp(pyr,DiffImage_2,7);
+			cvPyrUp(pyr,DiffImage_2,7); 
 			cvReleaseImage(&pyr);
 
 			if(drawAlarmArea)	cvRectangle(TempFrame.image, cvPoint(xLeftAlarm, yTopAlarm), cvPoint(xRightAlarm, yBottomAlarm), CV_RGB(0, 0, 255), 3, CV_AA, 0);
-			alarm = AlarmArea(xLeftAlarm, yTopAlarm, xRightAlarm, yBottomAlarm, DiffImage_2); 
+			alarm = AlarmArea(xLeftAlarm, yTopAlarm, xRightAlarm, yBottomAlarm, DiffImage_2);  
 		}
 
 		cvCopy(DiffImage,lastDiffImage,NULL);//备份当前差分图的二值化图
@@ -349,7 +323,6 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		{
 			secondFrameRec = true; 
 		}
-
 	}
 
 	if(maxRightX*maxRightY)//如果当前帧检测到运动目标，则，画框,分组
