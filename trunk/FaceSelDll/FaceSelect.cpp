@@ -1077,8 +1077,8 @@ void CFaceSelect::TestFaceJudge()
 	IplImage **ppImage;
 	int iSFactor = 0;
 	double dJdgFactor = 0;
-	double dFaceSize, dContrast, dVariant;
-	double dVVariant, dSVariant, dHVariant;
+	double dFaceSize = 0, dContrast = 0, dVariant = 0;
+	double dVVariant = 0, dSVariant = 0, dHVariant = 0;
 	char sFileName[60];
 	//cvNamedWindow("ShowAllImage", 1);
 	for (int i=0; i<m_cvImageSeq->total; i++)
@@ -1648,7 +1648,7 @@ void CFaceSelect::RyanDebug(const char *cFileName)
 	double dJdgFactor = 0;
 	char sFileName[100];
 	double dSize = 0;
-	double dSizeFactor, dContrast, dVariant;
+	double dSizeFactor = 0, dContrast = 0, dVariant = 0;
 	double dConf;
 	double dEnhConf;
 	CvScalar color = {0,0,0,0};
@@ -2147,7 +2147,7 @@ void CFaceSelect::EnhanceTest(const char *cFileName)
 	cvGetMinMaxHistValue( pHist, 0, &fMaxVal, 0, &iMaxIdx);
 	cvNormalizeHist(pHist, 1);
 
-	double dVariant;
+	double dVariant = 0;
 	/*
 	CvScalar sMean;
 	CvScalar sVaria;
@@ -2221,7 +2221,7 @@ void CFaceSelect::EyeFaceTest(const char *cFileName)
 			double dJdgFactor = 0;
 			
 			double dSize = 0;
-			double dContrast, dVariant;
+			double dContrast = 0, dVariant = 0;
 			double dConf;
 			double dEnhConf;
 			
@@ -2503,7 +2503,7 @@ void CFaceSelect::FaceTest(const char *cFileName)
 		CvSize size;
 		uchar b, g, r;
 		float tmpa, tmpb, tmpc;
-		float pi = 3.1416;
+		float pi = 3.1416f;
 
 		cvGetRawData(pFaceImg, (uchar**)&bgrdata);
 		cvGetRawData(pMaskImg, (uchar**)&mdata);
@@ -2974,7 +2974,7 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 	double dVVariant, dSVariant, dHVariant;
 	double dJdgFactor = 0;
 	double dSize = 0;
-	double dSizeFactor, dContrast, dVariant;
+	double dSizeFactor = 0, dContrast = 0, dVariant = 0;
 	double dConf;
 	double dEnhConf;
 	int iBasicSize = m_iFaceSize;
