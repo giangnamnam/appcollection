@@ -22,7 +22,7 @@ namespace RemoteImaging.RealtimeDisplay
     public partial class MainForm : Form, IImageScreen
     {
         Configuration config = new Configuration();
-        System.Timers.Timer time = null;
+        System.Windows.Forms.Timer time = null;
         public MainForm()
         {
             InitializeComponent();
@@ -39,11 +39,11 @@ namespace RemoteImaging.RealtimeDisplay
             //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             //Configuration.Instance.Cameras.CopyTo(cams, 0);
             //this.Cameras = cams;
-            time = new System.Timers.Timer();
-            time.Elapsed  += time_Elapsed;
+            time = new System.Windows.Forms.Timer();
+            time.Tick += time_Elapsed;
             time.Interval = 3000;
             time.Enabled = true;
-            
+
             //FileHandle fh = new FileHandle();//删除无效视频
             //fh.DeleteInvalidVideo();
 
@@ -88,8 +88,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
-       
-       
+
+
 
         delegate void DataCallBack();
         Camera[] cams = null;
@@ -109,7 +109,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void SetTreeNode()
         {
             this.cameraTree.Nodes.Clear();
-            
+
             TreeNode rootNode = new TreeNode()
             {
                 Text = "所有摄像头",
@@ -188,7 +188,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void SetNodeUnClick(TreeNode rootNode)
         {
             rootNode.BackColor = System.Drawing.Color.Gray;
-            rootNode.Text = rootNode.Text+"(不可用)";
+            rootNode.Text = rootNode.Text + "(不可用)";
         }
         private Presenter presenter;
         Camera allCamera = new Camera() { ID = -1 };
@@ -261,9 +261,20 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                Image img = Image.FromFile(value.Path);
-                this.pictureEdit1.Image = img;
-                this.pictureEdit1.Tag = value;
+                try
+                {
+                    Image img = Image.FromFile(value.Path);
+                    this.pictureEdit1.Image = img;
+                    this.pictureEdit1.Tag = value;
+                }
+                catch (System.IO.IOException)
+                {
+                    string msg = string.Format("无法打开文件:\"{0}\"，请检查。", value.Path);
+
+                    MessageBox.Show(this, msg, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
             }
         }
 
@@ -295,7 +306,7 @@ namespace RemoteImaging.RealtimeDisplay
             if (c == null) return;
 
             this.StartCamera(c);
-           
+
         }
 
         #region IImageScreen Members
@@ -595,7 +606,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void cameraTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-           
+
         }
 
 
@@ -728,7 +739,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void StartRecord(Camera cam)
         {
             this.axCamImgCtrl1.CamImgCtrlStop();
-           
+
             this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
             this.axCamImgCtrl1.ImageType = @"MPEG";
             this.axCamImgCtrl1.CameraModel = 1;
@@ -775,7 +786,7 @@ namespace RemoteImaging.RealtimeDisplay
                     MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
                     return;
                 }
-                
+
 
                 Icam = camera;
 
@@ -798,7 +809,7 @@ namespace RemoteImaging.RealtimeDisplay
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
-            
+
         }
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
@@ -826,7 +837,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void tsbFileSet_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -840,7 +851,7 @@ namespace RemoteImaging.RealtimeDisplay
                 thread.Abort();
             }
             Properties.Settings.Default.Save();
-            
+
         }
 
         private void tsbMonitoring_Click(object sender, EventArgs e)
@@ -873,6 +884,6 @@ namespace RemoteImaging.RealtimeDisplay
             StartCamera(cam);
         }
 
-       
+
     }
 }

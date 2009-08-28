@@ -347,7 +347,6 @@ namespace RemoteImaging.RealtimeDisplay
 
 
 
-
         unsafe void SearchFace()
         {
             while (true)
