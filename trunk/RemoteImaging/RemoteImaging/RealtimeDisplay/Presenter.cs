@@ -431,24 +431,14 @@ namespace RemoteImaging.RealtimeDisplay
             throw new NotImplementedException();
         }
 
-        private static string BuildFolderPath(ImageDetail img)
-        {
-            string nameWithoutExtension = Path.GetFileNameWithoutExtension(img.Name);
-            int idx = nameWithoutExtension.LastIndexOf('-');
-            nameWithoutExtension = nameWithoutExtension.Remove(idx);
 
-            string bigPicName = nameWithoutExtension + Path.GetExtension(img.Name);
-            string bigPicFolder = Directory.GetParent(img.ContainedBy).ToString();
-            bigPicFolder = Path.Combine(bigPicFolder, Properties.Settings.Default.BigImageDirectoryName);
-            string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
-            return bigPicPathName;
-        }
+
         public void SelectedImageChanged()
         {
             ImageDetail img = this.screen.SelectedImage;
             if (img != null && !string.IsNullOrEmpty(img.Path))
             {
-                string bigPicPathName = BuildFolderPath(img);
+                string bigPicPathName = ImageClassifier.BigImgPathFor(img);
                 ImageDetail bigImageDetail = ImageDetail.FromPath(bigPicPathName);
                 this.screen.BigImage = bigImageDetail;
 
