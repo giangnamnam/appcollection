@@ -27,7 +27,11 @@ namespace RemoteImaging.RealtimeDisplay
         {
             InitializeComponent();
 
-            this.Text += "-[" + Program.directory + "]";
+            if (!string.IsNullOrEmpty(Program.directory))
+            {
+                this.Text += "-[" + Program.directory + "]";
+            }
+
 
             config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
