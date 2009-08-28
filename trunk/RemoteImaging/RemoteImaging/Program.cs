@@ -20,7 +20,6 @@ namespace RemoteImaging
         {
             if (argv.Length > 0)
             {
-                MessageBox.Show("文件夹模式 " + argv[0]);
                 directory = argv[0];
             }
 

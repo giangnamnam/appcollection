@@ -26,6 +26,9 @@ namespace RemoteImaging.RealtimeDisplay
         public MainForm()
         {
             InitializeComponent();
+
+            this.Text += "-[" + Program.directory + "]";
+
             config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
 
