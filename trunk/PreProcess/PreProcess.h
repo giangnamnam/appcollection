@@ -27,4 +27,5 @@ extern "C"
 	PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame);
 	PREPROCESS_API void SetDrawRect(bool draw);
 	PREPROCESS_API void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int rightY, bool draw);
+	PREPROCESS_API void SetRectThr(const int fCount, const int gCount);
 }

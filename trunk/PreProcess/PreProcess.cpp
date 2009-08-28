@@ -26,9 +26,9 @@ IplImage *lastGrayImage;//上一帧灰度图
 IplImage *lastDiffImage;//上一帧差分图的二值化图
 
 int xLeftAlarm = 100; //定义并初始化警戒区域的两个坐标点位置
-int yTopAlarm = 500;
-int xRightAlarm = 1000;
-int yBottomAlarm = 600;  
+int yTopAlarm = 400;
+int xRightAlarm = 600;
+int yBottomAlarm = 500;  
 
 int minLeftX = 3000;//定义并初始化框框的两个坐标点位置
 int minLeftY = 3000; 
@@ -47,6 +47,7 @@ void SetDrawRect(bool draw)
 	drawRect = draw;
 }
 
+//设置布控的警戒区域，通过UI来调用该函数
 void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int rightY, bool draw)
 {
 	xLeftAlarm = leftX;
@@ -54,6 +55,13 @@ void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int 
 	xRightAlarm = rightX;
 	yBottomAlarm = rightY; 
 	drawAlarmArea = draw;
+}
+
+//设置运动检测的框框内阈值和分组个数，通过UI来调用该函数
+void SetRectThr(const int fCount, const int gCount)
+{
+	faceCount = fCount;
+	groupCount = gCount;
 }
 
 //计算选定区域内像素点的数值之和,并将数值返回
@@ -285,7 +293,11 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		lastDiffImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
 		cvCopy(GrayImage,lastGrayImage,NULL);//如果是第一帧，设置为背景 
 
-		ReadPreProcess();  
+		xRightAlarm = currentImage->width - 100;
+		yBottomAlarm = currentImage->height - 100;
+		yTopAlarm = currentImage->height - 200;
+
+		//ReadPreProcess();  
 	}
 	else
 	{
@@ -348,7 +360,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		{
 			signelCount++; 
 			cvReleaseImage(&GrayImage);
-			cvReleaseImage(&DiffImage_2);
+			cvReleaseImage(&DiffImage_2); 
 			LastFrame = frame;
 			*lastFrame = TempFrame;
 
