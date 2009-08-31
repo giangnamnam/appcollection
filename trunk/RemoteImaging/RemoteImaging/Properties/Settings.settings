@@ -42,7 +42,7 @@
       <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="MaxFaceWidth" Type="System.String" Scope="User">
-      <Value Profile="(Default)">300</Value>
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="DownSampling" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.5</Value>
@@ -87,10 +87,19 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="ComName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">COM4</Value>
+      <Value Profile="(Default)">COM3</Value>
     </Setting>
     <Setting Name="CurIp" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.0.6</Value>
+    </Setting>
+    <Setting Name="Thresholding" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="ImageArr" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="Point" Type="System.String" Scope="User">
+      <Value Profile="(Default)">600 110 700 1200  </Value>
     </Setting>
   </Settings>
 </SettingsFile>

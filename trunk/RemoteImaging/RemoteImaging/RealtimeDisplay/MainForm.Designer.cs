@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusUploadFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -355,30 +355,30 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "192.168.1.2";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "Node4";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "2";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "南门";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "Node3";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "192.168.1.1";
-            treeNode5.ImageIndex = 2;
-            treeNode5.Name = "Node5";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "3";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "北门";
+            treeNode7.ImageIndex = 1;
+            treeNode7.Name = "Node1";
+            treeNode7.SelectedImageIndex = 1;
+            treeNode7.Text = "192.168.1.2";
+            treeNode8.ImageIndex = 2;
+            treeNode8.Name = "Node4";
+            treeNode8.SelectedImageIndex = 2;
+            treeNode8.Text = "2";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "Node0";
+            treeNode9.Text = "南门";
+            treeNode10.ImageIndex = 1;
+            treeNode10.Name = "Node3";
+            treeNode10.SelectedImageIndex = 1;
+            treeNode10.Text = "192.168.1.1";
+            treeNode11.ImageIndex = 2;
+            treeNode11.Name = "Node5";
+            treeNode11.SelectedImageIndex = 2;
+            treeNode11.Text = "3";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode6});
+            treeNode9,
+            treeNode12});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(176, 157);
             this.cameraTree.TabIndex = 1;

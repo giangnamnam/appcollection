@@ -16,6 +16,7 @@ using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
+using MotionDetect;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -46,13 +47,17 @@ namespace RemoteImaging.RealtimeDisplay
             //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             //Configuration.Instance.Cameras.CopyTo(cams, 0);
             //this.Cameras = cams;
-            time = new System.Windows.Forms.Timer();
-            time.Tick += time_Elapsed;
-            time.Interval = 3000;
-            time.Enabled = true;
+            //time = new System.Windows.Forms.Timer();
+            //time.Tick += time_Elapsed;
+            //time.Interval = 3000;
+            //time.Enabled = true;
 
-            //FileHandle fh = new FileHandle();//删除无效视频
-            //fh.DeleteInvalidVideo();
+            FileHandle fh = new FileHandle();//删除无效视频
+            fh.DeleteInvalidVideo();
+
+            StartSetCam(setting);//根据光亮值设置相机
+
+            SetMonitor();//启动布控
 
             InitStatusBar();
 
@@ -95,6 +100,35 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+
+        private void SetMonitor()
+        {
+            string point =  Properties.Settings.Default.Point;
+            if ( point!= "")
+            {
+                string[] strPoints = point.Split(' ');
+                int oPointx = Convert.ToInt32(strPoints[0]);
+                int oPointy = Convert.ToInt32(strPoints[1]);
+                int tPointx = Convert.ToInt32(strPoints[2]);
+                int tPointy = Convert.ToInt32(strPoints[3]);
+               MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy,false);
+            }
+        }
+
+        
+        //根据光亮值修改摄像机   线程
+        private void StartSetCam(Properties.Settings setting)
+        {
+            if (thread != null)
+            {
+                thread.Abort();
+            }
+            CameraUpdateSettings cus = new CameraUpdateSettings(setting.ComName, (BrightType)setting.BrightMode, setting.CurIp);
+            thread = new Thread(new ParameterizedThreadStart(cus.ReadPort));
+            thread.IsBackground = true;
+            thread.Start();
+        }
+       
 
 
 
@@ -537,13 +571,7 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
-                    //根据光亮值修改摄像机
-                    if (thread != null)
-                        thread.Abort();
-                    CameraUpdateSettings cus = new CameraUpdateSettings(setting.ComName, (BrightType)setting.BrightMode, setting.CurIp);
-                    thread = new Thread(new ParameterizedThreadStart(cus.ReadPort));
-                    thread.IsBackground = true;
-                    thread.Start();
+                   StartSetCam(setting);
                 }
             }
 
@@ -552,7 +580,6 @@ namespace RemoteImaging.RealtimeDisplay
         private void column1by1_Click(object sender, EventArgs e)
         {
             this.squareListView1.NumberOfColumns = 1;
-
         }
 
         private void column2by2_Click(object sender, EventArgs e)

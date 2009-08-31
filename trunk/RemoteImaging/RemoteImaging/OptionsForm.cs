@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 using System.Timers;
+using System.Runtime.InteropServices;
 
 namespace RemoteImaging
 {
@@ -18,6 +19,9 @@ namespace RemoteImaging
             InitCamDatagridView();
 
             this.envModes.SelectedIndex = Properties.Settings.Default.EnvMode;
+            this.rgBrightMode.SelectedIndex = Properties.Settings.Default.BrightMode;
+            this.comboBox2.SelectedText = Properties.Settings.Default.ComName;
+            this.textBox4.Text = Properties.Settings.Default.CurIp;
         }
 
         private void InitCamDatagridView()
@@ -137,8 +141,15 @@ namespace RemoteImaging
             Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
             Properties.Settings.Default.CurIp = this.textBox4.Text;
             Properties.Settings.Default.ComName = this.comboBox2.Text;
+            //调用的薛晓莉的接口
+            Properties.Settings.Default.ImageArr =Convert.ToInt32(cbImageArr.Text.Trim());
+            Properties.Settings.Default.Thresholding =Convert.ToInt32(cbThresholding.Text.Trim());
+            SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+            
         }
 
+        [DllImport("PreProcess.dll", EntryPoint = "SetRectThr")]
+        public static extern void SetRectThr(int fCount, int gCount);
 
         #region 自定义设置按钮选中事件
         private void ckbImageAndVideo_CheckedChanged(object sender, EventArgs e)
@@ -193,6 +204,12 @@ namespace RemoteImaging
             InitRadiobutton(SaveNodeType.WarnDisk, gBoxDiskSet);
             textBox2.Enabled = false;
             textBox1.Enabled = false;
+             Properties.Settings setting = Properties.Settings.Default;
+             this.comboBox2.Text = setting.ComName;
+             this.textBox4.Text = setting.CurIp;
+             this.rgBrightMode.SelectedIndex = setting.BrightMode;
+             this.cbThresholding.Text = setting.Thresholding.ToString();
+             this.cbImageArr.Text = setting.ImageArr.ToString();
         }
 
         #region 设置保存
@@ -336,7 +353,6 @@ namespace RemoteImaging
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             string text = textBox2.Text.Trim();
-
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)

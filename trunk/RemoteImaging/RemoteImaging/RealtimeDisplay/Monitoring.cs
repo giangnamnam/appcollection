@@ -31,8 +31,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.InitialDirectory = Application.StartupPath;
-                ofd.RestoreDirectory = true;
+                //ofd.InitialDirectory = Application.StartupPath;
+                //ofd.RestoreDirectory = true;
                 ofd.Filter = "Jpeg 文件|*.jpg";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -76,17 +76,19 @@ namespace RemoteImaging.RealtimeDisplay
                 int oPointy = Convert.ToInt32(strPoints[1]);
                 int tPointx = Convert.ToInt32(strPoints[2]);
                 int tPointy = Convert.ToInt32(strPoints[3]);
-                if ((System.Math.Abs( oPointx- tPointx) > 50)
-                    && (System.Math.Abs(oPointy - tPointy) > 50))
+                if ((System.Math.Abs( oPointx- tPointx) > 2)
+                    && (System.Math.Abs(oPointy - tPointy) > 2))
                 {
                     if (chechLiveImg())
                     {
-                       SetAlarmArea(oPointx, oPointy, tPointx, tPointy,checkBox1.Checked?true:false);
+                        MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, checkBox1.Checked ? true : false);
+                        Properties.Settings.Default.Point = listPointStr;
+                        Properties.Settings.Default.Save();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("布防的范围至少为50x50!", "警告");
+                    MessageBox.Show("布防的范围至少为2x2!", "警告");
                 }
             }
         }
@@ -206,14 +208,8 @@ namespace RemoteImaging.RealtimeDisplay
             startPoint.Y = Convert.ToInt32(startPoint.Y * heightPerc);
             endPoint.X = Convert.ToInt32(endPoint.X * widthPerc);
             endPoint.Y = Convert.ToInt32(endPoint.Y * heightPerc);
-            //label1.Text = "startPoint.X: " + startPoint.X.ToString() + " startPoint.Y :" + startPoint.Y.ToString() +
-            //    " endPoint.X: " + endPoint.X.ToString() + " endPoint.Y :" + endPoint.Y.ToString() +
-            //    " width:" + (System.Math.Abs(endPoint.X - startPoint.X)).ToString() + " height: " + (System.Math.Abs(endPoint.Y - startPoint.Y)).ToString();
             return startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " ";
         }
-
-        [DllImport("PreProcess.dll", EntryPoint = "SetAlarmArea")]
-        public static extern void SetAlarmArea(int leftX, int leftY, int rightX, int rightY, bool draw);
 
         [DllImport("User32.dll", EntryPoint = "SendMessageA")]
         public static extern int SendMessage(int hwnd, int msg, int wparam, int lparam);

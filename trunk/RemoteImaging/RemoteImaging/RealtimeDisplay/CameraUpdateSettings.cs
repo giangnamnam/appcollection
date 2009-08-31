@@ -15,37 +15,52 @@ namespace RemoteImaging.RealtimeDisplay
     public class CameraUpdateSettings
     {
        SerialPort sp;
-       private BrightType Model{get;set;}
-       private string Ip { get; set; }
-       private string ComName { get; set; }
-       
+       public BrightType Model { get; set; }
+       public string Ip { get; set; }
+       public string ComName { get; set; }
+       private Hashtable ListSettings { get; set; }
+
+       public CameraUpdateSettings()
+       {
+           InitHashTable();
+       }
+
         public CameraUpdateSettings(string name,BrightType brighMode,string ip)
         {
             Model = brighMode;
             Ip = ip;
             ComName = name;
+            InitHashTable();
+        }
+
+        private void InitHashTable()
+        {
             Hashtable hsAll = new Hashtable();
-            
             MemberInfo[] mebInfo = typeof(BrightType).GetMembers();
             foreach (MemberInfo mi in mebInfo)
             {
                 if (mi.MemberType == MemberTypes.Field)
                 {
                     string types = mi.Name.ToString();
-                    
+
                     if (!types.Equals("value__"))
                     {
-                       Hashtable temphs = new Hashtable();
-                       temphs = InitHashTable(types);
-                       hsAll.Add(types, temphs);
+                        Hashtable temphs = new Hashtable();
+                        temphs = GetXmlData(types);
+                        hsAll.Add(types, temphs);
                     }
                 }
             }
             this.ListSettings = hsAll;
+        }
+
+        public void InitSerialPort()
+        {
+            InitHashTable();
             sp = new SerialPort(ComName);
         }
 
-       private Hashtable InitHashTable(string type)
+       private Hashtable GetXmlData(string type)
        {
            XmlDocument xmlDoc = new XmlDocument();
            xmlDoc.Load("CamSettingsConfig.xml");
@@ -54,13 +69,20 @@ namespace RemoteImaging.RealtimeDisplay
            Hashtable listStr = new Hashtable();
            foreach (XmlNode xn in camsElements)
            {
-               CameraParam cp = new CameraParam()
+               if (type.Equals("Infrared"))
                {
-                   iris = Convert.ToInt32(xn.Attributes["iris"].Value),
-                   shutter = Convert.ToInt32(xn.Attributes["shutter"].Value),
-                   agc = Convert.ToInt32(xn.Attributes["agc"].Value)
-               };
-               listStr.Add(Model.ToString() + xn.Attributes["value"].Value, cp);
+
+               }
+               else
+               {
+                   CameraParam cp = new CameraParam()
+                   {
+                       iris = Convert.ToInt32(xn.Attributes["iris"].Value),
+                       shutter = Convert.ToInt32(xn.Attributes["shutter"].Value),
+                       agc = Convert.ToInt32(xn.Attributes["agc"].Value)
+                   };
+                   listStr.Add(Model.ToString() + xn.Attributes["value"].Value, cp);
+               }
            }
            return listStr;
        }
@@ -102,10 +124,9 @@ namespace RemoteImaging.RealtimeDisplay
                    if (count == 5)
                    { 
                        int good =(GetBestValue(arrInt.ToArray()) / 4 + 5)/10*10;//获得中间值
-                       //Console.WriteLine("good data:" + good.ToString());
                        CameraParam setVal = new CameraParam();
                        setVal = GetSettingString(Model.ToString() + good.ToString(), Model.ToString());//获得相匹配的字符串
-                       if (setVal != null) this.SettingCamera(setVal, Ip); //设置相机
+                       if (setVal != null) this.SettingCamera(setVal); //设置相机
                        count = 0;
                        sp.Close();
                        Thread.Sleep(2500);
@@ -130,8 +151,6 @@ namespace RemoteImaging.RealtimeDisplay
            return Convert.ToInt32(temp.GetValue(2));
        }
 
-       private Hashtable ListSettings { get; set; }
-
         /// <summary>
         /// 获得设置参数
         /// </summary>
@@ -150,7 +169,7 @@ namespace RemoteImaging.RealtimeDisplay
         /// </summary>
         /// <param name="cp"></param>
         /// <param name="Ip"></param>
-       private void SettingCamera(CameraParam cp, string Ip)
+       private void SettingCamera(CameraParam cp)
        {
            SetCamera sd = new SetCamera(cp, Ip);
            sd.Connect();
@@ -210,7 +229,6 @@ namespace RemoteImaging.RealtimeDisplay
     /// </summary>
     public class SetCamera
     { 
-        Encoding encoding = Encoding.Default;
         CameraParam cp =new CameraParam();
         string url = "";
         public SetCamera(CameraParam ccp, string Ip)
@@ -219,9 +237,7 @@ namespace RemoteImaging.RealtimeDisplay
             url = string.Format("http://{0}",Ip);
         }
 
-        /// <summary>
-        /// 连接摄像机
-        /// </summary>
+        // 连接摄像机 获得cookie
         public void Connect()
         {
             HttpWebRequest httpRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -240,17 +256,42 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (cookie.Count > 0) 
             {
+                InitCamera();
                 SendHttpRequest();
             }
         }
 
-        /// <summary>
-        /// 修改摄像机参数
-        /// </summary>
+        // 初始化摄像机
+        public void InitCamera()
+        {
+            //全部初始化
+            string fds = string.Format("{0}/cgi-bin/camera_quality.cgi?view_sw=0&default=0", url);
+            HttpWebRequest httpRequest = GetHttpRequest(fds);
+            HttpWebResponse hwr = (HttpWebResponse)httpRequest.GetResponse();
+            hwr.Close();
+
+            //部分初始化
+            fds = string.Format("{0}/cgi-bin/camera_quality.cgi?blc_sw=1&blc_weight=15&blc_bright=15&day_night_sw=1", url);
+            httpRequest = GetHttpRequest(fds);
+            hwr = (HttpWebResponse)httpRequest.GetResponse();
+            hwr.Close();
+        }
+
+        // 修改摄像机参数
         public void SendHttpRequest()
         {
-            string fds =string.Format("{0}/cgi-bin/camera_quality.cgi?view_sw=1&iris_sw=1&sense_up=0&auto_level={1}&shutter_sw=1&short_speed={2}&agc_sw=1&max_gain=1&digital_gain={3}", url,cp.iris,cp.shutter,cp.agc);
-            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(fds);
+            string fds = string.Format("{0}/cgi-bin/camera_quality.cgi?view_sw=0&iris_sw=0&sense_up=0&auto_level={1}&&shutter_sw=1&short_speed={2}&agc_sw=1&max_gain=1&digital_gain={3}", url, cp.iris, cp.shutter, cp.agc);
+            HttpWebRequest httpRequest = GetHttpRequest(fds);
+
+            HttpWebResponse hwr = (HttpWebResponse)httpRequest.GetResponse();
+            hwr.Close();
+            Console.WriteLine("修改成功！！");
+        }
+
+        //获得HttpWebRequest对象
+        private HttpWebRequest GetHttpRequest(string url)
+        {
+            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(url);
             httpRequest.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;
             httpRequest.Credentials = new NetworkCredential("admin", "admin");
             httpRequest.UserAgent = "ImgCtrl\r\n";
@@ -260,9 +301,7 @@ namespace RemoteImaging.RealtimeDisplay
             httpRequest.Accept = "*/*";
             httpRequest.ContentType = "application/x-www-form-urlencoded";
 
-            HttpWebResponse hwr = (HttpWebResponse)httpRequest.GetResponse();
-            hwr.Close();
-            Console.WriteLine("修改成功！！");
+            return httpRequest;
         }
 
         CookieContainer cookie;

@@ -12,6 +12,9 @@ namespace RemoteImaging
 {
     public class CheckLiveCamera
     {
+        Socket sock = null;
+        IPEndPoint iep1 = null;
+        IPEndPoint iep = null;
         public CheckLiveCamera(List<Camera> tt,Configuration configd)
         {
             listCamera = new List<Camera>();
@@ -22,24 +25,21 @@ namespace RemoteImaging
 
             config = new Configuration();
             config = configd;
+
+            sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            iep1 = new IPEndPoint(IPAddress.Broadcast, 10001);//255.255.255.255
+            iep = new IPEndPoint(IPAddress.Any, 10000);
+            sock.Bind(iep);
         }
+
         private Camera[] trueCamera;
         private List<Camera> listCamera;
 
-        private System.Timers.Timer time;
         Configuration config = null;
 
-        public CheckLiveCamera()
+        //发送
+        public void send()
         {
-        }
-
-        //发送请求
-        private void send()
-        {
-            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-
-            IPEndPoint iep1 = new IPEndPoint(IPAddress.Broadcast, 10001);//255.255.255.255
-
             byte[] buffer = new byte[512];
 
             buffer[0] = 0x40;
@@ -70,51 +70,23 @@ namespace RemoteImaging
             {
                 return;
             }
-            sock.Close();
         }
 
-        //接收请求
-        private byte[] recive()
+        //接收
+        public byte[] recive()
         {
-            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            sock.ReceiveTimeout = 3000;
-            IPEndPoint iep = new IPEndPoint(IPAddress.Any, 10000);
-
-            sock.Bind(iep);
             EndPoint ep = (EndPoint)iep;
-
             byte[] resBuffer = new byte[512];
 
             try
             {
                 int resInt = sock.ReceiveFrom(resBuffer, ref ep);
-                sock.Close();
                 return resBuffer;
             }
             catch (Exception ex)
             {
                 return resBuffer;
             }
-            finally
-            {
-                sock.Close();
-            }
-        }
-
-        //将字符串格式的MAC转为 byte[]
-        private byte[] GetByte(string macStr)
-        {
-            byte[] byteMac = null;
-            if ((macStr != null))
-            {
-                string[] strMac = macStr.ToString().Split('.');
-                byteMac = new byte[strMac.Length];
-                for (int i = 0; i < strMac.Length; i++)
-                {
-                    byteMac[i] = Convert.ToByte(Convert.ToInt32(strMac[i].ToString(), 16));
-                }
-            }
-            return byteMac;
         }
 
         private void elapsedMethod(object sender, ElapsedEventArgs eargs)
@@ -124,7 +96,7 @@ namespace RemoteImaging
 
         public void Run(object obj)
         {
-            time = new System.Timers.Timer();
+            System.Timers.Timer time = new System.Timers.Timer();
             time.Elapsed += new ElapsedEventHandler(elapsedMethod);
             time.Interval = 2000;
             time.Enabled = true;
@@ -137,30 +109,21 @@ namespace RemoteImaging
                 resBuffer = recive();
 
                 strMAC = string.Format("{0:x000}.{1:x000}.{2:x000}.{3:x000}.{4:x000}.{5:x000}", resBuffer[2].ToString("X"), resBuffer[3].ToString("X"), resBuffer[4].ToString("X"), resBuffer[5].ToString("X"), resBuffer[6].ToString("X"), resBuffer[7].ToString("X"));
-
-                if (strMAC != "")
+                strIP = string.Format("{0:x2}.{1:x000}.{2:x000}.{3:x000}", resBuffer[32].ToString(), resBuffer[33].ToString(), resBuffer[34].ToString(), resBuffer[35].ToString());
+                for (int i = 0; i < listCamera.Count; i++)
                 {
-                    strIP = string.Format("{0:x2}.{1:x000}.{2:x000}.{3:x000}", resBuffer[32].ToString(), resBuffer[33].ToString(), resBuffer[34].ToString(), resBuffer[35].ToString());
-                    for (int i = 0; i < listCamera.Count; i++)
+                    Camera cam = new Camera();
+                    cam = listCamera[i];
+                    if (cam.Mac.Equals(strMAC))
                     {
-                        Camera cam = new Camera();
-                        cam = listCamera[i];
-                        if (cam.Mac.Equals(strMAC))
-                        {
-                            Camera resCam = new Camera();
-                            resCam.ID = cam.ID;
-                            resCam.IpAddress = strIP;
-                            resCam.Name = cam.Name;
-                            resCam.Status = true;
-                            resCam.Mac = cam.Mac;
-                            trueCamera[i] = resCam;
-                            config.Cameras = trueCamera.ToList();
-                            //config.Save();
-                        }
-                        else 
-                        {
-                            count++;
-                        }
+                        Camera resCam = new Camera();
+                        resCam.ID = cam.ID;
+                        resCam.IpAddress = strIP;
+                        resCam.Name = cam.Name;
+                        resCam.Status = true;
+                        resCam.Mac = cam.Mac;
+                        trueCamera[i] = resCam;
+                        config.Cameras = trueCamera.ToList();
                     }
                 }
             }

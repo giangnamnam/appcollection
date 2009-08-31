@@ -181,7 +181,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
         public string MaxFaceWidth {
             get {
                 return ((string)(this["MaxFaceWidth"]));
@@ -361,7 +361,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
         public string ComName {
             get {
                 return ((string)(this["ComName"]));
@@ -380,6 +380,42 @@ namespace RemoteImaging.Properties {
             }
             set {
                 this["CurIp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int Thresholding {
+            get {
+                return ((int)(this["Thresholding"]));
+            }
+            set {
+                this["Thresholding"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int ImageArr {
+            get {
+                return ((int)(this["ImageArr"]));
+            }
+            set {
+                this["ImageArr"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600 110 700 1200  ")]
+        public string Point {
+            get {
+                return ((string)(this["Point"]));
+            }
+            set {
+                this["Point"] = value;
             }
         }
     }
