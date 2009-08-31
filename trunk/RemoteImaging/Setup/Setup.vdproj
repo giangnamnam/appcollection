@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_04F1B579BDB54289B0B8D48B2509B8CA"
+        "OwnerKey" = "8:_61D785CDF0E847D3AE2962C815F09BAE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_04F1B579BDB54289B0B8D48B2509B8CA"
+        "OwnerKey" = "8:_E969F6221B3D46EF8B21046830C093F8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_099F969C94BA4223B7CB9A92F7188231"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -262,13 +274,13 @@
         "Entry"
         {
         "MsmKey" = "8:_47383176913CD53EAE2E47808D0B5EF1"
-        "OwnerKey" = "8:_E969F6221B3D46EF8B21046830C093F8"
+        "OwnerKey" = "8:_61D785CDF0E847D3AE2962C815F09BAE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_47383176913CD53EAE2E47808D0B5EF1"
-        "OwnerKey" = "8:_61D785CDF0E847D3AE2962C815F09BAE"
+        "OwnerKey" = "8:_E969F6221B3D46EF8B21046830C093F8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -280,12 +292,6 @@
         "Entry"
         {
         "MsmKey" = "8:_47ADF53FCBA04B45879A3EDDFA38327F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4930A908AF4749CB9FE95A51982421FA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -807,6 +813,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9405E632F7D4462594F562A816082D5C"
+        "OwnerKey" = "8:_04F1B579BDB54289B0B8D48B2509B8CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_970632BBAE5ACEAA91D5CAECB782A110"
         "OwnerKey" = "8:_629457B50164F69F4B552AD8D2E7F088"
         "MsmSig" = "8:_UNDEFINED"
@@ -927,13 +939,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BD4C4F1DE18C41E3896C7AA61B0D9C4A"
-        "OwnerKey" = "8:_E969F6221B3D46EF8B21046830C093F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BD4C4F1DE18C41E3896C7AA61B0D9C4A"
+        "MsmKey" = "8:_BEA30410E81807A671114BF71B92A4A7"
         "OwnerKey" = "8:_61D785CDF0E847D3AE2962C815F09BAE"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -941,12 +947,6 @@
         {
         "MsmKey" = "8:_BEA30410E81807A671114BF71B92A4A7"
         "OwnerKey" = "8:_E969F6221B3D46EF8B21046830C093F8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BEA30410E81807A671114BF71B92A4A7"
-        "OwnerKey" = "8:_61D785CDF0E847D3AE2962C815F09BAE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1215,12 +1215,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F016FB2694604D1288FE5CB800B8C6F9"
-        "OwnerKey" = "8:_BD4C4F1DE18C41E3896C7AA61B0D9C4A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F40F4150DC0270F5416575B5FA31EC73"
         "OwnerKey" = "8:_528B6326B8B84FB18339286EC96B73B1"
         "MsmSig" = "8:_UNDEFINED"
@@ -1336,42 +1330,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_533B95778C73A9D7B2D3C72F0BF5E8D4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C20970F0513104C353447BFDB3F51B75"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_629457B50164F69F4B552AD8D2E7F088"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_970632BBAE5ACEAA91D5CAECB782A110"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E736C3BCA9CD145E34AFD36CC8ED7715"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E5C2CF35899C4B77F7DF1F2F3E56684A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F7B414F34FADD023CA6061FB8DDBCC65"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1444,7 +1402,43 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_533B95778C73A9D7B2D3C72F0BF5E8D4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C20970F0513104C353447BFDB3F51B75"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_629457B50164F69F4B552AD8D2E7F088"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_970632BBAE5ACEAA91D5CAECB782A110"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D00A3A1740D40FC47FFBF6D1EB519BA2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E736C3BCA9CD145E34AFD36CC8ED7715"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E5C2CF35899C4B77F7DF1F2F3E56684A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2191,26 +2185,6 @@
             {
             "SourcePath" = "8:..\\IconExtractor\\thirdparty\\libs\\opencv\\cv100.dll"
             "TargetName" = "8:cv100.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4930A908AF4749CB9FE95A51982421FA"
-            {
-            "SourcePath" = "8:..\\IconExtractor\\FaceSelDll.dll"
-            "TargetName" = "8:FaceSelDll.dll"
             "Tag" = "8:"
             "Folder" = "8:_92D5C4289BCA4E989C2DC2DE94DB3016"
             "Condition" = "8:"
@@ -3993,7 +3967,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:人像抓拍2009"
         "ProductCode" = "8:{E6A321DF-0608-4336-9E86-A11A27082285}"
-        "PackageCode" = "8:{2431D3CE-30B1-4DDC-A272-A11D0BF047E4}"
+        "PackageCode" = "8:{7A7A7CBD-121F-4B74-9ED8-CFE1F72071F2}"
         "UpgradeCode" = "8:{73187C13-FE12-4D73-AFC3-67666C4135A6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -4536,7 +4510,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_BD4C4F1DE18C41E3896C7AA61B0D9C4A"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_04F1B579BDB54289B0B8D48B2509B8CA"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -4550,7 +4524,7 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_F016FB2694604D1288FE5CB800B8C6F9"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9405E632F7D4462594F562A816082D5C"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
