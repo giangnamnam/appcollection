@@ -5,18 +5,23 @@ All right reserved!
 
 文件名：PreProcess.cpp
 摘  要：该程序，对每一帧输入图片，利用三帧差分法，在指定警戒区域内进行运动目标检测。当警戒区域内检测到运动目标
-时，在全图范围内进行运动目标标示，即：画框，并将框的坐标点予以返回。最后，对有运动目标的图片，进行分组
-当分组结束时，返回true,否则，返回false
+时，在全图范围内进行运动目标标示，即：画框，并将框的坐标点予以返回。最后，对有运动目标的图片，进行分组,
+当分组结束时，返回true,否则，返回false.布控和画框相关的参数通过UI调用函数来实现.
 
-当前版本：3.1
+当前版本：3.2
 作    者：薛晓利
-完成日期：2009年8月21日  
+完成日期：2009年8月31日  
 *************************************************************************************************************/
 #include "stdafx.h"
-#include "PreProcess.h" 
-#include "iostream" 
+#include "PreProcess.h"  
+//#include "iostream" 
+//#include <fstream> 
+//using namespace std; 
 
-Frame LastFrame ;//存储上一帧的frame  
+//ofstream outobj("C:\\rectPosition1.txt");    
+//outobj<<"左上角横坐标"<<"左上角纵坐标"<<"右下角横坐标"<<"右下角纵坐标"<<endl; 
+
+Frame LastFrame ;//存储上一帧的frame   
 
 bool firstFrameRec = false;//第一帧是否收到
 bool secondFrameRec = false;//第二帧是否收到
@@ -36,7 +41,8 @@ int maxRightX = 0;
 int maxRightY = 0;
 
 int faceCount = 500; //画框的阈值
-int groupCount = 5;//单人分组图片个数
+int groupCount = 5;//分组图片个数
+int signelCount = 0;//记录当前分组中的图片数量
 
 bool drawAlarmArea = false;//标志是否画出警戒区域
 bool drawRect = false; //标志是否画框
@@ -47,14 +53,14 @@ void SetDrawRect(bool draw)
 	drawRect = draw;
 }
 
-//设置布控的警戒区域，通过UI来调用该函数
+//设置布控的警戒区域，通过UI来调用该函数;
 void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int rightY, bool draw)
 {
 	xLeftAlarm = leftX;
 	yTopAlarm = leftY;
 	xRightAlarm = rightX;
 	yBottomAlarm = rightY; 
-	drawAlarmArea = draw;
+	drawAlarmArea = draw;//设置是否画出布控区域，该区域为蓝色边框
 }
 
 //设置运动检测的框框内阈值和分组个数，通过UI来调用该函数
@@ -64,14 +70,14 @@ void SetRectThr(const int fCount, const int gCount)
 	groupCount = gCount;
 }
 
-//计算选定区域内像素点的数值之和,并将数值返回
+//计算选定区域内像素点的数值之和,并将数值返回,该函数由PreProcessFrame函数调用 
 int RegionSum(const int left_x, const int left_y, const int right_x, const int right_y, IplImage *img)
 {
 	uchar *data = (uchar*)img->imageData;
 	int step = img->widthStep;
 	int sum = 0;
 	for (int i=left_y; i<right_y; i++)
-	{
+	{ 
 		for (int j=left_x; j<right_x; j++)
 		{
 			sum += data[i*step+j];
@@ -80,7 +86,7 @@ int RegionSum(const int left_x, const int left_y, const int right_x, const int r
 	return sum;
 }
 
-//判断警戒区域内是否有运动目标,有运动目标返回true,否则，返回false
+//判断警戒区域内是否有运动目标,有运动目标返回true,否则，返回false,该函数由PreProcessFrame函数调用
 bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y_bottom, IplImage *lastDiffImg) 
 {
 	int step = lastDiffImg->widthStep;
@@ -108,70 +114,7 @@ bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y
 	}
 } 
 
-//读取C盘根目录下的PreProcess.txt文件，得到画框的阈值和单人分组的图片个数
-void ReadPreProcess()
-{
-
-	FILE *f;
-	char str[50]; 
-	int bk1 = 0;
-	int bk2 = 0;
-
-	f = fopen("C:/PreProcess.txt", "r");//打开文件，准备读入警戒区域的坐标位置
-
-	if (f)//如果文件存在，读取内容
-	{
-		while(!feof(f))
-		{
-			fgets(str, 50, f);//将文件中的内容读入字符串
-		}
-
-		for (int i=0; i<50; i++)//找到四个空格的位置
-		{
-			if (str[i] == ' ')
-			{
-				if (bk1 == 0)
-				{
-					bk1 = i;
-				}
-				else if (bk2 == 0)
-				{
-					bk2 = i;
-				}
-			}
-		}
-
-		char *data1 = new char[bk1];
-		char *data2 = new char[bk2-bk1-1];
-
-		for (int i=0; i<bk1; i++)//将四个空格隔开的数据读入字符串
-		{
-			data1[i] = str[i];
-		}
-		int j=0;
-		for (int i=bk1+1; i<bk2; i++)
-		{
-			data2[j] = str[i];
-			j++;
-		}
-		j=0;
-
-		faceCount = atoi(data1);
-		groupCount = atoi(data2); 
-
-		delete []data1;
-		delete []data2;
-
-		fclose(f);
-	}
-	else//如果文件不存在,采用默认值
-	{
-		faceCount = 500; 
-		groupCount = 5;
-	}
-}
-
-//找到框框的两个横坐标位置
+//找到框框的两个横坐标位置,该函数由PreProcessFrame函数调用
 void FindRectX(IplImage *img, const int leftY, const int rightY)
 {
 	int count = (img->width - 100)/20 + 1;
@@ -205,7 +148,7 @@ void FindRectX(IplImage *img, const int leftY, const int rightY)
 	delete []rightX;
 }
 
-//找到框框的两个纵坐标位置
+//找到框框的两个纵坐标位置,该函数由PreProcessFrame函数调用
 void FindRectY(IplImage *img, const int leftX, const int rightX)
 {
 	int count = (img->height - 100)/20 + 1;
@@ -239,7 +182,9 @@ void FindRectY(IplImage *img, const int leftX, const int rightX)
 	delete []rightY; 
 }
 
-//每次从摄像头获得一张图片后调用，当完成一个分组后返回true, 分组没结束，则返回false
+/*每次从摄像头获得一张图片后调用，进行运动目标检测，并画框，
+  当完成一个分组后返回true, 分组没结束，则返回false,
+  该函数由UI来调用*/
 PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 {
 	Frame TempFrame;
@@ -258,10 +203,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 	uchar *DiffImageData_2;
 	DiffImageData_2 = (uchar*)DiffImage_2->imageData;//得到前一帧差分图的数据
 
-	int height,width,step;//定义图像的高，宽，步长
-	int SumInRect = 0;//指定矩形内图像数据之和
-
-	int signelCount = 0;
+	int height,width;//定义图像的高，宽，步长
 
 	char Kx[9] = {1,0,-1,2,0,-2,1,0,-1};//X方向掩模，用于得到X方向梯度图
 	char Ky[9] = {1,2,1,0,0,0,-1,-2,-1};//Y方向掩模，用于得到Y方向梯度图
@@ -280,7 +222,6 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 	height = GrayImage->height;
 	width = GrayImage->width; 
-	step = GrayImage->widthStep; 
 
 	bool alarm = false;//警戒区域是否有运动目标   
 
@@ -296,8 +237,6 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		xRightAlarm = currentImage->width - 100;
 		yBottomAlarm = currentImage->height - 100;
 		yTopAlarm = currentImage->height - 200;
-
-		//ReadPreProcess();  
 	}
 	else
 	{
@@ -340,27 +279,46 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 	if(maxRightX*maxRightY)//如果当前帧检测到运动目标，则，画框,分组
 	{
 		//防止右下角出界
-		maxRightX = maxRightX>1 ? maxRightX:2;
+		maxRightX = maxRightX>1 ? maxRightX:2; 
 		maxRightY = maxRightY>1 ? maxRightY:2;
 		maxRightX = maxRightX<(width+1) ? maxRightX:width;
 		maxRightY = maxRightY<(height+1) ? maxRightY:height;
 
 		//防止左上角出界
 		minLeftX = minLeftX>0 ? minLeftX:1;
-		minLeftY = minLeftY>0 ? minLeftY:1;
+		minLeftY = minLeftY>0 ? minLeftY:1; 
 		minLeftX = minLeftX<maxRightX ? minLeftX:(maxRightX-1);
 		minLeftY = minLeftY<maxRightY ? minLeftY:(maxRightY-1);
 
 		if (drawRect) cvRectangle(TempFrame.image, cvPoint(minLeftX, minLeftY), cvPoint(maxRightX, maxRightY), CV_RGB(255, 0, 0), 3, CV_AA, 0);
+		
+		//outobj<<minLeftX<<"	"<<minLeftY<<"	"<<maxRightX-minLeftX<<"	"<<maxRightY-minLeftY<<endl; 
 
 		rect = cvRect(minLeftX, minLeftY, maxRightX-minLeftX, maxRightY-minLeftY); 
 		TempFrame.searchRect = rect;
+
+		signelCount++;  
+		cvReleaseImage(&GrayImage);
+		cvReleaseImage(&DiffImage_2);   
+		LastFrame = frame;
+		*lastFrame = TempFrame;
+
+		//if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
+		//{
+		//	signelCount = 0; 
+		//	return true;
+		//}
+		//else
+		//{
+		//	return false;
+		//}
+		
 
 		if((minLeftY < 360) && ((maxRightX-minLeftX) < 420))//如果检测到框为单人大小
 		{
 			signelCount++; 
 			cvReleaseImage(&GrayImage);
-			cvReleaseImage(&DiffImage_2); 
+			cvReleaseImage(&DiffImage_2);  
 			LastFrame = frame;
 			*lastFrame = TempFrame;
 
@@ -389,11 +347,11 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		cvReleaseImage(&GrayImage);
 		cvReleaseImage(&DiffImage_2);
 		LastFrame = frame;
-		*lastFrame = TempFrame;
+		*lastFrame = TempFrame;  
 
 		if (signelCount > 0)//如果前一帧为单人，当前帧没有人
 		{
-			signelCount = 0;
+			signelCount = 0; 
 			return true;
 		}
 		else
