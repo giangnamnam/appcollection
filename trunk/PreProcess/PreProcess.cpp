@@ -13,22 +13,16 @@ All right reserved!
 完成日期：2009年8月31日  
 *************************************************************************************************************/
 #include "stdafx.h"
-#include "PreProcess.h"  
-//#include "iostream" 
-//#include <fstream> 
-//using namespace std; 
+#include "PreProcess.h"   
 
-//ofstream outobj("C:\\rectPosition1.txt");    
-//outobj<<"左上角横坐标"<<"左上角纵坐标"<<"右下角横坐标"<<"右下角纵坐标"<<endl; 
+Frame prevFrame ;//存储上一帧的frame    
 
-Frame LastFrame ;//存储上一帧的frame   
+bool firstFrmRec = false;//第一帧是否收到
+bool secondFrmRec = false;//第二帧是否收到
 
-bool firstFrameRec = false;//第一帧是否收到
-bool secondFrameRec = false;//第二帧是否收到
-
-IplImage *currentImage;//当前帧的图片
-IplImage *lastGrayImage;//上一帧灰度图
-IplImage *lastDiffImage;//上一帧差分图的二值化图
+IplImage *currImg;//当前帧的图片
+IplImage *lastGrayImg;//上一帧灰度图
+IplImage *lastDiffImg;//上一帧差分图的二值化图 
 
 int xLeftAlarm = 100; //定义并初始化警戒区域的两个坐标点位置
 int yTopAlarm = 400;
@@ -58,7 +52,7 @@ void SetAlarmArea(const int leftX, const int leftY, const int rightX, const int 
 {
 	xLeftAlarm = leftX;
 	yTopAlarm = leftY;
-	xRightAlarm = rightX;
+	xRightAlarm = rightX; 
 	yBottomAlarm = rightY; 
 	drawAlarmArea = draw;//设置是否画出布控区域，该区域为蓝色边框
 }
@@ -114,7 +108,7 @@ bool AlarmArea(const int x_left, const int y_top, const int x_right, const int y
 	}
 } 
 
-//找到框框的两个横坐标位置,该函数由PreProcessFrame函数调用
+//找到框框的两个横坐标位置,该函数由PreProcessFrame函数调用 
 void FindRectX(IplImage *img, const int leftY, const int rightY)
 {
 	int count = (img->width - 100)/20 + 1;
@@ -148,7 +142,7 @@ void FindRectX(IplImage *img, const int leftY, const int rightY)
 	delete []rightX;
 }
 
-//找到框框的两个纵坐标位置,该函数由PreProcessFrame函数调用
+//找到框框的两个纵坐标位置,该函数由PreProcessFrame函数调用  
 void FindRectY(IplImage *img, const int leftX, const int rightX)
 {
 	int count = (img->height - 100)/20 + 1;
@@ -187,77 +181,74 @@ void FindRectY(IplImage *img, const int leftX, const int rightX)
   该函数由UI来调用*/
 PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 {
-	Frame TempFrame;
-	TempFrame = LastFrame; 
+	Frame tempFrame; 
+	tempFrame = prevFrame; 
 
-	currentImage = frame.image; 
+	currImg = frame.image;  
 
-	CvSize ImageSize = cvSize(currentImage->width,currentImage->height);
-	IplImage *GrayImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的灰度图
-	IplImage *GxImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的X方向梯度图
-	IplImage *GyImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的Y方向梯度图
-	IplImage *DiffImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//当前帧的差分图
-	IplImage *DiffImage_2 = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);//前一帧差分图
-	IplImage *pyr = cvCreateImage(cvSize((ImageSize.width&-2)/2,(ImageSize.height&-2)/2),8,1); //进行腐蚀去除噪声的中间临时图片
+	CvSize imgSize = cvSize(currImg->width,currImg->height);
+	IplImage *grayImg = cvCreateImage(imgSize,IPL_DEPTH_8U,1);//当前帧的灰度图
+	IplImage *gxImg = cvCreateImage(imgSize,IPL_DEPTH_8U,1);//当前帧的X方向梯度图
+	IplImage *gyImg = cvCreateImage(imgSize,IPL_DEPTH_8U,1);//当前帧的Y方向梯度图
+	IplImage *diffImg = cvCreateImage(imgSize,IPL_DEPTH_8U,1);//当前帧的差分图
+	IplImage *diffImg_2 = cvCreateImage(imgSize,IPL_DEPTH_8U,1);//前一帧差分图 
+	IplImage *pyr = cvCreateImage(cvSize((imgSize.width&-2)/2,(imgSize.height&-2)/2),8,1); //进行腐蚀去除噪声的中间临时图片
 
-	uchar *DiffImageData_2;
-	DiffImageData_2 = (uchar*)DiffImage_2->imageData;//得到前一帧差分图的数据
-
-	int height,width;//定义图像的高，宽，步长
+	int height,width;//定义图像的高，宽，步长 
 
 	char Kx[9] = {1,0,-1,2,0,-2,1,0,-1};//X方向掩模，用于得到X方向梯度图
 	char Ky[9] = {1,2,1,0,0,0,-1,-2,-1};//Y方向掩模，用于得到Y方向梯度图
 	CvMat KX,KY;
-	KX = cvMat(3,3,CV_8S,Kx);//构建掩模内核
+	KX = cvMat(3,3,CV_8S,Kx);//构建掩模内核 
 	KY = cvMat(3,3,CV_8S,Ky);//构建掩模内核
 
-	cvCvtColor(currentImage,GrayImage,CV_BGR2GRAY);
-	cvSmooth(GrayImage,GrayImage,CV_GAUSSIAN,7,7);//进行平滑处理
-	cvFilter2D(GrayImage,GxImage,&KX,cvPoint(-1,-1));//得到X方向的梯度图
-	cvFilter2D(GrayImage,GyImage,&KY,cvPoint(-1,-1));//得到Y方向的梯度图
-	cvAdd(GxImage,GyImage,GrayImage,NULL);//得到梯度图
+	cvCvtColor(currImg,grayImg,CV_BGR2GRAY);
+	cvSmooth(grayImg,grayImg,CV_GAUSSIAN,7,7);//进行平滑处理
+	cvFilter2D(grayImg,gxImg,&KX,cvPoint(-1,-1));//得到X方向的梯度图
+	cvFilter2D(grayImg,gyImg,&KY,cvPoint(-1,-1));//得到Y方向的梯度图
+	cvAdd(gxImg,gyImg,grayImg,NULL);//得到梯度图
 
-	cvReleaseImage(&GxImage);
-	cvReleaseImage(&GyImage);
+	cvReleaseImage(&gxImg);
+	cvReleaseImage(&gyImg);
 
-	height = GrayImage->height;
-	width = GrayImage->width; 
+	height = grayImg->height;
+	width = grayImg->width; 
 
 	bool alarm = false;//警戒区域是否有运动目标   
 
 	CvRect rect;//定义矩形框
 
-	if(!firstFrameRec)//如果是第一帧
+	if(!firstFrmRec)//如果是第一帧
 	{
-		firstFrameRec = true; 
-		lastGrayImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
-		lastDiffImage = cvCreateImage(ImageSize,IPL_DEPTH_8U,1);
-		cvCopy(GrayImage,lastGrayImage,NULL);//如果是第一帧，设置为背景 
+		firstFrmRec = true; 
+		lastGrayImg = cvCreateImage(imgSize,IPL_DEPTH_8U,1);
+		lastDiffImg = cvCreateImage(imgSize,IPL_DEPTH_8U,1);
+		cvCopy(grayImg,lastGrayImg,NULL);//如果是第一帧，设置为背景 
 
-		xRightAlarm = currentImage->width - 100;
-		yBottomAlarm = currentImage->height - 100;
-		yTopAlarm = currentImage->height - 200;
+		xRightAlarm = currImg->width - 100;
+		yBottomAlarm = currImg->height - 100;
+		yTopAlarm = currImg->height - 200;
 	}
 	else
 	{
-		cvAbsDiff(GrayImage,lastGrayImage,DiffImage);//得到当前帧的差分图
-		cvCopy(GrayImage,lastGrayImage,NULL);//将当前帧的梯度图作为下一帧的背景
-		cvThreshold(DiffImage,DiffImage,15,255,CV_THRESH_BINARY);//二值化当前差分图
-		if(secondFrameRec)//如果大于等于第三帧
+		cvAbsDiff(grayImg,lastGrayImg,diffImg);//得到当前帧的差分图
+		cvCopy(grayImg,lastGrayImg,NULL);//将当前帧的梯度图作为下一帧的背景
+		cvThreshold(diffImg,diffImg,15,255,CV_THRESH_BINARY);//二值化当前差分图
+		if(secondFrmRec)//如果大于等于第三帧
 		{
-			cvAnd(DiffImage,lastDiffImage,DiffImage_2);//进行“与”运算，得到前一帧灰度图的“准确”运动目标
-			cvPyrDown(DiffImage_2,pyr,7);//向下采样
+			cvAnd(diffImg,lastDiffImg,diffImg_2);//进行“与”运算，得到前一帧灰度图的“准确”运动目标
+			cvPyrDown(diffImg_2,pyr,7);//向下采样
 			cvErode(pyr,pyr,0,1);//腐蚀，消除小的噪声
-			cvPyrUp(pyr,DiffImage_2,7); 
+			cvPyrUp(pyr,diffImg_2,7); 
 			cvReleaseImage(&pyr);
 
-			if(drawAlarmArea)	cvRectangle(TempFrame.image, cvPoint(xLeftAlarm, yTopAlarm), cvPoint(xRightAlarm, yBottomAlarm), CV_RGB(0, 0, 255), 3, CV_AA, 0);
-			alarm = AlarmArea(xLeftAlarm, yTopAlarm, xRightAlarm, yBottomAlarm, DiffImage_2);  
+			if(drawAlarmArea)	cvRectangle(tempFrame.image, cvPoint(xLeftAlarm, yTopAlarm), cvPoint(xRightAlarm, yBottomAlarm), CV_RGB(0, 0, 255), 3, CV_AA, 0);
+			alarm = AlarmArea(xLeftAlarm, yTopAlarm, xRightAlarm, yBottomAlarm, diffImg_2);  
 		}
 
-		cvCopy(DiffImage,lastDiffImage,NULL);//备份当前差分图的二值化图
+		cvCopy(diffImg,lastDiffImg,NULL);//备份当前差分图的二值化图
 
-		cvReleaseImage(&DiffImage); 
+		cvReleaseImage(&diffImg); 
 
 		minLeftX = 3000;
 		minLeftY = 3000; 
@@ -266,13 +257,13 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 
 		if (alarm)//若检测出整个图片有运动目标
 		{
-			FindRectX(DiffImage_2, 0, height);
-			FindRectY(DiffImage_2, minLeftX, maxRightX);
+			FindRectX(diffImg_2, 0, height); 
+			FindRectY(diffImg_2, minLeftX, maxRightX);
 		}
 
-		if (!secondFrameRec)//设置第二帧已经收到 
+		if (!secondFrmRec)//设置第二帧已经收到 
 		{
-			secondFrameRec = true; 
+			secondFrmRec = true; 
 		}
 	}
 
@@ -290,18 +281,18 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		minLeftX = minLeftX<maxRightX ? minLeftX:(maxRightX-1);
 		minLeftY = minLeftY<maxRightY ? minLeftY:(maxRightY-1);
 
-		if (drawRect) cvRectangle(TempFrame.image, cvPoint(minLeftX, minLeftY), cvPoint(maxRightX, maxRightY), CV_RGB(255, 0, 0), 3, CV_AA, 0);
+		if (drawRect) cvRectangle(tempFrame.image, cvPoint(minLeftX, minLeftY), cvPoint(maxRightX, maxRightY), CV_RGB(255, 0, 0), 3, CV_AA, 0);
 		
 		//outobj<<minLeftX<<"	"<<minLeftY<<"	"<<maxRightX-minLeftX<<"	"<<maxRightY-minLeftY<<endl; 
 
 		rect = cvRect(minLeftX, minLeftY, maxRightX-minLeftX, maxRightY-minLeftY); 
-		TempFrame.searchRect = rect;
+		tempFrame.searchRect = rect;
 
 		signelCount++;  
-		cvReleaseImage(&GrayImage);
-		cvReleaseImage(&DiffImage_2);   
-		LastFrame = frame;
-		*lastFrame = TempFrame;
+		cvReleaseImage(&grayImg);
+		cvReleaseImage(&diffImg_2);   
+		prevFrame = frame;
+		*lastFrame = tempFrame; 
 
 		//if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
 		//{
@@ -317,10 +308,10 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		if((minLeftY < 360) && ((maxRightX-minLeftX) < 420))//如果检测到框为单人大小
 		{
 			signelCount++; 
-			cvReleaseImage(&GrayImage);
-			cvReleaseImage(&DiffImage_2);  
-			LastFrame = frame;
-			*lastFrame = TempFrame;
+			cvReleaseImage(&grayImg);
+			cvReleaseImage(&diffImg_2);  
+			prevFrame = frame;
+			*lastFrame = tempFrame; 
 
 			if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
 			{
@@ -335,19 +326,19 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		else //如果检测到多人情况，每张图片分为一组
 		{
 			signelCount = 0;
-			cvReleaseImage(&GrayImage);
-			cvReleaseImage(&DiffImage_2);
-			LastFrame = frame;
-			*lastFrame = TempFrame;
+			cvReleaseImage(&grayImg);
+			cvReleaseImage(&diffImg_2); 
+			prevFrame = frame;
+			*lastFrame = tempFrame;
 			return true;
 		} 
 	}
 	else //当前帧没检测到
 	{ 
-		cvReleaseImage(&GrayImage);
-		cvReleaseImage(&DiffImage_2);
-		LastFrame = frame;
-		*lastFrame = TempFrame;  
+		cvReleaseImage(&grayImg);
+		cvReleaseImage(&diffImg_2);
+		prevFrame = frame; 
+		*lastFrame = tempFrame;  
 
 		if (signelCount > 0)//如果前一帧为单人，当前帧没有人
 		{
