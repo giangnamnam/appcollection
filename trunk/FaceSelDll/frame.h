@@ -11,11 +11,6 @@ struct Frame
 	LONGLONG timeStamp;
 };
 
-struct ByteArray
-{
-	byte *bytes;
-	int length;
-};
 
 
 struct Target
