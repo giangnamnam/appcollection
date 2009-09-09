@@ -8,6 +8,7 @@ using System.Xml.Linq;
 
 using System.Timers;
 using System.Runtime.InteropServices;
+using MotionDetect;
 
 namespace RemoteImaging
 {
@@ -20,8 +21,15 @@ namespace RemoteImaging
 
             this.envModes.SelectedIndex = Properties.Settings.Default.EnvMode;
             this.rgBrightMode.SelectedIndex = Properties.Settings.Default.BrightMode;
-            this.comboBox2.SelectedText = Properties.Settings.Default.ComName;
+            this.cmbComPort.SelectedText = Properties.Settings.Default.ComName;
             this.textBox4.Text = Properties.Settings.Default.CurIp;
+            this.cbImageArr.Text = Properties.Settings.Default.ImageArr.ToString();
+            this.cbThresholding.Text = Properties.Settings.Default.Thresholding.ToString();
+            DiskWarn = Properties.Settings.Default.WarnDisk;
+            SaveDay = Properties.Settings.Default.SaveDay;
+            SetControl(); DiskWarn = Properties.Settings.Default.WarnDisk;
+            SaveDay = Properties.Settings.Default.SaveDay;
+            SetControl();
         }
 
         private void InitCamDatagridView()
@@ -140,151 +148,107 @@ namespace RemoteImaging
             Properties.Settings.Default.EnvMode = this.envModes.SelectedIndex;
             Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
             Properties.Settings.Default.CurIp = this.textBox4.Text;
-            Properties.Settings.Default.ComName = this.comboBox2.Text;
+            Properties.Settings.Default.ComName = this.cmbComPort.Text;
+            
+            //图片和录像过期时间设置，磁盘警告设置
+            Properties.Settings.Default.WarnDisk = DiskWarn;
+            Properties.Settings.Default.SaveDay = SaveDay;
+
+
             //调用的薛晓莉的接口
             Properties.Settings.Default.ImageArr =Convert.ToInt32(cbImageArr.Text.Trim());
             Properties.Settings.Default.Thresholding =Convert.ToInt32(cbThresholding.Text.Trim());
-            SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+
+            MotionDetect.MotionDetect.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
             
         }
 
-        [DllImport("PreProcess.dll", EntryPoint = "SetRectThr")]
-        public static extern void SetRectThr(int fCount, int gCount);
-
-        #region 自定义设置按钮选中事件
-        private void ckbImageAndVideo_CheckedChanged(object sender, EventArgs e)
+        private string DiskWarn
         {
-            if (ckbImageAndVideo.Checked)
+            get
             {
-                textBox2.Enabled = true;
-                rabOneDay.Enabled = false;
-                rabTwoDay.Enabled = false;
-                rabThrDay.Enabled = false;
+                string value=txtWarnVal.Text.Trim();
+                string cmbText = cmbValue.Text;
+                if (ckbDiskSet.Checked)
+                    return ((value!="")?value.Substring(0,value.Length):"500")+ "true" ;
+                else
+                    return (((cmbText!="")&& cmbText.EndsWith("MB"))?cmbText.Substring(0,cmbText.Length-2):"500") + "false";
             }
-            else
+            set
             {
-                textBox2.Enabled = false;
-                rabOneDay.Enabled = true;
-                rabTwoDay.Enabled = true;
-                rabThrDay.Enabled = true;
+                string temp = value;
+                if (temp.EndsWith("true"))
+                {
+                    ckbDiskSet.Checked = true;
+                    txtWarnVal.Text = temp.Substring(0, temp.Length - 4);
+                }
+                else
+                {
+                    ckbDiskSet.Checked = false;
+                    cmbValue.Text = temp.Substring(0, temp.Length - 5)+"MB";
+                }
             }
         }
 
-        private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
+        private string SaveDay
         {
-            if (ckbDiskSet.Checked)
+            get 
             {
-                textBox1.Enabled = true;
-                comboBox1.Enabled = false;
-                textBox1.Text = "";
+                string value = textBox2.Text.Trim();
+                if (ckbImageAndVideo.Checked)
+                    return ((value != "") ? textBox2.Text.Trim() : "3") + "true";
+                else
+                    return ragSaveDay.SelectedIndex.ToString() + "false";
             }
-            else
+            set
             {
-                comboBox1.Enabled = true;
-                textBox1.Enabled = false;
-                textBox1.Text = "";
+                string temp = value;
+                if (temp.EndsWith("true"))
+                {
+                    ckbImageAndVideo.Checked = true;
+                    textBox2.Text = temp.Substring(0, temp.Length - 4);
+                }
+                else
+                {
+                    ckbImageAndVideo.Checked = false;
+                    ragSaveDay.SelectedIndex = Convert.ToInt32(temp.Substring(0, temp.Length - 5));
+                }
             }
         }
-        #endregion
 
         FileHandle fileHandle = new FileHandle();
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            //comboBox1.SelectedIndex = 2;
-
-            if (!fileHandle.IsXmlExists())
-            {
-                fileHandle.CreateXml();
-                fileHandle.CreateElement(SaveNodeType.Video, "3", DateTime.Now.ToShortDateString());
-                fileHandle.CreateElement(SaveNodeType.WarnDisk, "500MB", DateTime.Now.ToShortDateString());
-
-            }
-            InitRadiobutton(SaveNodeType.Video, gBoxImgFileSet);
-            InitRadiobutton(SaveNodeType.WarnDisk, gBoxDiskSet);
-            textBox2.Enabled = false;
-            textBox1.Enabled = false;
-             Properties.Settings setting = Properties.Settings.Default;
-             this.comboBox2.Text = setting.ComName;
-             this.textBox4.Text = setting.CurIp;
-             this.rgBrightMode.SelectedIndex = setting.BrightMode;
-             this.cbThresholding.Text = setting.Thresholding.ToString();
-             this.cbImageArr.Text = setting.ImageArr.ToString();
+            
         }
 
-        #region 设置保存
-        public void setImageAndVideo() //磁盘空间报警   未完善设置
+        //设置控件 
+        private void SetControl()
         {
             if (ckbImageAndVideo.Checked)
             {
-                string val = textBox2.Text.Trim();
-                bool res = false;
-                try
-                {
-                    int temp = Convert.ToInt32(val);
-                    res = true;
-                }
-                catch (Exception ex)
-                {
-                    val = "3";
-                    return;
-                }
-                if (res)
-                    fileHandle.CreateElement(SaveNodeType.Video, val, DateTime.Now.ToString());
+                textBox2.Enabled = true;
+                ragSaveDay.Enabled = false;
             }
             else
             {
-                string val = GetSelectedValue(SaveNodeType.Video, gBoxImgFileSet);
-                fileHandle.CreateElement(SaveNodeType.Video, val, DateTime.Now.ToString());
-
+                textBox2.Enabled = false;
+                ragSaveDay.Enabled = true;
             }
-        }
-
-        public void setFileStore()
-        {
-            #region
-            //if (ckbDiskSet.Checked)
-            //{
-            //    string val = textBox1.Text.Trim();
-            //    if ((val.Length < 3) || (!val.Substring(val.Length - 2, 2).Equals("MB")))
-            //    {
-            //        ShowResDialog(1, "参数错误，应以MB结尾！");
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
-            //    }
-            //}
-            //else
-            //{
-            //    string val = comboBox1.Text;
-            //    if ((val.Length < 3) || (!val.Substring(val.Length - 2, 2).Equals("MB")))
-            //    {
-            //        ShowResDialog(10, "参数错误，应以MB结尾！");
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
-            //    }
-            //}
-            #endregion
 
             if (ckbDiskSet.Checked)
             {
-                string val = textBox1.Text.Trim();
-                fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
+                txtWarnVal.Enabled = true;
+                cmbValue.Enabled = false;
             }
             else
             {
-                string val = comboBox1.Text;
-                if (val == "")
-                    val = "500MB";
-                fileHandle.CreateElement(SaveNodeType.WarnDisk, val, DateTime.Now.ToString());
+                txtWarnVal.Enabled = false;
+                cmbValue.Enabled = true;
             }
         }
-        #endregion
+
 
         #region 弹出窗口的操作
         public void ShowResDialog(int picIndex, string msg)
@@ -296,68 +260,24 @@ namespace RemoteImaging
         }
         #endregion
 
-        //初始化控件
-        private void InitRadiobutton(SaveNodeType nodeType, GroupBox box)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(FileHandle.xmlPath);
-            XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
-            XmlNode xNode = xRoot.SelectSingleNode("/Root/" + nodeType.ToString() + "/Value");
-            string val = xNode.FirstChild.Value;
-            if (nodeType != SaveNodeType.WarnDisk)
-            {
-
-                foreach (Control control in box.Controls)
-                {
-                    if (control is RadioButton)
-                    {
-                        RadioButton rb = control as RadioButton;
-
-                        if ((rb.Text.Substring(0, rb.Text.Length - 1).Equals(val)) && rb.Enabled)
-                        {
-                            rb.Checked = true;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                comboBox1.SelectedText = xNode.FirstChild.Value;
-            }
-
-        }
-
-        //获得radiobutton选中的值
-        private string GetSelectedValue(SaveNodeType nodeType, GroupBox temp)
-        {
-            string val = "";
-            if (nodeType != SaveNodeType.WarnDisk)
-            {
-                foreach (Control control in temp.Controls)
-                {
-                    if (control is RadioButton)
-                    {
-                        RadioButton rabTemp = control as RadioButton;
-                        if ((rabTemp.Enabled == true) && (rabTemp.Checked == true))
-                            val = rabTemp.Text.Substring(0, rabTemp.Text.Length - 1);
-                    }
-                }
-            }
-            else
-            {
-                val = comboBox1.Text;
-            }
-            return val;
-        }
-
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             string text = textBox2.Text.Trim();
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ComName = comboBox2.Text;
+            Properties.Settings.Default.ComName = cmbComPort.Text;
+        }
+
+        private void ckbImageAndVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            SetControl();
+        }
+
+        private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
+        {
+            SetControl();
         }
     }
 }

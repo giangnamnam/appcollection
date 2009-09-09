@@ -18,79 +18,63 @@ namespace RemoteImaging
         public static readonly string xmlPath = "SetVal.xml";
 
         #region 删除图片和录像
-        public static void DelVidAndImg(SaveNodeType savaType, int cameraId)//没有指定特定的摄像机 D:\ImageOutput
+        public void DelVidAndImg()
         {
             string fileUrl = Properties.Settings.Default.OutputPath;//D:\ImageOutPut
-            //string fileUrl = string.Format(Properties.Settings.Default.OutputPath+"\\{0:d2}\\", cameraId);
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
-            string nodeValue = xRoot.SelectSingleNode(String.Format("/Root/{0}/Value", savaType)).FirstChild.Value.ToString();
-            string nodeSettime = xRoot.SelectSingleNode("/Root" + "/" + savaType.ToString() + "/SettedTime").FirstChild.Value.ToString();
+
+            string sday = Properties.Settings.Default.SaveDay;
+
+            DateTime endTime = DateTime.Now.AddDays(-Convert.ToDouble((sday.EndsWith("true") ? sday.Substring(0, sday.Length - 4) : sday.Substring(0, sday.Length - 5)))).ToLocalTime();
+
 
             if (Directory.Exists(fileUrl))
             {
-                string[] rootFiles = Directory.GetDirectories(fileUrl);
-                if (rootFiles.Length > 0)
+                string[] camIdArr = Directory.GetDirectories(fileUrl);
+                foreach (string cam in camIdArr)
                 {
-                    foreach (string rootFile in rootFiles)
+                    string temp = cam.Substring(cam.Length - 2, 2);//获得Camera编号
+                    string[] files = Directory.GetDirectories(cam);
+
+                    foreach (string file in files)  //year  and NORMAL
                     {
-                        string[] files = Directory.GetDirectories(rootFile);//目录 D:\ImageOutPut\摄像机ID --> 1,D:\\ImageOutPut\\02\\2009 2,D:\\ImageOutPut\\02\\NORMAL
-
-                        if (files.Length > 0)
+                        if (file.Substring(file.Length - 6, 6).Equals("NORMAL"))//删除 视频
                         {
-                            foreach (string strFile in files)
+                            string[] videoFile = Directory.GetDirectories(file);
+                            foreach (string vidFile in videoFile)
                             {
-                                if (strFile.Substring(strFile.Length - 6, 6).Equals("NORMAL"))//删除 video
-                                {
-                                    DateTime dTime = Convert.ToDateTime(DateTime.Now.ToShortDateString()).AddDays(Convert.ToDouble(-Convert.ToInt32(nodeValue)) + 1).ToUniversalTime();//2009-7-23 16:00:00
-                                    DateTime ckTime = Convert.ToDateTime(DateTime.Now.ToShortDateString()).AddDays(Convert.ToDouble(-Convert.ToInt32(nodeValue))).ToUniversalTime();//时间最低设置范围
-                                    string[] vidFiles = Directory.GetDirectories(strFile);
-                                    if (vidFiles.Length > 0)
-                                    {
-                                        foreach (string strDayFile in vidFiles)
-                                        {
-                                            string[] vidHour = Directory.GetDirectories(strDayFile);//D:\ImageOutPut\02\NORMAL\20090630\02 获得日期下面滴子文件夹 是以每小时命名
-                                            string date = strDayFile.Substring(strDayFile.Length - 8, 8);
-                                            string year = date.Substring(0, 4);
-                                            string month = date.Substring(4, 2);
-                                            string day = date.Substring(6, 2);
+                                string stime = vidFile.Substring(vidFile.Length - 8, 8);
+                                string year = stime.Substring(0, 4);
+                                string month = stime.Substring(4, 2);
+                                string day = stime.Substring(6, 2);
+                                //具体小时
+                                DateTime curTime = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), Convert.ToInt32(day));
+                                DateTime localTime = curTime.ToLocalTime();
+                                if (localTime < endTime)
+                                    DeleteFolder(vidFile);
+                            }
 
-                                            foreach (string strHour in vidHour)
-                                            {
-                                                string hour = strHour.Substring(strHour.Length - 2, 2);
-                                                DateTime timeHour = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), Convert.ToInt32(day), Convert.ToInt32(hour), 0, 0);
-                                                if ((timeHour < ckTime) && (timeHour < dTime))
-                                                {
-                                                    FileHandle.DeleteFolder(strHour);
-                                                }
-                                            }
-                                            FileHandle.DeleteFolder(strDayFile);
-                                        }
-                                    }
-                                }
-                                else //删除 image 
+                        }
+                        else    //删除 图片
+                        {
+                            string[] monthFile = Directory.GetDirectories(file);
+                            foreach (string mon in monthFile)
+                            {
+                                string[] dayFile = Directory.GetDirectories(mon);
+                                foreach (string day in dayFile)
                                 {
-                                    //没有做判断年的情况
-                                    DateTime dTime = Convert.ToDateTime(DateTime.Now.ToShortDateString()).AddDays(Convert.ToDouble(-Convert.ToInt32(nodeValue)));//这是最小日期
-                                    string monthUrl = string.Format(strFile + "\\{0:d2}", dTime.Month);
-                                    string[] monthFiles = Directory.GetDirectories(monthUrl);
-                                    if (monthFiles.Length > 0)
-                                    {
-                                        foreach (string strMonthFile in monthFiles)
-                                        {
-                                            DateTime passTime = new DateTime(dTime.Year, dTime.Month, Convert.ToInt32(strMonthFile.Substring(strMonthFile.Length - 2, 2)));
-                                            if (passTime < dTime)
-                                            {
-                                                string imgUrl = string.Format(rootFile + "\\{0:d4}\\{1:d2}\\{2:d2}", passTime.Year, passTime.Month, passTime.Day);
-                                                FileHandle.DeleteFolder(imgUrl);
-                                            }
-                                        }
-                                    }
+                                    string stime = day.Substring(day.Length - 10, 10);//2009\\09\\01
+                                    string year = stime.Substring(0, 4);
+                                    string month = stime.Substring(5, 2);
+                                    string tday = stime.Substring(8, 2);
+                                    DateTime curTime = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), Convert.ToInt32(tday));
+                                    DateTime localTime = curTime.ToLocalTime();
+                                    if (localTime < endTime)
+                                        DeleteFolder(day);
                                 }
                             }
+
                         }
-                        FileHandle.DeleteFolder(rootFile);
+
                     }
                 }
             }
@@ -101,47 +85,43 @@ namespace RemoteImaging
         #region 磁盘空间报警
         public void DiskWarn()
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
-            string nodeValue = xRoot.SelectSingleNode(String.Format("/Root/{0}/Value", SaveNodeType.WarnDisk.ToString())).FirstChild.Value.ToString();
-            string nodeSettime = xRoot.SelectSingleNode("/Root" + "/" + SaveNodeType.WarnDisk.ToString() + "/SettedTime").FirstChild.Value.ToString();
-
 
             string outPutPath = Properties.Settings.Default.OutputPath;
             string upLoadPool = Properties.Settings.Default.ImageUploadPool;
-            string diskName = string.Format("\"{0}\"", "" + outPutPath.Substring(0, 2) + "");
-
-            UInt64 allCount = DiskSize(diskName, "Size");//"\"D:\"" -- > "D:"  //disk all size
-
-            UInt64 freeCount = DiskSize(diskName, "FreeSpace");
-
-            if (freeCount < 3600)
+            string temp = Properties.Settings.Default.WarnDisk;
+            UInt64 diskSize = Convert.ToUInt64(temp.EndsWith("true") ? temp.Substring(0, temp.Length - 4) : temp.Substring(0, temp.Length - 5));
+            if (Directory.Exists(outPutPath) && Directory.Exists(upLoadPool))
             {
-                System.Timers.Timer timeCheck = new System.Timers.Timer();
-                timeCheck.Elapsed += new ElapsedEventHandler(timeCheck_Elapsed);
-                timeCheck.Interval = 360000;
-                timeCheck.Enabled = true;
+                string diskName = string.Format("\"{0}\"", "" + outPutPath.Substring(0, 2) + "");
+
+                UInt64 allCount = DiskSize(diskName, "Size");//"\"D:\"" -- > "D:"  1//disk all size
+
+                UInt64 freeCount = DiskSize(diskName, "FreeSpace");
+
+                if (freeCount < diskSize * 1.5)
+                {
+                    System.Timers.Timer timeCheck = new System.Timers.Timer();
+                    timeCheck.Elapsed += new ElapsedEventHandler(timeCheck_Elapsed);
+                    timeCheck.Interval = 360000;
+                    timeCheck.Enabled = true;
+                }
             }
         }
 
         private void timeCheck_Elapsed(object source, ElapsedEventArgs args)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
-            string nodeValue = xRoot.SelectSingleNode(String.Format("/Root/{0}/Value", SaveNodeType.WarnDisk)).FirstChild.Value.ToString();
-            string node = nodeValue.Substring(0, nodeValue.Length - 2);
+            string temp = Properties.Settings.Default.WarnDisk;
+            UInt64 diskSize = Convert.ToUInt64(temp.EndsWith("true") ? temp.Substring(0, temp.Length - 4) : temp.Substring(0, temp.Length - 5));
+
             string diskPath = Properties.Settings.Default.OutputPath.Substring(0, 2);
             string diskName = string.Format("\"{0}\"", "" + diskPath + "");
 
             UInt64 freeCount = DiskSize(diskName, "FreeSpace");
 
-            if (freeCount < Convert.ToUInt64(node))
+            if (freeCount < diskSize)
             {
-                ShowResDialog(0, "内存空间不足！！");
+                ShowResDialog(0, "磁盘空间不足！！");
             }
-
         }
         #endregion
 
@@ -319,79 +299,6 @@ namespace RemoteImaging
             }
             return a;
         }
-
-        #region xml文件的操作
-
-        //判断XML文件是否存在
-        public bool IsXmlExists()
-        {
-            return System.IO.File.Exists(FileHandle.xmlPath);
-        }
-
-        //创建XML文档  暂时不用
-        public void CreateXml()
-        {
-            if (!this.IsXmlExists())
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlNode xNode = xmlDoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
-                xmlDoc.AppendChild(xNode);
-                XmlElement xRootElement = xmlDoc.CreateElement("", "Root", "");
-                XmlNode xText = xmlDoc.CreateTextNode("");
-                xRootElement.AppendChild(xText);
-                xmlDoc.AppendChild(xRootElement);
-                try
-                {
-                    xmlDoc.Save(FileHandle.xmlPath);
-                }
-                catch (Exception ex)
-                {
-                    Console.Write(ex.StackTrace.ToString());
-                }
-            }
-        }
-
-        //添加节点
-        private void AppendXmlNode(XmlDocument xmlDoc, XmlNode xAddNode, SaveNodeType nodeType)
-        {
-            XmlNode xRoot = xmlDoc.ChildNodes.Item(1);
-            XmlNode xNode = xRoot.SelectSingleNode("/Root/" + nodeType.ToString());
-            if (xNode != null)
-            {
-                xRoot.RemoveChild(xNode);
-                xRoot.AppendChild(xAddNode);
-            }
-            else
-            {
-                xRoot.AppendChild(xAddNode);
-            }
-            xmlDoc.Save(FileHandle.xmlPath);
-        }
-
-        //创建节点元素
-        public void CreateElement(SaveNodeType nodeType, string value, string time)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(FileHandle.xmlPath);
-            XmlElement xNode = xmlDoc.CreateElement(nodeType.ToString());
-            XmlElement xFirNode = xmlDoc.CreateElement("Type");
-            XmlText xFirText = xmlDoc.CreateTextNode(nodeType.ToString());
-            xFirNode.AppendChild(xFirText);
-
-            XmlElement xSecNode = xmlDoc.CreateElement("Value");
-            XmlText xSecrText = xmlDoc.CreateTextNode(value);
-            xSecNode.AppendChild(xSecrText);
-
-            XmlElement xThrNode = xmlDoc.CreateElement("SettedTime");
-            XmlText xThrText = xmlDoc.CreateTextNode(time);
-            xThrNode.AppendChild(xThrText);
-
-            xNode.AppendChild(xFirNode);
-            xNode.AppendChild(xSecNode);
-            xNode.AppendChild(xThrNode);
-            AppendXmlNode(xmlDoc, xNode, nodeType);
-        }
-        #endregion
 
 
         #region 获得指定文件夹的大小 -- 不用

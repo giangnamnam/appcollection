@@ -47,17 +47,19 @@ namespace RemoteImaging.RealtimeDisplay
             //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
             //Configuration.Instance.Cameras.CopyTo(cams, 0);
             //this.Cameras = cams;
-            //time = new System.Windows.Forms.Timer();
-            //time.Tick += time_Elapsed;
-            //time.Interval = 3000;
-            //time.Enabled = true;
 
-            FileHandle fh = new FileHandle();//删除无效视频
-            fh.DeleteInvalidVideo();
+            time = new System.Windows.Forms.Timer();
+            time.Tick += time_Elapsed;
+            time.Interval = 3000;
+            time.Enabled = true;
 
-            StartSetCam(setting);//根据光亮值设置相机
+            //FileHandle fh = new FileHandle();//删除无效视频
+            //fh.DeleteInvalidVideo();
+
+            //StartSetCam(setting);//根据光亮值设置相机
 
             SetMonitor();//启动布控
+            MotionDetect.MotionDetect.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
 
             InitStatusBar();
 
@@ -111,7 +113,7 @@ namespace RemoteImaging.RealtimeDisplay
                 int oPointy = Convert.ToInt32(strPoints[1]);
                 int tPointx = Convert.ToInt32(strPoints[2]);
                 int tPointy = Convert.ToInt32(strPoints[3]);
-               MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy,false);
+                MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
             }
         }
 
@@ -553,8 +555,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                     this.Cameras = frm.Cameras.ToArray<Camera>();
 
-                    frm.setFileStore();
-                    frm.setImageAndVideo();
+
 
                     var minFaceWidth = int.Parse(setting.MinFaceWidth);
                     float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;

@@ -21,5 +21,8 @@ namespace MotionDetect
         [DllImport(dllName)]
         public static extern void SetAlarmArea(int leftX, int leftY, int rightX, int rightY, bool draw);
 
+        [DllImport(dllName)]
+        public static extern void SetRectThr(int fCount, int gCount);
+
     }
 }

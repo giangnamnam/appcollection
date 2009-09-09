@@ -181,18 +181,6 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
-        public string MaxFaceWidth {
-            get {
-                return ((string)(this["MaxFaceWidth"]));
-            }
-            set {
-                this["MaxFaceWidth"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
         public string DownSampling {
             get {
@@ -416,6 +404,42 @@ namespace RemoteImaging.Properties {
             }
             set {
                 this["Point"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public string MaxFaceWidth {
+            get {
+                return ((string)(this["MaxFaceWidth"]));
+            }
+            set {
+                this["MaxFaceWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2false")]
+        public string SaveDay {
+            get {
+                return ((string)(this["SaveDay"]));
+            }
+            set {
+                this["SaveDay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500false")]
+        public string WarnDisk {
+            get {
+                return ((string)(this["WarnDisk"]));
+            }
+            set {
+                this["WarnDisk"] = value;
             }
         }
     }

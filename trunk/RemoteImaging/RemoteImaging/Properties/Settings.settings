@@ -41,9 +41,6 @@
     <Setting Name="MinFaceWidth" Type="System.String" Scope="User">
       <Value Profile="(Default)">60</Value>
     </Setting>
-    <Setting Name="MaxFaceWidth" Type="System.String" Scope="User">
-      <Value Profile="(Default)">7</Value>
-    </Setting>
     <Setting Name="DownSampling" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.5</Value>
     </Setting>
@@ -100,6 +97,15 @@
     </Setting>
     <Setting Name="Point" Type="System.String" Scope="User">
       <Value Profile="(Default)">600 110 700 1200  </Value>
+    </Setting>
+    <Setting Name="MaxFaceWidth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="SaveDay" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2false</Value>
+    </Setting>
+    <Setting Name="WarnDisk" Type="System.String" Scope="User">
+      <Value Profile="(Default)">500false</Value>
     </Setting>
   </Settings>
 </SettingsFile>

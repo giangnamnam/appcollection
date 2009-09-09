@@ -38,8 +38,10 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.browseForOutputFolder = new System.Windows.Forms.Button();
+            this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.browseForUploadFolder = new System.Windows.Forms.Button();
+            this.textBoxUploadFolder = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
@@ -48,6 +50,8 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cbImageArr = new System.Windows.Forms.ComboBox();
+            this.cbThresholding = new System.Windows.Forms.ComboBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
@@ -65,30 +69,40 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
+            this.removeDuplication = new System.Windows.Forms.CheckBox();
+            this.detectMotion = new System.Windows.Forms.CheckBox();
+            this.drawMotionRect = new System.Windows.Forms.CheckBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.maxFaceWidth = new System.Windows.Forms.TextBox();
+            this.minFaceWidth = new System.Windows.Forms.TextBox();
+            this.bottomExtRatio = new System.Windows.Forms.TextBox();
+            this.topExtRatio = new System.Windows.Forms.TextBox();
+            this.rightExtRatio = new System.Windows.Forms.TextBox();
+            this.leftExtRatio = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.gBoxDiskSet = new System.Windows.Forms.GroupBox();
-            this.label40 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.ckbInvocWarn = new System.Windows.Forms.CheckBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtWarnVal = new System.Windows.Forms.TextBox();
             this.ckbDiskSet = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbValue = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gBoxImgFileSet = new System.Windows.Forms.GroupBox();
+            this.ckbInvocFile = new System.Windows.Forms.CheckBox();
+            this.ragSaveDay = new DevExpress.XtraEditors.RadioGroup();
             this.label39 = new System.Windows.Forms.Label();
             this.ckbImageAndVideo = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
-            this.rabThrDay = new System.Windows.Forms.RadioButton();
-            this.rabTwoDay = new System.Windows.Forms.RadioButton();
-            this.rabOneDay = new System.Windows.Forms.RadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbComPort = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -108,20 +122,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
-            this.textBoxUploadFolder = new System.Windows.Forms.TextBox();
-            this.removeDuplication = new System.Windows.Forms.CheckBox();
-            this.detectMotion = new System.Windows.Forms.CheckBox();
-            this.drawMotionRect = new System.Windows.Forms.CheckBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.maxFaceWidth = new System.Windows.Forms.TextBox();
-            this.minFaceWidth = new System.Windows.Forms.TextBox();
-            this.bottomExtRatio = new System.Windows.Forms.TextBox();
-            this.topExtRatio = new System.Windows.Forms.TextBox();
-            this.rightExtRatio = new System.Windows.Forms.TextBox();
-            this.leftExtRatio = new System.Windows.Forms.TextBox();
-            this.cbImageArr = new System.Windows.Forms.ComboBox();
-            this.cbThresholding = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -135,6 +135,7 @@
             this.tabPage5.SuspendLayout();
             this.gBoxDiskSet.SuspendLayout();
             this.gBoxImgFileSet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ragSaveDay.Properties)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).BeginInit();
             this.SuspendLayout();
@@ -242,6 +243,15 @@
             this.browseForOutputFolder.UseVisualStyleBackColor = true;
             this.browseForOutputFolder.Click += new System.EventHandler(this.browseForOutputFolder_Click);
             // 
+            // textBoxOutputFolder
+            // 
+            this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 123);
+            this.textBoxOutputFolder.Name = "textBoxOutputFolder";
+            this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 21);
+            this.textBoxOutputFolder.TabIndex = 4;
+            this.textBoxOutputFolder.Text = global::RemoteImaging.Properties.Settings.Default.OutputPath;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -260,6 +270,15 @@
             this.browseForUploadFolder.Text = "浏览";
             this.browseForUploadFolder.UseVisualStyleBackColor = true;
             this.browseForUploadFolder.Click += new System.EventHandler(this.browseForUploadFolder_Click);
+            // 
+            // textBoxUploadFolder
+            // 
+            this.textBoxUploadFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ImageUploadPool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 60);
+            this.textBoxUploadFolder.Name = "textBoxUploadFolder";
+            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 21);
+            this.textBoxUploadFolder.TabIndex = 1;
+            this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
             // 
             // label3
             // 
@@ -327,9 +346,6 @@
             this.tabPage3.Controls.Add(this.cbThresholding);
             this.tabPage3.Controls.Add(this.label41);
             this.tabPage3.Controls.Add(this.label32);
-            this.tabPage3.Controls.Add(this.removeDuplication);
-            this.tabPage3.Controls.Add(this.detectMotion);
-            this.tabPage3.Controls.Add(this.drawMotionRect);
             this.tabPage3.Controls.Add(this.label27);
             this.tabPage3.Controls.Add(this.label25);
             this.tabPage3.Controls.Add(this.label26);
@@ -345,6 +361,9 @@
             this.tabPage3.Controls.Add(this.label28);
             this.tabPage3.Controls.Add(this.label29);
             this.tabPage3.Controls.Add(this.label31);
+            this.tabPage3.Controls.Add(this.removeDuplication);
+            this.tabPage3.Controls.Add(this.detectMotion);
+            this.tabPage3.Controls.Add(this.drawMotionRect);
             this.tabPage3.Controls.Add(this.textBox3);
             this.tabPage3.Controls.Add(this.maxFaceWidth);
             this.tabPage3.Controls.Add(this.minFaceWidth);
@@ -359,6 +378,39 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cbImageArr
+            // 
+            this.cbImageArr.FormattingEnabled = true;
+            this.cbImageArr.Items.AddRange(new object[] {
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.cbImageArr.Location = new System.Drawing.Point(400, 278);
+            this.cbImageArr.Name = "cbImageArr";
+            this.cbImageArr.Size = new System.Drawing.Size(68, 20);
+            this.cbImageArr.TabIndex = 41;
+            // 
+            // cbThresholding
+            // 
+            this.cbThresholding.FormattingEnabled = true;
+            this.cbThresholding.Items.AddRange(new object[] {
+            "300",
+            "400",
+            "500",
+            "600",
+            "700",
+            "800",
+            "900",
+            "1000"});
+            this.cbThresholding.Location = new System.Drawing.Point(229, 278);
+            this.cbThresholding.Name = "cbThresholding";
+            this.cbThresholding.Size = new System.Drawing.Size(68, 20);
+            this.cbThresholding.TabIndex = 40;
             // 
             // label41
             // 
@@ -515,6 +567,106 @@
             this.label31.Size = new System.Drawing.Size(410, 2);
             this.label31.TabIndex = 32;
             // 
+            // removeDuplication
+            // 
+            this.removeDuplication.AutoSize = true;
+            this.removeDuplication.Checked = global::RemoteImaging.Properties.Settings.Default.removeDuplicatedFace;
+            this.removeDuplication.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.removeDuplication.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "removeDuplicatedFace", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.removeDuplication.Location = new System.Drawing.Point(150, 256);
+            this.removeDuplication.Name = "removeDuplication";
+            this.removeDuplication.Size = new System.Drawing.Size(96, 16);
+            this.removeDuplication.TabIndex = 17;
+            this.removeDuplication.Text = "去除重复人脸";
+            this.removeDuplication.UseVisualStyleBackColor = true;
+            // 
+            // detectMotion
+            // 
+            this.detectMotion.AutoSize = true;
+            this.detectMotion.Checked = global::RemoteImaging.Properties.Settings.Default.DetectMotion;
+            this.detectMotion.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "DetectMotion", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.detectMotion.Location = new System.Drawing.Point(26, 256);
+            this.detectMotion.Name = "detectMotion";
+            this.detectMotion.Size = new System.Drawing.Size(72, 16);
+            this.detectMotion.TabIndex = 16;
+            this.detectMotion.Text = "运动检测";
+            this.detectMotion.UseVisualStyleBackColor = true;
+            // 
+            // drawMotionRect
+            // 
+            this.drawMotionRect.AutoSize = true;
+            this.drawMotionRect.Checked = global::RemoteImaging.Properties.Settings.Default.DrawMotionRect;
+            this.drawMotionRect.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "DrawMotionRect", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.drawMotionRect.Location = new System.Drawing.Point(33, 280);
+            this.drawMotionRect.Name = "drawMotionRect";
+            this.drawMotionRect.Size = new System.Drawing.Size(120, 16);
+            this.drawMotionRect.TabIndex = 18;
+            this.drawMotionRect.Text = "标识运动检测结果";
+            this.drawMotionRect.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "FPs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox3.Location = new System.Drawing.Point(128, 221);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(33, 21);
+            this.textBox3.TabIndex = 15;
+            this.textBox3.Text = global::RemoteImaging.Properties.Settings.Default.FPs;
+            // 
+            // maxFaceWidth
+            // 
+            this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.maxFaceWidth.Location = new System.Drawing.Point(308, 114);
+            this.maxFaceWidth.Name = "maxFaceWidth";
+            this.maxFaceWidth.Size = new System.Drawing.Size(51, 21);
+            this.maxFaceWidth.TabIndex = 13;
+            this.maxFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MaxFaceWidth;
+            // 
+            // minFaceWidth
+            // 
+            this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.minFaceWidth.Location = new System.Drawing.Point(137, 114);
+            this.minFaceWidth.Name = "minFaceWidth";
+            this.minFaceWidth.Size = new System.Drawing.Size(51, 21);
+            this.minFaceWidth.TabIndex = 12;
+            this.minFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MinFaceWidth;
+            // 
+            // bottomExtRatio
+            // 
+            this.bottomExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.bottomExtRatio.Location = new System.Drawing.Point(400, 45);
+            this.bottomExtRatio.Name = "bottomExtRatio";
+            this.bottomExtRatio.Size = new System.Drawing.Size(51, 21);
+            this.bottomExtRatio.TabIndex = 8;
+            this.bottomExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
+            // 
+            // topExtRatio
+            // 
+            this.topExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.topExtRatio.Location = new System.Drawing.Point(294, 45);
+            this.topExtRatio.Name = "topExtRatio";
+            this.topExtRatio.Size = new System.Drawing.Size(51, 21);
+            this.topExtRatio.TabIndex = 6;
+            this.topExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
+            // 
+            // rightExtRatio
+            // 
+            this.rightExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.rightExtRatio.Location = new System.Drawing.Point(180, 45);
+            this.rightExtRatio.Name = "rightExtRatio";
+            this.rightExtRatio.Size = new System.Drawing.Size(51, 21);
+            this.rightExtRatio.TabIndex = 4;
+            this.rightExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
+            // 
+            // leftExtRatio
+            // 
+            this.leftExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.leftExtRatio.Location = new System.Drawing.Point(83, 45);
+            this.leftExtRatio.Name = "leftExtRatio";
+            this.leftExtRatio.Size = new System.Drawing.Size(51, 21);
+            this.leftExtRatio.TabIndex = 0;
+            this.leftExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.gBoxDiskSet);
@@ -528,51 +680,61 @@
             // 
             // gBoxDiskSet
             // 
-            this.gBoxDiskSet.Controls.Add(this.label40);
+            this.gBoxDiskSet.Controls.Add(this.label42);
+            this.gBoxDiskSet.Controls.Add(this.ckbInvocWarn);
             this.gBoxDiskSet.Controls.Add(this.label33);
-            this.gBoxDiskSet.Controls.Add(this.textBox1);
+            this.gBoxDiskSet.Controls.Add(this.txtWarnVal);
             this.gBoxDiskSet.Controls.Add(this.ckbDiskSet);
-            this.gBoxDiskSet.Controls.Add(this.comboBox1);
+            this.gBoxDiskSet.Controls.Add(this.cmbValue);
             this.gBoxDiskSet.Controls.Add(this.label34);
             this.gBoxDiskSet.Controls.Add(this.label35);
-            this.gBoxDiskSet.Location = new System.Drawing.Point(10, 156);
+            this.gBoxDiskSet.Location = new System.Drawing.Point(10, 160);
             this.gBoxDiskSet.Name = "gBoxDiskSet";
-            this.gBoxDiskSet.Size = new System.Drawing.Size(469, 117);
+            this.gBoxDiskSet.Size = new System.Drawing.Size(469, 115);
             this.gBoxDiskSet.TabIndex = 23;
             this.gBoxDiskSet.TabStop = false;
             this.gBoxDiskSet.Text = "磁盘空间预警设置";
             // 
-            // label40
+            // label42
             // 
-            this.label40.AutoSize = true;
-            this.label40.ForeColor = System.Drawing.Color.Red;
-            this.label40.Location = new System.Drawing.Point(306, 72);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(143, 12);
-            this.label40.TabIndex = 24;
-            this.label40.Text = "应该以\'MB\'结尾，如500MB";
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(293, 74);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(17, 12);
+            this.label42.TabIndex = 31;
+            this.label42.Text = "MB";
+            // 
+            // ckbInvocWarn
+            // 
+            this.ckbInvocWarn.AutoSize = true;
+            this.ckbInvocWarn.Location = new System.Drawing.Point(391, 72);
+            this.ckbInvocWarn.Name = "ckbInvocWarn";
+            this.ckbInvocWarn.Size = new System.Drawing.Size(48, 16);
+            this.ckbInvocWarn.TabIndex = 30;
+            this.ckbInvocWarn.Text = "启用";
+            this.ckbInvocWarn.UseVisualStyleBackColor = true;
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(99, 73);
+            this.label33.Location = new System.Drawing.Point(100, 74);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(113, 12);
             this.label33.TabIndex = 18;
             this.label33.Text = "预警磁盘空间，最小";
             // 
-            // textBox1
+            // txtWarnVal
             // 
-            this.textBox1.Location = new System.Drawing.Point(218, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(68, 21);
-            this.textBox1.TabIndex = 29;
-            this.textBox1.Text = "500MB";
+            this.txtWarnVal.Location = new System.Drawing.Point(219, 70);
+            this.txtWarnVal.Name = "txtWarnVal";
+            this.txtWarnVal.Size = new System.Drawing.Size(51, 21);
+            this.txtWarnVal.TabIndex = 29;
+            this.txtWarnVal.Text = "500";
             // 
             // ckbDiskSet
             // 
             this.ckbDiskSet.AutoSize = true;
-            this.ckbDiskSet.Location = new System.Drawing.Point(10, 71);
+            this.ckbDiskSet.Location = new System.Drawing.Point(10, 72);
             this.ckbDiskSet.Name = "ckbDiskSet";
             this.ckbDiskSet.Size = new System.Drawing.Size(84, 16);
             this.ckbDiskSet.TabIndex = 28;
@@ -580,22 +742,21 @@
             this.ckbDiskSet.UseVisualStyleBackColor = true;
             this.ckbDiskSet.CheckedChanged += new System.EventHandler(this.ckbDiskSet_CheckedChanged);
             // 
-            // comboBox1
+            // cmbValue
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmbValue.Items.AddRange(new object[] {
             "300MB",
             "400MB",
             "500MB"});
-            this.comboBox1.Location = new System.Drawing.Point(102, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(68, 20);
-            this.comboBox1.TabIndex = 27;
+            this.cmbValue.Location = new System.Drawing.Point(106, 31);
+            this.cmbValue.Name = "cmbValue";
+            this.cmbValue.Size = new System.Drawing.Size(68, 20);
+            this.cmbValue.TabIndex = 27;
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(10, 34);
+            this.label34.Location = new System.Drawing.Point(10, 35);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(89, 12);
             this.label34.TabIndex = 13;
@@ -604,7 +765,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(182, 34);
+            this.label35.Location = new System.Drawing.Point(180, 35);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(77, 12);
             this.label35.TabIndex = 14;
@@ -612,27 +773,51 @@
             // 
             // gBoxImgFileSet
             // 
+            this.gBoxImgFileSet.Controls.Add(this.ckbInvocFile);
+            this.gBoxImgFileSet.Controls.Add(this.ragSaveDay);
             this.gBoxImgFileSet.Controls.Add(this.label39);
             this.gBoxImgFileSet.Controls.Add(this.ckbImageAndVideo);
             this.gBoxImgFileSet.Controls.Add(this.label36);
             this.gBoxImgFileSet.Controls.Add(this.textBox2);
             this.gBoxImgFileSet.Controls.Add(this.label37);
             this.gBoxImgFileSet.Controls.Add(this.label38);
-            this.gBoxImgFileSet.Controls.Add(this.rabThrDay);
-            this.gBoxImgFileSet.Controls.Add(this.rabTwoDay);
-            this.gBoxImgFileSet.Controls.Add(this.rabOneDay);
-            this.gBoxImgFileSet.Location = new System.Drawing.Point(10, 19);
+            this.gBoxImgFileSet.Location = new System.Drawing.Point(10, 23);
             this.gBoxImgFileSet.Name = "gBoxImgFileSet";
-            this.gBoxImgFileSet.Size = new System.Drawing.Size(469, 117);
+            this.gBoxImgFileSet.Size = new System.Drawing.Size(469, 114);
             this.gBoxImgFileSet.TabIndex = 22;
             this.gBoxImgFileSet.TabStop = false;
             this.gBoxImgFileSet.Text = "图片保存期限设置";
+            // 
+            // ckbInvocFile
+            // 
+            this.ckbInvocFile.AutoSize = true;
+            this.ckbInvocFile.Location = new System.Drawing.Point(391, 66);
+            this.ckbInvocFile.Name = "ckbInvocFile";
+            this.ckbInvocFile.Size = new System.Drawing.Size(48, 16);
+            this.ckbInvocFile.TabIndex = 31;
+            this.ckbInvocFile.Text = "启用";
+            this.ckbInvocFile.UseVisualStyleBackColor = true;
+            // 
+            // ragSaveDay
+            // 
+            this.ragSaveDay.EditValue = 1;
+            this.ragSaveDay.Location = new System.Drawing.Point(106, 20);
+            this.ragSaveDay.Name = "ragSaveDay";
+            this.ragSaveDay.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.ragSaveDay.Properties.Appearance.Options.UseBackColor = true;
+            this.ragSaveDay.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.ragSaveDay.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "1天"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(2, "2天"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(3, "3天")});
+            this.ragSaveDay.Size = new System.Drawing.Size(229, 31);
+            this.ragSaveDay.TabIndex = 26;
             // 
             // label39
             // 
             this.label39.AutoSize = true;
             this.label39.ForeColor = System.Drawing.Color.Red;
-            this.label39.Location = new System.Drawing.Point(182, 71);
+            this.label39.Location = new System.Drawing.Point(189, 68);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(65, 12);
             this.label39.TabIndex = 23;
@@ -641,7 +826,7 @@
             // ckbImageAndVideo
             // 
             this.ckbImageAndVideo.AutoSize = true;
-            this.ckbImageAndVideo.Location = new System.Drawing.Point(18, 70);
+            this.ckbImageAndVideo.Location = new System.Drawing.Point(12, 65);
             this.ckbImageAndVideo.Name = "ckbImageAndVideo";
             this.ckbImageAndVideo.Size = new System.Drawing.Size(84, 16);
             this.ckbImageAndVideo.TabIndex = 24;
@@ -652,7 +837,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(153, 74);
+            this.label36.Location = new System.Drawing.Point(157, 68);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(17, 12);
             this.label36.TabIndex = 21;
@@ -660,9 +845,9 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(119, 68);
+            this.textBox2.Location = new System.Drawing.Point(106, 63);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(27, 21);
+            this.textBox2.Size = new System.Drawing.Size(51, 21);
             this.textBox2.TabIndex = 25;
             this.textBox2.Text = "3";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -680,48 +865,18 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(16, 34);
+            this.label38.Location = new System.Drawing.Point(10, 30);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(77, 12);
             this.label38.TabIndex = 18;
             this.label38.Text = "照片存放时间";
-            // 
-            // rabThrDay
-            // 
-            this.rabThrDay.AutoSize = true;
-            this.rabThrDay.Location = new System.Drawing.Point(229, 32);
-            this.rabThrDay.Name = "rabThrDay";
-            this.rabThrDay.Size = new System.Drawing.Size(41, 16);
-            this.rabThrDay.TabIndex = 23;
-            this.rabThrDay.Text = "3天";
-            this.rabThrDay.UseVisualStyleBackColor = true;
-            // 
-            // rabTwoDay
-            // 
-            this.rabTwoDay.AutoSize = true;
-            this.rabTwoDay.Location = new System.Drawing.Point(174, 32);
-            this.rabTwoDay.Name = "rabTwoDay";
-            this.rabTwoDay.Size = new System.Drawing.Size(41, 16);
-            this.rabTwoDay.TabIndex = 20;
-            this.rabTwoDay.Text = "2天";
-            this.rabTwoDay.UseVisualStyleBackColor = true;
-            // 
-            // rabOneDay
-            // 
-            this.rabOneDay.AutoSize = true;
-            this.rabOneDay.Location = new System.Drawing.Point(119, 32);
-            this.rabOneDay.Name = "rabOneDay";
-            this.rabOneDay.Size = new System.Drawing.Size(41, 16);
-            this.rabOneDay.TabIndex = 19;
-            this.rabOneDay.Text = "1天";
-            this.rabOneDay.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.textBox4);
             this.tabPage4.Controls.Add(this.label24);
             this.tabPage4.Controls.Add(this.label30);
-            this.tabPage4.Controls.Add(this.comboBox2);
+            this.tabPage4.Controls.Add(this.cmbComPort);
             this.tabPage4.Controls.Add(this.label22);
             this.tabPage4.Controls.Add(this.label23);
             this.tabPage4.Controls.Add(this.label20);
@@ -759,14 +914,14 @@
             this.label30.Size = new System.Drawing.Size(410, 2);
             this.label30.TabIndex = 36;
             // 
-            // comboBox2
+            // cmbComPort
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(37, 129);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(100, 20);
-            this.comboBox2.TabIndex = 30;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.cmbComPort.FormattingEnabled = true;
+            this.cmbComPort.Location = new System.Drawing.Point(37, 129);
+            this.cmbComPort.Name = "cmbComPort";
+            this.cmbComPort.Size = new System.Drawing.Size(100, 20);
+            this.cmbComPort.TabIndex = 30;
+            this.cmbComPort.SelectedIndexChanged += new System.EventHandler(this.cmbComPort_SelectedIndexChanged);
             // 
             // label22
             // 
@@ -939,157 +1094,6 @@
             this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
             // 
-            // textBoxOutputFolder
-            // 
-            this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 123);
-            this.textBoxOutputFolder.Name = "textBoxOutputFolder";
-            this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 21);
-            this.textBoxOutputFolder.TabIndex = 4;
-            this.textBoxOutputFolder.Text = global::RemoteImaging.Properties.Settings.Default.OutputPath;
-            // 
-            // textBoxUploadFolder
-            // 
-            this.textBoxUploadFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ImageUploadPool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 60);
-            this.textBoxUploadFolder.Name = "textBoxUploadFolder";
-            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 21);
-            this.textBoxUploadFolder.TabIndex = 1;
-            this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
-            // 
-            // removeDuplication
-            // 
-            this.removeDuplication.AutoSize = true;
-            this.removeDuplication.Checked = global::RemoteImaging.Properties.Settings.Default.removeDuplicatedFace;
-            this.removeDuplication.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.removeDuplication.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "removeDuplicatedFace", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.removeDuplication.Location = new System.Drawing.Point(150, 256);
-            this.removeDuplication.Name = "removeDuplication";
-            this.removeDuplication.Size = new System.Drawing.Size(96, 16);
-            this.removeDuplication.TabIndex = 17;
-            this.removeDuplication.Text = "去除重复人脸";
-            this.removeDuplication.UseVisualStyleBackColor = true;
-            // 
-            // detectMotion
-            // 
-            this.detectMotion.AutoSize = true;
-            this.detectMotion.Checked = global::RemoteImaging.Properties.Settings.Default.DetectMotion;
-            this.detectMotion.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "DetectMotion", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.detectMotion.Location = new System.Drawing.Point(26, 256);
-            this.detectMotion.Name = "detectMotion";
-            this.detectMotion.Size = new System.Drawing.Size(72, 16);
-            this.detectMotion.TabIndex = 16;
-            this.detectMotion.Text = "运动检测";
-            this.detectMotion.UseVisualStyleBackColor = true;
-            // 
-            // drawMotionRect
-            // 
-            this.drawMotionRect.AutoSize = true;
-            this.drawMotionRect.Checked = global::RemoteImaging.Properties.Settings.Default.DrawMotionRect;
-            this.drawMotionRect.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "DrawMotionRect", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.drawMotionRect.Location = new System.Drawing.Point(33, 280);
-            this.drawMotionRect.Name = "drawMotionRect";
-            this.drawMotionRect.Size = new System.Drawing.Size(120, 16);
-            this.drawMotionRect.TabIndex = 18;
-            this.drawMotionRect.Text = "标识运动检测结果";
-            this.drawMotionRect.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            this.textBox3.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "FPs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox3.Location = new System.Drawing.Point(128, 221);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(33, 21);
-            this.textBox3.TabIndex = 15;
-            this.textBox3.Text = global::RemoteImaging.Properties.Settings.Default.FPs;
-            // 
-            // maxFaceWidth
-            // 
-            this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.maxFaceWidth.Location = new System.Drawing.Point(308, 114);
-            this.maxFaceWidth.Name = "maxFaceWidth";
-            this.maxFaceWidth.Size = new System.Drawing.Size(51, 21);
-            this.maxFaceWidth.TabIndex = 13;
-            this.maxFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MaxFaceWidth;
-            // 
-            // minFaceWidth
-            // 
-            this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.minFaceWidth.Location = new System.Drawing.Point(137, 114);
-            this.minFaceWidth.Name = "minFaceWidth";
-            this.minFaceWidth.Size = new System.Drawing.Size(51, 21);
-            this.minFaceWidth.TabIndex = 12;
-            this.minFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MinFaceWidth;
-            // 
-            // bottomExtRatio
-            // 
-            this.bottomExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.bottomExtRatio.Location = new System.Drawing.Point(400, 45);
-            this.bottomExtRatio.Name = "bottomExtRatio";
-            this.bottomExtRatio.Size = new System.Drawing.Size(51, 21);
-            this.bottomExtRatio.TabIndex = 8;
-            this.bottomExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
-            // 
-            // topExtRatio
-            // 
-            this.topExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.topExtRatio.Location = new System.Drawing.Point(294, 45);
-            this.topExtRatio.Name = "topExtRatio";
-            this.topExtRatio.Size = new System.Drawing.Size(51, 21);
-            this.topExtRatio.TabIndex = 6;
-            this.topExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
-            // 
-            // rightExtRatio
-            // 
-            this.rightExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rightExtRatio.Location = new System.Drawing.Point(180, 45);
-            this.rightExtRatio.Name = "rightExtRatio";
-            this.rightExtRatio.Size = new System.Drawing.Size(51, 21);
-            this.rightExtRatio.TabIndex = 4;
-            this.rightExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
-            // 
-            // leftExtRatio
-            // 
-            this.leftExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.leftExtRatio.Location = new System.Drawing.Point(83, 45);
-            this.leftExtRatio.Name = "leftExtRatio";
-            this.leftExtRatio.Size = new System.Drawing.Size(51, 21);
-            this.leftExtRatio.TabIndex = 0;
-            this.leftExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
-            // 
-            // cbImageArr
-            // 
-            this.cbImageArr.FormattingEnabled = true;
-            this.cbImageArr.Items.AddRange(new object[] {
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cbImageArr.Location = new System.Drawing.Point(400, 278);
-            this.cbImageArr.Name = "cbImageArr";
-            this.cbImageArr.Size = new System.Drawing.Size(68, 20);
-            this.cbImageArr.TabIndex = 41;
-            // 
-            // cbThresholding
-            // 
-            this.cbThresholding.FormattingEnabled = true;
-            this.cbThresholding.Items.AddRange(new object[] {
-            "300",
-            "400",
-            "500",
-            "600",
-            "700",
-            "800",
-            "900",
-            "1000"});
-            this.cbThresholding.Location = new System.Drawing.Point(229, 278);
-            this.cbThresholding.Name = "cbThresholding";
-            this.cbThresholding.Size = new System.Drawing.Size(68, 20);
-            this.cbThresholding.TabIndex = 40;
-            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1107,7 +1111,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "系统设置";
-            this.Load += new System.EventHandler(this.OptionsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
@@ -1127,6 +1130,7 @@
             this.gBoxDiskSet.PerformLayout();
             this.gBoxImgFileSet.ResumeLayout(false);
             this.gBoxImgFileSet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ragSaveDay.Properties)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).EndInit();
@@ -1193,9 +1197,9 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.GroupBox gBoxDiskSet;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtWarnVal;
         private System.Windows.Forms.CheckBox ckbDiskSet;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbValue;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox gBoxImgFileSet;
@@ -1203,12 +1207,8 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.RadioButton rabThrDay;
-        private System.Windows.Forms.RadioButton rabTwoDay;
-        private System.Windows.Forms.RadioButton rabOneDay;
         private System.Windows.Forms.CheckBox ckbImageAndVideo;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label25;
@@ -1224,10 +1224,14 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbComPort;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.ComboBox cbImageArr;
         private System.Windows.Forms.ComboBox cbThresholding;
+        private DevExpress.XtraEditors.RadioGroup ragSaveDay;
+        private System.Windows.Forms.CheckBox ckbInvocWarn;
+        private System.Windows.Forms.CheckBox ckbInvocFile;
+        private System.Windows.Forms.Label label42;
     }
 }

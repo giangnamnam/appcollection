@@ -31,8 +31,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                //ofd.InitialDirectory = Application.StartupPath;
-                //ofd.RestoreDirectory = true;
+                ofd.InitialDirectory = Application.StartupPath;
+                ofd.RestoreDirectory = true;
                 ofd.Filter = "Jpeg 文件|*.jpg";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {

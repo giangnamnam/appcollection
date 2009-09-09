@@ -66,32 +66,29 @@ namespace RemoteImaging.Query
             {
                 DateTime dTime =imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
-                lvl.Text = file;
-                lvl.SubItems.Add(dTime.ToString());
-                videoList.Items.Add(lvl);
-                lvl.ImageIndex = 0;
-                #region
-                //if (radioButton1.Checked == true)
-                //{
-                //    if (imgSearch.getPicFiles(file,this.comboBox1.Text,true).Length > 0)
-                //    {
-                //        lvl.Text = file;
-                //        lvl.SubItems.Add(dTime.ToString());
-                //        videoList.Items.Add(lvl);
-                //        lvl.ImageIndex = 0;
-                //    }
-                //}
 
-                //if (radioButton2.Checked == true)
-                //{
-                //    lvl.Text = file;
-                //    lvl.SubItems.Add(dTime.ToString());
-                //    videoList.Items.Add(lvl);
-                //    if (imgSearch.getPicFiles(file,this.comboBox1.Text,true).Length > 0)
-                //        lvl.ImageIndex = 0;
-                //    else
-                //        lvl.ImageIndex = 1;
-                //}
+                #region
+                if (radioButton1.Checked == true)
+                {
+                    if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    {
+                        lvl.Text = file;
+                        lvl.SubItems.Add(dTime.ToString());
+                        videoList.Items.Add(lvl);
+                        lvl.ImageIndex = 0;
+                    }
+                }
+
+                if (radioButton2.Checked == true)
+                {
+                    lvl.Text = file;
+                    lvl.SubItems.Add(dTime.ToString());
+                    videoList.Items.Add(lvl);
+                    if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                        lvl.ImageIndex = 0;
+                    else
+                        lvl.ImageIndex = 1;
+                }
                 #endregion
             }
         }
