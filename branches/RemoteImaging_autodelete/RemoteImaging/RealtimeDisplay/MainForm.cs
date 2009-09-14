@@ -105,8 +105,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void SetMonitor()
         {
-            string point =  Properties.Settings.Default.Point;
-            if ( point!= "")
+            string point = Properties.Settings.Default.Point;
+            if (point != "")
             {
                 string[] strPoints = point.Split(' ');
                 int oPointx = Convert.ToInt32(strPoints[0]);
@@ -117,7 +117,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        
+
         //根据光亮值修改摄像机   线程
         private void StartSetCam(Properties.Settings setting)
         {
@@ -130,7 +130,7 @@ namespace RemoteImaging.RealtimeDisplay
             thread.IsBackground = true;
             thread.Start();
         }
-       
+
 
 
 
@@ -572,7 +572,7 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
-                   StartSetCam(setting);
+                    StartSetCam(setting);
                 }
             }
 
@@ -605,7 +605,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void InitStatusBar()
         {
-            statusUploadFolder.Text = "上传目录：" + Properties.Settings.Default.ImageUploadPool;
             statusOutputFolder.Text = "输出目录：" + Properties.Settings.Default.OutputPath;
         }
 
@@ -657,7 +656,6 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 if (this.InvokeRequired)
                 {
-                    Action ac = () => this.statusProgressBar.Visible = value;
                     //this.Invoke(ac);
                 }
                 else
@@ -672,13 +670,10 @@ namespace RemoteImaging.RealtimeDisplay
         {
             if (InvokeRequired)
             {
-                Action ac = () => this.statusProgressBar.PerformStep();
 
-                this.Invoke(ac);
             }
             else
             {
-                this.statusProgressBar.PerformStep();
 
             }
 
@@ -707,18 +702,6 @@ namespace RemoteImaging.RealtimeDisplay
             detail.Dispose();
         }
 
-        private void pictureEdit1_DoubleClick(object sender, EventArgs e)
-        {
-            if (this.pictureEdit1.Tag == null)
-            {
-                return;
-            }
-
-            ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
-
-            ShowDetailPic(img);
-
-        }
 
         private void ShowPic()
         {
@@ -859,10 +842,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void panelControl1_SizeChanged(object sender, EventArgs e)
         {
-            int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
-            int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
-            this.axCamImgCtrl1.Left = x;
-            this.squareListView1.Height = height - 15;
+            //             int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
+            //             int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
+            //             this.axCamImgCtrl1.Left = x;
+            //             this.squareListView1.Height = height - 15;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -917,6 +900,18 @@ namespace RemoteImaging.RealtimeDisplay
 
             Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
             StartCamera(cam);
+        }
+
+        private void pictureEdit1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (this.pictureEdit1.Tag == null)
+            {
+                return;
+            }
+
+            ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
+
+            ShowDetailPic(img);
         }
 
 

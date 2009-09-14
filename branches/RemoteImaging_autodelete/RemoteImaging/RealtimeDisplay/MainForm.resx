@@ -121,17 +121,6 @@
     <value>43, 19</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="statusUploadFolder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        R0lGODlhEAAQAPUAAAAAAP//mQMDA////8WSLP/3kf/rhf/gev/Ubv/0jv/MZsyZM7OAGsuYMsmWMMeU
-        LrqHIcKPKf/mgLB9F7WCHK57Fb2KJJpnAZlmALiFH5xpA55rBcCNJ6NwCqBtB+azTfjFX7eEHrSBG7+M
-        JtypQ++8VgICAtOgOryJI6t4EqVyDKh1DwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAAALAAAAAAQABAAAAaKQIBwSCwaj8ZFw/FADheD
-        6CDihAaugYEFEqIwJsNGIUEmS6MVgdBhkBDecA4qI2IwAI8D4cyXDDoCBAgLWIVXIAEeAhEKDQEFkJGQ
-        JQEbAhwKBAEGnJ2cHwEaAhYKIwEHqKmoJAEXAhAKGQEItLW0JwEYal4TFSkrKh0eGxoXGCZqAALLzM3M
-        TkhBADs=
-</value>
-  </data>
   <data name="statusOutputFolder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhEAAQAPUAAAAAAP//mQMDA////8WSLP/3kf/rhf/gev/Ubv/0jv/MZsyZM7OAGsuYMsmWMMeU
@@ -418,6 +407,6 @@
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>87</value>
+    <value>60</value>
   </metadata>
 </root>
