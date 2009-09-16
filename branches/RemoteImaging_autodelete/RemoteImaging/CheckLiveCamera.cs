@@ -15,7 +15,7 @@ namespace RemoteImaging
         Socket sock = null;
         IPEndPoint iep1 = null;
         IPEndPoint iep = null;
-        public CheckLiveCamera(List<Camera> tt,Configuration configd)
+        public CheckLiveCamera(List<Camera> tt, Configuration configd)
         {
             listCamera = new List<Camera>();
             listCamera = tt;
@@ -29,7 +29,7 @@ namespace RemoteImaging
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             iep1 = new IPEndPoint(IPAddress.Broadcast, 10001);//255.255.255.255
             iep = new IPEndPoint(IPAddress.Any, 10000);
-            sock.Bind(iep);
+            //sock.Bind(iep);
         }
 
         private Camera[] trueCamera;

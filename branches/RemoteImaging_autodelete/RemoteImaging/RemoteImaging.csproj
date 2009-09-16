@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E0F855A2-D8FA-4D2F-9645-C6E8DE8AACD4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -102,6 +102,12 @@
     </Compile>
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Controls\SearchFaceViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchFaceViewer.Designer.cs">
+      <DependentUpon>SearchFaceViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Converter.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
@@ -150,6 +156,12 @@
     </Compile>
     <Compile Include="RealtimeDisplay\Camera.cs" />
     <Compile Include="RealtimeDisplay\CameraUpdateSettings.cs" />
+    <Compile Include="RealtimeDisplay\ChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RealtimeDisplay\ChildForm.Designer.cs">
+      <DependentUpon>ChildForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="RealtimeDisplay\FileHandle.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
     <Compile Include="RealtimeDisplay\ImageClassifier.cs" />
@@ -175,6 +187,9 @@
     <EmbeddedResource Include="AlertSettingRes.resx">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SearchFaceViewer.resx">
+      <DependentUpon>SearchFaceViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConfigCamera.resx">
       <DependentUpon>FormConfigCamera.cs</DependentUpon>
@@ -208,6 +223,9 @@
     <EmbeddedResource Include="Query\VideoQueryForm.resx">
       <DependentUpon>VideoQueryForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealtimeDisplay\ChildForm.resx">
+      <DependentUpon>ChildForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RealtimeDisplay\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

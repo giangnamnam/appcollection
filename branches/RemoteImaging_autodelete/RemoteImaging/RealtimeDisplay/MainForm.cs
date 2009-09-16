@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
 using MotionDetect;
+using DevExpress.XtraEditors;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -285,15 +286,6 @@ namespace RemoteImaging.RealtimeDisplay
             get
             {
                 ImageDetail img = null;
-                if (this.squareListView1.LastSelectedCell != null)
-                {
-                    Cell c = this.squareListView1.LastSelectedCell;
-                    if (!string.IsNullOrEmpty(c.Path))
-                    {
-                        img = ImageDetail.FromPath(c.Path);
-                    }
-
-                }
 
                 return img;
             }
@@ -307,8 +299,8 @@ namespace RemoteImaging.RealtimeDisplay
                 try
                 {
                     Image img = Image.FromFile(value.Path);
-                    this.pictureEdit1.Image = img;
-                    this.pictureEdit1.Tag = value;
+                    //                     this.pictureEdit1.Image = img;
+                    //                     this.pictureEdit1.Tag = value;
                 }
                 catch (System.IO.IOException)
                 {
@@ -335,7 +327,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
 
-            this.squareListView1.ShowImages(cells);
+            //             this.squareListView1.ShowImages(cells);
 
         }
 
@@ -348,7 +340,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (c == null) return;
 
-            this.StartCamera(c);
+            //this.StartCamera(c);
 
         }
 
@@ -580,27 +572,27 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void column1by1_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 1;
+            //             this.squareListView1.NumberOfColumns = 1;
         }
 
         private void column2by2_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 2;
+            //             this.squareListView1.NumberOfColumns = 2;
         }
 
         private void column3by3_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 3;
+            //             this.squareListView1.NumberOfColumns = 3;
         }
 
         private void column4by4_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 4;
+            //             this.squareListView1.NumberOfColumns = 4;
         }
 
         private void column5by5_Click(object sender, EventArgs e)
         {
-            this.squareListView1.NumberOfColumns = 5;
+            //             this.squareListView1.NumberOfColumns = 5;
         }
 
         private void InitStatusBar()
@@ -705,12 +697,12 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowPic()
         {
-            if (this.squareListView1.SelectedCell == null)
-                return;
-            string p = this.squareListView1.SelectedCell.Path;
-            if (p == null) return;
-
-            this.ShowDetailPic(ImageDetail.FromPath(p));
+            //             if (this.squareListView1.SelectedCell == null)
+            //                 return;
+            //             string p = this.squareListView1.SelectedCell.Path;
+            //             if (p == null) return;
+            // 
+            //             this.ShowDetailPic(ImageDetail.FromPath(p));
         }
         private void squareListView1_CellDoubleClick(object sender, CellDoubleClickEventArgs args)
         {
@@ -719,36 +711,36 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void playRelateVideo_Click(object sender, EventArgs e)
         {
-            Cell c = this.squareListView1.SelectedCell;
-            if (c == null || c.Path == null) return;
-
-            ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
-
-            string root = Path.Combine(Properties.Settings.Default.OutputPath, imgInfo.FromCamera.ToString("D2"));
-
-            string[] videos = VideoSearch.FindVideos(root, imgInfo);
-
-            if (videos.Length == 0)
-            {
-                MessageBox.Show(this, "没有找到相关视频", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            if (videoPlayerPath == null)
-            {
-                MessageBox.Show(this, "请安装相应播放器", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            StringBuilder sb = new StringBuilder();
-            foreach (var file in videos)
-            {
-                sb.Append(file); sb.Append(' ');
-            }
-
-            sb.Append(@"vlc://quit"); sb.Append(' ');
-
-            Process.Start(videoPlayerPath, sb.ToString());
+            //             Cell c = this.squareListView1.SelectedCell;
+            //             if (c == null || c.Path == null) return;
+            // 
+            //             ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
+            // 
+            //             string root = Path.Combine(Properties.Settings.Default.OutputPath, imgInfo.FromCamera.ToString("D2"));
+            // 
+            //             string[] videos = VideoSearch.FindVideos(root, imgInfo);
+            // 
+            //             if (videos.Length == 0)
+            //             {
+            //                 MessageBox.Show(this, "没有找到相关视频", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                 return;
+            //             }
+            // 
+            //             if (videoPlayerPath == null)
+            //             {
+            //                 MessageBox.Show(this, "请安装相应播放器", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                 return;
+            //             }
+            // 
+            //             StringBuilder sb = new StringBuilder();
+            //             foreach (var file in videos)
+            //             {
+            //                 sb.Append(file); sb.Append(' ');
+            //             }
+            // 
+            //             sb.Append(@"vlc://quit"); sb.Append(' ');
+            // 
+            //             Process.Start(videoPlayerPath, sb.ToString());
         }
 
 
@@ -756,23 +748,23 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void StartRecord(Camera cam)
         {
-            this.axCamImgCtrl1.CamImgCtrlStop();
-
-            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
-            this.axCamImgCtrl1.ImageType = @"MPEG";
-            this.axCamImgCtrl1.CameraModel = 1;
-            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
-            this.axCamImgCtrl1.uid = "guest";
-            this.axCamImgCtrl1.pwd = "guest";
-            this.axCamImgCtrl1.RecordingFolderPath
-                = Path.Combine(Properties.Settings.Default.OutputPath, cam.ID.ToString("D2"));
-            this.axCamImgCtrl1.RecordingFormat = 0;
-            this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
-            this.axCamImgCtrl1.UnicastPort = 3939;
-            this.axCamImgCtrl1.ComType = 0;
-
-            this.axCamImgCtrl1.CamImgCtrlStart();
-            this.axCamImgCtrl1.CamImgRecStart();
+            //             this.axCamImgCtrl1.CamImgCtrlStop();
+            // 
+            //             this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
+            //             this.axCamImgCtrl1.ImageType = @"MPEG";
+            //             this.axCamImgCtrl1.CameraModel = 1;
+            //             this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
+            //             this.axCamImgCtrl1.uid = "guest";
+            //             this.axCamImgCtrl1.pwd = "guest";
+            //             this.axCamImgCtrl1.RecordingFolderPath
+            //                 = Path.Combine(Properties.Settings.Default.OutputPath, cam.ID.ToString("D2"));
+            //             this.axCamImgCtrl1.RecordingFormat = 0;
+            //             this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
+            //             this.axCamImgCtrl1.UnicastPort = 3939;
+            //             this.axCamImgCtrl1.ComType = 0;
+            // 
+            //             this.axCamImgCtrl1.CamImgCtrlStart();
+            //             this.axCamImgCtrl1.CamImgRecStart();
 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
@@ -850,6 +842,35 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.splitContainerControl1.Panel2.Visible = false;
+
+            RemoteImaging.Controls.SearchFaceViewer faceViewer =
+                new RemoteImaging.Controls.SearchFaceViewer();
+
+            // faceViewer.Dock = DockStyle.Fill;
+
+            //this.tableLayoutPanel1.Controls.Add(faceViewer);
+
+
+
+            RemoteImaging.Controls.SearchFaceViewer faceViewer1 =
+                new RemoteImaging.Controls.SearchFaceViewer();
+
+            //faceViewer1.Dock = DockStyle.Fill;
+
+            // this.tableLayoutPanel1.Controls.Add(faceViewer1);
+
+
+
+
+            //             ChildForm form1 = new ChildForm();
+            //             form1.MdiParent = this;
+            //             form1.Visible = true;
+            // 
+            //             ChildForm form2 = new ChildForm();
+            //             form2.MdiParent = this;
+            //             form2.Visible = true;
+
 
         }
 
@@ -904,14 +925,40 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void pictureEdit1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (this.pictureEdit1.Tag == null)
-            {
-                return;
-            }
+            //             if (this.pictureEdit1.Tag == null)
+            //             {
+            //                 return;
+            //             }
+            // 
+            //             ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
+            // 
+            //             ShowDetailPic(img);
+        }
 
-            ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
+        private void ggToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
 
-            ShowDetailPic(img);
+        private void arrahgeVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
+
+
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoteImaging.Controls.SearchFaceViewer viewer
+                = new RemoteImaging.Controls.SearchFaceViewer();
+
+            viewer.Dock = DockStyle.Fill;
+
+            this.splitContainerControl1.Panel2.Controls.Add(viewer);
+
+            this.splitContainerControl1.Panel2.Visible = true;
+
+            this.splitContainerControl1.PanelVisibility = SplitPanelVisibility.Both;
         }
 
 
