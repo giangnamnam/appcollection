@@ -105,8 +105,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void SetMonitor()
         {
-            string point =  Properties.Settings.Default.Point;
-            if ( point!= "")
+            string point = Properties.Settings.Default.Point;
+            if (point != "")
             {
                 string[] strPoints = point.Split(' ');
                 int oPointx = Convert.ToInt32(strPoints[0]);
@@ -117,7 +117,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        
+
         //根据光亮值修改摄像机   线程
         private void StartSetCam(Properties.Settings setting)
         {
@@ -130,7 +130,7 @@ namespace RemoteImaging.RealtimeDisplay
             thread.IsBackground = true;
             thread.Start();
         }
-       
+
 
 
 
@@ -348,7 +348,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (c == null) return;
 
-            this.StartCamera(c);
+            //this.StartCamera(c);
 
         }
 
@@ -572,7 +572,7 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
-                   StartSetCam(setting);
+                    StartSetCam(setting);
                 }
             }
 

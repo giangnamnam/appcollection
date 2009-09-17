@@ -11,7 +11,7 @@ namespace MotionDetect
     {
         const string dllName = "PreProcess.dll";
 
-        [DllImport(dllName, EntryPoint = "PreProcessFrame")]
+        [DllImport(dllName)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool PreProcessFrame(Frame frame, ref Frame lastFrame);
 

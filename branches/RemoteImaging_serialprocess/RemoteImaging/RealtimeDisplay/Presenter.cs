@@ -43,9 +43,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
-            motionDetectThread =
-                Properties.Settings.Default.DetectMotion ?
-                new Thread(this.DetectMotion) : new Thread(this.BypassDetectMotion);
+            motionDetectThread = new Thread(this.DetectMotion);
             motionDetectThread.IsBackground = true;
             motionDetectThread.Name = "motion detect";
 
@@ -68,7 +66,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            this.SearchFace();
 
         }
 
@@ -158,7 +155,14 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     Frame frameToProcess = new Frame();
 
-                    bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    bool groupCaptured = false;
+
+                    if (Properties.Settings.Default.DetectMotion)
+                        groupCaptured =
+                            MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    else
+                        groupCaptured = FakeMotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+
 
                     Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
@@ -169,20 +173,34 @@ namespace RemoteImaging.RealtimeDisplay
                     else
                     {
                         SaveFrame(frameToProcess);
+                        NativeIconExtractor.AddInFrame(frameToProcess);
                         motionFrames.Enqueue(frameToProcess);
                     }
 
                     if (groupCaptured)
                     {
+                        Target[] tgts = SearchFaces();
+
+                        //remove duplicated faces
+                        int upLimit = tgts.Length;
+
+                        if (Properties.Settings.Default.DetectMotion
+                            && Properties.Settings.Default.removeDuplicatedFace)
+                        {
+                            upLimit = Math.Min(upLimit, Properties.Settings.Default.MaxDupFaces);
+                        }
+
+                        Target[] removed = new Target[upLimit];
+                        Array.ConstrainedCopy(tgts, 0, removed, 0, upLimit);
+
+                        ImageDetail[] details = this.SaveImage(removed);
+                        this.screen.ShowImages(details);
+
                         Frame[] frames = motionFrames.ToArray();
                         motionFrames.Clear();
 
-                        if (frames.Length <= 0) continue;
-
-                        lock (locker) framesQueue.Enqueue(frames);
-
-                        goSearch.Set();
-
+                        //release memory
+                        Array.ForEach(frames, f => Cv.Release(ref f.image));
                     }
 
                 }
@@ -192,36 +210,6 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        void BypassDetectMotion()
-        {
-            while (true)
-            {
-                Frame f = this.GetNewFrame();
-
-                if (f.image != IntPtr.Zero)
-                {
-                    IplImage ipl = new IplImage(f.image);
-                    ipl.IsEnabledDispose = false;
-                    f.searchRect.Width = ipl.Width;
-                    f.searchRect.Height = ipl.Height;
-
-                    motionFrames.Enqueue(f);
-                    SaveFrame(f);
-
-                    if (motionFrames.Count == 6)
-                    {
-                        Frame[] frames = motionFrames.ToArray();
-                        motionFrames.Clear();
-                        lock (locker) framesQueue.Enqueue(frames);
-                        goSearch.Set();
-                    }
-                }
-                else
-                    goDetectMotion.WaitOne();
-
-            }
-
-        }
 
         public void Start()
         {
@@ -237,7 +225,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (!this.worker.IsBusy)
             {
-                this.worker.RunWorkerAsync();
+                //this.worker.RunWorkerAsync();
             }
         }
 
@@ -343,84 +331,29 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
-
-
-
-
-        unsafe void SearchFace()
+        private unsafe Target[] SearchFaces()
         {
-            while (true)
+            IntPtr retTarget = IntPtr.Zero;
+
+            int count = NativeIconExtractor.SearchFaces(ref retTarget);
+
+            if (count <= 0) return new Target[0];
+
+            Target* pTarget = (Target*)retTarget;
+
+            IList<Target> targets = new List<Target>();
+
+            for (int i = 0; i < count; i++)
             {
-                Frame[] frames = null;
-                lock (locker)
-                {
-                    if (framesQueue.Count > 0)
-                    {
-                        frames = framesQueue.Dequeue();
-                    }
-                }
-
-                if (frames != null)
-                {
-                    for (int i = 0; i < frames.Length; ++i)
-                    {
-                        DateTime dt = DateTime.FromBinary(frames[i].timeStamp);
-
-                        NativeIconExtractor.AddInFrame(frames[i]);
-                    }
-
-                    IntPtr target = IntPtr.Zero;
-
-                    int count = NativeIconExtractor.SearchFaces(ref target);
-                    if (count > 0)
-                    {
-                        Target* pTarget = (Target*)target;
-
-                        IList<Target> targets = new List<Target>();
-
-                        int upLimit = count;
-
-                        if (frames.Length > 1 && Properties.Settings.Default.DetectMotion
-                            && Properties.Settings.Default.removeDuplicatedFace)
-                        {
-                            upLimit = Math.Min(count, Properties.Settings.Default.MaxDupFaces);
-                        }
-
-                        for (int i = 0; i < upLimit; i++)
-                        {
-                            Target face = pTarget[i];
-
-                            Frame frm = face.BaseFrame;
-
-                            int idx = Array.FindIndex(frames, fm => fm.cameraID == frm.cameraID
-                                                                && fm.image == frm.image
-                                                                && fm.timeStamp == frm.timeStamp);
-
-                            Debug.Assert(idx != -1);
-
-                            targets.Add(face);
-                        }
-
-                        Target[] tgArr = new Target[targets.Count];
-
-                        targets.CopyTo(tgArr, 0);
-
-
-                        ImageDetail[] imgs = this.SaveImage(tgArr);
-                        this.screen.ShowImages(imgs);
-
-                    }
-
-
-                    NativeIconExtractor.ReleaseMem();
-
-                    Array.ForEach(frames, f => Cv.Release(ref f.image));
-                }
-                else
-                    goSearch.WaitOne();
+                Target face = pTarget[i];
+                targets.Add(face);
             }
-        }
 
+            Target[] tgArr = new Target[targets.Count];
+            targets.CopyTo(tgArr, 0);
+
+            return tgArr;
+        }
 
 
 
