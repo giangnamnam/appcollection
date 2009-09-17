@@ -161,7 +161,7 @@ namespace RemoteImaging.RealtimeDisplay
                         groupCaptured =
                             MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
                     else
-                        groupCaptured = FakeMotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                        groupCaptured = NoneMotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
 
 
                     Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));

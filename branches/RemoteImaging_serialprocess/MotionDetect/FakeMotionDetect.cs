@@ -7,7 +7,7 @@ using OpenCvSharp;
 
 namespace MotionDetect
 {
-    public static class FakeMotionDetect
+    public static class NoneMotionDetect
     {
         public static bool PreProcessFrame(Frame frame, ref Frame lastFrame)
         {
