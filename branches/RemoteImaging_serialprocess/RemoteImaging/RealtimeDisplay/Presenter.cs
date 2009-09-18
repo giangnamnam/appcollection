@@ -153,7 +153,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             DateTime lastTime = DateTime.Now.AddMinutes(-3);
             CvVideoWriter videoWriter = null;
-            int count = 0;
+            uint count = 0;
 
             while (true)
             {
@@ -203,12 +203,13 @@ namespace RemoteImaging.RealtimeDisplay
                         else
                             groupCaptured = NoneMotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
 
-                        count = 0;
                     }
                     else
                     {
                         Cv.Release(ref newFrame.image);
                     }
+
+                    count %= uint.MaxValue;
 
                     if (IsStaticFrame(frameToProcess))
                     {
