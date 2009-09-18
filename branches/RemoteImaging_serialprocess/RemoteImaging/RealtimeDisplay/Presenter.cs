@@ -119,6 +119,8 @@ namespace RemoteImaging.RealtimeDisplay
             ipl.IsEnabledDispose = false;
             f.image = ipl.CvPtr;
 
+            screen.LiveImage = bmp;
+
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
             goDetectMotion.Set();
@@ -148,23 +150,65 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void DetectMotion()
         {
+
+            DateTime lastTime = DateTime.Now.AddMinutes(-3);
+            CvVideoWriter videoWriter = null;
+            int count = 0;
+
             while (true)
             {
                 Frame newFrame = GetNewFrame();
                 if (newFrame.image != IntPtr.Zero)
                 {
+                    DateTime dtFrame = DateTime.FromBinary(newFrame.timeStamp);
+
+                    IplImage ipl = new IplImage(newFrame.image);
+                    ipl.IsEnabledDispose = false;
+
+                    //new minute start, create new vide file
+                    if (dtFrame.Minute != lastTime.Minute)
+                    {
+                        if (videoWriter != null)
+                        {
+                            Cv.ReleaseVideoWriter(videoWriter);
+                            videoWriter = null;
+                        }
+
+
+                        videoWriter = Cv.CreateVideoWriter(
+                            @"d:\" + dtFrame.Minute + ".avi",
+                            "XVID",
+                            10,
+                            ipl.Size
+                            );
+
+                        System.Diagnostics.Debug.WriteLine(@"d:\" + dtFrame.Minute + ".avi");
+                    }
+
+                    videoWriter.WriteFrame(ipl);
+
+                    lastTime = dtFrame;
+
                     Frame frameToProcess = new Frame();
 
                     bool groupCaptured = false;
 
-                    if (Properties.Settings.Default.DetectMotion)
-                        groupCaptured =
-                            MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    count++;
+
+                    if (count % 5 == 0)
+                    {
+                        if (Properties.Settings.Default.DetectMotion)
+                            groupCaptured =
+                                MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                        else
+                            groupCaptured = NoneMotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+
+                        count = 0;
+                    }
                     else
-                        groupCaptured = NoneMotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
-
-
-                    Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
+                    {
+                        Cv.Release(ref newFrame.image);
+                    }
 
                     if (IsStaticFrame(frameToProcess))
                     {

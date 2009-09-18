@@ -354,6 +354,29 @@ namespace RemoteImaging.RealtimeDisplay
 
         #region IImageScreen Members
 
+
+        public Image LiveImage
+        {
+            get { return null; }
+            set
+            {
+                Image save = this.pictureBox4.Image;
+                if (InvokeRequired)
+                {
+                    Action<Image> showImg = img => this.pictureBox4.Image = img;
+
+                    this.Invoke(showImg, new object[] { value });
+                }
+                else
+                    this.pictureBox4.Image = value;
+
+                if (save != null)
+                {
+                    save.Dispose();
+                }
+            }
+        }
+
         public Camera[] Cameras
         {
             set
@@ -773,24 +796,24 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void StartRecord(Camera cam)
         {
-            this.axCamImgCtrl1.CamImgCtrlStop();
-
-            this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
-            this.axCamImgCtrl1.ImageType = @"MPEG";
-            this.axCamImgCtrl1.CameraModel = 1;
-            this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
-            this.axCamImgCtrl1.uid = "guest";
-            this.axCamImgCtrl1.pwd = "guest";
-            this.axCamImgCtrl1.RecordingFolderPath
-                = Path.Combine(Properties.Settings.Default.OutputPath, cam.ID.ToString("D2"));
-            this.axCamImgCtrl1.RecordingFormat = 0;
-            this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
-            this.axCamImgCtrl1.UnicastPort = 3939;
-            this.axCamImgCtrl1.ComType = 0;
-
-            this.axCamImgCtrl1.CamImgCtrlStart();
-            this.axCamImgCtrl1.CamImgRecStart();
-
+            //             this.axCamImgCtrl1.CamImgCtrlStop();
+            // 
+            //             this.axCamImgCtrl1.ImageFileURL = @"liveimg.cgi";
+            //             this.axCamImgCtrl1.ImageType = @"MPEG";
+            //             this.axCamImgCtrl1.CameraModel = 1;
+            //             this.axCamImgCtrl1.CtlLocation = @"http://" + cam.IpAddress;
+            //             this.axCamImgCtrl1.uid = "guest";
+            //             this.axCamImgCtrl1.pwd = "guest";
+            //             this.axCamImgCtrl1.RecordingFolderPath
+            //                 = Path.Combine(Properties.Settings.Default.OutputPath, cam.ID.ToString("D2"));
+            //             this.axCamImgCtrl1.RecordingFormat = 0;
+            //             this.axCamImgCtrl1.UniIP = this.axCamImgCtrl1.CtlLocation;
+            //             this.axCamImgCtrl1.UnicastPort = 3939;
+            //             this.axCamImgCtrl1.ComType = 0;
+            // 
+            //             this.axCamImgCtrl1.CamImgCtrlStart();
+            //             this.axCamImgCtrl1.CamImgRecStart();
+            // 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
 
@@ -859,10 +882,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void panelControl1_SizeChanged(object sender, EventArgs e)
         {
-            int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
-            int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
-            this.axCamImgCtrl1.Left = x;
-            this.squareListView1.Height = height - 15;
+            //             int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
+            //             int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
+            //             this.axCamImgCtrl1.Left = x;
+            //             this.squareListView1.Height = height - 15;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
