@@ -105,8 +105,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void SetMonitor()
         {
-            string point =  Properties.Settings.Default.Point;
-            if ( point!= "")
+            string point = Properties.Settings.Default.Point;
+            if (point != "")
             {
                 string[] strPoints = point.Split(' ');
                 int oPointx = Convert.ToInt32(strPoints[0]);
@@ -117,7 +117,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        
+
         //根据光亮值修改摄像机   线程
         private void StartSetCam(Properties.Settings setting)
         {
@@ -130,7 +130,7 @@ namespace RemoteImaging.RealtimeDisplay
             thread.IsBackground = true;
             thread.Start();
         }
-       
+
 
 
 
@@ -572,7 +572,7 @@ namespace RemoteImaging.RealtimeDisplay
                                         int.Parse(setting.SrchRegionWidth),
                                         int.Parse(setting.SrchRegionHeight))
                                    );
-                   StartSetCam(setting);
+                    StartSetCam(setting);
                 }
             }
 
@@ -605,7 +605,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void InitStatusBar()
         {
-            statusUploadFolder.Text = "上传目录：" + Properties.Settings.Default.ImageUploadPool;
             statusOutputFolder.Text = "输出目录：" + Properties.Settings.Default.OutputPath;
         }
 
@@ -857,17 +856,21 @@ namespace RemoteImaging.RealtimeDisplay
             this.ShowPic();
         }
 
-        private void panelControl1_SizeChanged(object sender, EventArgs e)
+        private void CenterLiveControl()
         {
             int height = this.panelControl1.Height - this.axCamImgCtrl1.Height;
             int x = (this.panelControl1.Width - this.axCamImgCtrl1.Width) / 2;
             this.axCamImgCtrl1.Left = x;
             this.squareListView1.Height = height - 15;
         }
+        private void panelControl1_SizeChanged(object sender, EventArgs e)
+        {
+            CenterLiveControl();
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            CenterLiveControl();
         }
 
         private void tsbFileSet_Click(object sender, EventArgs e)
@@ -904,8 +907,6 @@ namespace RemoteImaging.RealtimeDisplay
 
             Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
             setupCamera(cam.IpAddress);
-
-
         }
 
         private void ViewCameraToolStripMenuItem_Click(object sender, EventArgs e)
