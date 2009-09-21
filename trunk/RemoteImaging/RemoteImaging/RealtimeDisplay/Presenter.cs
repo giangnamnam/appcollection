@@ -168,7 +168,7 @@ namespace RemoteImaging.RealtimeDisplay
                     }
                     else
                     {
-                        SaveFrame(frameToProcess);
+                        FileSystemStorage.SaveFrame(frameToProcess);
                         motionFrames.Enqueue(frameToProcess);
                     }
 
@@ -206,7 +206,7 @@ namespace RemoteImaging.RealtimeDisplay
                     f.searchRect.Height = ipl.Height;
 
                     motionFrames.Enqueue(f);
-                    SaveFrame(f);
+                    FileSystemStorage.SaveFrame(f);
 
                     if (motionFrames.Count == 6)
                     {
@@ -253,36 +253,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        private static void SaveFrame(Frame frame)
-        {
-            IplImage ipl = new IplImage(frame.image);
-            ipl.IsEnabledDispose = false;
-
-            string path = frame.GetFileName();
-            DateTime dt = DateTime.FromBinary(frame.timeStamp);
-
-            string root = Path.Combine(Properties.Settings.Default.OutputPath,
-                      frame.cameraID.ToString("d2"));
-
-            string folder = FileSystemStorage.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-
-            path = Path.Combine(folder, path);
-            ipl.SaveImage(path);
-        }
-
-     
-
-        
-
-
-     
-
-       
-
         unsafe ImageDetail[] SaveImage(Target[] targets)
         {
             IList<ImageDetail> imgs = new List<ImageDetail>();
@@ -315,9 +285,6 @@ namespace RemoteImaging.RealtimeDisplay
             return details;
 
         }
-
-
-
 
 
         unsafe void SearchFace()

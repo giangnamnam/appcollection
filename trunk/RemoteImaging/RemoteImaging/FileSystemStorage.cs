@@ -5,6 +5,7 @@ using System.Text;
 using RemoteImaging.Core;
 using System.IO;
 using ImageProcess;
+using OpenCvSharp;
 
 namespace RemoteImaging
 {
@@ -19,6 +20,28 @@ namespace RemoteImaging
         private static string RootFolderForCamera(int cameraID)
         {
             return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
+        }
+
+
+        public static void SaveFrame(Frame frame)
+        {
+            IplImage ipl = new IplImage(frame.image);
+            ipl.IsEnabledDispose = false;
+
+            string path = frame.GetFileName();
+            DateTime dt = DateTime.FromBinary(frame.timeStamp);
+
+            string root = Path.Combine(Properties.Settings.Default.OutputPath,
+                      frame.cameraID.ToString("d2"));
+
+            string folder = FileSystemStorage.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            path = Path.Combine(folder, path);
+            ipl.SaveImage(path);
         }
 
 
