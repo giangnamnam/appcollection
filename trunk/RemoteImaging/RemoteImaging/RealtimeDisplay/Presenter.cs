@@ -362,8 +362,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-
-
         #region IImageScreenObserver Members
 
         public void SelectedCameraChanged()
