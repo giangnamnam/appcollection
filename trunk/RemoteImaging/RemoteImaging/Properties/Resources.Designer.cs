@@ -88,6 +88,13 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap logo {
+            get {
+                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Options {
             get {
                 object obj = ResourceManager.GetObject("Options", resourceCulture);
@@ -119,48 +126,6 @@ namespace RemoteImaging.Properties {
         internal static System.Drawing.Bitmap SearchVideo {
             get {
                 object obj = ResourceManager.GetObject("SearchVideo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Square {
-            get {
-                object obj = ResourceManager.GetObject("Square", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Square16_1 {
-            get {
-                object obj = ResourceManager.GetObject("Square16.1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Square16_2 {
-            get {
-                object obj = ResourceManager.GetObject("Square16.2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Square16_3 {
-            get {
-                object obj = ResourceManager.GetObject("Square16.3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Square16_4 {
-            get {
-                object obj = ResourceManager.GetObject("Square16.4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Square16_5 {
-            get {
-                object obj = ResourceManager.GetObject("Square16.5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -89,9 +89,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.options = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.column3by3 = new System.Windows.Forms.ToolStripButton();
-            this.column4by4 = new System.Windows.Forms.ToolStripButton();
-            this.column5by5 = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
@@ -150,7 +147,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusUploadFolder.Image = ((System.Drawing.Image)(resources.GetObject("statusUploadFolder.Image")));
             this.statusUploadFolder.Name = "statusUploadFolder";
-            this.statusUploadFolder.Size = new System.Drawing.Size(151, 20);
+            this.statusUploadFolder.Size = new System.Drawing.Size(149, 20);
             this.statusUploadFolder.Text = "toolStripStatusLabel1";
             this.statusUploadFolder.Click += new System.EventHandler(this.statusUploadFolder_Click);
             // 
@@ -161,7 +158,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusOutputFolder.Image = ((System.Drawing.Image)(resources.GetObject("statusOutputFolder.Image")));
             this.statusOutputFolder.Name = "statusOutputFolder";
-            this.statusOutputFolder.Size = new System.Drawing.Size(151, 20);
+            this.statusOutputFolder.Size = new System.Drawing.Size(149, 20);
             this.statusOutputFolder.Text = "toolStripStatusLabel2";
             this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
             // 
@@ -171,7 +168,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusCPUMemUsage.Name = "statusCPUMemUsage";
-            this.statusCPUMemUsage.Size = new System.Drawing.Size(135, 20);
+            this.statusCPUMemUsage.Size = new System.Drawing.Size(133, 20);
             this.statusCPUMemUsage.Text = "toolStripStatusLabel1";
             // 
             // statusProgressBar
@@ -189,7 +186,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(445, 20);
+            this.statusTime.Size = new System.Drawing.Size(451, 20);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -388,19 +385,19 @@
             this.ViewCameraToolStripMenuItem,
             this.SetupCameraToolStripMenuItem});
             this.contextMenuStripForCamTreeView.Name = "contextMenuStripForCamTreeView";
-            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(95, 48);
+            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(107, 48);
             // 
             // ViewCameraToolStripMenuItem
             // 
             this.ViewCameraToolStripMenuItem.Name = "ViewCameraToolStripMenuItem";
-            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.ViewCameraToolStripMenuItem.Text = "查看";
             this.ViewCameraToolStripMenuItem.Click += new System.EventHandler(this.ViewCameraToolStripMenuItem_Click);
             // 
             // SetupCameraToolStripMenuItem
             // 
             this.SetupCameraToolStripMenuItem.Name = "SetupCameraToolStripMenuItem";
-            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.SetupCameraToolStripMenuItem.Text = "设置";
             this.SetupCameraToolStripMenuItem.Click += new System.EventHandler(this.SetupCameraToolStripMenuItem_Click);
             // 
@@ -633,7 +630,7 @@
             this.searchPic.Image = ((System.Drawing.Image)(resources.GetObject("searchPic.Image")));
             this.searchPic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.searchPic.Name = "searchPic";
-            this.searchPic.Size = new System.Drawing.Size(73, 22);
+            this.searchPic.Size = new System.Drawing.Size(88, 22);
             this.searchPic.Text = "图像检索";
             this.searchPic.Click += new System.EventHandler(this.searchPic_Click);
             // 
@@ -647,7 +644,7 @@
             this.videoSearch.Image = ((System.Drawing.Image)(resources.GetObject("videoSearch.Image")));
             this.videoSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.videoSearch.Name = "videoSearch";
-            this.videoSearch.Size = new System.Drawing.Size(73, 22);
+            this.videoSearch.Size = new System.Drawing.Size(88, 22);
             this.videoSearch.Text = "视频检索";
             this.videoSearch.Click += new System.EventHandler(this.videoSearch_Click);
             // 
@@ -656,7 +653,7 @@
             this.playRelateVideo.Image = ((System.Drawing.Image)(resources.GetObject("playRelateVideo.Image")));
             this.playRelateVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.playRelateVideo.Name = "playRelateVideo";
-            this.playRelateVideo.Size = new System.Drawing.Size(97, 22);
+            this.playRelateVideo.Size = new System.Drawing.Size(118, 22);
             this.playRelateVideo.Text = "播放相关视频";
             this.playRelateVideo.Click += new System.EventHandler(this.playRelateVideo_Click);
             // 
@@ -670,7 +667,7 @@
             this.options.Image = ((System.Drawing.Image)(resources.GetObject("options.Image")));
             this.options.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.options.Name = "options";
-            this.options.Size = new System.Drawing.Size(73, 22);
+            this.options.Size = new System.Drawing.Size(88, 22);
             this.options.Text = "系统设置";
             this.options.Click += new System.EventHandler(this.options_Click);
             // 
@@ -679,43 +676,13 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // column3by3
-            // 
-            this.column3by3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.column3by3.Image = global::RemoteImaging.Properties.Resources.Square16_3;
-            this.column3by3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.column3by3.Name = "column3by3";
-            this.column3by3.Size = new System.Drawing.Size(23, 22);
-            this.column3by3.Text = "按3x3显示";
-            this.column3by3.Click += new System.EventHandler(this.column3by3_Click);
-            // 
-            // column4by4
-            // 
-            this.column4by4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.column4by4.Image = global::RemoteImaging.Properties.Resources.Square16_4;
-            this.column4by4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.column4by4.Name = "column4by4";
-            this.column4by4.Size = new System.Drawing.Size(23, 22);
-            this.column4by4.Text = "按4x4显示";
-            this.column4by4.Click += new System.EventHandler(this.column4by4_Click);
-            // 
-            // column5by5
-            // 
-            this.column5by5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.column5by5.Image = global::RemoteImaging.Properties.Resources.Square16_5;
-            this.column5by5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.column5by5.Name = "column5by5";
-            this.column5by5.Size = new System.Drawing.Size(23, 22);
-            this.column5by5.Text = "按5x5显示";
-            this.column5by5.Click += new System.EventHandler(this.column5by5_Click);
-            // 
             // aboutButton
             // 
             this.aboutButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.IsLink = true;
             this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(69, 22);
+            this.aboutButton.Size = new System.Drawing.Size(84, 22);
             this.aboutButton.Text = "关于系统";
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
@@ -729,7 +696,7 @@
             this.enhanceImg.Image = ((System.Drawing.Image)(resources.GetObject("enhanceImg.Image")));
             this.enhanceImg.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.enhanceImg.Name = "enhanceImg";
-            this.enhanceImg.Size = new System.Drawing.Size(73, 22);
+            this.enhanceImg.Size = new System.Drawing.Size(88, 22);
             this.enhanceImg.Text = "图片增强";
             this.enhanceImg.Click += new System.EventHandler(this.enhanceImg_Click);
             // 
@@ -743,9 +710,6 @@
             this.toolStripSeparator1,
             this.options,
             this.toolStripSeparator3,
-            this.column3by3,
-            this.column4by4,
-            this.column5by5,
             this.aboutButton,
             this.toolStripSeparator4,
             this.tsbMonitoring,
@@ -762,7 +726,7 @@
             this.tsbMonitoring.Image = ((System.Drawing.Image)(resources.GetObject("tsbMonitoring.Image")));
             this.tsbMonitoring.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbMonitoring.Name = "tsbMonitoring";
-            this.tsbMonitoring.Size = new System.Drawing.Size(49, 22);
+            this.tsbMonitoring.Size = new System.Drawing.Size(58, 22);
             this.tsbMonitoring.Text = "布控";
             this.tsbMonitoring.Click += new System.EventHandler(this.tsbMonitoring_Click);
             // 
@@ -781,6 +745,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "智能人像抓拍系统";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -872,9 +837,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton options;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton column3by3;
-        private System.Windows.Forms.ToolStripButton column4by4;
-        private System.Windows.Forms.ToolStripButton column5by5;
         private System.Windows.Forms.ToolStripLabel aboutButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton enhanceImg;

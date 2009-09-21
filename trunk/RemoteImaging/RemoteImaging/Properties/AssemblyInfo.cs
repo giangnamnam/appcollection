@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RemoteImaging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("成都精识智能")]
+[assembly: AssemblyCompany("成都宇飞创通")]
 [assembly: AssemblyProduct("RemoteImaging")]
-[assembly: AssemblyCopyright("成都精识智能 Copyright ©  2009")]
+[assembly: AssemblyCopyright("成都宇飞创通 Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
