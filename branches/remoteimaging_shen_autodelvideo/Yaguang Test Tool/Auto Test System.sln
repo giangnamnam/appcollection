@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auto Test System", "Auto Test System\Auto Test System.csproj", "{81DC9AA2-1614-46B7-87F5-D743B479BD3B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{4EEBC323-EBAA-409E-967C-8D0C8399736D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81DC9AA2-1614-46B7-87F5-D743B479BD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DC9AA2-1614-46B7-87F5-D743B479BD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DC9AA2-1614-46B7-87F5-D743B479BD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DC9AA2-1614-46B7-87F5-D743B479BD3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEBC323-EBAA-409E-967C-8D0C8399736D}.Debug|Any CPU.ActiveCfg = Debug
+		{4EEBC323-EBAA-409E-967C-8D0C8399736D}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

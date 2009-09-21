@@ -1,0 +1,120 @@
+;; Ac6651.inf
+
+;; *********  PLEASE READ ***********
+;; The wizard cannot create exact INF files for all buses and device types.
+;; You may have to make changes to this file in order to get your device to
+;; install. In particular, hardware IDs and logical configurations require
+;; intervention.
+;;
+;; The Windows DDK documentation contains an excellent INF reference.
+
+;--------- Version Section ---------------------------------------------------
+
+[Version]
+Signature="$Windows 95$"
+
+; If device fits one of the standard classes, use the name and GUID here,
+; otherwise create your own device class and GUID as this example shows.
+
+Class=NewDeviceClass
+ClassGUID={ff646f80-8def-11d2-9449-00105a075f6b}
+Provider=%ProviderName%
+
+
+;--------- SourceDiskNames and SourceDiskFiles Section -----------------------
+
+; These sections identify source disks and files for installation.  They are
+; shown here as an example, but commented out.
+
+;[SourceDisksNames]
+;1 = "Install Disk",Disk1,,
+
+;[SourceDisksFiles]
+;ac6651.sys = 1,,
+
+;--------- ClassInstall/ClassInstall32 Section -------------------------------
+
+; Not necessary if using a standard class
+
+; 9X Style
+[ClassInstall]
+Addreg=Class_AddReg
+
+; NT Style
+[ClassInstall32]
+Addreg=Class_AddReg
+
+[Class_AddReg]
+HKR,,,,%DeviceClassName%
+HKR,,Icon,,"-18"
+
+;--------- DestinationDirs Section -------------------------------------------
+
+[DestinationDirs]
+Ac6651_Files_Driver = 10,System32\Drivers
+Ac6651_Files_DLL = 10,System32
+
+;--------- Manufacturer and Models Sections ----------------------------------
+
+[Manufacturer]
+%MfgName%=Mfg0
+
+[Mfg0]
+
+; PCI hardware IDs use the form
+;   PCI\VEN_aaaa&DEV_bbbb&SUBSYS_cccccccc&REV_dd
+;
+%DeviceDesc%=Ac6651_DDI, PCI\VEN_4348&DEV_5049&SUBSYS_66510000
+
+;---------- DDInstall Sections -----------------------------------------------
+; --------- Windows 9X -----------------
+
+; Experimentation has shown that DDInstall root names greater than 19 characters
+; cause problems in Windows 98
+
+[Ac6651_DDI]
+CopyFiles=Ac6651_Files_Driver,Ac6651_Files_DLL
+AddReg=Ac6651_9X_AddReg
+
+[Ac6651_9X_AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,ac6651.sys
+HKR, "Parameters", "BreakOnEntry", 0x00010001, 0
+; --------- Windows NT -----------------
+
+[Ac6651_DDI.NT]
+CopyFiles=Ac6651_Files_Driver,Ac6651_Files_DLL
+AddReg=Ac6651_NT_AddReg
+
+[Ac6651_DDI.NT.Services]
+Addservice = Ac6651, 0x00000002, Ac6651_AddService
+
+[Ac6651_AddService]
+DisplayName    = %SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\ac6651.sys
+
+[Ac6651_NT_AddReg]
+HKLM, "System\CurrentControlSet\Services\Ac6651\Parameters",\
+	"BreakOnEntry", 0x00010001, 0
+
+
+
+; --------- Files (common) -------------
+
+[Ac6651_Files_Driver]
+ac6651.sys
+
+[Ac6651_Files_DLL]
+ac6651.dll
+
+;--------- Strings Section ---------------------------------------------------
+
+[Strings]
+ProviderName="wwlab"
+MfgName="wwlab"
+DeviceDesc="AC6651 V1"
+DeviceClassName="PCI"
+SvcDesc="Description of Ac6651 NT service here"
