@@ -103,6 +103,7 @@
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,7 +153,6 @@
     <Compile Include="RealtimeDisplay\CameraUpdateSettings.cs" />
     <Compile Include="RealtimeDisplay\FileHandle.cs" />
     <Compile Include="RealtimeDisplay\IImageScreenObserver.cs" />
-    <Compile Include="RealtimeDisplay\ImageClassifier.cs" />
     <Compile Include="Core\ImageDetail.cs" />
     <Compile Include="RealtimeDisplay\ImageUploadEventArgs.cs" />
     <Compile Include="RealtimeDisplay\ImageUploadHandler.cs" />

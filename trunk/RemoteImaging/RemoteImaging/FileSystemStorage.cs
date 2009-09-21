@@ -2,17 +2,59 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using RemoteImaging.Core;
+using System.IO;
+using ImageProcess;
 
-namespace RemoteImaging.RealtimeDisplay
+namespace RemoteImaging
 {
-    public static class ImageClassifier
+    public static class FileSystemStorage
     {
+        private static string MinutesFolderFor(DateTime dt)
+        {
+            return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
+        }
+
+
+        private static string RootFolderForCamera(int cameraID)
+        {
+            return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
+        }
+
+
+        public static string GetFacePath(Frame frame, DateTime timeStamp, int sequence)
+        {
+            string folderFace = FileSystemStorage.FolderForFaces(frame.cameraID, timeStamp);
+
+            string faceFileName = FileSystemStorage.GetFaceFileName(frame.GetFileName(), sequence);
+
+            string facePath = Path.Combine(folderFace, faceFileName);
+            return facePath;
+        }
+
+        private static string GetFaceFileName(string bigImagePath, int indexOfFace)
+        {
+            int idx = bigImagePath.IndexOf('.');
+            string faceFileName = bigImagePath.Insert(idx, "-" + indexOfFace.ToString("d4"));
+            return faceFileName;
+        }
+
+        private static string FolderForFaces(int camID, DateTime dt)
+        {
+            string folderForFaces = BuildDestDirectory(RootFolderForCamera(camID),
+                                    dt, Properties.Settings.Default.IconDirectoryName);
+
+            if (!Directory.Exists(folderForFaces))
+                Directory.CreateDirectory(folderForFaces);
+
+            return folderForFaces;
+        }
+
+
         public static string BuildDestDirectory(string outputPathRoot,
-            DateTime dt,
-            string subFoldername
-            )
+           DateTime dt,
+           string subFoldername
+           )
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(dt.Year.ToString("D4"));
@@ -48,24 +90,6 @@ namespace RemoteImaging.RealtimeDisplay
             bigPicFolder = Path.Combine(bigPicFolder, MinutesFolderFor(img.CaptureTime));
             string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
             return bigPicPathName;
-        }
-
-        private static string MinutesFolderFor(DateTime dt)
-        {
-            return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
-        }
-        public static void ClassifyImages(ImageDetail[] images)
-        {
-            //             string outputPathRoot = Properties.Settings.Default.OutputPath;
-            //             foreach (ImageDetail image in images)
-            //             {
-            //                 string destDirectory = BuildDestDirectory(outputPathRoot, Properties.Settings.Default.BigImageDirectoryName, image);
-            //                 if (!Directory.Exists(destDirectory))
-            //                 {
-            //                     Directory.CreateDirectory(destDirectory);
-            //                 }
-            //                 image.MoveTo(destDirectory);
-            //             }
         }
     }
 }

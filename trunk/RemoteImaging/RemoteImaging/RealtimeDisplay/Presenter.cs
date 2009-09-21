@@ -264,7 +264,7 @@ namespace RemoteImaging.RealtimeDisplay
             string root = Path.Combine(Properties.Settings.Default.OutputPath,
                       frame.cameraID.ToString("d2"));
 
-            string folder = ImageClassifier.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
+            string folder = FileSystemStorage.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -274,41 +274,14 @@ namespace RemoteImaging.RealtimeDisplay
             ipl.SaveImage(path);
         }
 
-        private static string RootFolderForCamera(int cameraID)
-        {
-            return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
-        }
+     
+
+        
 
 
-        private static unsafe string FolderForFaces(int camID, DateTime dt)
-        {
-            string folderForFaces = ImageClassifier.BuildDestDirectory(RootFolderForCamera(camID),
-                                    dt, Properties.Settings.Default.IconDirectoryName);
+     
 
-            if (!Directory.Exists(folderForFaces))
-                Directory.CreateDirectory(folderForFaces);
-
-            return folderForFaces;
-        }
-
-
-        private static unsafe string GetFaceFileName(string bigImagePath, int indexOfFace)
-        {
-            int idx = bigImagePath.IndexOf('.');
-            string faceFileName = bigImagePath.Insert(idx, "-" + indexOfFace.ToString("d4"));
-            return faceFileName;
-        }
-
-        private static unsafe string GetFacePath(Frame frame, DateTime dt, int j)
-        {
-            string folderFace = FolderForFaces(frame.cameraID, dt);
-
-            string faceFileName = GetFaceFileName(frame.GetFileName(), j);
-
-            string facePath = Path.Combine(folderFace, faceFileName);
-            return facePath;
-        }
-
+       
 
         unsafe ImageDetail[] SaveImage(Target[] targets)
         {
@@ -326,7 +299,7 @@ namespace RemoteImaging.RealtimeDisplay
                     IplImage aFace = new IplImage(*f);
                     aFace.IsEnabledDispose = false;
 
-                    string facePath = GetFacePath(frame, dt, j);
+                    string facePath = FileSystemStorage.GetFacePath(frame, dt, j);
 
                     aFace.SaveImage(facePath);
 
@@ -438,7 +411,7 @@ namespace RemoteImaging.RealtimeDisplay
             ImageDetail img = this.screen.SelectedImage;
             if (img != null && !string.IsNullOrEmpty(img.Path))
             {
-                string bigPicPathName = ImageClassifier.BigImgPathFor(img);
+                string bigPicPathName = FileSystemStorage.BigImgPathFor(img);
                 ImageDetail bigImageDetail = ImageDetail.FromPath(bigPicPathName);
                 this.screen.BigImage = bigImageDetail;
 
