@@ -293,11 +293,6 @@
     <None Include="ThirdParty\Libs\AForge.dll" />
     <None Include="ThirdParty\Libs\AForge.Imaging.dll" />
     <None Include="ThirdParty\Libs\AForge.Math.dll" />
-    <None Include="Resources\Square16.5.gif" />
-    <None Include="Resources\Square16.4.gif" />
-    <None Include="Resources\Square16.3.gif" />
-    <None Include="Resources\Square16.2.gif" />
-    <None Include="Resources\Square16.1.gif" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
