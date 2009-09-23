@@ -22,13 +22,31 @@
         "Entry"
         {
         "MsmKey" = "8:_11C5153FFC9942E8A4E68C1E4C549994"
+        "OwnerKey" = "8:_3D309FCE2B7D43E2A2C7635146607153"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_11C5153FFC9942E8A4E68C1E4C549994"
         "OwnerKey" = "8:_980D8BBB3EB7472BB9B6275B724F81C2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3D309FCE2B7D43E2A2C7635146607153"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_52E89ADED4A042C0BA3F2595422A2497"
         "OwnerKey" = "8:_BB7E879E72D34FB18F2CDE94422B8006"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52E89ADED4A042C0BA3F2595422A2497"
+        "OwnerKey" = "8:_3D309FCE2B7D43E2A2C7635146607153"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -246,7 +264,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CamController"
         "ProductCode" = "8:{6E118CC4-290D-435E-94A2-65FE97B792BB}"
-        "PackageCode" = "8:{6770E32F-67FA-4336-9BDA-9944CD5CAC57}"
+        "PackageCode" = "8:{E8E68B30-6D9F-49A1-AB32-6870EB55BF99}"
         "UpgradeCode" = "8:{F15CB2F0-F86F-49E2-A314-89F4895AA70B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -848,12 +866,40 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3D309FCE2B7D43E2A2C7635146607153"
+            {
+            "SourcePath" = "8:..\\Release\\CamControl.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_95DD6AF171844BC5912FD4F8814FD802"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{EE817832-B6F8-4CC0-BB8B-2F72C7E0C010}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_980D8BBB3EB7472BB9B6275B724F81C2"
             {
             "SourcePath" = "8:..\\Release\\CamControl.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_580EE180BA7C487F8B07E9065421B2AB"
+            "Folder" = "8:_E83B24E194D248AB94363B407AB399A2"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
