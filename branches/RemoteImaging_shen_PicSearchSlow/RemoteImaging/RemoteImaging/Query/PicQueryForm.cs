@@ -12,22 +12,84 @@ namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form
     {
+        private string[] imagesFound = new string[0];
+        private int currentPage;
+        private int totalPage;
+        public int PageSize { get; set; }
+
         public PicQueryForm()
         {
             InitializeComponent();
+
+
             foreach (Camera camera in Configuration.Instance.Cameras)
             {
                 this.comboBox1.Items.Add(camera.ID.ToString());
             }
+
+            this.PageSize = 20;
+        }
+
+        private void UpdatePagesLabel()
+        {
+            this.toolStripLabelCurPage.Text = string.Format("第{0}/{1}页", currentPage, totalPage);
+        }
+
+        private int CalcPagesCount()
+        {
+            totalPage = imagesFound.Length / PageSize;
+
+            if (totalPage == 0) totalPage = 1;
+
+            return totalPage;
+
+
+        }
+
+        void ShowCurrentPage()
+        {
+            bestPicListView.BeginUpdate();
+
+            ClearCurPageList();
+
+            for (int i = (currentPage - 1) * PageSize;
+                (i < currentPage * PageSize) && (i < imagesFound.Length);
+                ++i)
+            {
+                this.imageList1.Images.Add(Image.FromFile(imagesFound[i]));
+                string text = System.IO.Path.GetFileName(imagesFound[i]);
+                ListViewItem item = new ListViewItem()
+                {
+                    Tag = imagesFound[i],
+                    Text = text,
+                    ImageIndex = i % PageSize
+                };
+                this.bestPicListView.Items.Add(item);
+            }
+
+            bestPicListView.EndUpdate();
+
+        }
+
+        private void ClearCurPageList()
+        {
+            this.bestPicListView.Clear();
+            this.imageList1.Images.Clear();
+        }
+
+        private void ClearLists()
+        {
+            ClearCurPageList();
+            this.secPicListView.Clear();
+            this.imageList2.Images.Clear();
+            this.pictureBox1.Image = null;
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
-            this.bestPicListView.Clear();
-            this.imageList1.Images.Clear();
-            this.secPicListView.Clear();
-            this.imageList2.Images.Clear();
-            this.pictureBox1.Image = null;
+            Cursor.Current = Cursors.WaitCursor;
+
+            ClearLists();
 
             if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
             {
@@ -69,8 +131,14 @@ namespace RemoteImaging.Query
             Query.ImageDirSys endDir = new ImageDirSys(cameraID, year2, month2, day2, hour2, minute2, second2);
             Query.ImageSearch imageSearch = new ImageSearch();
 
-            string[] files = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
-            if (files == null)
+            imagesFound = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
+
+            CalcPagesCount();
+            currentPage = 1;
+            UpdatePagesLabel();
+
+
+            if (imagesFound == null)
             {
                 MessageBox.Show("没有搜索到满足条件的图片！", "警告");
                 return;
@@ -81,18 +149,11 @@ namespace RemoteImaging.Query
             this.bestPicListView.View = View.LargeIcon;
             this.bestPicListView.LargeImageList = imageList1;
 
-            for (int i = 0; i < files.Length; ++i)
-            {
-                this.imageList1.Images.Add(Image.FromFile(files[i]));
-                string text = System.IO.Path.GetFileName(files[i]);
-                ListViewItem item = new ListViewItem()
-                {
-                    Tag = files[i],
-                    Text = text,
-                    ImageIndex = i
-                };
-                this.bestPicListView.Items.Add(item);
-            }
+
+            ShowCurrentPage();
+
+            Cursor.Current = Cursors.Default;
+
 
         }
         //以前
@@ -125,12 +186,12 @@ namespace RemoteImaging.Query
             }
 
             string focusedFileName = this.bestPicListView.FocusedItem.Text;
-//             this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
-//                                    focusedFileName.Substring(5, 2) + "月" + //month
-//                                    focusedFileName.Substring(7, 2) + "日" + //day
-//                                    focusedFileName.Substring(9, 2) + "时" + //hour
-//                                    focusedFileName.Substring(11, 2) + "分" + //minute
-//                                    focusedFileName.Substring(13, 2) + "秒";//second
+            //             this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
+            //                                    focusedFileName.Substring(5, 2) + "月" + //month
+            //                                    focusedFileName.Substring(7, 2) + "日" + //day
+            //                                    focusedFileName.Substring(9, 2) + "时" + //hour
+            //                                    focusedFileName.Substring(11, 2) + "分" + //minute
+            //                                    focusedFileName.Substring(13, 2) + "秒";//second
 
             this.PopulateBigPicList(Path.GetFileName(filePath));
         }
@@ -200,6 +261,70 @@ namespace RemoteImaging.Query
 
         private void PicQueryForm_Load(object sender, EventArgs e)
         {
+            this.toolStripComboBoxPageSize.Text = this.PageSize.ToString();
+        }
+
+        private void toolStripButtonFirstPage_Click(object sender, EventArgs e)
+        {
+            currentPage = 1;
+            ShowCurrentPage();
+            UpdatePagesLabel();
+
+        }
+
+        private void toolStripButtonPrePage_Click(object sender, EventArgs e)
+        {
+            --currentPage;
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+                return;
+            }
+
+            ShowCurrentPage();
+            UpdatePagesLabel();
+
+        }
+
+        private void toolStripButtonNextPage_Click(object sender, EventArgs e)
+        {
+            ++currentPage;
+
+            if (currentPage > totalPage)
+            {
+                currentPage = totalPage;
+                return;
+            }
+
+            ShowCurrentPage();
+            UpdatePagesLabel();
+        }
+
+        private void toolStripButtonLastPage_Click(object sender, EventArgs e)
+        {
+            currentPage = totalPage;
+
+            ShowCurrentPage();
+            UpdatePagesLabel();
+
+        }
+
+        private void toolStripComboBoxPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string pageSize = (string)this.toolStripComboBoxPageSize.SelectedItem;
+
+            // if (string.IsNullOrEmpty(pageSize)) return;
+
+            int sz = int.Parse(pageSize);
+
+            this.PageSize = sz;
+
+            CalcPagesCount();
+            currentPage = 1;
+            UpdatePagesLabel();
+
+            ShowCurrentPage();
 
         }
     }

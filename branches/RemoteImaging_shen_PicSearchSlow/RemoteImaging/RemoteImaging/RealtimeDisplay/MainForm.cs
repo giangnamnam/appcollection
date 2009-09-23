@@ -38,7 +38,7 @@ namespace RemoteImaging.RealtimeDisplay
             Properties.Settings setting = Properties.Settings.Default;
 
             cpuCounter = new PerformanceCounter();
-            ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+            // ramCounter = new PerformanceCounter("Memory", "Available MBytes");
 
             cpuCounter.CategoryName = "Processor";
             cpuCounter.CounterName = "% Processor Time";
@@ -690,11 +690,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         private string getCurrentCpuUsage()
         {
+            return string.Empty;
             return String.Format("{0:F0}%", cpuCounter.NextValue());
         }
 
         private string getAvailableRAM()
         {
+            return string.Empty;
             return String.Format("{0}MB", ramCounter.NextValue());
         }
 
