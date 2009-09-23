@@ -1,0 +1,6 @@
+; CamControl.def : Declares the module parameters for the DLL.
+
+LIBRARY      "CamControl"
+
+EXPORTS
+    ; Explicit exports can go here
