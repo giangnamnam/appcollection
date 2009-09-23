@@ -119,18 +119,18 @@ namespace RemoteImaging.Query
             {
                 if (camera.ID == cameraID)
                 {
-                    this.gotPlaceTxt.Text = camera.Name;
+                    //this.gotPlaceTxt.Text = camera.Name;
                     break;
                 }
             }
 
             string focusedFileName = this.bestPicListView.FocusedItem.Text;
-            this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
-                                   focusedFileName.Substring(5, 2) + "月" + //month
-                                   focusedFileName.Substring(7, 2) + "日" + //day
-                                   focusedFileName.Substring(9, 2) + "时" + //hour
-                                   focusedFileName.Substring(11, 2) + "分" + //minute
-                                   focusedFileName.Substring(13, 2) + "秒";//second
+//             this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
+//                                    focusedFileName.Substring(5, 2) + "月" + //month
+//                                    focusedFileName.Substring(7, 2) + "日" + //day
+//                                    focusedFileName.Substring(9, 2) + "时" + //hour
+//                                    focusedFileName.Substring(11, 2) + "分" + //minute
+//                                    focusedFileName.Substring(13, 2) + "秒";//second
 
             this.PopulateBigPicList(Path.GetFileName(filePath));
         }
@@ -196,6 +196,11 @@ namespace RemoteImaging.Query
             FormDetailedPic detail = new FormDetailedPic();
             detail.Img = RemoteImaging.Core.ImageDetail.FromPath(this.secPicListView.FocusedItem.Tag as string);
             detail.Show(this);
+        }
+
+        private void PicQueryForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
