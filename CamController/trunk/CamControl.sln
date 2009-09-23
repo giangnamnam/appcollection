@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CamControl", "CamControl\CamControl.vcproj", "{EE817832-B6F8-4CC0-BB8B-2F72C7E0C010}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CameraControllerClient", "CameraControllerClient\CameraControllerClient.vcproj", "{18336B5E-AF67-48DF-B6AC-D737F0647B0C}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{65BBB67C-D847-4B5F-B828-04D402AA21E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE817832-B6F8-4CC0-BB8B-2F72C7E0C010}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE817832-B6F8-4CC0-BB8B-2F72C7E0C010}.Debug|Win32.Build.0 = Debug|Win32
+		{EE817832-B6F8-4CC0-BB8B-2F72C7E0C010}.Release|Win32.ActiveCfg = Release|Win32
+		{EE817832-B6F8-4CC0-BB8B-2F72C7E0C010}.Release|Win32.Build.0 = Release|Win32
+		{18336B5E-AF67-48DF-B6AC-D737F0647B0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18336B5E-AF67-48DF-B6AC-D737F0647B0C}.Debug|Win32.Build.0 = Debug|Win32
+		{18336B5E-AF67-48DF-B6AC-D737F0647B0C}.Release|Win32.ActiveCfg = Release|Win32
+		{18336B5E-AF67-48DF-B6AC-D737F0647B0C}.Release|Win32.Build.0 = Release|Win32
+		{65BBB67C-D847-4B5F-B828-04D402AA21E1}.Debug|Win32.ActiveCfg = Debug
+		{65BBB67C-D847-4B5F-B828-04D402AA21E1}.Release|Win32.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal
