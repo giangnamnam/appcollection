@@ -10,8 +10,11 @@ namespace RemoteImaging
 
     public static class VideoSearch
     {
-        public static string[] FindVideos(string rootFolder, ImageDetail img)
+        public static string[] FindVideos(ImageDetail img)
         {
+            string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath,
+                img.FromCamera.ToString("D2"));
+
             DateTime utcTime = img.CaptureTime.ToUniversalTime();
             string relPath = BuildRelativePathForVideoFile(utcTime);
 

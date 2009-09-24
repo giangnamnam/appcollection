@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using RemoteImaging.Core;
 
 namespace RemoteImaging.Query
 {
@@ -133,6 +134,13 @@ namespace RemoteImaging.Query
 
             imagesFound = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
 
+            if (imagesFound.Length == 0)
+            {
+                MessageBox.Show(this, "未找到图片");
+                return;
+            }
+
+
             CalcPagesCount();
             currentPage = 1;
             UpdatePagesLabel();
@@ -172,26 +180,15 @@ namespace RemoteImaging.Query
             {
                 this.pictureBox1.Image = Image.FromFile(filePath);
             }
-            //
 
             //detail infomation
-            int cameraID = int.Parse(this.bestPicListView.FocusedItem.Text.Substring(0, 2));
-            foreach (Camera camera in Configuration.Instance.Cameras)
-            {
-                if (camera.ID == cameraID)
-                {
-                    //this.gotPlaceTxt.Text = camera.Name;
-                    break;
-                }
-            }
+            ImageDetail imgInfo = ImageDetail.FromPath(filePath);
 
-            string focusedFileName = this.bestPicListView.FocusedItem.Text;
-            //             this.gotTimeTxt.Text = (2000 + int.Parse(focusedFileName.Substring(3, 2))).ToString() + "年" + //year
-            //                                    focusedFileName.Substring(5, 2) + "月" + //month
-            //                                    focusedFileName.Substring(7, 2) + "日" + //day
-            //                                    focusedFileName.Substring(9, 2) + "时" + //hour
-            //                                    focusedFileName.Substring(11, 2) + "分" + //minute
-            //                                    focusedFileName.Substring(13, 2) + "秒";//second
+            string captureLoc = string.Format("抓拍地点: {0}", imgInfo.FromCamera);
+            this.labelCaptureLoc.Text = captureLoc;
+
+            string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
+            this.labelCaptureTime.Text = captureTime;
 
             this.PopulateBigPicList(Path.GetFileName(filePath));
         }
@@ -325,6 +322,26 @@ namespace RemoteImaging.Query
             UpdatePagesLabel();
 
             ShowCurrentPage();
+
+        }
+
+        private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
+        {
+            if (this.bestPicListView.SelectedItems.Count != 1) return;
+
+            string imgPath = this.bestPicListView.SelectedItems[0].Tag as string;
+
+            ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
+
+            string[] videos = VideoSearch.FindVideos(imgInfo);
+
+            if (videos.Length == 0)
+            {
+                MessageBox.Show("未找到相关视频");
+                return;
+            }
+
+            VideoPlayer.PlayVideosAsync(videos);
 
         }
     }

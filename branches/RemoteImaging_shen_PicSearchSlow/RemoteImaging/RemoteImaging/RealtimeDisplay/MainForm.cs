@@ -38,7 +38,7 @@ namespace RemoteImaging.RealtimeDisplay
             Properties.Settings setting = Properties.Settings.Default;
 
             cpuCounter = new PerformanceCounter();
-            // ramCounter = new PerformanceCounter("Memory", "Available MBytes");
+            ramCounter = new PerformanceCounter("Memory", "Available MBytes");
 
             cpuCounter.CategoryName = "Processor";
             cpuCounter.CounterName = "% Processor Time";
@@ -88,17 +88,7 @@ namespace RemoteImaging.RealtimeDisplay
                     int.Parse(setting.SrchRegionHeight))
                     );
 
-            try
-            {
-                videoPlayerPath = (string)Registry.LocalMachine.OpenSubKey("Software")
-                                .OpenSubKey("Videolan")
-                                .OpenSubKey("vlc").GetValue(null);
-            }
-            catch (Exception)
-            {
-                videoPlayerPath = null;
-            }
-
+          
 
         }
 
@@ -690,13 +680,11 @@ namespace RemoteImaging.RealtimeDisplay
 
         private string getCurrentCpuUsage()
         {
-            return string.Empty;
             return String.Format("{0:F0}%", cpuCounter.NextValue());
         }
 
         private string getAvailableRAM()
         {
-            return string.Empty;
             return String.Format("{0}MB", ramCounter.NextValue());
         }
 
@@ -735,6 +723,9 @@ namespace RemoteImaging.RealtimeDisplay
             ShowPic();
         }
 
+       
+
+
         private void playRelateVideo_Click(object sender, EventArgs e)
         {
             Cell c = this.squareListView1.SelectedCell;
@@ -742,9 +733,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
 
-            string root = Path.Combine(Properties.Settings.Default.OutputPath, imgInfo.FromCamera.ToString("D2"));
 
-            string[] videos = VideoSearch.FindVideos(root, imgInfo);
+            string[] videos = VideoSearch.FindVideos(imgInfo);
 
             if (videos.Length == 0)
             {
@@ -752,21 +742,8 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
-            if (videoPlayerPath == null)
-            {
-                MessageBox.Show(this, "请安装相应播放器", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
 
-            StringBuilder sb = new StringBuilder();
-            foreach (var file in videos)
-            {
-                sb.Append(file); sb.Append(' ');
-            }
-
-            sb.Append(@"vlc://quit"); sb.Append(' ');
-
-            Process.Start(videoPlayerPath, sb.ToString());
+            VideoPlayer.PlayVideosAsync(videos);
         }
 
 
