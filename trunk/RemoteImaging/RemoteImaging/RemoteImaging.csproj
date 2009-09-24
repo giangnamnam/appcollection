@@ -245,6 +245,7 @@
       <DependentUpon>Monitoring.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="VideoPlayer.cs" />
     <Compile Include="VideoSearch.cs" />
   </ItemGroup>
   <ItemGroup>

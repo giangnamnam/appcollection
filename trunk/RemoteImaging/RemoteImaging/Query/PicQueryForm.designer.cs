@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PicQueryForm));
             this.queryBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,34 +39,60 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.secPicListView = new System.Windows.Forms.ListView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.bestPicListView = new System.Windows.Forms.ListView();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cancelBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.gotTimeTxt = new System.Windows.Forms.TextBox();
-            this.gotPlaceTxt = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelCaptureLoc = new System.Windows.Forms.Label();
+            this.labelCaptureTime = new System.Windows.Forms.Label();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonFirstPage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPrePage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNextPage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonLastPage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabelCurPage = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBoxPageSize = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // queryBtn
             // 
-            this.queryBtn.Location = new System.Drawing.Point(1024, 16);
+            this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.queryBtn.Location = new System.Drawing.Point(724, 28);
             this.queryBtn.Name = "queryBtn";
-            this.queryBtn.Size = new System.Drawing.Size(99, 21);
+            this.queryBtn.Size = new System.Drawing.Size(86, 25);
             this.queryBtn.TabIndex = 0;
             this.queryBtn.Text = "查询";
             this.queryBtn.UseVisualStyleBackColor = true;
@@ -74,122 +101,106 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 31);
+            this.label1.Location = new System.Drawing.Point(12, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "摄像机编号";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(251, 31);
+            this.label2.Location = new System.Drawing.Point(184, 34);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "时间起点";
+            this.label2.Text = "从:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(585, 35);
+            this.label3.Location = new System.Drawing.Point(470, 34);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(22, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "时间终点";
+            this.label3.Text = "到:";
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(85, 27);
+            this.comboBox1.Location = new System.Drawing.Point(85, 29);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.Size = new System.Drawing.Size(73, 21);
             this.comboBox1.TabIndex = 4;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(312, 28);
+            this.dateTimePicker1.Location = new System.Drawing.Point(209, 30);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(129, 21);
+            this.dateTimePicker1.Size = new System.Drawing.Size(129, 20);
             this.dateTimePicker1.TabIndex = 5;
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(646, 28);
+            this.dateTimePicker2.Location = new System.Drawing.Point(498, 29);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(129, 21);
+            this.dateTimePicker2.Size = new System.Drawing.Size(129, 20);
             this.dateTimePicker2.TabIndex = 6;
             // 
             // timeEdit1
             // 
             this.timeEdit1.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit1.Location = new System.Drawing.Point(447, 28);
+            this.timeEdit1.Location = new System.Drawing.Point(344, 30);
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 21);
+            this.timeEdit1.Size = new System.Drawing.Size(75, 22);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
             // 
             this.timeEdit2.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeEdit2.Location = new System.Drawing.Point(781, 28);
+            this.timeEdit2.Location = new System.Drawing.Point(633, 29);
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 21);
+            this.timeEdit2.Size = new System.Drawing.Size(71, 22);
             this.timeEdit2.TabIndex = 8;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(485, 75);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(655, 9);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(424, 75);
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "优选图片";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(424, 318);
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 15;
             this.label5.Text = "二级图片";
             // 
             // secPicListView
             // 
             this.secPicListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.secPicListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.secPicListView.AutoArrange = false;
+            this.secPicListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.secPicListView.HideSelection = false;
-            this.secPicListView.Location = new System.Drawing.Point(427, 336);
+            this.secPicListView.Location = new System.Drawing.Point(0, 13);
             this.secPicListView.MultiSelect = false;
             this.secPicListView.Name = "secPicListView";
-            this.secPicListView.Size = new System.Drawing.Size(713, 196);
+            this.secPicListView.Size = new System.Drawing.Size(554, 193);
             this.secPicListView.TabIndex = 13;
             this.secPicListView.UseCompatibleStateImageBehavior = false;
             this.secPicListView.ItemActivate += new System.EventHandler(this.secPicListView_ItemActive);
             this.secPicListView.DoubleClick += new System.EventHandler(this.secPicListView_DoubleClick);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(485, 318);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(655, 9);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
             // 
             // imageList1
             // 
@@ -206,29 +217,17 @@
             // bestPicListView
             // 
             this.bestPicListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.bestPicListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.bestPicListView.AutoArrange = false;
+            this.bestPicListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bestPicListView.HideSelection = false;
-            this.bestPicListView.Location = new System.Drawing.Point(427, 90);
+            this.bestPicListView.Location = new System.Drawing.Point(0, 38);
             this.bestPicListView.MultiSelect = false;
             this.bestPicListView.Name = "bestPicListView";
             this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(713, 224);
+            this.bestPicListView.Size = new System.Drawing.Size(840, 263);
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 88);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(403, 360);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
             // 
             // groupBox3
             // 
@@ -236,105 +235,300 @@
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.queryBtn);
             this.groupBox3.Controls.Add(this.dateTimePicker1);
             this.groupBox3.Controls.Add(this.dateTimePicker2);
             this.groupBox3.Controls.Add(this.timeEdit1);
             this.groupBox3.Controls.Add(this.timeEdit2);
-            this.groupBox3.Location = new System.Drawing.Point(12, 5);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(946, 70);
+            this.groupBox3.Size = new System.Drawing.Size(840, 76);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
             // 
-            // cancelBtn
-            // 
-            this.cancelBtn.Location = new System.Drawing.Point(1024, 51);
-            this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(99, 21);
-            this.cancelBtn.TabIndex = 18;
-            this.cancelBtn.Text = "取消";
-            this.cancelBtn.UseVisualStyleBackColor = true;
-            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
-            // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.gotTimeTxt);
-            this.groupBox4.Controls.Add(this.gotPlaceTxt);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.pictureBox1);
-            this.groupBox4.Location = new System.Drawing.Point(12, 80);
+            this.groupBox4.Controls.Add(this.layoutControl1);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(409, 451);
+            this.groupBox4.Size = new System.Drawing.Size(282, 206);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "放大显示";
             // 
-            // gotTimeTxt
+            // layoutControl1
             // 
-            this.gotTimeTxt.Location = new System.Drawing.Point(98, 53);
-            this.gotTimeTxt.Name = "gotTimeTxt";
-            this.gotTimeTxt.ReadOnly = true;
-            this.gotTimeTxt.Size = new System.Drawing.Size(293, 21);
-            this.gotTimeTxt.TabIndex = 20;
+            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.Options.UseForeColor = true;
+            this.layoutControl1.Appearance.DisabledLayoutItem.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.layoutControl1.Appearance.DisabledLayoutItem.Options.UseForeColor = true;
+            this.layoutControl1.Controls.Add(this.pictureBox1);
+            this.layoutControl1.Controls.Add(this.labelCaptureLoc);
+            this.layoutControl1.Controls.Add(this.labelCaptureTime);
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(3, 16);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.Root = this.layoutControlGroup1;
+            this.layoutControl1.Size = new System.Drawing.Size(276, 187);
+            this.layoutControl1.TabIndex = 0;
+            this.layoutControl1.Text = "layoutControl1";
             // 
-            // gotPlaceTxt
+            // pictureBox1
             // 
-            this.gotPlaceTxt.Location = new System.Drawing.Point(98, 23);
-            this.gotPlaceTxt.Name = "gotPlaceTxt";
-            this.gotPlaceTxt.ReadOnly = true;
-            this.gotPlaceTxt.Size = new System.Drawing.Size(293, 21);
-            this.gotPlaceTxt.TabIndex = 19;
+            this.pictureBox1.Location = new System.Drawing.Point(7, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(262, 108);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
             // 
-            // label7
+            // labelCaptureLoc
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(25, 54);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 12);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "抓拍时间：";
+            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 125);
+            this.labelCaptureLoc.Name = "labelCaptureLoc";
+            this.labelCaptureLoc.Size = new System.Drawing.Size(262, 22);
+            this.labelCaptureLoc.TabIndex = 17;
+            this.labelCaptureLoc.Text = "抓拍地点：";
+            this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label6
+            // labelCaptureTime
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 27);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "抓拍地点：";
+            this.labelCaptureTime.Location = new System.Drawing.Point(7, 157);
+            this.labelCaptureTime.Name = "labelCaptureTime";
+            this.labelCaptureTime.Size = new System.Drawing.Size(262, 23);
+            this.labelCaptureTime.TabIndex = 18;
+            this.labelCaptureTime.Text = "抓拍时间：";
+            this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.CustomizationFormText = "layoutControlGroup1";
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1,
+            this.layoutControlItem2,
+            this.layoutControlItem3});
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup1.Name = "layoutControlGroup1";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(276, 187);
+            this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.layoutControlGroup1.Text = "layoutControlGroup1";
+            this.layoutControlGroup1.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.labelCaptureTime;
+            this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 150);
+            this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(272, 33);
+            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem1.Text = "layoutControlItem1";
+            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextToControlDistance = 0;
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.labelCaptureLoc;
+            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 118);
+            this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
+            this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(272, 32);
+            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem2.Text = "layoutControlItem2";
+            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextToControlDistance = 0;
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.pictureBox1;
+            this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(272, 118);
+            this.layoutControlItem3.Text = "layoutControlItem3";
+            this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextToControlDistance = 0;
+            this.layoutControlItem3.TextVisible = false;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 76);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.bestPicListView);
+            this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
+            this.splitContainer1.Size = new System.Drawing.Size(840, 511);
+            this.splitContainer1.SplitterDistance = 206;
+            this.splitContainer1.TabIndex = 20;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.groupBox4);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.secPicListView);
+            this.splitContainer2.Panel2.Controls.Add(this.label5);
+            this.splitContainer2.Size = new System.Drawing.Size(840, 206);
+            this.splitContainer2.SplitterDistance = 282;
+            this.splitContainer2.TabIndex = 21;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonFirstPage,
+            this.toolStripButtonPrePage,
+            this.toolStripButtonNextPage,
+            this.toolStripButtonLastPage,
+            this.toolStripLabelCurPage,
+            this.toolStripComboBoxPageSize,
+            this.toolStripLabel1,
+            this.toolStripSeparator2,
+            this.toolStripButtonPlayVideo});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 13);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(840, 25);
+            this.toolStrip1.TabIndex = 13;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButtonFirstPage
+            // 
+            this.toolStripButtonFirstPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFirstPage.Image")));
+            this.toolStripButtonFirstPage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonFirstPage.Name = "toolStripButtonFirstPage";
+            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButtonFirstPage.Text = "首页";
+            this.toolStripButtonFirstPage.Click += new System.EventHandler(this.toolStripButtonFirstPage_Click);
+            // 
+            // toolStripButtonPrePage
+            // 
+            this.toolStripButtonPrePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrePage.Image")));
+            this.toolStripButtonPrePage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPrePage.Name = "toolStripButtonPrePage";
+            this.toolStripButtonPrePage.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButtonPrePage.Text = "上页";
+            this.toolStripButtonPrePage.Click += new System.EventHandler(this.toolStripButtonPrePage_Click);
+            // 
+            // toolStripButtonNextPage
+            // 
+            this.toolStripButtonNextPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextPage.Image")));
+            this.toolStripButtonNextPage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNextPage.Name = "toolStripButtonNextPage";
+            this.toolStripButtonNextPage.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButtonNextPage.Text = "下页";
+            this.toolStripButtonNextPage.Click += new System.EventHandler(this.toolStripButtonNextPage_Click);
+            // 
+            // toolStripButtonLastPage
+            // 
+            this.toolStripButtonLastPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLastPage.Image")));
+            this.toolStripButtonLastPage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonLastPage.Name = "toolStripButtonLastPage";
+            this.toolStripButtonLastPage.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButtonLastPage.Text = "末页";
+            this.toolStripButtonLastPage.Click += new System.EventHandler(this.toolStripButtonLastPage_Click);
+            // 
+            // toolStripLabelCurPage
+            // 
+            this.toolStripLabelCurPage.Name = "toolStripLabelCurPage";
+            this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 22);
+            this.toolStripLabelCurPage.Text = "第1/1页";
+            // 
+            // toolStripComboBoxPageSize
+            // 
+            this.toolStripComboBoxPageSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxPageSize.Items.AddRange(new object[] {
+            "20",
+            "30",
+            "40",
+            "50"});
+            this.toolStripComboBoxPageSize.Name = "toolStripComboBoxPageSize";
+            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBoxPageSize.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel1.Text = "张/页";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButtonPlayVideo
+            // 
+            this.toolStripButtonPlayVideo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPlayVideo.Image")));
+            this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
+            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(88, 22);
+            this.toolStripButtonPlayVideo.Text = "相关视频";
+            this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
             // 
             // PicQueryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1159, 543);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.cancelBtn);
+            this.ClientSize = new System.Drawing.Size(840, 587);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.queryBtn);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.secPicListView);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.bestPicListView);
-            this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.MaximizeBox = false;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PicQueryForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "搜索图片";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.PicQueryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            this.splitContainer2.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -349,21 +543,33 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private DevExpress.XtraEditors.TimeEdit timeEdit1;
         private DevExpress.XtraEditors.TimeEdit timeEdit2;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListView secPicListView;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.ListView bestPicListView;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox gotPlaceTxt;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox gotTimeTxt;
+        private System.Windows.Forms.Label labelCaptureTime;
+        private System.Windows.Forms.Label labelCaptureLoc;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonFirstPage;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPrePage;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNextPage;
+        private System.Windows.Forms.ToolStripButton toolStripButtonLastPage;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelCurPage;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxPageSize;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPlayVideo;
     }
 }

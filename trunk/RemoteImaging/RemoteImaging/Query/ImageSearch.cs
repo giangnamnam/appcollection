@@ -282,7 +282,7 @@ namespace RemoteImaging.Query
                 return files;
             }
 
-            return null;
+            return new string[0];
         }
 
 
