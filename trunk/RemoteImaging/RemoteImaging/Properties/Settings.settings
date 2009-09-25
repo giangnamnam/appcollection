@@ -104,8 +104,11 @@
     <Setting Name="SaveDay" Type="System.String" Scope="User">
       <Value Profile="(Default)">2false</Value>
     </Setting>
-    <Setting Name="WarnDisk" Type="System.String" Scope="User">
-      <Value Profile="(Default)">500false</Value>
+    <Setting Name="Temp" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DiskQuota" Type="System.String" Scope="User">
+      <Value Profile="(Default)">300</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -83,7 +83,7 @@ namespace RemoteImaging.RealtimeDisplay
                     {
                         MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, checkBox1.Checked ? true : false);
                         Properties.Settings.Default.Point = listPointStr;
-                        Properties.Settings.Default.Save();
+                        //Properties.Settings.Default.Save();
                     }
                 }
                 else

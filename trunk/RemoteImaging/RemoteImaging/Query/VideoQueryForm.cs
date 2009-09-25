@@ -52,7 +52,7 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string[] files = VideoSearch.FindVideos(cameraID, dateTime1, dateTime2);
+            string[] files = FileSystemStorage.FindVideos(cameraID, dateTime1, dateTime2);
 
             if (files == null)
             {
@@ -61,10 +61,10 @@ namespace RemoteImaging.Query
             }
 
             this.videoList.Items.Clear();
-            
+
             foreach (string file in files)
             {
-                DateTime dTime =imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
+                DateTime dTime = imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
 
                 #region
@@ -136,7 +136,7 @@ namespace RemoteImaging.Query
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr =imgSearch. getPicFiles(videoList.FocusedItem.Text, this.comboBox1.Text,true);//得到图片路径
+            string[] fileArr = imgSearch.getPicFiles(videoList.FocusedItem.Text, this.comboBox1.Text, true);//得到图片路径
             if (fileArr.Length == 0)
             {
                 MessageBox.Show("没有符合的图片", "警告");

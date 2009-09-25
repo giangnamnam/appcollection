@@ -81,7 +81,6 @@ namespace RemoteImaging.Query
         private void ClearLists()
         {
             ClearCurPageList();
-            this.secPicListView.Clear();
             this.imageList2.Images.Clear();
             this.pictureBox1.Image = null;
         }
@@ -190,13 +189,15 @@ namespace RemoteImaging.Query
             string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
             this.labelCaptureTime.Text = captureTime;
 
-            this.PopulateBigPicList(Path.GetFileName(filePath));
+            string bigImgPath = FileSystemStorage.BigImgPathFor(imgInfo);
+
+            this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
+            
         }
 
 
         private void PopulateBigPicList(string iconFile)
         {
-            this.secPicListView.Clear();
             this.imageList2.Images.Clear();
 
             Query.ImageSearch imageSearch = new ImageSearch();
@@ -206,12 +207,6 @@ namespace RemoteImaging.Query
                 MessageBox.Show("没有搜索到对应的二级图片", "警告");
                 return;
             }
-
-            this.secPicListView.Scrollable = true;
-            this.secPicListView.MultiSelect = false;
-            this.secPicListView.View = View.LargeIcon;
-            this.secPicListView.LargeImageList = imageList2;
-
 
             for (int i = 0; i < files.Length; i++)
             {
@@ -223,26 +218,19 @@ namespace RemoteImaging.Query
                     Text = text,
                     ImageIndex = i
                 };
-                this.secPicListView.Items.Add(item);
             }
         }
 
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
         {
-            string filePath = this.secPicListView.FocusedItem.Tag as string;
 
-            if (File.Exists(filePath))
-            {
-                this.pictureBox1.Image = Image.FromFile(filePath);
-            }
-
+          
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.bestPicListView.Clear();
             this.imageList1.Images.Clear();
-            this.secPicListView.Clear();
             this.imageList2.Images.Clear();
 
 
@@ -251,9 +239,7 @@ namespace RemoteImaging.Query
 
         private void secPicListView_DoubleClick(object sender, EventArgs e)
         {
-            FormDetailedPic detail = new FormDetailedPic();
-            detail.Img = RemoteImaging.Core.ImageDetail.FromPath(this.secPicListView.FocusedItem.Tag as string);
-            detail.Show(this);
+            
         }
 
         private void PicQueryForm_Load(object sender, EventArgs e)
@@ -333,7 +319,7 @@ namespace RemoteImaging.Query
 
             ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
 
-            string[] videos = VideoSearch.FindVideos(imgInfo);
+            string[] videos = FileSystemStorage.FindVideos(imgInfo);
 
             if (videos.Length == 0)
             {

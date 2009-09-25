@@ -14,7 +14,21 @@ namespace RemoteImaging
 {
     public partial class OptionsForm : Form
     {
-        public OptionsForm()
+        private static OptionsForm instance = null;
+
+        public static OptionsForm Instance
+        {
+            get 
+            {
+                if (instance == null)
+                {
+                    instance = new OptionsForm();
+                }
+                return instance;
+            }
+        }
+
+        private OptionsForm()
         {
             InitializeComponent();
             InitCamDatagridView();
@@ -25,9 +39,8 @@ namespace RemoteImaging
             this.textBox4.Text = Properties.Settings.Default.CurIp;
             this.cbImageArr.Text = Properties.Settings.Default.ImageArr.ToString();
             this.cbThresholding.Text = Properties.Settings.Default.Thresholding.ToString();
-            DiskWarn = Properties.Settings.Default.WarnDisk;
             SaveDay = Properties.Settings.Default.SaveDay;
-            SetControl(); DiskWarn = Properties.Settings.Default.WarnDisk;
+            SetControl();
             SaveDay = Properties.Settings.Default.SaveDay;
             SetControl();
         }
@@ -151,7 +164,6 @@ namespace RemoteImaging
             Properties.Settings.Default.ComName = this.cmbComPort.Text;
             
             //图片和录像过期时间设置，磁盘警告设置
-            Properties.Settings.Default.WarnDisk = DiskWarn;
             Properties.Settings.Default.SaveDay = SaveDay;
 
 
@@ -163,32 +175,6 @@ namespace RemoteImaging
             
         }
 
-        private string DiskWarn
-        {
-            get
-            {
-                string value=txtWarnVal.Text.Trim();
-                string cmbText = cmbValue.Text;
-                if (ckbDiskSet.Checked)
-                    return ((value!="")?value.Substring(0,value.Length):"500")+ "true" ;
-                else
-                    return (((cmbText!="")&& cmbText.EndsWith("MB"))?cmbText.Substring(0,cmbText.Length-2):"500") + "false";
-            }
-            set
-            {
-                string temp = value;
-                if (temp.EndsWith("true"))
-                {
-                    ckbDiskSet.Checked = true;
-                    txtWarnVal.Text = temp.Substring(0, temp.Length - 4);
-                }
-                else
-                {
-                    ckbDiskSet.Checked = false;
-                    cmbValue.Text = temp.Substring(0, temp.Length - 5)+"MB";
-                }
-            }
-        }
 
         private string SaveDay
         {
@@ -237,16 +223,6 @@ namespace RemoteImaging
                 ragSaveDay.Enabled = true;
             }
 
-            if (ckbDiskSet.Checked)
-            {
-                txtWarnVal.Enabled = true;
-                cmbValue.Enabled = false;
-            }
-            else
-            {
-                txtWarnVal.Enabled = false;
-                cmbValue.Enabled = true;
-            }
         }
 
 

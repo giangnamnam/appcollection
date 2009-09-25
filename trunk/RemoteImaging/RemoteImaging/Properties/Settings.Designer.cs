@@ -433,13 +433,25 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500false")]
-        public string WarnDisk {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Temp {
             get {
-                return ((string)(this["WarnDisk"]));
+                return ((string)(this["Temp"]));
             }
             set {
-                this["WarnDisk"] = value;
+                this["Temp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public string DiskQuota {
+            get {
+                return ((string)(this["DiskQuota"]));
+            }
+            set {
+                this["DiskQuota"] = value;
             }
         }
     }

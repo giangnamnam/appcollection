@@ -33,6 +33,10 @@ namespace RemoteImaging.RealtimeDisplay
                 this.Text += "-[" + Program.directory + "]";
             }
 
+#if DEBUG
+            diskSpaceCheckTimer.Interval = 1000 * 60;
+#endif
+
 
             config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
@@ -88,7 +92,7 @@ namespace RemoteImaging.RealtimeDisplay
                     int.Parse(setting.SrchRegionHeight))
                     );
 
-          
+
 
         }
 
@@ -334,11 +338,15 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            diskSpaceCheckTimer.Enabled = true;
+
+
             Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
 
             if (c == null) return;
 
             this.StartCamera(c);
+
 
         }
 
@@ -521,49 +529,51 @@ namespace RemoteImaging.RealtimeDisplay
         int tempModel = 0;
         private void options_Click(object sender, EventArgs e)
         {
-            using (OptionsForm frm = new OptionsForm())
+            OptionsForm frm = OptionsForm.Instance;
+            IList<Camera> camCopy = new List<Camera>();
+
+            foreach (Camera item in Configuration.Instance.Cameras)
             {
-                IList<Camera> camCopy = new List<Camera>();
-
-                foreach (Camera item in Configuration.Instance.Cameras)
-                {
-                    camCopy.Add(new Camera() { ID = item.ID, Name = item.Name, IpAddress = item.IpAddress, Mac = item.Mac, Status = item.Status });
-                }
+                camCopy.Add(new Camera() { ID = item.ID, Name = item.Name, IpAddress = item.IpAddress, Mac = item.Mac, Status = item.Status });
+            }
 
 
-                frm.Cameras = camCopy;
-                if (frm.ShowDialog(this) == DialogResult.OK)
-                {
-                    Properties.Settings setting = Properties.Settings.Default;
+            frm.Cameras = camCopy;
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
 
-                    Configuration.Instance.Cameras = frm.Cameras;//这里添加设置摄像机的 IP 和 ID 对应的设置类文件 ResetCameraInfo
-                    Configuration.Instance.Save();
-
-                    setting.Save();
-
-                    InitStatusBar();
-
-                    this.Cameras = frm.Cameras.ToArray<Camera>();
+                Properties.Settings setting = Properties.Settings.Default;
 
 
 
-                    var minFaceWidth = int.Parse(setting.MinFaceWidth);
-                    float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                    SetupExtractor(setting.EnvMode,
-                        float.Parse(setting.IconLeftExtRatio),
-                        float.Parse(setting.IconRightExtRatio),
-                        float.Parse(setting.IconTopExtRatio),
-                        float.Parse(setting.IconBottomExtRatio),
-                        minFaceWidth,
-                        ratio,
-                        new Rectangle(int.Parse(setting.SrchRegionLeft),
-                                        int.Parse(setting.SrchRegionTop),
-                                        int.Parse(setting.SrchRegionWidth),
-                                        int.Parse(setting.SrchRegionHeight))
-                                   );
-                    StartSetCam(setting);
-                }
+
+
+                Configuration.Instance.Cameras = frm.Cameras;//这里添加设置摄像机的 IP 和 ID 对应的设置类文件 ResetCameraInfo
+                Configuration.Instance.Save();
+
+                //setting.Save();
+
+                InitStatusBar();
+
+                this.Cameras = frm.Cameras.ToArray<Camera>();
+
+                var minFaceWidth = int.Parse(setting.MinFaceWidth);
+                float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
+
+                SetupExtractor(setting.EnvMode,
+                    float.Parse(setting.IconLeftExtRatio),
+                    float.Parse(setting.IconRightExtRatio),
+                    float.Parse(setting.IconTopExtRatio),
+                    float.Parse(setting.IconBottomExtRatio),
+                    minFaceWidth,
+                    ratio,
+                    new Rectangle(int.Parse(setting.SrchRegionLeft),
+                                    int.Parse(setting.SrchRegionTop),
+                                    int.Parse(setting.SrchRegionWidth),
+                                    int.Parse(setting.SrchRegionHeight))
+                               );
+                StartSetCam(setting);
             }
 
         }
@@ -718,12 +728,14 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.ShowDetailPic(ImageDetail.FromPath(p));
         }
+
+
         private void squareListView1_CellDoubleClick(object sender, CellDoubleClickEventArgs args)
         {
             ShowPic();
         }
 
-       
+
 
 
         private void playRelateVideo_Click(object sender, EventArgs e)
@@ -733,15 +745,13 @@ namespace RemoteImaging.RealtimeDisplay
 
             ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
 
-
-            string[] videos = VideoSearch.FindVideos(imgInfo);
+            string[] videos = FileSystemStorage.FindVideos(imgInfo);
 
             if (videos.Length == 0)
             {
                 MessageBox.Show(this, "没有找到相关视频", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
 
             VideoPlayer.PlayVideosAsync(videos);
         }
@@ -897,6 +907,21 @@ namespace RemoteImaging.RealtimeDisplay
 
             Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
             StartCamera(cam);
+        }
+
+        private void diskSpaceCheckTimer_Tick(object sender, EventArgs e)
+        {
+            string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
+
+            int space = FileSystemStorage.GetAvailableDiskSpaceInMB(drive);
+
+            int diskQuota = int.Parse(Properties.Settings.Default.DiskQuota);
+
+            if (space <= diskQuota)
+            {
+                string msg = string.Format("\"{0}\" 盘空间仅剩余 {1} MB, 请尽快转存！", drive, space);
+                alertControl1.Show(this, "警告", msg);
+            }
         }
 
 

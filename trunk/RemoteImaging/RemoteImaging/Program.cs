@@ -18,13 +18,27 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+
+            if (!Util.VerifyKey())
+            {
+                RegisterForm form = new RegisterForm();
+                DialogResult res = form.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    Application.Restart();
+                }
+                
+                return;
+            }
+
             if (argv.Length > 0)
             {
                 directory = argv[0];
             }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
 
         }

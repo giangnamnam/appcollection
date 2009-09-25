@@ -88,7 +88,7 @@ namespace RemoteImaging
 
             string outPutPath = Properties.Settings.Default.OutputPath;
             string upLoadPool = Properties.Settings.Default.ImageUploadPool;
-            string temp = Properties.Settings.Default.WarnDisk;
+            string temp = "";// Properties.Settings.Default.DiskWarningSize;
             UInt64 diskSize = Convert.ToUInt64(temp.EndsWith("true") ? temp.Substring(0, temp.Length - 4) : temp.Substring(0, temp.Length - 5));
             if (Directory.Exists(outPutPath) && Directory.Exists(upLoadPool))
             {
@@ -110,7 +110,7 @@ namespace RemoteImaging
 
         private void timeCheck_Elapsed(object source, ElapsedEventArgs args)
         {
-            string temp = Properties.Settings.Default.WarnDisk;
+            string temp = "";// Properties.Settings.Default.DiskWarningSize;
             UInt64 diskSize = Convert.ToUInt64(temp.EndsWith("true") ? temp.Substring(0, temp.Length - 4) : temp.Substring(0, temp.Length - 5));
 
             string diskPath = Properties.Settings.Default.OutputPath.Substring(0, 2);
@@ -146,7 +146,7 @@ namespace RemoteImaging
         int time = 3600000;
         bool ckChange = false;
         RemoteImaging.Query.ImageSearch imgSearch = new RemoteImaging.Query.ImageSearch();
-       
+
         /// <summary>
         /// 删除无效视频
         /// </summary>
@@ -195,11 +195,11 @@ namespace RemoteImaging
                 string[] cams = Directory.GetDirectories(rootFile);
                 foreach (string camfile in cams)
                 {
-                    string[] resFiles = VideoSearch.FindVideos(Convert.ToInt32(camfile.Substring(camfile.Length - 2)), begTime, endTime);//1 获得在时间区域内的video的路径
+                    string[] resFiles = FileSystemStorage.FindVideos(Convert.ToInt32(camfile.Substring(camfile.Length - 2)), begTime, endTime);//1 获得在时间区域内的video的路径
                     List<string> invalidVideoArr = new List<string>(); //2 找出没video对应的录像  放入 InvalidVideoArr 
                     foreach (string strFile in resFiles)
                     {
-                        if (imgSearch.getPicFiles(strFile, camfile.Substring(camfile.Length - 2),false).Length == 0)
+                        if (imgSearch.getPicFiles(strFile, camfile.Substring(camfile.Length - 2), false).Length == 0)
                         {
                             invalidVideoArr.Add(strFile);
                         }
