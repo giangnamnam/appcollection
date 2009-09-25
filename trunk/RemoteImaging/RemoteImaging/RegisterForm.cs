@@ -18,7 +18,7 @@ namespace RemoteImaging
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
-            this.textBoxSN.Text = Util.GetMainboardSN();
+            this.textBoxSN.Text = Util.GetUniqID();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

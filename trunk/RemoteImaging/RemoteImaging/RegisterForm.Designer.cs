@@ -124,7 +124,7 @@
             this.textBoxSN.Location = new System.Drawing.Point(102, 76);
             this.textBoxSN.Name = "textBoxSN";
             this.textBoxSN.ReadOnly = true;
-            this.textBoxSN.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSN.Size = new System.Drawing.Size(284, 20);
             this.textBoxSN.TabIndex = 7;
             // 
             // RegisterForm
