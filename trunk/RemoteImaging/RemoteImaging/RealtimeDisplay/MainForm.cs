@@ -913,7 +913,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
 
-            int space = FileSystemStorage.GetAvailableDiskSpaceInMB(drive);
+            int space = FileSystemStorage.GetFreeDiskSpaceMB(drive);
 
             int diskQuota = int.Parse(Properties.Settings.Default.DiskQuota);
 

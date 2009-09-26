@@ -18,6 +18,7 @@ namespace RemoteImaging.RealtimeDisplay
         ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
         System.Timers.Timer timer = new System.Timers.Timer();
+        System.Timers.Timer videoFileCheckTimer = new System.Timers.Timer();
 
         Queue<Frame[]> framesQueue = new Queue<Frame[]>();
         Queue<Frame> motionFrames = new Queue<Frame>();
@@ -58,6 +59,37 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.timer.Interval = 1000 / int.Parse(Properties.Settings.Default.FPs);
             this.timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+
+            videoFileCheckTimer.Interval = 1000 * 60;
+            videoFileCheckTimer.Elapsed += new System.Timers.ElapsedEventHandler(videoFileCheckTimer_Elapsed);
+        }
+
+        private static void DeleteVideoFileAt(DateTime time)
+        {
+            string m4vFile = FileSystemStorage.VideoFilePathNameAt(time, 2);
+            if (File.Exists(m4vFile))
+            {
+                System.Diagnostics.Debug.WriteLine(m4vFile);
+                File.Delete(m4vFile);
+            }
+
+            string idvFile = m4vFile.Replace(".m4v", ".idv");
+            if (File.Exists(idvFile)) 
+            {
+                System.Diagnostics.Debug.WriteLine(idvFile);
+                File.Delete(idvFile);
+            }
+        }
+
+
+        void videoFileCheckTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            DateTime time = DateTime.Now.AddMinutes(-2);
+
+            if (!FileSystemStorage.FacesCapturedAt(2, time)) 
+                DeleteVideoFileAt(time);
+
+
         }
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -228,6 +260,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.timer.Enabled = false;
             this.timer.Enabled = true;
+
+            videoFileCheckTimer.Enabled = true;
 
 
             if (!motionDetectThread.IsAlive)
