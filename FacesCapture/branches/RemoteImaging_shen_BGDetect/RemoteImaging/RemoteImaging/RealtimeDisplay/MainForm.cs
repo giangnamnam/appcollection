@@ -924,6 +924,20 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (presenter == null) return;
+
+            DialogResult res = MessageBox.Show("设置背景后将影响人脸识别准确度, 你确认要设置背景吗?", "警告",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (res != DialogResult.Yes) return;
+
+            presenter.UpdateBG();
+        }
+
+
+
 
     }
 }

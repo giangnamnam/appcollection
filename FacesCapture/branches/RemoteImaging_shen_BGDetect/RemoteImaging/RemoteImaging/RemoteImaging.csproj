@@ -100,9 +100,11 @@
     <Compile Include="AlertSettingRes.Designer.cs">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
     </Compile>
+    <Compile Include="BackGroundComparer.cs" />
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Face.cs" />
     <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
@@ -125,6 +127,7 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ManagedTarget.cs" />
     <Compile Include="MockCamera.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
@@ -294,9 +297,11 @@
     <Content Include="CamSettingsConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Library\Back.dll" />
     <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />
+    <Content Include="Resources\MainIcon.ico" />
     <Content Include="SetVal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

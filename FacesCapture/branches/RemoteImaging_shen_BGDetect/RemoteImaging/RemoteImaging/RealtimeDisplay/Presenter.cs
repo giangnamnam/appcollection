@@ -26,11 +26,43 @@ namespace RemoteImaging.RealtimeDisplay
 
         object locker = new object();
         object rawFrameLocker = new object();
+        object bgLocker = new object();
+        object camLocker = new object();
 
         AutoResetEvent goSearch = new AutoResetEvent(false);
         AutoResetEvent goDetectMotion = new AutoResetEvent(false);
 
         Thread motionDetectThread = null;
+
+
+        private IplImage _BackGround;
+        public  IplImage BackGround
+        {
+            get
+            {
+                return _BackGround;
+            }
+            set
+            {
+                _BackGround = value;
+                value.IsEnabledDispose = false;
+            }
+        }
+
+        public void UpdateBG()
+        {
+            byte[] imgData = null;
+            lock (this.camLocker)
+                 imgData = this.camera.CaptureImageBytes();
+
+            Image img = Image.FromStream(new MemoryStream(imgData));
+
+            lock (this.bgLocker)
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap) img);
+        		 
+            img.Save("BG.jpg");
+        }
+
 
 
         /// <summary>
@@ -62,6 +94,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             videoFileCheckTimer.Interval = 1000 * 60;
             videoFileCheckTimer.Elapsed += new System.Timers.ElapsedEventHandler(videoFileCheckTimer_Elapsed);
+
+            if (File.Exists("bg.jpg"))
+                BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
         }
 
         private static void DeleteVideoFileAt(DateTime time)
@@ -74,7 +109,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
             string idvFile = m4vFile.Replace(".m4v", ".idv");
-            if (File.Exists(idvFile)) 
+            if (File.Exists(idvFile))
             {
                 System.Diagnostics.Debug.WriteLine(idvFile);
                 File.Delete(idvFile);
@@ -86,7 +121,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             DateTime time = DateTime.Now.AddMinutes(-2);
 
-            if (!FileSystemStorage.FacesCapturedAt(2, time)) 
+            if (!FileSystemStorage.FacesCapturedAt(2, time))
                 DeleteVideoFileAt(time);
 
 
@@ -132,7 +167,13 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void QueryRawFrame()
         {
-            byte[] image = camera.CaptureImageBytes();
+            byte[] image;
+
+            lock (this.camLocker)
+            {
+                image = camera.CaptureImageBytes();
+            }
+
 
             MemoryStream memStream = new MemoryStream(image);
             Bitmap bmp = null;
@@ -287,28 +328,21 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        unsafe ImageDetail[] SaveImage(Target[] targets)
+        unsafe ImageDetail[] SaveImage(ManagedTarget[] targets)
         {
             IList<ImageDetail> imgs = new List<ImageDetail>();
 
-            foreach (Target t in targets)
+            foreach (ManagedTarget t in targets)
             {
                 Frame frame = t.BaseFrame;
 
                 DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-                for (int j = 0; j < t.FaceCount; ++j)
+                for (int j = 0; j < t.Faces.Length; ++j)
                 {
-                    IntPtr* f = ((IntPtr*)(t.FaceData)) + j;
-                    IplImage aFace = new IplImage(*f);
-                    aFace.IsEnabledDispose = false;
-
                     string facePath = FileSystemStorage.GetFacePath(frame, dt, j);
-
-                    aFace.SaveImage(facePath);
-
+                    t.Faces[j].Img.SaveImage(facePath);
                     imgs.Add(ImageDetail.FromPath(facePath));
-
                 }
 
             }
@@ -338,8 +372,6 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     for (int i = 0; i < frames.Length; ++i)
                     {
-                        DateTime dt = DateTime.FromBinary(frames[i].timeStamp);
-
                         NativeIconExtractor.AddInFrame(frames[i]);
                     }
 
@@ -350,7 +382,7 @@ namespace RemoteImaging.RealtimeDisplay
                     {
                         Target* pTarget = (Target*)target;
 
-                        IList<Target> targets = new List<Target>();
+                        IList<ManagedTarget> targets = new List<ManagedTarget>();
 
                         int upLimit = count;
 
@@ -362,23 +394,51 @@ namespace RemoteImaging.RealtimeDisplay
 
                         for (int i = 0; i < upLimit; i++)
                         {
-                            Target face = pTarget[i];
+                            Target faceWithFrame = pTarget[i];
 
-                            Frame frm = face.BaseFrame;
+                            IList<Face> facesList = new List<Face>();
 
-                            int idx = Array.FindIndex(frames, fm => fm.cameraID == frm.cameraID
-                                                                && fm.image == frm.image
-                                                                && fm.timeStamp == frm.timeStamp);
+                            for (int j = 0; j < faceWithFrame.FaceCount; ++j)
+                            {
 
-                            Debug.Assert(idx != -1);
+                                IntPtr* faceImgData = ((IntPtr*)(faceWithFrame.FaceData)) + j;
+                                IplImage aFaceImg = new IplImage(*faceImgData);
+                                aFaceImg.IsEnabledDispose = false;
 
-                            targets.Add(face);
+                                CvRect* pFaceBounds = (CvRect*)faceWithFrame.CvRects;
+                                CvRect faceRect = pFaceBounds[j];
+
+                                System.Diagnostics.Debug.WriteLine(faceRect);
+
+                                Face aFace = new Face() { Bounds = faceRect, Img = aFaceImg };
+
+                                if (Properties.Settings.Default.RecheckFace
+                                    &&BackGround != null)
+                                {
+                                    lock(this.bgLocker)
+                                        if (BackGroundComparer.IsFace(aFace.Img.CvPtr, BackGround.CvPtr, faceRect))
+                                            facesList.Add(aFace);
+                                }
+                                else
+                                    facesList.Add(aFace);
+                                    
+                            }
+
+                            Face[] faceArray = new Face[facesList.Count];
+                            facesList.CopyTo(faceArray, 0);
+
+                            ManagedTarget t = new ManagedTarget()
+                            {
+                                BaseFrame = faceWithFrame.BaseFrame,
+                                Faces = faceArray
+                            };
+
+                            targets.Add(t);
                         }
 
-                        Target[] tgArr = new Target[targets.Count];
+                        ManagedTarget[] tgArr = new ManagedTarget[targets.Count];
 
                         targets.CopyTo(tgArr, 0);
-
 
                         ImageDetail[] imgs = this.SaveImage(tgArr);
                         this.screen.ShowImages(imgs);

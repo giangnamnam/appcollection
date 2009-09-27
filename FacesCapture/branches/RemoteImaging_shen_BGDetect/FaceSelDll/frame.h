@@ -18,5 +18,6 @@ struct Target
 	Frame BaseFrame;//大图片
 	int FaceCount;//脸数量
 	IplImage** FaceData;//脸数据
+	CvRect* FaceRects;//脸对应框的位置,20090827 Added for Record Face Positions
 };
 #endif

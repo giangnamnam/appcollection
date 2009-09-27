@@ -454,5 +454,17 @@ namespace RemoteImaging.Properties {
                 this["DiskQuota"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RecheckFace {
+            get {
+                return ((bool)(this["RecheckFace"]));
+            }
+            set {
+                this["RecheckFace"] = value;
+            }
+        }
     }
 }

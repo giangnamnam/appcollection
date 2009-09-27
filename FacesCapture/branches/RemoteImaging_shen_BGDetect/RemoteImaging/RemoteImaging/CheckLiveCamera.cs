@@ -15,7 +15,7 @@ namespace RemoteImaging
         Socket sock = null;
         IPEndPoint iep1 = null;
         IPEndPoint iep = null;
-        public CheckLiveCamera(List<Camera> tt,Configuration configd)
+        public CheckLiveCamera(List<Camera> tt, Configuration configd)
         {
             listCamera = new List<Camera>();
             listCamera = tt;

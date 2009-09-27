@@ -281,6 +281,7 @@ IplImage* CFaceSelect::GetSubImage(IplImage* pOriImage, CvRect roi)
 
 void CFaceSelect::FaceJudge(IplImage *pImage, double &dEquFactor, int &iSFactor, double &dFaceSize, double &dSVariant, double &dVVariant, double &dHVariant, double &dContrast, double &dVarient)
 {
+	dVarient = 0.0f;
 	int iQuantizeStep = 2; //直方图量化步长
 	float fChnlRang[2] = {0, 255}; //直方图范围
 	int iDimSize = 256/iQuantizeStep;
@@ -3612,9 +3613,11 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				targetArray[curId].BaseFrame = *((Frame*)cvGetSeqElem( m_cvFrameSeq, i ));
 				targetArray[curId].FaceCount = curFaces;
 				targetArray[curId].FaceData = new IplImage*[curFaces];
+				targetArray[curId].FaceRects = new CvRect[curFaces];//20090827 Added for Record Face Positions
 				for( int j = 0; j < curFaces; j++ )
 				{
 					targetArray[curId].FaceData[j] = 0;
+					targetArray[curId].FaceRects[j] = cvRect(0,0,0,0);//20090827 Added for Record Face Positions
 				}
 				curId++;
 			}
@@ -3649,6 +3652,7 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				if( targetArray[curId].FaceData[j] == 0 )
 				{
 					targetArray[curId].FaceData[j] = SubFace;
+					targetArray[curId].FaceRects[j] = recUpBody;//20090827 Added for Record Face Positions
 					break;
 				}
 			}
@@ -5040,6 +5044,7 @@ void CFaceSelect::ReleaseTargets( Target* &targets, int &nCnt )
 			cvReleaseImage( &(targets[i].FaceData[j]) );
 		}
 		delete[] targets[i].FaceData;
+		delete[] targets[i].FaceRects;//20090827 Added for Record Face Positions
 		targets[i].FaceData = 0;
 		targets[i].FaceCount = 0;
 	}
