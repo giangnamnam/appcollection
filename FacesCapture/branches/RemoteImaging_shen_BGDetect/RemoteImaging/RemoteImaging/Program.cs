@@ -21,6 +21,7 @@ namespace RemoteImaging
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+#if !DEBUG
 
             if (!Util.VerifyKey())
             {
@@ -33,6 +34,7 @@ namespace RemoteImaging
                 
                 return;
             }
+#endif
 
             if (argv.Length > 0)
             {
