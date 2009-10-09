@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageProcess
 {
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayoutAttribute(LayoutKind.Sequential)]
     public struct Target
     {
 
@@ -18,5 +18,8 @@ namespace ImageProcess
 
         /// IplImage*
         public System.IntPtr FaceData;
+
+        ///CvRect*
+        public System.IntPtr CvRects;
     }
 }
