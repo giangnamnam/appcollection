@@ -18,14 +18,14 @@ namespace RemoteImaging
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
-            this.textBoxSN.Text = Util.GetUniqID();
+            this.textBoxSN.Text = Util.GetOrGenerateUniqID();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxKey.Text)) return;
 
-            Util.WriteKey(textBoxKey.Text);
+            Util.WriteAuthentication(this.textBoxSN.Text, this.textBoxKey.Text);
         }
 
 

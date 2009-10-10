@@ -44,7 +44,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 79);
+            this.label1.Location = new System.Drawing.Point(12, 79);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 0;
@@ -53,7 +53,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 109);
+            this.label3.Location = new System.Drawing.Point(12, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 2;
@@ -82,16 +82,16 @@
             // 
             // textBoxKey
             // 
-            this.textBoxKey.Location = new System.Drawing.Point(102, 106);
+            this.textBoxKey.Location = new System.Drawing.Point(64, 106);
             this.textBoxKey.Multiline = true;
             this.textBoxKey.Name = "textBoxKey";
-            this.textBoxKey.Size = new System.Drawing.Size(284, 61);
+            this.textBoxKey.Size = new System.Drawing.Size(332, 61);
             this.textBoxKey.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(99, 191);
+            this.label2.Location = new System.Drawing.Point(61, 202);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(271, 13);
             this.label2.TabIndex = 5;
@@ -121,10 +121,10 @@
             // 
             // textBoxSN
             // 
-            this.textBoxSN.Location = new System.Drawing.Point(102, 76);
+            this.textBoxSN.Location = new System.Drawing.Point(64, 76);
             this.textBoxSN.Name = "textBoxSN";
             this.textBoxSN.ReadOnly = true;
-            this.textBoxSN.Size = new System.Drawing.Size(284, 20);
+            this.textBoxSN.Size = new System.Drawing.Size(332, 20);
             this.textBoxSN.TabIndex = 7;
             // 
             // RegisterForm

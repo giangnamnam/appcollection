@@ -126,8 +126,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-
-
         delegate void DataCallBack();
         Camera[] cams = null;
         private void time_Elapsed(object source, EventArgs args)

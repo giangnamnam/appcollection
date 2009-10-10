@@ -7,11 +7,17 @@ using System.IO;
 using System.Management;
 using System.Security.Cryptography;
 using Encryptor;
+using Microsoft.Win32;
 
 namespace RemoteImaging
 {
     public static class Util
     {
+
+        private static string ProductRegistryPath = @"Software\Yufei\RemoteImaging";
+        private static string IDRegistryName = "UUID";
+        private static string KeyRegistryName = "Key";
+
         private static string GetKeyFile()
         {
             string keyFile = Path.Combine(Application.StartupPath, "key");
@@ -19,7 +25,7 @@ namespace RemoteImaging
         }
 
 
-        public static void WriteKey(string key)
+        public static void WriteKey(string ID, string key)
         {
             string file = GetKeyFile();
 
@@ -32,17 +38,18 @@ namespace RemoteImaging
 
         public static bool VerifyKey()
         {
-            string keyFile = GetKeyFile();
-            if (!File.Exists(keyFile)) return false;
+            string uuid = "";
+            string key = "";
 
-            string key = File.ReadAllText(keyFile);
+            ReadAuthentication(out uuid, out key);
 
-            string mbSN = GetUniqID();
-            string encodedSN = EncryptService.Encode(mbSN);
+            if (string.IsNullOrEmpty(uuid) || string.IsNullOrEmpty(key)) return false;
+
+            string encodedSN = EncryptService.Encode(uuid);
 
             string decoded = EncryptService.Decode(key);
 
-            return encodedSN.Equals(key);
+            return string.Compare(encodedSN, key, StringComparison.Ordinal) == 0;
         }
 
 
@@ -122,10 +129,64 @@ namespace RemoteImaging
             return retVal;
         }
 
-
-        public static string GetUniqID()
+       
+        private static string MAC()
         {
-            return cpuId();
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection moc = mc.GetInstances();
+            string MACAddress = String.Empty;
+            foreach (ManagementObject mo in moc)
+            {
+                if (MACAddress == String.Empty)  // only return MAC Address from first card
+                {
+                    bool enabled = (bool) mo["IPEnabled"];
+
+                    MACAddress = mo["MacAddress"].ToString();
+                }
+                mo.Dispose();
+            }
+            MACAddress = MACAddress.Replace(":", "");
+
+            return EncryptService.Encode(MACAddress);
+        }
+
+
+        public static void WriteAuthentication(string UUID, string key)
+        {
+             RegistryKey productKey = Registry.LocalMachine.CreateSubKey(ProductRegistryPath);
+             productKey.SetValue(IDRegistryName, UUID);
+             productKey.SetValue(KeyRegistryName, key);
+        }
+
+        public static void ReadAuthentication(out string UUID, out string key)
+        {
+            try
+            {
+                RegistryKey productKey = Registry.LocalMachine.OpenSubKey(ProductRegistryPath);
+                UUID = (string)productKey.GetValue(IDRegistryName, "");
+                key = (string)productKey.GetValue(KeyRegistryName, "");
+            }
+            catch
+            {
+                UUID = null;
+                key = null;
+            }
+            
+
+        }
+
+
+        public static string GetOrGenerateUniqID()
+        {
+            string uuid;
+            string key;
+            ReadAuthentication(out uuid, out key);
+
+
+            if (string.IsNullOrEmpty(uuid)) 
+                uuid = System.Guid.NewGuid().ToString();
+
+            return uuid.ToUpper();
         }
     }
 }
