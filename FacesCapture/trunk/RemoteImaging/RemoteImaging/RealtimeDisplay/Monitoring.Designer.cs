@@ -37,13 +37,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(476, 207);
+            this.button2.Location = new System.Drawing.Point(476, 147);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -53,7 +54,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(476, 257);
+            this.button3.Location = new System.Drawing.Point(476, 192);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -63,7 +64,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(476, 307);
+            this.button4.Location = new System.Drawing.Point(476, 237);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -112,18 +113,29 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(476, 127);
+            this.checkBox1.Location = new System.Drawing.Point(476, 109);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(96, 16);
             this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "在图片上画框";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(476, 307);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 9;
+            this.btnClose.Text = "退出";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // Monitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 391);
+            this.ClientSize = new System.Drawing.Size(580, 335);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button4);
@@ -131,8 +143,8 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.MaximumSize = new System.Drawing.Size(594, 413);
-            this.MinimumSize = new System.Drawing.Size(594, 413);
+            this.MaximumSize = new System.Drawing.Size(586, 359);
+            this.MinimumSize = new System.Drawing.Size(586, 359);
             this.Name = "Monitoring";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Monitoring";
@@ -153,6 +165,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnClose;
 
     }
 }

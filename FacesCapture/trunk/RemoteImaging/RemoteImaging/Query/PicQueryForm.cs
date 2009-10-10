@@ -330,5 +330,37 @@ namespace RemoteImaging.Query
             VideoPlayer.PlayVideosAsync(videos);
 
         }
+
+        private void tsbImgSaveAs_Click(object sender, EventArgs e)
+        {
+            if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
+            string filePath = this.bestPicListView.FocusedItem.Tag as string;
+
+            if (File.Exists(filePath))
+            {
+                this.pictureBox1.Image = Image.FromFile(filePath);
+            }
+            ImageDetail imgInfo = ImageDetail.FromPath(filePath);
+            string bigImgPath = FileSystemStorage.BigImgPathFor(imgInfo);
+
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.RestoreDirectory = true;
+                saveDialog.Filter = "Jpeg 文件|*.jpg";
+                //saveDialog.FileName = filePath.Substring(filePath.Length - 27, 27);
+                string fileName=Path.GetFileName(filePath);
+                saveDialog.FileName =fileName;
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (pictureBox1.Image != null)
+                    {
+                        string path = saveDialog.FileName;
+                        pictureBox1.Image.Save(path);
+                        path =path.Replace(fileName, Path.GetFileName(bigImgPath));
+                        pictureBoxWholeImg.Image.Save(path);
+                    }
+                }
+            }
+        }
     }
 }
