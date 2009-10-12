@@ -58,8 +58,7 @@ namespace RemoteImaging
         private static string identifier(string wmiClass, string wmiProperty)
         {
             string result = "";
-            System.Management.ManagementClass mc =
-        new System.Management.ManagementClass(wmiClass);
+            System.Management.ManagementClass mc = new System.Management.ManagementClass(wmiClass);
             System.Management.ManagementObjectCollection moc = mc.GetInstances();
             foreach (System.Management.ManagementObject mo in moc)
             {
@@ -79,12 +78,10 @@ namespace RemoteImaging
             return result;
         }
 
-        private static string identifier
-        (string wmiClass, string wmiProperty, string wmiMustBeTrue)
+        private static string identifier(string wmiClass, string wmiProperty, string wmiMustBeTrue)
         {
             string result = "";
-            System.Management.ManagementClass mc =
-        new System.Management.ManagementClass(wmiClass);
+            System.Management.ManagementClass mc = new System.Management.ManagementClass(wmiClass);
             System.Management.ManagementObjectCollection moc = mc.GetInstances();
             foreach (System.Management.ManagementObject mo in moc)
             {
