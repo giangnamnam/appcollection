@@ -7,7 +7,7 @@ using ImageProcess;
 
 namespace MotionDetect
 {
-    public static class MotionDetect
+    public static class MotionDetecter
     {
         const string dllName = "PreProcess.dll";
 

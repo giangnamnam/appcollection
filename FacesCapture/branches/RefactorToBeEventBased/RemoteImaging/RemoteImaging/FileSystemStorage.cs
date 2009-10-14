@@ -36,7 +36,7 @@ namespace RemoteImaging
 
         public static void SaveFrame(Frame frame)
         {
-            IplImage ipl = new IplImage(frame.image);
+            IplImage ipl = new IplImage(frame.IplPtr);
             ipl.IsEnabledDispose = false;
 
             string path = frame.GetFileName();

@@ -188,12 +188,12 @@ namespace RemoteImaging.RealtimeDisplay
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;
-            f.image = IntPtr.Zero;
+            f.IplPtr = IntPtr.Zero;
             f.cameraID = 2;
 
             IplImage ipl = BitmapConverter.ToIplImage(bmp);
             ipl.IsEnabledDispose = false;
-            f.image = ipl.CvPtr;
+            f.IplPtr = ipl.CvPtr;
 
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
@@ -218,7 +218,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private static bool IsStaticFrame(Frame aFrame)
         {
-            return aFrame.image != null
+            return aFrame.IplPtr != null
                     && (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
         }
 
@@ -227,17 +227,17 @@ namespace RemoteImaging.RealtimeDisplay
             while (true)
             {
                 Frame newFrame = GetNewFrame();
-                if (newFrame.image != IntPtr.Zero)
+                if (newFrame.IplPtr != IntPtr.Zero)
                 {
                     Frame frameToProcess = new Frame();
 
-                    bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    bool groupCaptured = MotionDetect.MotionDetecter.PreProcessFrame(newFrame, ref frameToProcess);
 
                     Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
                     if (IsStaticFrame(frameToProcess))
                     {
-                        Cv.Release(ref frameToProcess.image);
+                        Cv.Release(ref frameToProcess.IplPtr);
                     }
                     else
                     {
@@ -271,9 +271,9 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame f = this.GetNewFrame();
 
-                if (f.image != IntPtr.Zero)
+                if (f.IplPtr != IntPtr.Zero)
                 {
-                    IplImage ipl = new IplImage(f.image);
+                    IplImage ipl = new IplImage(f.IplPtr);
                     ipl.IsEnabledDispose = false;
                     f.searchRect.Width = ipl.Width;
                     f.searchRect.Height = ipl.Height;
@@ -448,7 +448,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                     NativeIconExtractor.ReleaseMem();
 
-                    Array.ForEach(frames, f => Cv.Release(ref f.image));
+                    Array.ForEach(frames, f => Cv.Release(ref f.IplPtr));
                 }
                 else
                     goSearch.WaitOne();

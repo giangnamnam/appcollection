@@ -105,6 +105,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Face.cs" />
+    <Compile Include="FaceDetector.cs" />
     <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
@@ -118,6 +119,8 @@
     <Compile Include="FormDetailedPic.Designer.cs">
       <DependentUpon>FormDetailedPic.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrameCapturer.cs" />
+    <Compile Include="FrameHandler.cs" />
     <Compile Include="ImageProcess\Controls\FilterPreview.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -127,8 +130,11 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ManagedFrame.cs" />
     <Compile Include="ManagedTarget.cs" />
     <Compile Include="MockCamera.cs" />
+    <Compile Include="MotionFrameDetectedEventArgs.cs" />
+    <Compile Include="MotionFrameDetector.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>

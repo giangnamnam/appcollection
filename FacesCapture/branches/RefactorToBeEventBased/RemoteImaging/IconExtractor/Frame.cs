@@ -12,7 +12,7 @@ namespace ImageProcess
     {
         public byte cameraID;
         /// IplImage*
-        public System.IntPtr image;
+        public System.IntPtr IplPtr;
 
         public CvRect searchRect;
 
