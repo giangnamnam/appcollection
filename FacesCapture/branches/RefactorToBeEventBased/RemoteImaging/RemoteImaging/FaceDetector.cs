@@ -8,10 +8,6 @@ namespace RemoteImaging
     class FaceDetector : IFrameHandler
     {
 
-
-
-
-
         #region IFrameHandler Members
 
         public void HandleFrame(ManagedFrame f)

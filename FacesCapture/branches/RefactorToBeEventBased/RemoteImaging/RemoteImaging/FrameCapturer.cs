@@ -25,7 +25,7 @@ namespace RemoteImaging
             this.Frenquency = 2;
         }
 
-        public event EventHandler FrameCaptured;
+        public event EventHandler<FrameCapturedEventArgs> FrameCaptured;
 
         public ManagedFrame CurrentFrame { get; set; }
 
@@ -58,16 +58,16 @@ namespace RemoteImaging
             mf.Ipl.IsEnabledDispose = false;
             mf.TimeStamp = DateTime.Now;
 
-            this.CurrentFrame = mf;
+            FrameCapturedEventArgs args = new FrameCapturedEventArgs(){ Frame = mf };
 
-            this.OnFrameCaptured();
+            this.OnFrameCaptured(args);
         }
 
-        protected virtual void OnFrameCaptured()
+        protected virtual void OnFrameCaptured(FrameCapturedEventArgs args)
         {
             if (FrameCaptured != null)
             {
-                FrameCaptured(this, EventArgs.Empty);
+                FrameCaptured(this, args);
             }
         }
 

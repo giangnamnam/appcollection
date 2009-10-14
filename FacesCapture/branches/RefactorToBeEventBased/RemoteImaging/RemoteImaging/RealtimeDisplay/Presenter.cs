@@ -9,6 +9,7 @@ using System.Drawing;
 using OpenCvSharp;
 using System.Threading;
 using System.Diagnostics;
+using System.Net.Sockets;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -61,6 +62,15 @@ namespace RemoteImaging.RealtimeDisplay
                 this.BackGround = BitmapConverter.ToIplImage((Bitmap) img);
         		 
             img.Save("BG.jpg");
+        }
+
+
+        public void RemoteListener(LiveServer s)
+        {
+            if (this.ImageCaptured != null)
+            {
+                this.ImageCaptured -= s.ImageCaptured;
+            }
         }
 
 
@@ -127,6 +137,23 @@ namespace RemoteImaging.RealtimeDisplay
 
         }
 
+        public void StartServer(object serverPort)
+        {
+            TcpListener server = new TcpListener( (int) serverPort );
+            server.Start();
+
+            while (true)
+            {
+                TcpClient client = server.AcceptTcpClient();
+
+                System.Diagnostics.Debug.WriteLine("accept connection:" + client.Client.RemoteEndPoint);
+
+                LiveServer ls = new LiveServer(client, this);
+
+                this.ImageCaptured += ls.ImageCaptured;
+            }
+        }
+
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             this.QueryRawFrame();
@@ -165,6 +192,9 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
+
+
         private void QueryRawFrame()
         {
             byte[] image;
@@ -186,6 +216,15 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
+
+            if (ImageCaptured != null)
+            {
+                ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
+                ImageCaptured(this, args);
+            }
+
+
+
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;
             f.IplPtr = IntPtr.Zero;
@@ -195,6 +234,7 @@ namespace RemoteImaging.RealtimeDisplay
             ipl.IsEnabledDispose = false;
             f.IplPtr = ipl.CvPtr;
 
+            
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
             goDetectMotion.Set();
@@ -314,6 +354,8 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.worker.RunWorkerAsync();
             }
+
+            ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
