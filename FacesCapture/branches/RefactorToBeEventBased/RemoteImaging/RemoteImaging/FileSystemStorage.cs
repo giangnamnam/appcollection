@@ -11,13 +11,13 @@ namespace RemoteImaging
 {
     public static class FileSystemStorage
     {
-        private static string MinutesFolderNameFor(DateTime dt)
+        private static string ToStringYearDownToMinute(DateTime dt)
         {
             return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
         }
 
 
-        private static string RootFolderForCamera(int cameraID)
+        private static string AbsoluteStoragePathForCamera(int cameraID)
         {
             return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
         }
@@ -29,10 +29,16 @@ namespace RemoteImaging
             long FreeSpace = driveInfo.AvailableFreeSpace;
 
             FreeSpace /= 1024 * 1024;
-
-            return (int) FreeSpace;
+            return (int)FreeSpace;
         }
 
+
+        private static string StorageRootPathForCamera(int cameraID)
+        {
+            string root = Path.Combine(Properties.Settings.Default.OutputPath,
+                                  cameraID.ToString("d2"));
+            return root;
+        }
 
         public static void SaveFrame(Frame frame)
         {
@@ -42,10 +48,8 @@ namespace RemoteImaging
             string path = frame.GetFileName();
             DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-            string root = Path.Combine(Properties.Settings.Default.OutputPath,
-                      frame.cameraID.ToString("d2"));
-
-            string folder = FileSystemStorage.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
+            string root = StorageRootPathForCamera(frame.cameraID);
+            string folder = BuildBigImgPath(root, dt);
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -56,9 +60,12 @@ namespace RemoteImaging
         }
 
 
-        public static string GetFacePath(Frame frame, DateTime timeStamp, int sequence)
+
+        public static string FacePathFor(Frame frame, int sequence)
         {
-            string folderFace = FileSystemStorage.GetOrCreateFolderForFacesAt(frame.cameraID, timeStamp);
+            DateTime dt = DateTime.FromBinary(frame.timeStamp);
+
+            string folderFace = FileSystemStorage.GetOrCreateFolderForFacesAt(frame.cameraID, dt);
 
             string faceFileName = FileSystemStorage.GetFaceFileName(frame.GetFileName(), sequence);
 
@@ -75,7 +82,7 @@ namespace RemoteImaging
 
         private static string FolderPathForFaceAt(int camID, DateTime dt)
         {
-            string folderForFaces = BuildDestDirectory(RootFolderForCamera(camID),
+            string folderForFaces = BuildDestDirectory(AbsoluteStoragePathForCamera(camID),
                                                 dt, Properties.Settings.Default.IconDirectoryName);
             return folderForFaces;
         }
@@ -98,6 +105,27 @@ namespace RemoteImaging
             return Directory.Exists(path);
         }
 
+        public static bool MotionImagesCapturedAt(int camID, DateTime time)
+        {
+            string root = StorageRootPathForCamera(camID);
+            string path = BuildBigImgPath(root, time);
+
+            return Directory.Exists(path);
+        }
+
+
+        public static string BuildBigImgPath(string outputPath, DateTime time)
+        {
+            return BuildDestDirectory(outputPath, time, Properties.Settings.Default.BigImageDirectoryName);
+        }
+
+
+        public static string BuildIconImgPath(string outputPath, DateTime time)
+        {
+            return BuildDestDirectory(outputPath, time, Properties.Settings.Default.IconDirectoryName);
+        }
+
+
 
         public static string BuildDestDirectory(string outputPathRoot,
            DateTime dt,
@@ -106,36 +134,36 @@ namespace RemoteImaging
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(dt.Year.ToString("D4"));
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             sb.Append(dt.Month.ToString("D2"));
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             sb.Append(dt.Day.ToString("D2"));
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             if (!string.IsNullOrEmpty(subFoldername))
             {
                 sb.Append(subFoldername);
-                sb.Append(Path.AltDirectorySeparatorChar);
+                sb.Append(Path.DirectorySeparatorChar);
             }
-            string temp = MinutesFolderNameFor(dt);
+            string temp = ToStringYearDownToMinute(dt);
             sb.Append(temp);
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             string destPath = Path.Combine(outputPathRoot, sb.ToString());
             return destPath;
         }
 
-        public static string BigImgPathFor(ImageDetail img)
+        public static string BigImgPathOf(ImageDetail face)
         {
-            string nameWithoutExtension = Path.GetFileNameWithoutExtension(img.Name);
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(face.Name);
             int idx = nameWithoutExtension.LastIndexOf('-');
             nameWithoutExtension = nameWithoutExtension.Remove(idx);
 
-            string bigPicName = nameWithoutExtension + Path.GetExtension(img.Name);
-            string bigPicFolder = Directory.GetParent(img.ContainedBy).ToString();
+            string bigPicName = nameWithoutExtension + Path.GetExtension(face.Name);
+            string bigPicFolder = Directory.GetParent(face.ContainedBy).ToString();
 
             bigPicFolder = bigPicFolder.Replace(Properties.Settings.Default.IconDirectoryName, "");
 
             bigPicFolder = Path.Combine(bigPicFolder, Properties.Settings.Default.BigImageDirectoryName);
-            bigPicFolder = Path.Combine(bigPicFolder, MinutesFolderNameFor(img.CaptureTime));
+            bigPicFolder = Path.Combine(bigPicFolder, ToStringYearDownToMinute(face.CaptureTime));
             string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
             return bigPicPathName;
         }
@@ -152,6 +180,8 @@ namespace RemoteImaging
             string videoFilePath = Path.Combine(rootFolder, relPath);
             return videoFilePath;
         }
+
+
         public static string[] FindVideos(ImageDetail img)
         {
             string videoFilePath = VideoFilePathNameAt(img.CaptureTime, img.FromCamera);

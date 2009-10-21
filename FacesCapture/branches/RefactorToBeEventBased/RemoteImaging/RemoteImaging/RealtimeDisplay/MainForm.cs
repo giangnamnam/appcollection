@@ -835,7 +835,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
         {
-            //https://appcollection.googlecode.com/svn/trunk/RemoteImaging
+            Debug.WriteLine("========info changed" + e.infoConn.AlarmInfo);
         }
 
         private void enhanceImg_Click(object sender, EventArgs e)

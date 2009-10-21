@@ -37,7 +37,7 @@ namespace RemoteImaging.RealtimeDisplay
 
 
         private IplImage _BackGround;
-        public  IplImage BackGround
+        public IplImage BackGround
         {
             get
             {
@@ -54,13 +54,13 @@ namespace RemoteImaging.RealtimeDisplay
         {
             byte[] imgData = null;
             lock (this.camLocker)
-                 imgData = this.camera.CaptureImageBytes();
+                imgData = this.camera.CaptureImageBytes();
 
             Image img = Image.FromStream(new MemoryStream(imgData));
 
             lock (this.bgLocker)
-                this.BackGround = BitmapConverter.ToIplImage((Bitmap) img);
-        		 
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
+
             img.Save("BG.jpg");
         }
 
@@ -131,7 +131,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             DateTime time = DateTime.Now.AddMinutes(-2);
 
-            if (!FileSystemStorage.FacesCapturedAt(2, time))
+            if (!FileSystemStorage.MotionImagesCapturedAt(2, time))
                 DeleteVideoFileAt(time);
 
 
@@ -139,7 +139,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void StartServer(object serverPort)
         {
-            TcpListener server = new TcpListener( (int) serverPort );
+            TcpListener server = new TcpListener((int)serverPort);
             server.Start();
 
             while (true)
@@ -234,7 +234,7 @@ namespace RemoteImaging.RealtimeDisplay
             ipl.IsEnabledDispose = false;
             f.IplPtr = ipl.CvPtr;
 
-            
+
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
             goDetectMotion.Set();
@@ -272,8 +272,6 @@ namespace RemoteImaging.RealtimeDisplay
                     Frame frameToProcess = new Frame();
 
                     bool groupCaptured = MotionDetect.MotionDetecter.PreProcessFrame(newFrame, ref frameToProcess);
-
-                    Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
                     if (IsStaticFrame(frameToProcess))
                     {
@@ -378,11 +376,9 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame frame = t.BaseFrame;
 
-                DateTime dt = DateTime.FromBinary(frame.timeStamp);
-
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
-                    string facePath = FileSystemStorage.GetFacePath(frame, dt, j);
+                    string facePath = FileSystemStorage.FacePathFor(frame, j);
                     t.Faces[j].Img.SaveImage(facePath);
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
@@ -450,20 +446,19 @@ namespace RemoteImaging.RealtimeDisplay
                                 CvRect* pFaceBounds = (CvRect*)faceWithFrame.CvRects;
                                 CvRect faceRect = pFaceBounds[j];
 
-                                System.Diagnostics.Debug.WriteLine(faceRect);
 
                                 Face aFace = new Face() { Bounds = faceRect, Img = aFaceImg };
 
                                 if (Properties.Settings.Default.RecheckFace
-                                    &&BackGround != null)
+                                    && BackGround != null)
                                 {
-                                    lock(this.bgLocker)
+                                    lock (this.bgLocker)
                                         if (BackGroundComparer.IsFace(aFace.Img.CvPtr, BackGround.CvPtr, faceRect))
                                             facesList.Add(aFace);
                                 }
                                 else
                                     facesList.Add(aFace);
-                                    
+
                             }
 
                             Face[] faceArray = new Face[facesList.Count];
@@ -512,7 +507,7 @@ namespace RemoteImaging.RealtimeDisplay
             ImageDetail img = this.screen.SelectedImage;
             if (img != null && !string.IsNullOrEmpty(img.Path))
             {
-                string bigPicPathName = FileSystemStorage.BigImgPathFor(img);
+                string bigPicPathName = FileSystemStorage.BigImgPathOf(img);
                 ImageDetail bigImageDetail = ImageDetail.FromPath(bigPicPathName);
                 this.screen.BigImage = bigImageDetail;
 

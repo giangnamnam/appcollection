@@ -38,7 +38,10 @@ namespace RemoteImaging.Query
 
         private int CalcPagesCount()
         {
+
             totalPage = imagesFound.Length / PageSize;
+
+            if (imagesFound.Length % PageSize != 0) totalPage++;
 
             if (totalPage == 0) totalPage = 1;
 
@@ -189,10 +192,10 @@ namespace RemoteImaging.Query
             string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
             this.labelCaptureTime.Text = captureTime;
 
-            string bigImgPath = FileSystemStorage.BigImgPathFor(imgInfo);
+            string bigImgPath = FileSystemStorage.BigImgPathOf(imgInfo);
 
             this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
-            
+
         }
 
 
@@ -224,7 +227,7 @@ namespace RemoteImaging.Query
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
         {
 
-          
+
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -239,7 +242,7 @@ namespace RemoteImaging.Query
 
         private void secPicListView_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
         private void PicQueryForm_Load(object sender, EventArgs e)
@@ -341,22 +344,22 @@ namespace RemoteImaging.Query
                 this.pictureBox1.Image = Image.FromFile(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = FileSystemStorage.BigImgPathFor(imgInfo);
+            string bigImgPath = FileSystemStorage.BigImgPathOf(imgInfo);
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
                 saveDialog.RestoreDirectory = true;
                 saveDialog.Filter = "Jpeg 文件|*.jpg";
                 //saveDialog.FileName = filePath.Substring(filePath.Length - 27, 27);
-                string fileName=Path.GetFileName(filePath);
-                saveDialog.FileName =fileName;
+                string fileName = Path.GetFileName(filePath);
+                saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
                     if (pictureBox1.Image != null)
                     {
                         string path = saveDialog.FileName;
                         pictureBox1.Image.Save(path);
-                        path =path.Replace(fileName, Path.GetFileName(bigImgPath));
+                        path = path.Replace(fileName, Path.GetFileName(bigImgPath));
                         pictureBoxWholeImg.Image.Save(path);
                     }
                 }
