@@ -17,7 +17,7 @@ namespace RemoteImaging
         }
 
 
-        private static string AbsoluteStoragePathForCamera(int cameraID)
+        private static string RootStoragePathForCamera(int cameraID)
         {
             return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
         }
@@ -61,35 +61,35 @@ namespace RemoteImaging
 
 
 
-        public static string FacePathFor(Frame frame, int sequence)
+        public static string PathForFaceImage(Frame frame, int sequence)
         {
             DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
             string folderFace = FileSystemStorage.GetOrCreateFolderForFacesAt(frame.cameraID, dt);
 
-            string faceFileName = FileSystemStorage.GetFaceFileName(frame.GetFileName(), sequence);
+            string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
 
             string facePath = Path.Combine(folderFace, faceFileName);
             return facePath;
         }
 
-        private static string GetFaceFileName(string bigImagePath, int indexOfFace)
+        private static string FaceImageFileNameOf(string bigImagePath, int indexOfFace)
         {
             int idx = bigImagePath.IndexOf('.');
             string faceFileName = bigImagePath.Insert(idx, "-" + indexOfFace.ToString("d4"));
             return faceFileName;
         }
 
-        private static string FolderPathForFaceAt(int camID, DateTime dt)
+        private static string ContainerDirectoryOfFaceAt(int camID, DateTime dt)
         {
-            string folderForFaces = BuildDestDirectory(AbsoluteStoragePathForCamera(camID),
+            string folderForFaces = BuildDestDirectory(RootStoragePathForCamera(camID),
                                                 dt, Properties.Settings.Default.IconDirectoryName);
             return folderForFaces;
         }
 
         private static string GetOrCreateFolderForFacesAt(int camID, DateTime dt)
         {
-            string folderForFaces = FolderPathForFaceAt(camID, dt);
+            string folderForFaces = ContainerDirectoryOfFaceAt(camID, dt);
 
             if (!Directory.Exists(folderForFaces))
                 Directory.CreateDirectory(folderForFaces);
@@ -98,14 +98,14 @@ namespace RemoteImaging
         }
 
 
-        public static bool FacesCapturedAt(int camID, DateTime time)
+        public static bool FaceImagesCapturedWhen(int camID, DateTime time)
         {
-            string path = FolderPathForFaceAt(camID, time);
+            string path = ContainerDirectoryOfFaceAt(camID, time);
 
             return Directory.Exists(path);
         }
 
-        public static bool MotionImagesCapturedAt(int camID, DateTime time)
+        public static bool MotionImagesCapturedWhen(int camID, DateTime time)
         {
             string root = StorageRootPathForCamera(camID);
             string path = BuildBigImgPath(root, time);
@@ -120,7 +120,7 @@ namespace RemoteImaging
         }
 
 
-        public static string BuildIconImgPath(string outputPath, DateTime time)
+        public static string BuildFaceImgPath(string outputPath, DateTime time)
         {
             return BuildDestDirectory(outputPath, time, Properties.Settings.Default.IconDirectoryName);
         }
@@ -151,7 +151,7 @@ namespace RemoteImaging
             return destPath;
         }
 
-        public static string BigImgPathOf(ImageDetail face)
+        public static string BigImgPathForFace(ImageDetail face)
         {
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(face.Name);
             int idx = nameWithoutExtension.LastIndexOf('-');
@@ -182,7 +182,7 @@ namespace RemoteImaging
         }
 
 
-        public static string[] FindVideos(ImageDetail img)
+        public static string[] VideoFilesOfImage(ImageDetail img)
         {
             string videoFilePath = VideoFilePathNameAt(img.CaptureTime, img.FromCamera);
             if (File.Exists(videoFilePath))
@@ -196,7 +196,7 @@ namespace RemoteImaging
             }
         }
 
-        public static string[] FindVideos(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public static string[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
             string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
 

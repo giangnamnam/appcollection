@@ -743,7 +743,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
 
-            string[] videos = FileSystemStorage.FindVideos(imgInfo);
+            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
 
             if (videos.Length == 0)
             {

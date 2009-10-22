@@ -195,7 +195,7 @@ namespace RemoteImaging
                 string[] cams = Directory.GetDirectories(rootFile);
                 foreach (string camfile in cams)
                 {
-                    string[] resFiles = FileSystemStorage.FindVideos(Convert.ToInt32(camfile.Substring(camfile.Length - 2)), begTime, endTime);//1 获得在时间区域内的video的路径
+                    string[] resFiles = FileSystemStorage.VideoFilesBetween(Convert.ToInt32(camfile.Substring(camfile.Length - 2)), begTime, endTime);//1 获得在时间区域内的video的路径
                     List<string> invalidVideoArr = new List<string>(); //2 找出没video对应的录像  放入 InvalidVideoArr 
                     foreach (string strFile in resFiles)
                     {

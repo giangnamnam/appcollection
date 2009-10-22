@@ -192,7 +192,7 @@ namespace RemoteImaging.Query
             string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
             this.labelCaptureTime.Text = captureTime;
 
-            string bigImgPath = FileSystemStorage.BigImgPathOf(imgInfo);
+            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
             this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
 
@@ -322,7 +322,7 @@ namespace RemoteImaging.Query
 
             ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
 
-            string[] videos = FileSystemStorage.FindVideos(imgInfo);
+            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
 
             if (videos.Length == 0)
             {
@@ -344,7 +344,7 @@ namespace RemoteImaging.Query
                 this.pictureBox1.Image = Image.FromFile(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = FileSystemStorage.BigImgPathOf(imgInfo);
+            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {

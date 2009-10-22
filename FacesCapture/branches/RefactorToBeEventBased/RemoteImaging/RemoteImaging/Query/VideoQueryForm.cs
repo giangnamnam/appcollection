@@ -52,7 +52,7 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string[] files = FileSystemStorage.FindVideos(cameraID, dateTime1, dateTime2);
+            string[] files = FileSystemStorage.VideoFilesBetween(cameraID, dateTime1, dateTime2);
 
             if (files == null)
             {

@@ -131,7 +131,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             DateTime time = DateTime.Now.AddMinutes(-2);
 
-            if (!FileSystemStorage.MotionImagesCapturedAt(2, time))
+            if (!FileSystemStorage.MotionImagesCapturedWhen(2, time))
                 DeleteVideoFileAt(time);
 
 
@@ -378,7 +378,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
-                    string facePath = FileSystemStorage.FacePathFor(frame, j);
+                    string facePath = FileSystemStorage.PathForFaceImage(frame, j);
                     t.Faces[j].Img.SaveImage(facePath);
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
@@ -507,7 +507,7 @@ namespace RemoteImaging.RealtimeDisplay
             ImageDetail img = this.screen.SelectedImage;
             if (img != null && !string.IsNullOrEmpty(img.Path))
             {
-                string bigPicPathName = FileSystemStorage.BigImgPathOf(img);
+                string bigPicPathName = FileSystemStorage.BigImgPathForFace(img);
                 ImageDetail bigImageDetail = ImageDetail.FromPath(bigPicPathName);
                 this.screen.BigImage = bigImageDetail;
 
