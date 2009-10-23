@@ -11,7 +11,7 @@ namespace RemoteImaging
 {
     public static class FileSystemStorage
     {
-        private static string ToStringYearDownToMinute(DateTime dt)
+        private static string ToStringYearToMinute(DateTime dt)
         {
             return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
         }
@@ -144,7 +144,7 @@ namespace RemoteImaging
                 sb.Append(subFoldername);
                 sb.Append(Path.DirectorySeparatorChar);
             }
-            string temp = ToStringYearDownToMinute(dt);
+            string temp = ToStringYearToMinute(dt);
             sb.Append(temp);
             sb.Append(Path.DirectorySeparatorChar);
             string destPath = Path.Combine(outputPathRoot, sb.ToString());
@@ -163,7 +163,7 @@ namespace RemoteImaging
             bigPicFolder = bigPicFolder.Replace(Properties.Settings.Default.IconDirectoryName, "");
 
             bigPicFolder = Path.Combine(bigPicFolder, Properties.Settings.Default.BigImageDirectoryName);
-            bigPicFolder = Path.Combine(bigPicFolder, ToStringYearDownToMinute(face.CaptureTime));
+            bigPicFolder = Path.Combine(bigPicFolder, ToStringYearToMinute(face.CaptureTime));
             string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
             return bigPicPathName;
         }

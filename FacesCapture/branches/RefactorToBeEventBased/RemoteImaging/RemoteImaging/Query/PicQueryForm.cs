@@ -39,15 +39,9 @@ namespace RemoteImaging.Query
         private int CalcPagesCount()
         {
 
-            totalPage = imagesFound.Length / PageSize;
-
-            if (imagesFound.Length % PageSize != 0) totalPage++;
-
-            if (totalPage == 0) totalPage = 1;
+            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
 
             return totalPage;
-
-
         }
 
         void ShowCurrentPage()
@@ -334,7 +328,7 @@ namespace RemoteImaging.Query
 
         }
 
-        private void tsbImgSaveAs_Click(object sender, EventArgs e)
+        private void SaveCurrent()
         {
             if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
             string filePath = this.bestPicListView.FocusedItem.Tag as string;
@@ -364,6 +358,12 @@ namespace RemoteImaging.Query
                     }
                 }
             }
+        }
+
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveCurrent();
         }
     }
 }

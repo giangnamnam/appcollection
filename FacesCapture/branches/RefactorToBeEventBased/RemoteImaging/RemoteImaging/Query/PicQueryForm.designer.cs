@@ -67,7 +67,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonPlayVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbImgSaveAs = new System.Windows.Forms.ToolStripButton();
+            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -188,11 +188,11 @@
             this.bestPicListView.AutoArrange = false;
             this.bestPicListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bestPicListView.HideSelection = false;
-            this.bestPicListView.Location = new System.Drawing.Point(0, 25);
+            this.bestPicListView.Location = new System.Drawing.Point(0, 27);
             this.bestPicListView.MultiSelect = false;
             this.bestPicListView.Name = "bestPicListView";
             this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(840, 253);
+            this.bestPicListView.Size = new System.Drawing.Size(840, 251);
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
@@ -400,10 +400,10 @@
             this.toolStripSeparator2,
             this.toolStripButtonPlayVideo,
             this.toolStripSeparator1,
-            this.tsbImgSaveAs});
+            this.saveToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(840, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(840, 27);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -412,7 +412,7 @@
             this.toolStripButtonFirstPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFirstPage.Image")));
             this.toolStripButtonFirstPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFirstPage.Name = "toolStripButtonFirstPage";
-            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButtonFirstPage.Size = new System.Drawing.Size(55, 24);
             this.toolStripButtonFirstPage.Text = "首页";
             this.toolStripButtonFirstPage.Click += new System.EventHandler(this.toolStripButtonFirstPage_Click);
             // 
@@ -421,7 +421,7 @@
             this.toolStripButtonPrePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrePage.Image")));
             this.toolStripButtonPrePage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPrePage.Name = "toolStripButtonPrePage";
-            this.toolStripButtonPrePage.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButtonPrePage.Size = new System.Drawing.Size(55, 24);
             this.toolStripButtonPrePage.Text = "上页";
             this.toolStripButtonPrePage.Click += new System.EventHandler(this.toolStripButtonPrePage_Click);
             // 
@@ -430,7 +430,7 @@
             this.toolStripButtonNextPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextPage.Image")));
             this.toolStripButtonNextPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNextPage.Name = "toolStripButtonNextPage";
-            this.toolStripButtonNextPage.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButtonNextPage.Size = new System.Drawing.Size(55, 24);
             this.toolStripButtonNextPage.Text = "下页";
             this.toolStripButtonNextPage.Click += new System.EventHandler(this.toolStripButtonNextPage_Click);
             // 
@@ -439,14 +439,14 @@
             this.toolStripButtonLastPage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLastPage.Image")));
             this.toolStripButtonLastPage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLastPage.Name = "toolStripButtonLastPage";
-            this.toolStripButtonLastPage.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButtonLastPage.Size = new System.Drawing.Size(55, 24);
             this.toolStripButtonLastPage.Text = "末页";
             this.toolStripButtonLastPage.Click += new System.EventHandler(this.toolStripButtonLastPage_Click);
             // 
             // toolStripLabelCurPage
             // 
             this.toolStripLabelCurPage.Name = "toolStripLabelCurPage";
-            this.toolStripLabelCurPage.Size = new System.Drawing.Size(47, 22);
+            this.toolStripLabelCurPage.Size = new System.Drawing.Size(57, 24);
             this.toolStripLabelCurPage.Text = "第1/1页";
             // 
             // toolStripComboBoxPageSize
@@ -458,42 +458,42 @@
             "40",
             "50"});
             this.toolStripComboBoxPageSize.Name = "toolStripComboBoxPageSize";
-            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBoxPageSize.Size = new System.Drawing.Size(121, 27);
             this.toolStripComboBoxPageSize.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxPageSize_SelectedIndexChanged);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(41, 24);
             this.toolStripLabel1.Text = "张/页";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripButtonPlayVideo
             // 
             this.toolStripButtonPlayVideo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPlayVideo.Image")));
             this.toolStripButtonPlayVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPlayVideo.Name = "toolStripButtonPlayVideo";
-            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(73, 22);
+            this.toolStripButtonPlayVideo.Size = new System.Drawing.Size(81, 24);
             this.toolStripButtonPlayVideo.Text = "相关视频";
             this.toolStripButtonPlayVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
-            // tsbImgSaveAs
+            // saveToolStripButton
             // 
-            this.tsbImgSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("tsbImgSaveAs.Image")));
-            this.tsbImgSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbImgSaveAs.Name = "tsbImgSaveAs";
-            this.tsbImgSaveAs.Size = new System.Drawing.Size(85, 22);
-            this.tsbImgSaveAs.Text = "图片另存为";
-            this.tsbImgSaveAs.Click += new System.EventHandler(this.tsbImgSaveAs_Click);
+            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Size = new System.Drawing.Size(97, 24);
+            this.saveToolStripButton.Text = "保存图片(&S)";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // PicQueryForm
             // 
@@ -575,6 +575,6 @@
         private System.Windows.Forms.PictureBox pictureBoxWholeImg;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton tsbImgSaveAs;
+        private System.Windows.Forms.ToolStripButton saveToolStripButton;
     }
 }
