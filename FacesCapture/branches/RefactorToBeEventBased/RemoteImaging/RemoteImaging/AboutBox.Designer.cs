@@ -80,7 +80,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(408, 16);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "版本号: SVN 289";
+            this.labelVersion.Text = "版本号: SVN 295";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
