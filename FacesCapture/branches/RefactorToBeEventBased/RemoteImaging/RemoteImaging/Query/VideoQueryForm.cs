@@ -66,37 +66,36 @@ namespace RemoteImaging.Query
             {
                 DateTime dTime = imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
+                lvl.Text = dTime.ToString();
+                lvl.SubItems.Add(file);
+                lvl.Tag = file;
 
-                #region
                 if (radioButton1.Checked == true)
                 {
                     if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
                     {
-                        lvl.Text = file;
-                        lvl.SubItems.Add(dTime.ToString());
-                        videoList.Items.Add(lvl);
                         lvl.ImageIndex = 0;
+                        videoList.Items.Add(lvl);
                     }
                 }
 
                 if (radioButton2.Checked == true)
                 {
-                    lvl.Text = file;
-                    lvl.SubItems.Add(dTime.ToString());
-                    videoList.Items.Add(lvl);
                     if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
                         lvl.ImageIndex = 0;
                     else
                         lvl.ImageIndex = 1;
+                    videoList.Items.Add(lvl);
                 }
-                #endregion
+
+
             }
         }
 
         private void setListViewColumns()//添加ListView行头
         {
-            videoList.Columns.Add("视频文件", 250);
-            videoList.Columns.Add("抓拍时间", 120);
+            videoList.Columns.Add("抓拍时间", 150);
+            videoList.Columns.Add("视频文件", 150);
             radioButton1.Checked = true;
         }
 
@@ -122,7 +121,7 @@ namespace RemoteImaging.Query
 
             ListViewItem item = this.videoList.SelectedItems[0];
 
-            int idx = this.axVLCPlugin21.playlist.add(item.Text, null, null);
+            int idx = this.axVLCPlugin21.playlist.add(item.Tag as string, null, null);
 
             this.axVLCPlugin21.playlist.playItem(idx);
         }
@@ -134,12 +133,9 @@ namespace RemoteImaging.Query
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr = imgSearch.getPicFiles(videoList.FocusedItem.Text, this.comboBox1.Text, true);//得到图片路径
-            if (fileArr.Length == 0)
-            {
-                MessageBox.Show("没有符合的图片", "警告");
-                return;
-            }
+            string[] fileArr = imgSearch.getPicFiles(videoList.FocusedItem.Tag as string, this.comboBox1.Text, true);//得到图片路径
+            if (fileArr.Length == 0) return;
+
             for (int i = 0; i < fileArr.Length; ++i)
             {
                 this.imageList1.Images.Add(Image.FromFile(fileArr[i]));

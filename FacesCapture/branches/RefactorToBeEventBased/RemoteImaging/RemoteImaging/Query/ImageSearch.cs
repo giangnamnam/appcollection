@@ -101,15 +101,15 @@ namespace RemoteImaging.Query
                     if (Directory.Exists(searchPath))
                     {
                         string[] dirFile = Directory.GetDirectories(searchPath);
-                        
+
                         foreach (string strFile in dirFile)
                         {
-                           if (Directory.Exists(strFile))
-                        {
-                            string[] files = Directory.GetFiles(strFile);
-                            foreach (string file in files)
+                            if (Directory.Exists(strFile))
                             {
-                                
+                                string[] files = Directory.GetFiles(strFile);
+                                foreach (string file in files)
+                                {
+
                                     DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
                                     DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
 
@@ -360,17 +360,11 @@ namespace RemoteImaging.Query
         {
             ArrayList filesArr = new ArrayList();
             DateTime dTime = getDateTimeStr(path);
-            string imgPath = Properties.Settings.Default.OutputPath +"\\"+ int.Parse(camId).ToString("D2") + "\\" +
+            string imgPath = Properties.Settings.Default.OutputPath + "\\" + int.Parse(camId).ToString("D2") + "\\" +
                 dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
-                dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" + 
+                dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" +
                 dTime.Year + dTime.Month.ToString("D2") + dTime.Day.ToString("D2") + dTime.Hour.ToString("D2") + dTime.Minute.ToString("D2") + "\\";
-            #region
-            //string imgPath = Properties.Settings.Default.OutputPath + "\\" +
-            //    int.Parse(camId).ToString("D2") + "\\" +
-            //    dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
-            //    dTime.Day.ToString("D2") + "\\" +
-            //    Properties.Settings.Default.BigImageDirectoryName + "\\";
-            #endregion
+
             if (Directory.Exists(imgPath))
             {
                 string[] files = Directory.GetFiles(imgPath);
@@ -383,19 +377,6 @@ namespace RemoteImaging.Query
                         {
                             filesArr.Add(file);
                         }
-                        #region
-                        //string strExtName = Path.GetExtension(file);
-                        //string dPath = Path.GetFileNameWithoutExtension(file);
-                        //if (strExtName.Equals(".jpg"))
-                        //{
-                        //    string hourStr = dPath.Substring(9, 2);
-                        //    string minuStr = dPath.Substring(11, 2);
-                        //    if (dTime.Hour.ToString("D2").Equals(hourStr) && dTime.Minute.ToString("D2").Equals(minuStr))
-                        //    {
-                        //        filesArr.Add(file);
-                        //    }
-
-                        #endregion
                     }
                 }
                 else
@@ -413,13 +394,13 @@ namespace RemoteImaging.Query
         }
 
         public DateTime getDateTimeStr(string temp)
-       {
-           Int32 index = temp.IndexOf("NORMAL") + 7;
-           string str = temp.Substring(index, 14);//20090629\06\00
-           DateTime time = new DateTime(Convert.ToInt32(str.Substring(0, 4)), Convert.ToInt32(str.Substring(4, 2)),
-               Convert.ToInt32(str.Substring(6, 2)), Convert.ToInt32(str.Substring(9, 2)), Convert.ToInt32(str.Substring(12, 2)), 0);
-           time = time.ToLocalTime(); //time = time.AddHours(8);
-           return time;
-       }
+        {
+            Int32 index = temp.IndexOf("NORMAL") + 7;
+            string str = temp.Substring(index, 14);//20090629\06\00
+            DateTime time = new DateTime(Convert.ToInt32(str.Substring(0, 4)), Convert.ToInt32(str.Substring(4, 2)),
+                Convert.ToInt32(str.Substring(6, 2)), Convert.ToInt32(str.Substring(9, 2)), Convert.ToInt32(str.Substring(12, 2)), 0);
+            time = time.ToLocalTime(); //time = time.AddHours(8);
+            return time;
+        }
     }
 }
