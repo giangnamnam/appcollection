@@ -17,6 +17,7 @@ namespace RemoteImaging
         }
 
 
+
         private static string RootStoragePathForCamera(int cameraID)
         {
             return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
@@ -32,6 +33,11 @@ namespace RemoteImaging
             return (int)FreeSpace;
         }
 
+        public static bool DriveRemoveable(string drive)
+        {
+            System.IO.DriveInfo di = new System.IO.DriveInfo(Properties.Settings.Default.OutputPath);
+            return (di.DriveType == DriveType.Removable);
+        }
 
         private static string StorageRootPathForCamera(int cameraID)
         {

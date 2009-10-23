@@ -338,10 +338,21 @@ namespace RemoteImaging.RealtimeDisplay
         {
             diskSpaceCheckTimer.Enabled = true;
 
-
             Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
 
             if (c == null) return;
+
+            if (FileSystemStorage.DriveRemoveable(Properties.Settings.Default.OutputPath))
+            {
+                DialogResult result = MessageBox.Show(this,
+                    "输出目录位于可移动介质！继续吗?", "警告",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
 
             this.StartCamera(c);
 
