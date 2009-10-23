@@ -33,6 +33,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.queryBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.timeEdit2 = new DevExpress.XtraEditors.TimeEdit();
-            this.queryBtn = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.videoList = new System.Windows.Forms.ListView();
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
@@ -108,6 +108,17 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "查询有效视频";
             this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // queryBtn
+            // 
+            this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.queryBtn.Location = new System.Drawing.Point(794, 39);
+            this.queryBtn.Name = "queryBtn";
+            this.queryBtn.Size = new System.Drawing.Size(84, 21);
+            this.queryBtn.TabIndex = 19;
+            this.queryBtn.Text = "查询";
+            this.queryBtn.UseVisualStyleBackColor = true;
+            this.queryBtn.Click += new System.EventHandler(this.queryBtn_Click);
             // 
             // label7
             // 
@@ -187,17 +198,6 @@
             this.timeEdit2.Size = new System.Drawing.Size(96, 21);
             this.timeEdit2.TabIndex = 8;
             // 
-            // queryBtn
-            // 
-            this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.queryBtn.Location = new System.Drawing.Point(794, 39);
-            this.queryBtn.Name = "queryBtn";
-            this.queryBtn.Size = new System.Drawing.Size(84, 21);
-            this.queryBtn.TabIndex = 19;
-            this.queryBtn.Text = "查询";
-            this.queryBtn.UseVisualStyleBackColor = true;
-            this.queryBtn.Click += new System.EventHandler(this.queryBtn_Click);
-            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
@@ -209,6 +209,7 @@
             this.videoList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.videoList.FullRowSelect = true;
             this.videoList.GridLines = true;
+            this.videoList.HideSelection = false;
             this.videoList.Location = new System.Drawing.Point(0, 12);
             this.videoList.Name = "videoList";
             this.videoList.Size = new System.Drawing.Size(154, 504);
