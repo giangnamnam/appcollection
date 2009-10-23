@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
 using MotionDetect;
+using RemoteImaging.Query;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -452,7 +453,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
+            using (PicQueryForm form = new PicQueryForm())
+            {
+                form.ShowDialog(this);
+            }
         }
 
         private static void SetupExtractor(int envMode, float leftRatio,
