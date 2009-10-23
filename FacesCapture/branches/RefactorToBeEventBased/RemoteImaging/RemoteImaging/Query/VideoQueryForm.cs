@@ -109,6 +109,10 @@ namespace RemoteImaging.Query
 
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
+            bindPiclist();
+
+            if (this.videoList.SelectedItems.Count == 0) return;
+
             if (this.axVLCPlugin21.playlist.isPlaying)
             {
                 this.axVLCPlugin21.playlist.stop();
@@ -116,17 +120,11 @@ namespace RemoteImaging.Query
 
             this.axVLCPlugin21.playlist.items.clear();
 
-            foreach (ListViewItem item in this.videoList.SelectedItems)
-            {
-                this.axVLCPlugin21.playlist.add(item.Text, null, null);
-            }
+            ListViewItem item = this.videoList.SelectedItems[0];
 
-            if (this.axVLCPlugin21.playlist.itemCount > 0)
-            {
-                this.axVLCPlugin21.playlist.play();
-            }
+            int idx = this.axVLCPlugin21.playlist.add(item.Text, null, null);
 
-            bindPiclist();
+            this.axVLCPlugin21.playlist.playItem(idx);
         }
 
 
