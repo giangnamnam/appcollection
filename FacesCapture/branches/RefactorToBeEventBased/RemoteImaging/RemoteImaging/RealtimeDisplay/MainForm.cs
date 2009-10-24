@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using MyControls;
 using System.IO;
 using DevExpress.XtraNavBar;
-using ImageProcess;
+using ImageProcessing;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;

@@ -8,7 +8,7 @@ using System.Management;
 using System.Security.Cryptography;
 using Encryptor;
 using Microsoft.Win32;
-using ImageProcess;
+using ImageProcessing;
 
 namespace RemoteImaging
 {
@@ -127,7 +127,7 @@ namespace RemoteImaging
             return retVal;
         }
 
-       
+
         private static string MAC()
         {
             ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
@@ -137,7 +137,7 @@ namespace RemoteImaging
             {
                 if (MACAddress == String.Empty)  // only return MAC Address from first card
                 {
-                    bool enabled = (bool) mo["IPEnabled"];
+                    bool enabled = (bool)mo["IPEnabled"];
 
                     MACAddress = mo["MacAddress"].ToString();
                 }
@@ -151,9 +151,9 @@ namespace RemoteImaging
 
         public static void WriteAuthentication(string UUID, string key)
         {
-             RegistryKey productKey = Registry.LocalMachine.CreateSubKey(ProductRegistryPath);
-             productKey.SetValue(IDRegistryName, UUID);
-             productKey.SetValue(KeyRegistryName, key);
+            RegistryKey productKey = Registry.LocalMachine.CreateSubKey(ProductRegistryPath);
+            productKey.SetValue(IDRegistryName, UUID);
+            productKey.SetValue(KeyRegistryName, key);
         }
 
         public static void ReadAuthentication(out string UUID, out string key)
@@ -169,7 +169,7 @@ namespace RemoteImaging
                 UUID = null;
                 key = null;
             }
-            
+
 
         }
 
@@ -181,7 +181,7 @@ namespace RemoteImaging
             ReadAuthentication(out uuid, out key);
 
 
-            if (string.IsNullOrEmpty(uuid)) 
+            if (string.IsNullOrEmpty(uuid))
                 uuid = System.Guid.NewGuid().ToString();
 
             return uuid.ToUpper();

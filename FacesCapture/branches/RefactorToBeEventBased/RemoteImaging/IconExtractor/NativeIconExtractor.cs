@@ -4,10 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace ImageProcess
+namespace ImageProcessing
 {
     public static class NativeIconExtractor
     {
+        private static FaceSearchConfiguration configuration;
+        public static FaceSearchConfiguration Configuration
+        {
+            get
+            {
+                return configuration;
+            }
+            set
+            {
+                configuration = value;
+
+                SetExRatio(configuration.TopRation,
+                           configuration.BottomRation,
+                           configuration.LeftRation,
+                           configuration.RightRation);
+
+                SetROI(configuration.SearchRectangle.Left,
+                    configuration.SearchRectangle.Top,
+                    configuration.SearchRectangle.Width - 1,
+                    configuration.SearchRectangle.Height - 1);
+
+
+                SetFaceParas(configuration.MinFaceWidth, configuration.MaxFaceWidth);
+
+                SetLightMode(configuration.EnvironmentMode);
+            }
+        }
 
 #if DEBUG
         const string FaceSearchDll = "FaceSelDllD.dll";

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using ImageProcess;
+using ImageProcessing;
 using RemoteImaging.Core;
 using JSZN.Component;
 using MotionDetect;

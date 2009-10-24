@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JSZN.Component;
-using ImageProcess;
+using ImageProcessing;
 using OpenCvSharp;
 
 namespace RemoteImaging
@@ -54,11 +54,11 @@ namespace RemoteImaging
 
             ManagedFrame mf = new ManagedFrame();
             mf.CameraID = CameraID;
-            mf.Ipl = BitmapConverter.ToIplImage((System.Drawing.Bitmap) img);
+            mf.Ipl = BitmapConverter.ToIplImage((System.Drawing.Bitmap)img);
             mf.Ipl.IsEnabledDispose = false;
             mf.TimeStamp = DateTime.Now;
 
-            FrameCapturedEventArgs args = new FrameCapturedEventArgs(){ Frame = mf };
+            FrameCapturedEventArgs args = new FrameCapturedEventArgs() { Frame = mf };
 
             this.OnFrameCaptured(args);
         }

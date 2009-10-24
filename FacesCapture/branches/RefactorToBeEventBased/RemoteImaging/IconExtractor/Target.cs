@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace ImageProcess
+namespace ImageProcessing
 {
     [StructLayoutAttribute(LayoutKind.Sequential)]
     public struct Target

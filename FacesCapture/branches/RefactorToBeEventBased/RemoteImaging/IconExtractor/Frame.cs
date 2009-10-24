@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using OpenCvSharp;
 
-namespace ImageProcess
+namespace ImageProcessing
 {
     [StructLayoutAttribute(LayoutKind.Sequential)]
     public struct Frame

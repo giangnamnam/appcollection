@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using MotionDetect;
 using OpenCvSharp;
-using ImageProcess;
+using ImageProcessing;
 
 namespace RemoteImaging
 {
-    public class MotionFrameDetector: IFrameHandler
+    public class MotionFrameDetector : IFrameHandler
     {
         public event EventHandler<MotionFrameDetectedEventArgs> MotionFrameDetected;
 
