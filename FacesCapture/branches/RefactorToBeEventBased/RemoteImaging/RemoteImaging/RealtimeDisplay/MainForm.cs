@@ -70,31 +70,26 @@ namespace RemoteImaging.RealtimeDisplay
 
             MotionDetect.MotionDetecter.SetDrawRect(setting.DrawMotionRect);
 
-            float left = float.Parse(setting.IconLeftExtRatio);
-            float top = float.Parse(setting.IconTopExtRatio);
-            float right = float.Parse(setting.IconRightExtRatio);
-            float bottom = float.Parse(setting.IconBottomExtRatio);
+            FaceSearchConfiguration faceSearchConfig = new FaceSearchConfiguration();
 
-            int minFaceWidth = int.Parse(setting.MinFaceWidth);
+            faceSearchConfig.LeftRation = float.Parse(setting.IconLeftExtRatio);
+            faceSearchConfig.TopRation = float.Parse(setting.IconTopExtRatio);
+            faceSearchConfig.RightRation = float.Parse(setting.IconRightExtRatio);
+            faceSearchConfig.BottomRation = float.Parse(setting.IconBottomExtRatio);
+
+            faceSearchConfig.MinFaceWidth = int.Parse(setting.MinFaceWidth);
             int maxFaceWidth = int.Parse(setting.MaxFaceWidth);
+            faceSearchConfig.FaceWidthRatio = (float)maxFaceWidth / faceSearchConfig.MinFaceWidth;
 
-            float ratio = (float)maxFaceWidth / minFaceWidth;
+            faceSearchConfig.EnvironmentMode = setting.EnvMode;
 
-            SetupExtractor(setting.EnvMode,
-                left,
-                right,
-                top,
-                bottom,
-                minFaceWidth,
-                ratio,
+            faceSearchConfig.SearchRectangle =
                 new Rectangle(int.Parse(setting.SrchRegionLeft),
-                    int.Parse(setting.SrchRegionTop),
-                    int.Parse(setting.SrchRegionWidth),
-                    int.Parse(setting.SrchRegionHeight))
-                    );
+                              int.Parse(setting.SrchRegionTop),
+                              int.Parse(setting.SrchRegionWidth),
+                              int.Parse(setting.SrchRegionHeight));
 
-
-
+            NativeIconExtractor.Configuration = faceSearchConfig;
         }
 
 

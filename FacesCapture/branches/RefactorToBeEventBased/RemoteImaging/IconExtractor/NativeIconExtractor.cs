@@ -30,7 +30,7 @@ namespace ImageProcessing
                     configuration.SearchRectangle.Height - 1);
 
 
-                SetFaceParas(configuration.MinFaceWidth, configuration.MaxFaceWidth);
+                SetFaceParas(configuration.MinFaceWidth, configuration.FaceWidthRatio);
 
                 SetLightMode(configuration.EnvironmentMode);
             }

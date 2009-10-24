@@ -13,7 +13,7 @@ namespace ImageProcessing
         public float TopRation { get; set; }
         public float BottomRation { get; set; }
         public int MinFaceWidth { get; set; }
-        public int MaxFaceWidth { get; set; }
+        public float FaceWidthRatio { get; set; }
         public System.Drawing.Rectangle SearchRectangle { get; set; }
     }
 }

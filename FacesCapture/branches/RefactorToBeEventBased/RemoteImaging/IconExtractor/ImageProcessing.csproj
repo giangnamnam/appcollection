@@ -55,10 +55,15 @@
     <Compile Include="Target.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\Eyes22x5.xml" />
     <Content Include="data\haarcascade_frontalface_alt.xml" />
     <Content Include="data\haarcascade_frontalface_alt2.xml" />
     <Content Include="data\haarcascade_frontalface_alt_tree.xml" />
     <Content Include="data\haarcascade_frontalface_default.xml" />
+    <Content Include="data\LEye18x12.xml" />
+    <Content Include="data\Mouth25x15.xml" />
+    <Content Include="data\Nose25x15.xml" />
+    <Content Include="data\REye18x12.xml" />
     <Content Include="Doc\读我.txt" />
     <None Include="FaceSelDll.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
