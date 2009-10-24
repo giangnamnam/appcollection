@@ -47,14 +47,14 @@ namespace ImageProcessing
         ///y: int
         ///width: int
         ///height: int
-        [DllImport(FaceSearchDll, CharSet = CharSet.Ansi)]
+        [DllImport(FaceSearchDll)]
         public static extern void SetROI(int x, int y, int width, int height);
 
 
 
         /// Return Type: void
         ///dir: char*
-        [DllImport(FaceSearchDll, CharSet = CharSet.Ansi)]
+        [DllImport(FaceSearchDll)]
         public static extern void SetOutputDir([InAttribute()]
                                                 [MarshalAs(UnmanagedType.LPStr)] 
                                                 string dir);
@@ -63,7 +63,7 @@ namespace ImageProcessing
         /// Return Type: void
         ///iMinFace: int
         ///dFaceChangeRatio: double
-        [DllImport(FaceSearchDll, CharSet = CharSet.Ansi)]
+        [DllImport(FaceSearchDll)]
         public static extern void SetFaceParas(int iMinFace, double dFaceChangeRatio);
 
 
@@ -72,7 +72,7 @@ namespace ImageProcessing
         ///bottomExRatio: double
         ///leftExRatio: double
         ///rightExRatio: double
-        [DllImport(FaceSearchDll, CharSet = CharSet.Ansi)]
+        [DllImport(FaceSearchDll)]
         public static extern void SetExRatio(double topExRatio,
             double bottomExRatio,
             double leftExRatio,
@@ -81,27 +81,27 @@ namespace ImageProcessing
 
         /// Return Type: void
         ///dRatio: double
-        [DllImport(FaceSearchDll, CharSet = CharSet.Ansi)]
+        [DllImport(FaceSearchDll)]
         public static extern void SetDwSmpRatio(double dRatio);
 
 
-        [DllImport(FaceSearchDll, CharSet = CharSet.Ansi)]
+        [DllImport(FaceSearchDll)]
         public static extern void SetLightMode(int iMode);
 
 
-        [DllImport(FaceSearchDll, EntryPoint = "ReleaseMem")]
+        [DllImport(FaceSearchDll)]
         public static extern void ReleaseMem();
 
 
         /// Return Type: void
         ///frame: Frame*
-        [DllImport(FaceSearchDll, EntryPoint = "AddInFrame")]
+        [DllImport(FaceSearchDll)]
         public static extern void AddInFrame(Frame frame);
 
 
         /// Return Type: int
         ///targets: Target**
-        [DllImport(FaceSearchDll, EntryPoint = "SearchFaces")]
+        [DllImport(FaceSearchDll)]
         public static extern int SearchFaces(ref System.IntPtr targets);
 
     }
