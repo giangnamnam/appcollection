@@ -13,6 +13,7 @@ namespace MyControls
         public Rectangle Rec { get; set; }
         public Image Image { get; set; }
         public bool Selected { get; set; }
+        public object Tag { get; set; }
 
         private string _ImagePath;
         public string Path
@@ -41,7 +42,7 @@ namespace MyControls
             g.DrawString(str, font, br, x, y);
         }
 
- 
+
         public void CenterRectangleRelativeTo(Rectangle destRectangle, ref Rectangle srcRectangle)
         {
             int x = destRectangle.X + (destRectangle.Width - srcRectangle.Width) / 2;
@@ -55,7 +56,7 @@ namespace MyControls
             Rectangle resultRec = srcRectangle;
 
             //scale the rectangle
-            if (srcRectangle.Width > destRectangle.Width 
+            if (srcRectangle.Width > destRectangle.Width
                 || srcRectangle.Height > destRectangle.Height)
             {
                 float xScale = (float)destRectangle.Width / srcRectangle.Width;
@@ -88,20 +89,20 @@ namespace MyControls
                 int space = 3;
 
                 if (!string.IsNullOrEmpty(this.Text))
-	            {
+                {
                     sizeOfText = g.MeasureString(this.Text, font);
                     Rectangle recText = this.Rec;
-                    int h = this.Rec.Height - (int) sizeOfText.Height - space;
+                    int h = this.Rec.Height - (int)sizeOfText.Height - space;
                     recText.Offset(0, h);
                     recText.Height -= h;
                     DrawStringInCenterOfRectangle(this.Text, g, font, recText);
-	            }
+                }
 
                 Rectangle recOfImg = this.Rec;
-                recOfImg.Height -= (int) sizeOfText.Height + space;
+                recOfImg.Height -= (int)sizeOfText.Height + space;
 
-                g.DrawImage(this.Image, 
-                    CalculateAutoFitRectangle(Rectangle.Round(recOfImg), 
+                g.DrawImage(this.Image,
+                    CalculateAutoFitRectangle(Rectangle.Round(recOfImg),
                     new Rectangle(0, 0, this.Image.Width, this.Image.Height)));
 
                 g.DrawRectangle(Pens.Gray, recOfImg);

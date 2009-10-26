@@ -70,6 +70,8 @@ namespace MyControls
                     Image = c.Image,
                     Path = c.Path,
                     Text = c.Text,
+                    Tag = c.Tag,
+
                 };
 
                 CellDoubleClick(this, arg);
