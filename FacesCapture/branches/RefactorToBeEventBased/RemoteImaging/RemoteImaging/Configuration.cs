@@ -109,7 +109,7 @@ namespace RemoteImaging
             CheckLiveCamera gs = new CheckLiveCamera(lineCam,this);
             thread = new Thread(new ParameterizedThreadStart(gs.Run));
             thread.IsBackground = true;
-            thread.Start();
+            //thread.Start();
         }
 
     }

@@ -531,7 +531,6 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
         }
 
-        FileHandle fh = new FileHandle();
         Thread thread = null;
         string tempComName = "";
         int tempModel = 0;

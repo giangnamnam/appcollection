@@ -13,15 +13,15 @@ namespace RemoteImaging.Query
         public static string VideoPath = Properties.Settings.Default.VideoDirectoryName;
         public enum SearchType { PicType, VideoType };
 
-        public ImageDirSys(string camera, string year, string month, string day, string hour, string minute, string second)
+        public ImageDirSys(string camera, DateTimeInString dtString)
         {
             this.CameraID = camera;
-            this.Year = year;
-            this.Month = month;
-            this.Day = day;
-            this.Hour = hour;
-            this.Minute = minute;
-            this.Second = second;
+            this.Year = dtString.year;
+            this.Month = dtString.month;
+            this.Day = dtString.day;
+            this.Hour = dtString.hour;
+            this.Minute = dtString.minute;
+            this.Second = dtString.second;
         }
 
         public string CameraID

@@ -24,7 +24,6 @@ namespace RemoteImaging.Query
             setListViewColumns();
         }
 
-        ImageSearch imgSearch = new ImageSearch();
         private void queryBtn_Click(object sender, EventArgs e)
         {
             this.picList.Clear();
@@ -64,7 +63,7 @@ namespace RemoteImaging.Query
 
             foreach (string file in files)
             {
-                DateTime dTime = imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
+                DateTime dTime = ImageSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
                 lvl.Text = dTime.ToString();
                 lvl.SubItems.Add(file);
@@ -72,7 +71,7 @@ namespace RemoteImaging.Query
 
                 if (radioButton1.Checked == true)
                 {
-                    if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (ImageSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
                     {
                         lvl.ImageIndex = 0;
                         videoList.Items.Add(lvl);
@@ -81,7 +80,7 @@ namespace RemoteImaging.Query
 
                 if (radioButton2.Checked == true)
                 {
-                    if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (ImageSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
                         lvl.ImageIndex = 0;
                     else
                         lvl.ImageIndex = 1;
@@ -133,7 +132,7 @@ namespace RemoteImaging.Query
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr = imgSearch.getPicFiles(videoList.FocusedItem.Tag as string, this.comboBox1.Text, true);//得到图片路径
+            string[] fileArr = ImageSearch.getPicFiles(videoList.FocusedItem.Tag as string, this.comboBox1.Text, true);//得到图片路径
             if (fileArr.Length == 0) return;
 
             for (int i = 0; i < fileArr.Length; ++i)

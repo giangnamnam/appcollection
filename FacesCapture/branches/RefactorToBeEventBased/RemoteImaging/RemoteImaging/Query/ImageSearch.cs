@@ -9,9 +9,9 @@ using System.Text.RegularExpressions;
 
 namespace RemoteImaging.Query
 {
-    public class ImageSearch
+    public static class ImageSearch
     {
-        public string[] SearchImages(ImageDirSys startDir, ImageDirSys endDir, ImageDirSys.SearchType searchType)
+        public static string[] SearchImages(ImageDirSys startDir, ImageDirSys endDir, ImageDirSys.SearchType searchType)
         {
             int startYear = int.Parse(startDir.Year);
             int startMonth = int.Parse(startDir.Month);
@@ -286,7 +286,7 @@ namespace RemoteImaging.Query
         }
 
 
-        public string[] SelectedBestImageChanged(string selectedImageName)
+        public static string[] SelectedBestImageChanged(string selectedImageName)
         {
             string fileName = System.IO.Path.GetFileNameWithoutExtension(selectedImageName);
             if (!IsValidImageFile(fileName))
@@ -336,7 +336,7 @@ namespace RemoteImaging.Query
             return null;
         }
 
-        private bool IsValidImageFile(string fileName)
+        private static bool IsValidImageFile(string fileName)
         {
             Regex fileNameRegex = new Regex("\\d{2}_\\d{15}-\\d{4}");
             Match m = fileNameRegex.Match(fileName);
@@ -356,7 +356,7 @@ namespace RemoteImaging.Query
         /// <param name="camId">相机ID</param>
         /// <param name="state">是否获取图片集合</param>
         /// <returns></returns>
-        public string[] getPicFiles(string path, string camId, bool state)
+        public static string[] getPicFiles(string path, string camId, bool state)
         {
             ArrayList filesArr = new ArrayList();
             DateTime dTime = getDateTimeStr(path);
@@ -393,14 +393,14 @@ namespace RemoteImaging.Query
             return fileCollections;
         }
 
-        public DateTime getDateTimeStr(string temp)
-        {
-            Int32 index = temp.IndexOf("NORMAL") + 7;
-            string str = temp.Substring(index, 14);//20090629\06\00
-            DateTime time = new DateTime(Convert.ToInt32(str.Substring(0, 4)), Convert.ToInt32(str.Substring(4, 2)),
-                Convert.ToInt32(str.Substring(6, 2)), Convert.ToInt32(str.Substring(9, 2)), Convert.ToInt32(str.Substring(12, 2)), 0);
-            time = time.ToLocalTime(); //time = time.AddHours(8);
-            return time;
-        }
+        public static DateTime getDateTimeStr(string temp)
+       {
+           Int32 index = temp.IndexOf("NORMAL") + 7;
+           string str = temp.Substring(index, 14);//20090629\06\00
+           DateTime time = new DateTime(Convert.ToInt32(str.Substring(0, 4)), Convert.ToInt32(str.Substring(4, 2)),
+               Convert.ToInt32(str.Substring(6, 2)), Convert.ToInt32(str.Substring(9, 2)), Convert.ToInt32(str.Substring(12, 2)), 0);
+           time = time.ToLocalTime(); //time = time.AddHours(8);
+           return time;
+       }
     }
 }

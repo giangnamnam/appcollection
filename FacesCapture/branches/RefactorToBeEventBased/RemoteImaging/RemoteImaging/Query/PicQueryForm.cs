@@ -110,25 +110,14 @@ namespace RemoteImaging.Query
                 return;
             }
             /////
-            string year1 = dateTime1.Year.ToString("D4");
-            string month1 = dateTime1.Month.ToString("D2");
-            string day1 = dateTime1.Day.ToString("D2");
-            string hour1 = dateTime1.Hour.ToString("D2");
-            string minute1 = dateTime1.Minute.ToString("D2");
-            string second1 = dateTime1.Second.ToString("D2");
+            DateTimeInString dtString1 = DateTimeInString.FromDateTime(dateTime1);
 
-            string year2 = dateTime2.Year.ToString("D4");
-            string month2 = dateTime2.Month.ToString("D2");
-            string day2 = dateTime2.Day.ToString("D2");
-            string hour2 = dateTime2.Hour.ToString("D2");
-            string minute2 = dateTime2.Minute.ToString("D2");
-            string second2 = dateTime2.Second.ToString("D2");
+            DateTimeInString dtString2 = DateTimeInString.FromDateTime(dateTime2);
 
-            Query.ImageDirSys startDir = new ImageDirSys(cameraID, year1, month1, day1, hour1, minute1, second1);
-            Query.ImageDirSys endDir = new ImageDirSys(cameraID, year2, month2, day2, hour2, minute2, second2);
-            Query.ImageSearch imageSearch = new ImageSearch();
+            Query.ImageDirSys startDir = new ImageDirSys(cameraID, dtString1);
+            Query.ImageDirSys endDir = new ImageDirSys(cameraID, dtString2);
 
-            imagesFound = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
+            imagesFound = ImageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
 
             if (imagesFound.Length == 0)
             {
@@ -197,8 +186,7 @@ namespace RemoteImaging.Query
         {
             this.imageList2.Images.Clear();
 
-            Query.ImageSearch imageSearch = new ImageSearch();
-            string[] files = imageSearch.SelectedBestImageChanged(iconFile);
+            string[] files = ImageSearch.SelectedBestImageChanged(iconFile);
             if (files == null)
             {
                 MessageBox.Show("没有搜索到对应的二级图片", "警告");
@@ -328,7 +316,7 @@ namespace RemoteImaging.Query
 
         }
 
-        private void SaveCurrent()
+        private void SaveSelectedImage()
         {
             if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
             string filePath = this.bestPicListView.FocusedItem.Tag as string;
@@ -363,7 +351,7 @@ namespace RemoteImaging.Query
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            SaveCurrent();
+            SaveSelectedImage();
         }
     }
 }
