@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.ServiceModel;
 
 
 namespace RemoteImaging
 {
     using RealtimeDisplay;
+    using System.Xml;
 
     static class Program
     {
@@ -40,6 +42,25 @@ namespace RemoteImaging
             {
                 directory = argv[0];
             }
+
+            Uri netTcpBaseAddress = new Uri("net.tcp://192.168.1.67:8000");
+            ServiceHost host = new ServiceHost(typeof(Service.Service), netTcpBaseAddress);
+
+            int messageSize = 5 * 1024 * 1024;
+
+            XmlDictionaryReaderQuotas readerQuotas =
+                new XmlDictionaryReaderQuotas();
+            readerQuotas.MaxArrayLength = messageSize;
+
+
+            NetTcpBinding tcpBinding = new NetTcpBinding(SecurityMode.None);
+            tcpBinding.MaxReceivedMessageSize = messageSize;
+            tcpBinding.ReaderQuotas = readerQuotas;
+
+            host.AddServiceEndpoint(typeof(RemoteControlService.IServiceFacade),
+                tcpBinding, "TcpService");
+
+            host.Open();
 
             Application.Run(new MainForm());
 

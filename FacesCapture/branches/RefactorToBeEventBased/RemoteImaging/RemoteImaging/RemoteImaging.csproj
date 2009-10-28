@@ -72,6 +72,12 @@
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -265,6 +271,7 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service\Service.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="VideoPlayer.cs" />
@@ -330,6 +337,10 @@
     <ProjectReference Include="..\MotionDetect\MotionDetect.csproj">
       <Project>{408A61BC-629F-4A57-80BE-7D18825BF5B2}</Project>
       <Name>MotionDetect</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
+      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
+      <Name>RemoteControlService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
