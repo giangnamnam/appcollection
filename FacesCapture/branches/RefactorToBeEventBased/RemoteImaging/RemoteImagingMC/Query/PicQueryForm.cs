@@ -8,15 +8,22 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using RemoteImaging.Core;
+using RemoteControlService;
 
 namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form
     {
-        private string[] imagesFound = new string[0];
+        private int itemCount;
         private int currentPage;
         private int totalPage;
         public int PageSize { get; set; }
+
+        int lastSpotID = 0;
+        DateTime lastBeginTime = DateTime.Now;
+        DateTime lastEndTime = DateTime.Now;
+        RemoteControlService.IServiceFacade proxy;
+
 
         public PicQueryForm()
         {
@@ -39,7 +46,7 @@ namespace RemoteImaging.Query
         private int CalcPagesCount()
         {
 
-            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
+            totalPage = (itemCount + PageSize - 1) / PageSize;
 
             return totalPage;
         }
@@ -51,14 +58,16 @@ namespace RemoteImaging.Query
             ClearCurPageList();
 
             for (int i = (currentPage - 1) * PageSize;
-                (i < currentPage * PageSize) && (i < imagesFound.Length);
+                (i < currentPage * PageSize) && (i < itemCount);
                 ++i)
             {
-                this.imageList1.Images.Add(Image.FromFile(imagesFound[i]));
-                string text = System.IO.Path.GetFileName(imagesFound[i]);
+                ImagePair ip = proxy.GetFace(i);
+
+                this.imageList1.Images.Add(ip.Face);
+                string text = System.IO.Path.GetFileName(ip.Face.Tag as string);
                 ListViewItem item = new ListViewItem()
                 {
-                    Tag = imagesFound[i],
+                    Tag = ip,
                     Text = text,
                     ImageIndex = i % PageSize
                 };
@@ -79,9 +88,20 @@ namespace RemoteImaging.Query
         {
             ClearCurPageList();
             this.imageList2.Images.Clear();
-            this.pictureBox1.Image = null;
+            this.pictureBoxFace.Image = null;
         }
 
+        private DateTime CreateDateTime(
+            DateTimePicker picker,
+            DevExpress.XtraEditors.TimeEdit time)
+        {
+            DateTime date = picker.Value;
+            DateTime t = time.Time;
+
+            DateTime dt = new DateTime(date.Year, date.Month, date.Day, t.Hour, t.Minute, t.Second);
+
+            return dt;
+        }
         private void queryBtn_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -93,33 +113,24 @@ namespace RemoteImaging.Query
                 MessageBox.Show("请选择要查询的摄像头ID", "警告");
                 return;
             }
+
             string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
 
-
             //judge the input validation
-            DateTime date1 = this.dateTimePicker1.Value;
-            DateTime date2 = this.dateTimePicker2.Value;
-            DateTime time1 = this.timeEdit1.Time;
-            DateTime time2 = this.timeEdit2.Time;
+            DateTime dateTime1 = CreateDateTime(this.dateTimePicker1, timeEdit1);
+            DateTime dateTime2 = CreateDateTime(this.dateTimePicker2, timeEdit2);
 
-            DateTime dateTime1 = new DateTime(date1.Year, date1.Month, date1.Day, time1.Hour, time1.Minute, time1.Second);
-            DateTime dateTime2 = new DateTime(date2.Year, date2.Month, date2.Day, time2.Hour, time2.Minute, time2.Second);
             if (dateTime1 >= dateTime2)
             {
                 MessageBox.Show("时间起点不应该大于或者等于时间终点，请重新输入！", "警告");
                 return;
             }
-            /////
-            DateTimeInString dtString1 = DateTimeInString.FromDateTime(dateTime1);
 
-            DateTimeInString dtString2 = DateTimeInString.FromDateTime(dateTime2);
+            this.proxy = ServiceProxy.ProxyFactory.CreateProxy(@"net.tcp://192.168.1.67:8000/TcpService");
 
-            Query.ImageDirSys startDir = new ImageDirSys(cameraID, dtString1);
-            Query.ImageDirSys endDir = new ImageDirSys(cameraID, dtString2);
+            itemCount = proxy.BeginSearchFaces(2, dateTime1, dateTime2);
 
-            imagesFound = ImageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
-
-            if (imagesFound.Length == 0)
+            if (itemCount == 0)
             {
                 MessageBox.Show(this, "未找到图片");
                 return;
@@ -131,7 +142,7 @@ namespace RemoteImaging.Query
             UpdatePagesLabel();
 
 
-            if (imagesFound == null)
+            if (itemCount == 0)
             {
                 MessageBox.Show("没有搜索到满足条件的图片！", "警告");
                 return;
@@ -158,16 +169,12 @@ namespace RemoteImaging.Query
         //02_090807144104343-0000.jpg-->小图片
         private void bestPicListView_ItemActivate(object sender, System.EventArgs e)
         {
-            string filePath = this.bestPicListView.FocusedItem.Tag as string;
+            ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
 
-            //show modify icon
-            if (File.Exists(filePath))
-            {
-                this.pictureBox1.Image = Image.FromFile(filePath);
-            }
+            this.pictureBoxFace.Image = ip.Face;
 
             //detail infomation
-            ImageDetail imgInfo = ImageDetail.FromPath(filePath);
+            ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
             string captureLoc = string.Format("抓拍地点: {0}", imgInfo.FromCamera);
             this.labelCaptureLoc.Text = captureLoc;
@@ -175,9 +182,8 @@ namespace RemoteImaging.Query
             string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
             this.labelCaptureTime.Text = captureTime;
 
-            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
-            this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
+            this.pictureBoxWholeImg.Image = ip.BigImage;
 
         }
 
@@ -323,7 +329,7 @@ namespace RemoteImaging.Query
 
             if (File.Exists(filePath))
             {
-                this.pictureBox1.Image = Image.FromFile(filePath);
+                this.pictureBoxFace.Image = Image.FromFile(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
             string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
@@ -337,10 +343,10 @@ namespace RemoteImaging.Query
                 saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (pictureBox1.Image != null)
+                    if (pictureBoxFace.Image != null)
                     {
                         string path = saveDialog.FileName;
-                        pictureBox1.Image.Save(path);
+                        pictureBoxFace.Image.Save(path);
                         path = path.Replace(fileName, Path.GetFileName(bigImgPath));
                         pictureBoxWholeImg.Image.Save(path);
                     }

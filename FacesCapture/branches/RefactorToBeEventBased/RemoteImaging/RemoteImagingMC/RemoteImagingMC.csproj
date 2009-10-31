@@ -271,6 +271,7 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceProxy\ProxyFactory.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="VideoPlayer.cs" />
@@ -325,6 +326,10 @@
     <None Include="ThirdParty\Libs\AForge.Math.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
+      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Encryptor\Encryptor.csproj">
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>

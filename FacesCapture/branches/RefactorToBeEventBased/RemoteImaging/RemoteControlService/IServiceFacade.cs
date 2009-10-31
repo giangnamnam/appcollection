@@ -33,6 +33,12 @@ namespace RemoteControlService
         public Bitmap Face { get; set; }
 
         [DataMember]
+        public string FacePath { get; set; }
+
+        [DataMember]
         public Bitmap BigImage { get; set; }
+
+        [DataMember]
+        public string BigImagePath { get; set; }
     }
 }

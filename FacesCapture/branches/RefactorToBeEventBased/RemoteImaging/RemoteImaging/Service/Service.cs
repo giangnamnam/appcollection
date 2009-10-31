@@ -35,18 +35,19 @@ namespace RemoteImaging.Service
             string path = FaceFiles[idx];
 
             Bitmap face = (Bitmap)Image.FromFile(path);
-            face.Tag = path;
 
-            Bitmap big = (Bitmap)Image.FromFile(@"L:\pictures in hall\02_090718174534-0000.jpg");
-            big.Tag = @"L:\pictures in hall\02_090718174534-0000.jpg";
+            string bigImgPath = FileSystemStorage.BigImgPathForFace(Core.ImageDetail.FromPath(path));
 
+            Bitmap big = (Bitmap)Image.FromFile(bigImgPath);
 
             ImagePair ip = new ImagePair();
             ip.Face = face;
+            ip.FacePath = path;
+
             ip.BigImage = big;
+            ip.BigImagePath = bigImgPath;
 
             return ip;
-
         }
 
         public void EndSearchFaces()
