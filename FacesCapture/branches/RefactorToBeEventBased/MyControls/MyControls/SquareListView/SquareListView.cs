@@ -49,6 +49,28 @@ namespace MyControls
 
         }
 
+        private void validateIndexRange(int idx)
+        {
+            if (idx > this.CellsCount - 1)
+                throw new System.IndexOutOfRangeException();
+        }
+
+        public Image this[int idx]
+        {
+            get
+            {
+                validateIndexRange(idx);
+                return this.cells[idx].Image;
+            }
+
+            set
+            {
+                validateIndexRange(idx);
+                this.cells[idx].Image = value;
+            }
+
+        }
+
 
 
 
