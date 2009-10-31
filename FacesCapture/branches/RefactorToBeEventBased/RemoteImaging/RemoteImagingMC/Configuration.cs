@@ -25,8 +25,7 @@ namespace RemoteImaging
                 {
                     ID = id,
                     IpAddress = camElement.Attribute("ip").Value,
-                    Name = camElement.Attribute("name").Value,
-                    Mac = camElement.Attribute("MAC").Value,
+                    Name = camElement.Attribute("name").Value
                 });
             }
             Cameras = lineCam;
@@ -42,8 +41,8 @@ namespace RemoteImaging
                 doc.Root.Add(new XElement("cam",
                     new XAttribute("ip", cam.IpAddress),
                     new XAttribute("name", cam.Name),
-                    new XAttribute("id", cam.ID),
-                    new XAttribute("MAC", cam.Mac)));
+                    new XAttribute("id", cam.ID)
+                   ));
             }
 
             doc.Save(Properties.Settings.Default.CamConfigFile);
@@ -54,12 +53,12 @@ namespace RemoteImaging
         {
             try
             {
-                return this.Cameras.First(c =>  c.ID == ID);
+                return this.Cameras.First(c => c.ID == ID);
             }
             catch (System.InvalidOperationException)
             {
                 return null;
-            	
+
             }
         }
 
@@ -89,27 +88,7 @@ namespace RemoteImaging
         //获得在线摄像机 
         public void GetLineCameras()
         {
-            List<Camera> lineCam = new List<Camera>();
-            List<Camera> trueLineCamera = new List<Camera>();
-            XDocument camXMLDoc = XDocument.Load(fileName);
-            var camsElements = camXMLDoc.Root.Descendants("cam");
 
-            foreach (XElement camElement in camsElements)
-            {
-                int id = int.Parse((string)camElement.Attribute("id"));
-                lineCam.Add(new Camera()
-                {
-                    ID = id,
-                    IpAddress = camElement.Attribute("ip").Value,
-                    Name = camElement.Attribute("name").Value,
-                    Mac = camElement.Attribute("MAC").Value,
-                });
-            }
-
-            CheckLiveCamera gs = new CheckLiveCamera(lineCam,this);
-            thread = new Thread(new ParameterizedThreadStart(gs.Run));
-            thread.IsBackground = true;
-            //thread.Start();
         }
 
     }

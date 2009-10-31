@@ -921,8 +921,16 @@ namespace RemoteImaging.RealtimeDisplay
             presenter.UpdateBG();
         }
 
+        private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            this.squareViewContextMenu.Items.Clear();
 
+            foreach (var item in config.Cameras)
+            {
+                ToolStripMenuItem mi = new ToolStripMenuItem(item.Name);
+                this.squareViewContextMenu.Items.Add(mi);
+            }
 
-
+        }
     }
 }

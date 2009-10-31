@@ -25,8 +25,7 @@ namespace RemoteImaging
                 {
                     ID = id,
                     IpAddress = camElement.Attribute("ip").Value,
-                    Name = camElement.Attribute("name").Value,
-                    Mac = camElement.Attribute("MAC").Value,
+                    Name = camElement.Attribute("name").Value
                 });
             }
             Cameras = lineCam;
@@ -54,12 +53,12 @@ namespace RemoteImaging
         {
             try
             {
-                return this.Cameras.First(c =>  c.ID == ID);
+                return this.Cameras.First(c => c.ID == ID);
             }
             catch (System.InvalidOperationException)
             {
                 return null;
-            	
+
             }
         }
 
@@ -106,7 +105,7 @@ namespace RemoteImaging
                 });
             }
 
-            CheckLiveCamera gs = new CheckLiveCamera(lineCam,this);
+            CheckLiveCamera gs = new CheckLiveCamera(lineCam, this);
             thread = new Thread(new ParameterizedThreadStart(gs.Run));
             thread.IsBackground = true;
             //thread.Start();

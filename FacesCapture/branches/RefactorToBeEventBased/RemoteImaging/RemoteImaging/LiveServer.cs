@@ -26,12 +26,11 @@ namespace RemoteImaging
             {
                 var img = args.ImageCaptured;
                 formatter.Serialize(client.GetStream(), img);
-
             }
             catch
             {
                 host.RemoteListener(this);
-            	
+
             }
         }
     }

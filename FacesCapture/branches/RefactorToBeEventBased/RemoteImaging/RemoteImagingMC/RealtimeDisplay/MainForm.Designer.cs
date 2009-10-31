@@ -52,6 +52,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.squareListView1 = new MyControls.SquareListView();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -95,7 +96,9 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.squareListView1 = new MyControls.SquareListView();
+            this.squareViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.spot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spot2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -124,6 +127,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.mainToolStrip.SuspendLayout();
+            this.squareViewContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -266,6 +270,27 @@
             this.panelControl1.Size = new System.Drawing.Size(691, 477);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
+            // 
+            // squareListView1
+            // 
+            this.squareListView1.AutoDisposeImage = true;
+            this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
+            this.squareListView1.ContextMenuStrip = this.squareViewContextMenu;
+            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.squareListView1.Location = new System.Drawing.Point(3, 3);
+            this.squareListView1.MaxCountOfCells = 25;
+            this.squareListView1.Name = "squareListView1";
+            this.squareListView1.NumberOfColumns = 2;
+            this.squareListView1.NumberofRows = 2;
+            this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
+            this.squareListView1.SelectedCell = null;
+            this.squareListView1.Size = new System.Drawing.Size(685, 471);
+            this.squareListView1.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
+            this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
+            this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
             // 
             // simpleButton2
             // 
@@ -711,25 +736,26 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
-            // squareListView1
+            // squareViewContextMenu
             // 
-            this.squareListView1.AutoDisposeImage = true;
-            this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.squareListView1.Location = new System.Drawing.Point(3, 3);
-            this.squareListView1.MaxCountOfCells = 25;
-            this.squareListView1.Name = "squareListView1";
-            this.squareListView1.NumberOfColumns = 2;
-            this.squareListView1.NumberofRows = 2;
-            this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
-            this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(685, 471);
-            this.squareListView1.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
-            this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
-            this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
+            this.squareViewContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spot1ToolStripMenuItem,
+            this.spot2ToolStripMenuItem});
+            this.squareViewContextMenu.Name = "squareViewContextMenu";
+            this.squareViewContextMenu.Size = new System.Drawing.Size(153, 74);
+            this.squareViewContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.squareViewContextMenu_Opening);
+            // 
+            // spot1ToolStripMenuItem
+            // 
+            this.spot1ToolStripMenuItem.Name = "spot1ToolStripMenuItem";
+            this.spot1ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.spot1ToolStripMenuItem.Text = "Spot1";
+            // 
+            // spot2ToolStripMenuItem
+            // 
+            this.spot2ToolStripMenuItem.Name = "spot2ToolStripMenuItem";
+            this.spot2ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.spot2ToolStripMenuItem.Text = "Spot2";
             // 
             // MainForm
             // 
@@ -779,6 +805,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            this.squareViewContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -842,6 +869,9 @@
         private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private MyControls.SquareListView squareListView1;
+        private System.Windows.Forms.ContextMenuStrip squareViewContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem spot1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spot2ToolStripMenuItem;
 
     }
 }

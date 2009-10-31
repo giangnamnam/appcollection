@@ -177,6 +177,7 @@
     <Compile Include="RealtimeDisplay\ImageUploadWatcher.cs" />
     <Compile Include="RealtimeDisplay\InvalidFileNameFormat.cs" />
     <Compile Include="RealtimeDisplay\IImageScreen.cs" />
+    <Compile Include="RealtimeDisplay\LiveClient.cs" />
     <Compile Include="RealtimeDisplay\Presenter.cs" />
     <Compile Include="RealtimeDisplay\MainForm.cs">
       <SubType>Form</SubType>
