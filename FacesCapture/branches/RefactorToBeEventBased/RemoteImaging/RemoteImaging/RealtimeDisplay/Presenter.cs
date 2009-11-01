@@ -140,7 +140,7 @@ namespace RemoteImaging.RealtimeDisplay
         public void StartServer(object serverPort)
         {
             TcpListener server = new TcpListener((int)serverPort);
-            server.Start();
+            server.Start(1);
 
             while (true)
             {

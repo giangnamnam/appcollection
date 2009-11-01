@@ -18,6 +18,7 @@ using JSZN.Component;
 using System.Threading;
 using MotionDetect;
 using RemoteImaging.Query;
+using System.Net.Sockets;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -925,12 +926,54 @@ namespace RemoteImaging.RealtimeDisplay
         {
             this.squareViewContextMenu.Items.Clear();
 
-            foreach (var item in config.Cameras)
+            foreach (var cam in config.Cameras)
             {
-                ToolStripMenuItem mi = new ToolStripMenuItem(item.Name);
+                ToolStripMenuItem mi = new ToolStripMenuItem(cam.Name);
+                mi.Tag = cam;
+                mi.Click += new EventHandler(mi_Click);
                 this.squareViewContextMenu.Items.Add(mi);
             }
 
+        }
+
+        void mi_Click(object sender, EventArgs e)
+        {
+            if (this.squareListView1.SelectedCell == null) return;
+
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            Camera cam = menuItem.Tag as Camera;
+
+            TcpClient tcp = new TcpClient();
+            System.Net.IPAddress ip = System.Net.IPAddress.Parse(cam.IpAddress);
+            System.Net.IPEndPoint ep = new System.Net.IPEndPoint(ip, 20000);
+            tcp.Connect(ep);
+
+            LiveClient lc = new LiveClient(tcp);
+            lc.Tag = this.squareListView1.SelectedCell;
+            lc.ImageReceived += new EventHandler<ImageCapturedEventArgs>(lc_ImageReceived);
+            lc.Start();
+
+
+
+
+        }
+
+        void lc_ImageReceived(object sender, ImageCapturedEventArgs e)
+        {
+            Cell c = (sender as LiveClient).Tag as Cell;
+
+            if (this.InvokeRequired)
+            {
+                Action<Image> updateImage = img => c.Image = img;
+                this.BeginInvoke(updateImage, e.ImageCaptured);
+            }
+            else
+            {
+                c.Image = e.ImageCaptured;
+            }
+
+            this.squareListView1.Invalidate(c.Rec);
         }
     }
 }

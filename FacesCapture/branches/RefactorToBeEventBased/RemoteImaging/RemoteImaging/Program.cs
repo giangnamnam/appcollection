@@ -44,7 +44,9 @@ namespace RemoteImaging
                 directory = argv[0];
             }
 
-            Uri netTcpBaseAddress = new Uri("net.tcp://192.168.1.67:8000");
+            string baseAddress = string.Format("net.tcp://{0}:8000", System.Net.IPAddress.Any);
+
+            Uri netTcpBaseAddress = new Uri(baseAddress);
             ServiceHost host = new ServiceHost(typeof(Service.Service), netTcpBaseAddress);
 
             NetTcpBinding tcpBinding = BindingFactory.CreateNetTcpBinding();

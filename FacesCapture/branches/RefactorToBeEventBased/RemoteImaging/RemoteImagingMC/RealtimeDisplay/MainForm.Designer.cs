@@ -53,6 +53,9 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.squareListView1 = new MyControls.SquareListView();
+            this.squareViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.spot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spot2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
@@ -96,9 +99,6 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.squareViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.spot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spot2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -110,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            this.squareViewContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             this.contextMenuStripForCamTreeView.SuspendLayout();
@@ -127,7 +128,6 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.mainToolStrip.SuspendLayout();
-            this.squareViewContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -291,6 +291,27 @@
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
             this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
+            // 
+            // squareViewContextMenu
+            // 
+            this.squareViewContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spot1ToolStripMenuItem,
+            this.spot2ToolStripMenuItem});
+            this.squareViewContextMenu.Name = "squareViewContextMenu";
+            this.squareViewContextMenu.Size = new System.Drawing.Size(153, 74);
+            this.squareViewContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.squareViewContextMenu_Opening);
+            // 
+            // spot1ToolStripMenuItem
+            // 
+            this.spot1ToolStripMenuItem.Name = "spot1ToolStripMenuItem";
+            this.spot1ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.spot1ToolStripMenuItem.Text = "Spot1";
+            // 
+            // spot2ToolStripMenuItem
+            // 
+            this.spot2ToolStripMenuItem.Name = "spot2ToolStripMenuItem";
+            this.spot2ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.spot2ToolStripMenuItem.Text = "Spot2";
             // 
             // simpleButton2
             // 
@@ -736,27 +757,6 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
-            // squareViewContextMenu
-            // 
-            this.squareViewContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spot1ToolStripMenuItem,
-            this.spot2ToolStripMenuItem});
-            this.squareViewContextMenu.Name = "squareViewContextMenu";
-            this.squareViewContextMenu.Size = new System.Drawing.Size(153, 74);
-            this.squareViewContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.squareViewContextMenu_Opening);
-            // 
-            // spot1ToolStripMenuItem
-            // 
-            this.spot1ToolStripMenuItem.Name = "spot1ToolStripMenuItem";
-            this.spot1ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.spot1ToolStripMenuItem.Text = "Spot1";
-            // 
-            // spot2ToolStripMenuItem
-            // 
-            this.spot2ToolStripMenuItem.Name = "spot2ToolStripMenuItem";
-            this.spot2ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.spot2ToolStripMenuItem.Text = "Spot2";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -786,6 +786,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            this.squareViewContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.contextMenuStripForCamTreeView.ResumeLayout(false);
@@ -805,7 +806,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
-            this.squareViewContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

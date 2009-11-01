@@ -114,7 +114,10 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string cameraID = int.Parse(this.comboBox1.Text).ToString("D2");
+
+            int camID = int.Parse(this.comboBox1.Text);
+
+            string cameraID = camID.ToString("D2");
 
             //judge the input validation
             DateTime dateTime1 = CreateDateTime(this.dateTimePicker1, timeEdit1);
@@ -126,7 +129,9 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            this.proxy = ServiceProxy.ProxyFactory.CreateProxy(@"net.tcp://192.168.1.67:8000/TcpService");
+            string address = string.Format("net.tcp://{0}:8000/TcpService", Configuration.Instance.FindCameraByID(camID).IpAddress);
+
+            this.proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
 
             itemCount = proxy.BeginSearchFaces(2, dateTime1, dateTime2);
 

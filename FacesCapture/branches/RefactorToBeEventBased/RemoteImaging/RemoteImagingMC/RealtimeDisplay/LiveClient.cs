@@ -15,6 +15,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         public event EventHandler<ImageCapturedEventArgs> ImageReceived;
 
+
+        public object Tag { get; set; }
+
         public LiveClient(TcpClient client)
         {
             this.client = client;
@@ -46,8 +49,12 @@ namespace RemoteImaging.RealtimeDisplay
         {
             try
             {
-                Image img = (Image)formatter.Deserialize(client.GetStream());
-                this.FireImageReceivedEvent(img);
+                while (true)
+                {
+                    Image img = (Image)formatter.Deserialize(client.GetStream());
+                    this.FireImageReceivedEvent(img);
+                }
+
             }
             catch
             {

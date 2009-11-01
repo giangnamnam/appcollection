@@ -41,8 +41,7 @@ namespace RemoteImaging
                 doc.Root.Add(new XElement("cam",
                     new XAttribute("ip", cam.IpAddress),
                     new XAttribute("name", cam.Name),
-                    new XAttribute("id", cam.ID),
-                    new XAttribute("MAC", cam.Mac)));
+                    new XAttribute("id", cam.ID)));
             }
 
             doc.Save(Properties.Settings.Default.CamConfigFile);
@@ -101,7 +100,7 @@ namespace RemoteImaging
                     ID = id,
                     IpAddress = camElement.Attribute("ip").Value,
                     Name = camElement.Attribute("name").Value,
-                    Mac = camElement.Attribute("MAC").Value,
+
                 });
             }
 
