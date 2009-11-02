@@ -16,8 +16,6 @@ namespace RemoteImaging
             return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
         }
 
-
-
         private static string RootStoragePathForCamera(int cameraID)
         {
             return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
@@ -202,28 +200,32 @@ namespace RemoteImaging
             }
         }
 
-        public static string[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public static Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
             string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
 
             DateTime startUTC = startLocalTime.ToUniversalTime();
             DateTime endUTC = endLocalTime.ToUniversalTime();
-            List<string> files = new List<string>();
+            List<Video> videos = new List<Video>();
 
             while (startUTC <= endUTC)
             {
                 string relativePath = RelativePathNameForVideoFile(startUTC);
                 string path = Path.Combine(rootFolder, relativePath);
+
                 if (File.Exists(path))
                 {
-                    files.Add(path);
+                    bool hasFaceCaptured =
+                        FaceImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
+
+                    videos.Add(new Video { HasFaceCaptured = hasFaceCaptured, Path = path });
                 }
 
                 startUTC = startUTC.AddMinutes(1);
 
             }
 
-            return files.ToArray();
+            return videos.ToArray();
 
         }
 

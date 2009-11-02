@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoQueryForm));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.AllVideoTypeRadioButton = new System.Windows.Forms.RadioButton();
+            this.faceCapturedVideoRadioButton = new System.Windows.Forms.RadioButton();
             this.queryBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,8 +67,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton2);
-            this.groupBox3.Controls.Add(this.radioButton1);
+            this.groupBox3.Controls.Add(this.AllVideoTypeRadioButton);
+            this.groupBox3.Controls.Add(this.faceCapturedVideoRadioButton);
             this.groupBox3.Controls.Add(this.queryBtn);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label4);
@@ -87,27 +87,27 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
             // 
-            // radioButton2
+            // AllVideoTypeRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(532, 24);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 16);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "全部查询";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.AllVideoTypeRadioButton.AutoSize = true;
+            this.AllVideoTypeRadioButton.Location = new System.Drawing.Point(532, 24);
+            this.AllVideoTypeRadioButton.Name = "AllVideoTypeRadioButton";
+            this.AllVideoTypeRadioButton.Size = new System.Drawing.Size(71, 16);
+            this.AllVideoTypeRadioButton.TabIndex = 12;
+            this.AllVideoTypeRadioButton.TabStop = true;
+            this.AllVideoTypeRadioButton.Text = "全部查询";
+            this.AllVideoTypeRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // faceCapturedVideoRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(397, 24);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(95, 16);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "查询有效视频";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.faceCapturedVideoRadioButton.AutoSize = true;
+            this.faceCapturedVideoRadioButton.Location = new System.Drawing.Point(397, 24);
+            this.faceCapturedVideoRadioButton.Name = "faceCapturedVideoRadioButton";
+            this.faceCapturedVideoRadioButton.Size = new System.Drawing.Size(95, 16);
+            this.faceCapturedVideoRadioButton.TabIndex = 11;
+            this.faceCapturedVideoRadioButton.TabStop = true;
+            this.faceCapturedVideoRadioButton.Text = "查询有效视频";
+            this.faceCapturedVideoRadioButton.UseVisualStyleBackColor = true;
             // 
             // queryBtn
             // 
@@ -185,7 +185,7 @@
             this.timeEdit1.Name = "timeEdit1";
             this.timeEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit1.Size = new System.Drawing.Size(96, 21);
+            this.timeEdit1.Size = new System.Drawing.Size(96, 23);
             this.timeEdit1.TabIndex = 7;
             // 
             // timeEdit2
@@ -195,7 +195,7 @@
             this.timeEdit2.Name = "timeEdit2";
             this.timeEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.timeEdit2.Size = new System.Drawing.Size(96, 21);
+            this.timeEdit2.Size = new System.Drawing.Size(96, 23);
             this.timeEdit2.TabIndex = 8;
             // 
             // imageList1
@@ -366,8 +366,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton AllVideoTypeRadioButton;
+        private System.Windows.Forms.RadioButton faceCapturedVideoRadioButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;

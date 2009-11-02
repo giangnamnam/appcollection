@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RemoteImaging</RootNamespace>
-    <AssemblyName>RemoteImaging</AssemblyName>
+    <AssemblyName>RemoteImagingMC</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>MainIcon.ico</ApplicationIcon>

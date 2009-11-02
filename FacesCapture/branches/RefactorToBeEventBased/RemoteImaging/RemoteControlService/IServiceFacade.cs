@@ -21,8 +21,22 @@ namespace RemoteControlService
         [OperationContract]
         void EndSearchFaces();
 
+        [OperationContract]
+        Video[] SearchVideos(int cameraID, DateTime from, DateTime to);
+
+        [OperationContract]
+        void PlayVideo(string path);
+    }
 
 
+    [DataContract]
+    public class Video
+    {
+        [DataMember]
+        public bool HasFaceCaptured { get; set; }
+
+        [DataMember]
+        public string Path { get; set; }
     }
 
 

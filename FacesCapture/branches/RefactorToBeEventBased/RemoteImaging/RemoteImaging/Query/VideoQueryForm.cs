@@ -51,9 +51,9 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string[] files = FileSystemStorage.VideoFilesBetween(cameraID, dateTime1, dateTime2);
+            Video[] videos = FileSystemStorage.VideoFilesBetween(cameraID, dateTime1, dateTime2);
 
-            if (files == null)
+            if (videos.Length == 0)
             {
                 MessageBox.Show("没有搜索到满足条件的视频！", "警告");
                 return;
@@ -61,26 +61,27 @@ namespace RemoteImaging.Query
 
             this.videoList.Items.Clear();
 
-            foreach (string file in files)
+            foreach (Video v in videos)
             {
-                DateTime dTime = ImageSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
+                string videoPath = v.Path;
+                DateTime dTime = ImageSearch.getDateTimeStr(videoPath);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
                 lvl.Text = dTime.ToString();
-                lvl.SubItems.Add(file);
-                lvl.Tag = file;
+                lvl.SubItems.Add(videoPath);
+                lvl.Tag = videoPath;
 
-                if (radioButton1.Checked == true)
+                if (faceCapturedVideoRadioButton.Checked == true)
                 {
-                    if (ImageSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (v.HasFaceCaptured)
                     {
                         lvl.ImageIndex = 0;
                         videoList.Items.Add(lvl);
                     }
                 }
 
-                if (radioButton2.Checked == true)
+                if (AllVideoTypeRadioButton.Checked == true)
                 {
-                    if (ImageSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (v.HasFaceCaptured)
                         lvl.ImageIndex = 0;
                     else
                         lvl.ImageIndex = 1;
@@ -95,7 +96,7 @@ namespace RemoteImaging.Query
         {
             videoList.Columns.Add("抓拍时间", 150);
             videoList.Columns.Add("视频文件", 150);
-            radioButton1.Checked = true;
+            faceCapturedVideoRadioButton.Checked = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)

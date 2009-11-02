@@ -27,11 +27,15 @@ namespace RemoteImaging
 
         }
 
+
+        public static string ExePath { get { return videoPlayerPath; } }
+
+
         public static void PlayVideosAsync(string[] videos)
         {
             if (videoPlayerPath == null)
             {
-                MessageBox.Show("请安装相应播放器", "错误",  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("请安装VLC播放器", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

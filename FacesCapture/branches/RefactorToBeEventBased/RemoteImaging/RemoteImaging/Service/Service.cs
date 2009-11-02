@@ -6,6 +6,7 @@ using System.ServiceModel;
 using RemoteControlService;
 using RemoteImaging.Query;
 using System.Drawing;
+using System.Diagnostics;
 
 
 namespace RemoteImaging.Service
@@ -50,9 +51,63 @@ namespace RemoteImaging.Service
             return ip;
         }
 
+
+
+
         public void EndSearchFaces()
         {
 
+        }
+
+
+        public Video[] SearchVideos(int cameraID, DateTime from, DateTime to)
+        {
+            RemoteImaging.Core.Video[] videos = FileSystemStorage.VideoFilesBetween(cameraID, from, to);
+
+            Video[] serviceVideos = new Video[videos.Length];
+
+            for (int i = 0; i < videos.Length; ++i)
+            {
+                serviceVideos[i] = new Video()
+                {
+                    HasFaceCaptured = videos[i].HasFaceCaptured,
+                    Path = videos[i].Path,
+                };
+            }
+
+
+            return serviceVideos;
+        }
+
+
+        Process player;
+
+        public void PlayVideo(string path)
+        {
+            string cmdString = "-vvv {0} --sout udp:239.255.12.12 --ttl 1";
+
+            path = "\"" + path + "\"";
+
+            string cmd = string.Format(cmdString, path);
+
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = VideoPlayer.ExePath;
+            psi.CreateNoWindow = true;
+            psi.WindowStyle = ProcessWindowStyle.Hidden;
+            psi.Arguments = cmd;
+
+            if (player != null)
+            {
+                if (!player.HasExited)
+                {
+                    player.Kill();
+                    Debug.WriteLine("kill player");
+                }
+            }
+
+            player = Process.Start(psi);
+
+            Debug.WriteLine(path);
         }
 
         #endregion

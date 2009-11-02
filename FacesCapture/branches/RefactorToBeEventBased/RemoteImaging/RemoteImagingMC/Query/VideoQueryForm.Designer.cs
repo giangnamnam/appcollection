@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoQueryForm));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.allVideoRadioButton = new System.Windows.Forms.RadioButton();
+            this.faceCapturedRadioButton = new System.Windows.Forms.RadioButton();
             this.queryBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,8 +67,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton2);
-            this.groupBox3.Controls.Add(this.radioButton1);
+            this.groupBox3.Controls.Add(this.allVideoRadioButton);
+            this.groupBox3.Controls.Add(this.faceCapturedRadioButton);
             this.groupBox3.Controls.Add(this.queryBtn);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label4);
@@ -87,27 +87,27 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "查询条件";
             // 
-            // radioButton2
+            // allVideoRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(532, 24);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 16);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "全部查询";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.allVideoRadioButton.AutoSize = true;
+            this.allVideoRadioButton.Location = new System.Drawing.Point(532, 24);
+            this.allVideoRadioButton.Name = "allVideoRadioButton";
+            this.allVideoRadioButton.Size = new System.Drawing.Size(71, 16);
+            this.allVideoRadioButton.TabIndex = 12;
+            this.allVideoRadioButton.TabStop = true;
+            this.allVideoRadioButton.Text = "全部查询";
+            this.allVideoRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // faceCapturedRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(397, 24);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(95, 16);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "查询有效视频";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.faceCapturedRadioButton.AutoSize = true;
+            this.faceCapturedRadioButton.Location = new System.Drawing.Point(397, 24);
+            this.faceCapturedRadioButton.Name = "faceCapturedRadioButton";
+            this.faceCapturedRadioButton.Size = new System.Drawing.Size(95, 16);
+            this.faceCapturedRadioButton.TabIndex = 11;
+            this.faceCapturedRadioButton.TabStop = true;
+            this.faceCapturedRadioButton.Text = "查询有效视频";
+            this.faceCapturedRadioButton.UseVisualStyleBackColor = true;
             // 
             // queryBtn
             // 
@@ -366,8 +366,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton allVideoRadioButton;
+        private System.Windows.Forms.RadioButton faceCapturedRadioButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;

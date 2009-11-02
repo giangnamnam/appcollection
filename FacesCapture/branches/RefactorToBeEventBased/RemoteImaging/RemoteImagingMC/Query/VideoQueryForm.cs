@@ -9,11 +9,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using RemoteImaging.Core;
+using RemoteControlService;
+using System.Diagnostics;
 
 namespace RemoteImaging.Query
 {
     public partial class VideoQueryForm : Form
     {
+        private IServiceFacade proxy;
         public VideoQueryForm()
         {
             InitializeComponent();
@@ -51,9 +54,14 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string[] files = FileSystemStorage.VideoFilesBetween(cameraID, dateTime1, dateTime2);
+            string address = string.Format("net.tcp://{0}:8000/TcpService", Configuration.Instance.FindCameraByID(cameraID).IpAddress);
 
-            if (files == null)
+            proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
+
+
+            Video[] videos = proxy.SearchVideos(cameraID, dateTime1, dateTime2);
+
+            if (videos.Length == 0)
             {
                 MessageBox.Show("没有搜索到满足条件的视频！", "警告");
                 return;
@@ -61,26 +69,27 @@ namespace RemoteImaging.Query
 
             this.videoList.Items.Clear();
 
-            foreach (string file in files)
+            foreach (Video v in videos)
             {
-                DateTime dTime = ImageSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
+                string videoPath = v.Path;
+                DateTime dTime = ImageSearch.getDateTimeStr(videoPath);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
                 lvl.Text = dTime.ToString();
-                lvl.SubItems.Add(file);
-                lvl.Tag = file;
+                lvl.SubItems.Add(videoPath);
+                lvl.Tag = videoPath;
 
-                if (radioButton1.Checked == true)
+                if (this.faceCapturedRadioButton.Checked)
                 {
-                    if (ImageSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (v.HasFaceCaptured)
                     {
                         lvl.ImageIndex = 0;
                         videoList.Items.Add(lvl);
                     }
                 }
 
-                if (radioButton2.Checked == true)
+                if (this.allVideoRadioButton.Checked)
                 {
-                    if (ImageSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (v.HasFaceCaptured)
                         lvl.ImageIndex = 0;
                     else
                         lvl.ImageIndex = 1;
@@ -95,7 +104,7 @@ namespace RemoteImaging.Query
         {
             videoList.Columns.Add("抓拍时间", 150);
             videoList.Columns.Add("视频文件", 150);
-            radioButton1.Checked = true;
+            faceCapturedRadioButton.Checked = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -105,24 +114,34 @@ namespace RemoteImaging.Query
             this.Close();
         }
 
+
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
             bindPiclist();
 
+            if (proxy == null) return;
             if (this.videoList.SelectedItems.Count == 0) return;
+            if (string.IsNullOrEmpty(VideoPlayer.ExePath))
+            {
+                MessageBox.Show("请安装vlc播放器");
+                return;
+            }
+
+            ListViewItem item = this.videoList.SelectedItems[0];
+
+            proxy.PlayVideo(item.Tag as string);
 
             if (this.axVLCPlugin21.playlist.isPlaying)
             {
                 this.axVLCPlugin21.playlist.stop();
             }
-
+            
             this.axVLCPlugin21.playlist.items.clear();
 
-            ListViewItem item = this.videoList.SelectedItems[0];
-
-            int idx = this.axVLCPlugin21.playlist.add(item.Tag as string, null, null);
+            int idx = this.axVLCPlugin21.playlist.add(@"udp://@239.255.12.12", null, "-vvv");
 
             this.axVLCPlugin21.playlist.playItem(idx);
+
         }
 
 

@@ -110,6 +110,7 @@
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Core\Video.cs" />
     <Compile Include="DateTimeInString.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="FaceDetector.cs" />
