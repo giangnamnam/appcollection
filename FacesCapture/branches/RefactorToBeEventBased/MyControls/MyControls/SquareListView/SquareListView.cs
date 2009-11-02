@@ -126,6 +126,7 @@ namespace MyControls
                 dstCell.Image = imgToShow.Image;
                 dstCell.Text = imgToShow.Text;
                 dstCell.Path = imgToShow.Path;
+                dstCell.Tag = imgToShow.Tag;
 
                 this.Invalidate(Rectangle.Round(dstCell.Rec));
                 cursor++;
