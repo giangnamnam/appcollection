@@ -15,6 +15,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public class Presenter : IImageScreenObserver
     {
+        private TcpListener liveServer;
         IImageScreen screen;
         ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
@@ -69,7 +70,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             if (this.ImageCaptured != null)
             {
-                this.ImageCaptured -= s.ImageCaptured;
+                //this.ImageCaptured -= s.ImageCaptured;
             }
         }
 
@@ -139,18 +140,21 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void StartServer(object serverPort)
         {
-            TcpListener server = new TcpListener((int)serverPort);
-            server.Start(1);
+            if (liveServer == null)
+            {
+                liveServer = new TcpListener((int)serverPort);
+                liveServer.Start(1);
+            }
 
             while (true)
             {
-                TcpClient client = server.AcceptTcpClient();
+                TcpClient client = liveServer.AcceptTcpClient();
 
                 System.Diagnostics.Debug.WriteLine("accept connection:" + client.Client.RemoteEndPoint);
 
                 LiveServer ls = new LiveServer(client, this);
+                ls.Start();
 
-                this.ImageCaptured += ls.ImageCaptured;
             }
         }
 

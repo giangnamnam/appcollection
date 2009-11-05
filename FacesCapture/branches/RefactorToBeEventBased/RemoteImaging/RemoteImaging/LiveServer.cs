@@ -12,26 +12,57 @@ namespace RemoteImaging
         TcpClient client;
         RealtimeDisplay.Presenter host;
         BinaryFormatter formatter;
+        object locker = new object();
+        System.Threading.AutoResetEvent go = new System.Threading.AutoResetEvent(false);
+        System.Collections.Generic.Queue<System.Drawing.Image> images
+            = new System.Collections.Generic.Queue<System.Drawing.Image>();
 
         public LiveServer(TcpClient client, RealtimeDisplay.Presenter host)
         {
             this.client = client;
             this.host = host;
+            host.ImageCaptured += new EventHandler<ImageCapturedEventArgs>(host_ImageCaptured);
             formatter = new BinaryFormatter();
         }
 
-        public void ImageCaptured(object sender, ImageCapturedEventArgs args)
+        void host_ImageCaptured(object sender, ImageCapturedEventArgs e)
         {
-            try
-            {
-                var img = args.ImageCaptured;
-                formatter.Serialize(client.GetStream(), img);
-            }
-            catch
-            {
-                host.RemoteListener(this);
+            this.SendLiveImage(e.ImageCaptured);
+        }
 
+
+        public void SendLiveImage(System.Drawing.Image img)
+        {
+            lock (this.locker)
+            {
+                this.images.Enqueue((System.Drawing.Image) img.Clone());
             }
+
+            this.go.Set();
+
+        }
+
+        public void Start()
+        {
+            System.Threading.ThreadPool.QueueUserWorkItem(this.DoSend);
+
+        }
+
+        public void DoSend(object state)
+        {
+                while (true)
+                {
+                    System.Drawing.Image img = null;
+                    if (images.Count > 0)
+                    {
+                        img = images.Dequeue();
+                        formatter.Serialize(client.GetStream(), img);
+                        img.Dispose();
+                    }
+                    else
+                        go.WaitOne();
+                }
+                
         }
     }
 }
