@@ -135,7 +135,10 @@ namespace RemoteImaging.Query
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr = ImageSearch.getPicFiles(videoList.FocusedItem.Tag as string, this.comboBox1.Text, true);//得到图片路径
+
+            DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
+
+            string[] fileArr = ImageSearch.FacesCapturedAt(time, this.comboBox1.Text, true);//得到图片路径
             if (fileArr.Length == 0) return;
 
             for (int i = 0; i < fileArr.Length; ++i)

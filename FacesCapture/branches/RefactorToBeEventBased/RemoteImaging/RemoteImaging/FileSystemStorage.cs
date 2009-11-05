@@ -69,7 +69,7 @@ namespace RemoteImaging
         {
             DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-            string folderFace = FileSystemStorage.GetOrCreateFolderForFacesAt(frame.cameraID, dt);
+            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.cameraID, dt);
 
             string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
 
@@ -91,7 +91,7 @@ namespace RemoteImaging
             return folderForFaces;
         }
 
-        private static string GetOrCreateFolderForFacesAt(int camID, DateTime dt)
+        private static string EnsureFolderForFacesAt(int camID, DateTime dt)
         {
             string folderForFaces = ContainerDirectoryOfFaceAt(camID, dt);
 

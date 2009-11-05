@@ -49,10 +49,6 @@ namespace RemoteImaging.Service
             return ip;
         }
 
-
-   
-
-
         public Video[] SearchVideos(int cameraID, DateTime from, DateTime to)
         {
             RemoteImaging.Core.Video[] videos = FileSystemStorage.VideoFilesBetween(cameraID, from, to);
