@@ -11,7 +11,29 @@ namespace MyControls
     public class Cell
     {
         public Rectangle Rec { get; set; }
-        public Image Image { get; set; }
+		
+		
+        private Image _image;
+        public Image Image
+        {
+            get
+            {
+                return _image;
+            }
+            set
+            {
+                Image i = _image;
+
+                _image = value;
+
+                if (i != null)
+                {
+                    i.Dispose();
+                }
+            }
+        }
+		
+		
         public bool Selected { get; set; }
         public object Tag { get; set; }
 
