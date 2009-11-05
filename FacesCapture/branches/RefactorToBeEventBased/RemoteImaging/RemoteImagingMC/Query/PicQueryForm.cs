@@ -14,7 +14,7 @@ namespace RemoteImaging.Query
 {
     public partial class PicQueryForm : Form
     {
-        private int itemCount;
+        private string[] imagesFound = new string[0];
         private int currentPage;
         private int totalPage;
         public int PageSize { get; set; }
@@ -46,7 +46,7 @@ namespace RemoteImaging.Query
         private int CalcPagesCount()
         {
 
-            totalPage = (itemCount + PageSize - 1) / PageSize;
+            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
 
             return totalPage;
         }
@@ -58,10 +58,10 @@ namespace RemoteImaging.Query
             ClearCurPageList();
 
             for (int i = (currentPage - 1) * PageSize;
-                (i < currentPage * PageSize) && (i < itemCount);
+                (i < currentPage * PageSize) && (i < imagesFound.Length);
                 ++i)
             {
-                ImagePair ip = proxy.GetFace(i);
+                ImagePair ip = proxy.GetFace(imagesFound[i]);
 
                 this.imageList1.Images.Add(ip.Face);
                 string text = System.IO.Path.GetFileName(ip.Face.Tag as string);
@@ -133,9 +133,9 @@ namespace RemoteImaging.Query
 
             this.proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
 
-            itemCount = proxy.BeginSearchFaces(2, dateTime1, dateTime2);
+            imagesFound = proxy.SearchFaces(camID, dateTime1, dateTime2);
 
-            if (itemCount == 0)
+            if (imagesFound.Length == 0)
             {
                 MessageBox.Show(this, "未找到图片");
                 return;
@@ -147,7 +147,7 @@ namespace RemoteImaging.Query
             UpdatePagesLabel();
 
 
-            if (itemCount == 0)
+            if (imagesFound == null)
             {
                 MessageBox.Show("没有搜索到满足条件的图片！", "警告");
                 return;
@@ -307,23 +307,41 @@ namespace RemoteImaging.Query
 
         }
 
+
+        private void ReceiveVideoStream()
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+            }
+
+            this.axVLCPlugin21.playlist.items.clear();
+
+            int idx = this.axVLCPlugin21.playlist.add(@"udp://@239.255.12.12", null, "-vvv");
+
+            this.axVLCPlugin21.playlist.playItem(idx);
+        }
+
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
+            if (proxy == null) return;
             if (this.bestPicListView.SelectedItems.Count != 1) return;
 
-            string imgPath = this.bestPicListView.SelectedItems[0].Tag as string;
+            ImagePair ip = this.bestPicListView.SelectedItems[0].Tag as ImagePair;
 
-            ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
+            ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
-            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
+            string video = proxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
 
-            if (videos.Length == 0)
+            if (string.IsNullOrEmpty(video))
             {
                 MessageBox.Show("未找到相关视频");
                 return;
             }
 
-            VideoPlayer.PlayVideosAsync(videos);
+            proxy.BroadcastVideo(video);
+
+            this.ReceiveVideoStream();
 
         }
 
@@ -363,6 +381,22 @@ namespace RemoteImaging.Query
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             SaveSelectedImage();
+        }
+
+        void EnsureClosePlayer()
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(1000);
+            }
+
+        }
+
+
+        private void PicQueryForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EnsureClosePlayer();
         }
     }
 }

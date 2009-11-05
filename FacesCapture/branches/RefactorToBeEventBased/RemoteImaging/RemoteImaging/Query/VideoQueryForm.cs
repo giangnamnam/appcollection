@@ -26,6 +26,8 @@ namespace RemoteImaging.Query
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
+            this.axVLCPlugin21.Toolbar = true;
+
             this.picList.Clear();
 
             if (this.comboBox1.Text == "" || this.comboBox1.Text == null)

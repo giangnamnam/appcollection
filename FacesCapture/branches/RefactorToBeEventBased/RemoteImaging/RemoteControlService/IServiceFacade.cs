@@ -13,19 +13,20 @@ namespace RemoteControlService
     public interface IServiceFacade
     {
         [OperationContract]
-        int BeginSearchFaces(int cameraID, DateTime beginTime, DateTime endTime);
+        string[] SearchFaces(int cameraID, DateTime from, DateTime to);
 
         [OperationContract]
-        ImagePair GetFace(int idx);
-
-        [OperationContract]
-        void EndSearchFaces();
+        ImagePair GetFace(string path);
 
         [OperationContract]
         Video[] SearchVideos(int cameraID, DateTime from, DateTime to);
 
         [OperationContract]
-        void PlayVideo(string path);
+        void BroadcastVideo(string path);
+
+     
+        [OperationContract]
+        string VideoFilePathRecordedAt(DateTime time, int camID);
     }
 
 

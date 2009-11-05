@@ -19,7 +19,7 @@ namespace RemoteImaging.Service
 
         #region IServiceFacade Members
 
-        public int BeginSearchFaces(int cameraID, DateTime beginTime, DateTime endTime)
+        public string[] SearchFaces(int cameraID, DateTime beginTime, DateTime endTime)
         {
             ImageDirSys start =
                 new ImageDirSys(cameraID.ToString("d2"), DateTimeInString.FromDateTime(beginTime));
@@ -28,13 +28,11 @@ namespace RemoteImaging.Service
 
             FaceFiles = ImageSearch.SearchImages(start, end, ImageDirSys.SearchType.PicType);
 
-            return FaceFiles.Length;
+            return FaceFiles;
         }
 
-        public ImagePair GetFace(int idx)
+        public ImagePair GetFace(string path)
         {
-            string path = FaceFiles[idx];
-
             Bitmap face = (Bitmap)Image.FromFile(path);
 
             string bigImgPath = FileSystemStorage.BigImgPathForFace(Core.ImageDetail.FromPath(path));
@@ -52,12 +50,7 @@ namespace RemoteImaging.Service
         }
 
 
-
-
-        public void EndSearchFaces()
-        {
-
-        }
+   
 
 
         public Video[] SearchVideos(int cameraID, DateTime from, DateTime to)
@@ -82,7 +75,7 @@ namespace RemoteImaging.Service
 
         Process player;
 
-        public void PlayVideo(string path)
+        public void BroadcastVideo(string path)
         {
             string cmdString = "-vvv {0} --sout udp:239.255.12.12 --ttl 1";
 
@@ -109,6 +102,13 @@ namespace RemoteImaging.Service
 
             Debug.WriteLine(path);
         }
+
+
+        public string VideoFilePathRecordedAt(DateTime time, int camID)
+        {
+            return FileSystemStorage.VideoFilePathNameAt(time, camID);
+        }
+
 
         #endregion
     }

@@ -54,6 +54,9 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBoxWholeImg = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -85,6 +88,8 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWholeImg)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -192,7 +197,7 @@
             this.bestPicListView.MultiSelect = false;
             this.bestPicListView.Name = "bestPicListView";
             this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(840, 251);
+            this.bestPicListView.Size = new System.Drawing.Size(840, 195);
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
@@ -222,7 +227,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(282, 190);
+            this.groupBox4.Size = new System.Drawing.Size(282, 246);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "放大显示";
@@ -240,7 +245,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(3, 17);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(276, 170);
+            this.layoutControl1.Size = new System.Drawing.Size(276, 226);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -248,14 +253,14 @@
             // 
             this.pictureBoxFace.Location = new System.Drawing.Point(7, 7);
             this.pictureBoxFace.Name = "pictureBoxFace";
-            this.pictureBoxFace.Size = new System.Drawing.Size(262, 91);
+            this.pictureBoxFace.Size = new System.Drawing.Size(262, 147);
             this.pictureBoxFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxFace.TabIndex = 19;
             this.pictureBoxFace.TabStop = false;
             // 
             // labelCaptureLoc
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 108);
+            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 164);
             this.labelCaptureLoc.Name = "labelCaptureLoc";
             this.labelCaptureLoc.Size = new System.Drawing.Size(262, 22);
             this.labelCaptureLoc.TabIndex = 17;
@@ -264,7 +269,7 @@
             // 
             // labelCaptureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(7, 140);
+            this.labelCaptureTime.Location = new System.Drawing.Point(7, 196);
             this.labelCaptureTime.Name = "labelCaptureTime";
             this.labelCaptureTime.Size = new System.Drawing.Size(262, 23);
             this.labelCaptureTime.TabIndex = 18;
@@ -280,7 +285,7 @@
             this.layoutControlItem3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(276, 170);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(276, 226);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -289,7 +294,7 @@
             // 
             this.layoutControlItem1.Control = this.labelCaptureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 133);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 189);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
             this.layoutControlItem1.Name = "layoutControlItem1";
@@ -305,7 +310,7 @@
             // 
             this.layoutControlItem2.Control = this.labelCaptureLoc;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 101);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 157);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
@@ -323,7 +328,7 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(272, 101);
+            this.layoutControlItem3.Size = new System.Drawing.Size(272, 157);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -346,7 +351,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.bestPicListView);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Size = new System.Drawing.Size(840, 472);
-            this.splitContainer1.SplitterDistance = 190;
+            this.splitContainer1.SplitterDistance = 246;
             this.splitContainer1.TabIndex = 20;
             // 
             // splitContainer2
@@ -361,18 +366,49 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
+            this.splitContainer2.Panel2.Controls.Add(this.splitter1);
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(840, 190);
+            this.splitContainer2.Size = new System.Drawing.Size(840, 246);
             this.splitContainer2.SplitterDistance = 282;
             this.splitContainer2.TabIndex = 21;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.axVLCPlugin21);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(432, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(122, 246);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "视频";
+            // 
+            // axVLCPlugin21
+            // 
+            this.axVLCPlugin21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.axVLCPlugin21.Enabled = true;
+            this.axVLCPlugin21.Location = new System.Drawing.Point(3, 17);
+            this.axVLCPlugin21.Name = "axVLCPlugin21";
+            this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
+            this.axVLCPlugin21.Size = new System.Drawing.Size(116, 226);
+            this.axVLCPlugin21.TabIndex = 31;
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(429, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 246);
+            this.splitter1.TabIndex = 18;
+            this.splitter1.TabStop = false;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pictureBoxWholeImg);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(554, 190);
+            this.groupBox1.Size = new System.Drawing.Size(429, 246);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "全身像";
@@ -382,7 +418,7 @@
             this.pictureBoxWholeImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxWholeImg.Location = new System.Drawing.Point(3, 17);
             this.pictureBoxWholeImg.Name = "pictureBoxWholeImg";
-            this.pictureBoxWholeImg.Size = new System.Drawing.Size(548, 170);
+            this.pictureBoxWholeImg.Size = new System.Drawing.Size(423, 226);
             this.pictureBoxWholeImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxWholeImg.TabIndex = 16;
             this.pictureBoxWholeImg.TabStop = false;
@@ -509,6 +545,7 @@
             this.Text = "搜索图片";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PicQueryForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PicQueryForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit2.Properties)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -528,6 +565,8 @@
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWholeImg)).EndInit();
             this.toolStrip1.ResumeLayout(false);
@@ -576,5 +615,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Splitter splitter1;
+        private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
     }
 }

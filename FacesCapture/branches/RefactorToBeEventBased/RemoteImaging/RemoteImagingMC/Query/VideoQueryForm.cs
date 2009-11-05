@@ -115,6 +115,20 @@ namespace RemoteImaging.Query
         }
 
 
+        private void ReceiveVideoStream()
+        {
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+            }
+
+            this.axVLCPlugin21.playlist.items.clear();
+
+            int idx = this.axVLCPlugin21.playlist.add(@"udp://@239.255.12.12", null, "-vvv");
+
+            this.axVLCPlugin21.playlist.playItem(idx);
+        }
+
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
             bindPiclist();
@@ -129,19 +143,9 @@ namespace RemoteImaging.Query
 
             ListViewItem item = this.videoList.SelectedItems[0];
 
-            proxy.PlayVideo(item.Tag as string);
+            proxy.BroadcastVideo(item.Tag as string);
 
-            if (this.axVLCPlugin21.playlist.isPlaying)
-            {
-                this.axVLCPlugin21.playlist.stop();
-            }
-            
-            this.axVLCPlugin21.playlist.items.clear();
-
-            int idx = this.axVLCPlugin21.playlist.add(@"udp://@239.255.12.12", null, "-vvv");
-
-            this.axVLCPlugin21.playlist.playItem(idx);
-
+            ReceiveVideoStream();
         }
 
 
