@@ -155,21 +155,26 @@ namespace RemoteImaging.Query
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr = ImageSearch.getPicFiles(videoList.FocusedItem.Tag as string, this.comboBox1.Text, true);//得到图片路径
-            if (fileArr.Length == 0) return;
 
-            for (int i = 0; i < fileArr.Length; ++i)
+            DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
+            int cameID = int.Parse(this.comboBox1.Text);
+
+            Bitmap[] faces = proxy.FacesCapturedAt(cameID, time);
+            if (faces.Length == 0) return;
+
+            foreach (var bmp in faces)
             {
-                this.imageList1.Images.Add(Image.FromFile(fileArr[i]));
-                string text = System.IO.Path.GetFileName(fileArr[i]);
-                ListViewItem item = new ListViewItem()
+                this.imageList1.Images.Add(bmp);
+                //string text = System.IO.Path.GetFileName(fileArr[i]);
+                ListViewItem item = new ListViewItem
                 {
-                    Tag = fileArr[i].ToString(),
-                    Text = text,
-                    ImageIndex = i
+                    //Tag = fileArr[i].ToString(),
+                    //Text = text,
+                    ImageIndex = this.imageList1.Images.Count-1,
                 };
                 this.picList.Items.Add(item);
             }
+
             this.picList.Scrollable = true;
             this.picList.MultiSelect = false;
             this.picList.View = View.LargeIcon;

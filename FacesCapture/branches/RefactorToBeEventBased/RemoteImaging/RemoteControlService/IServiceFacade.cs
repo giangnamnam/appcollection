@@ -22,9 +22,11 @@ namespace RemoteControlService
         Video[] SearchVideos(int cameraID, DateTime from, DateTime to);
 
         [OperationContract]
+        Bitmap[] FacesCapturedAt(int cameraID, DateTime time);
+
+        [OperationContract]
         void BroadcastVideo(string path);
 
-     
         [OperationContract]
         string VideoFilePathRecordedAt(DateTime time, int camID);
     }

@@ -137,8 +137,9 @@ namespace RemoteImaging.Query
             this.imageList1.Images.Clear();
 
             DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
+            int cameID = int.Parse(this.comboBox1.Text);
 
-            string[] fileArr = ImageSearch.FacesCapturedAt(time, this.comboBox1.Text, true);//得到图片路径
+            string[] fileArr = ImageSearch.FacesCapturedAt(time, cameID, true);//得到图片路径
             if (fileArr.Length == 0) return;
 
             for (int i = 0; i < fileArr.Length; ++i)

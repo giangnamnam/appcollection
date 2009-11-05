@@ -12,7 +12,6 @@ using System.Diagnostics;
 namespace RemoteImaging.Service
 {
     [ServiceKnownType(typeof(System.Drawing.Bitmap))]
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     class Service : IServiceFacade
     {
         string[] FaceFiles;
@@ -105,6 +104,24 @@ namespace RemoteImaging.Service
             return FileSystemStorage.VideoFilePathNameAt(time, camID);
         }
 
+
+        public Bitmap[] FacesCapturedAt(int cameraID, DateTime time)
+        {
+            string[] files = ImageSearch.FacesCapturedAt(time, cameraID, true);
+            Bitmap[] bmps = new Bitmap[files.Length];
+
+            for (int i = 0; i < files.Length ; i++)
+            {
+            	Bitmap bmp = (Bitmap) Bitmap.FromFile(files[i]);
+                bmp.Tag = files[i];
+
+                bmps[i] = bmp;
+            }
+
+            return bmps;
+            
+
+        }
 
         #endregion
     }

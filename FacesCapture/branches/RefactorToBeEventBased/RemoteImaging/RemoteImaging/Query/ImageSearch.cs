@@ -356,11 +356,11 @@ namespace RemoteImaging.Query
         /// <param name="camId">相机ID</param>
         /// <param name="state">是否获取图片集合</param>
         /// <returns></returns>
-        public static string[] FacesCapturedAt(DateTime time, string camId, bool state)
+        public static string[] FacesCapturedAt(DateTime time, int camId, bool state)
         {
             ArrayList filesArr = new ArrayList();
             DateTime dTime = time;
-            string imgPath = Properties.Settings.Default.OutputPath + "\\" + int.Parse(camId).ToString("D2") + "\\" +
+            string imgPath = Properties.Settings.Default.OutputPath + "\\" + camId.ToString("d2") + "\\" +
                 dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
                 dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" +
                 dTime.Year + dTime.Month.ToString("D2") + dTime.Day.ToString("D2") + dTime.Hour.ToString("D2") + dTime.Minute.ToString("D2") + "\\";
