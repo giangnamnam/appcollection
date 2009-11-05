@@ -55,6 +55,8 @@ namespace RemoteImaging
 
         public void DoSend(object state)
         {
+            try
+            {
                 while (true)
                 {
                     System.Drawing.Image img = null;
@@ -67,6 +69,13 @@ namespace RemoteImaging
                     else
                         go.WaitOne();
                 }
+            }
+            catch (System.IO.IOException ex)
+            {
+                return;
+            	
+            }
+                
                 
         }
     }
