@@ -35,10 +35,15 @@ namespace RemoteImaging
         {
             lock (this.locker)
             {
-                this.images.Enqueue((System.Drawing.Image) img.Clone());
+                if (this.images.Count < 2)
+                {
+                    this.images.Enqueue((System.Drawing.Image) img.Clone());
+                    this.go.Set();
+                }
+                
             }
 
-            this.go.Set();
+            
 
         }
 

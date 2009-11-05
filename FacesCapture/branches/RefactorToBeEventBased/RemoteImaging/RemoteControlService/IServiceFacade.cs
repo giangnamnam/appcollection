@@ -29,6 +29,9 @@ namespace RemoteControlService
 
         [OperationContract]
         string VideoFilePathRecordedAt(DateTime time, int camID);
+
+        [OperationContract]
+        void KillPlayer();
     }
 
 

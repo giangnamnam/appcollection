@@ -84,14 +84,8 @@ namespace RemoteImaging.Service
             psi.WindowStyle = ProcessWindowStyle.Hidden;
             psi.Arguments = cmd;
 
-            if (player != null)
-            {
-                if (!player.HasExited)
-                {
-                    player.Kill();
-                    Debug.WriteLine("kill player");
-                }
-            }
+            this.KillPlayer();
+           
 
             player = Process.Start(psi);
 
@@ -121,6 +115,19 @@ namespace RemoteImaging.Service
             return bmps;
             
 
+        }
+
+
+        public void KillPlayer()
+        {
+            if (player != null)
+            {
+                if (!player.HasExited)
+                {
+                    player.Kill();
+                    Debug.WriteLine("kill player");
+                }
+            }
         }
 
         #endregion

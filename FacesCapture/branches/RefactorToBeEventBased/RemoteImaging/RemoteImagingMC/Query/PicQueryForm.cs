@@ -391,6 +391,11 @@ namespace RemoteImaging.Query
                 System.Threading.Thread.Sleep(1000);
             }
 
+            if (proxy != null)
+            {
+                proxy.KillPlayer();
+            }
+
         }
 
 
