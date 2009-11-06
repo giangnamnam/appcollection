@@ -42,9 +42,6 @@ namespace RemoteImaging
                 }
                 
             }
-
-            
-
         }
 
         public void Start()

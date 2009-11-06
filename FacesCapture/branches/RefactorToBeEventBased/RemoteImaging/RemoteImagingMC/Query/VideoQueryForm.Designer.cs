@@ -134,9 +134,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 26);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 9;
-            this.label4.Text = "监控点编号";
+            this.label4.Text = "监控点";
             // 
             // label2
             // 
@@ -158,6 +158,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(79, 22);
             this.comboBox1.Name = "comboBox1";

@@ -20,10 +20,11 @@ namespace RemoteImaging.Query
         public VideoQueryForm()
         {
             InitializeComponent();
-            foreach (Camera camera in Configuration.Instance.Cameras)
-            {
-                this.comboBox1.Items.Add(camera.ID.ToString());
-            }
+
+            this.comboBox1.DataSource = Configuration.Instance.Cameras;
+            this.comboBox1.DisplayMember = "Name";
+
+           
             setListViewColumns();
         }
 
@@ -37,8 +38,8 @@ namespace RemoteImaging.Query
                 return;
             }
 
+            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
 
-            int cameraID = int.Parse(this.comboBox1.Text);
 
             //judge the input validation
             DateTime date1 = this.dateTimePicker1.Value;
@@ -54,12 +55,12 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string address = string.Format("net.tcp://{0}:8000/TcpService", Configuration.Instance.FindCameraByID(cameraID).IpAddress);
+            string address = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
 
             proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
 
 
-            Video[] videos = proxy.SearchVideos(cameraID, dateTime1, dateTime2);
+            Video[] videos = proxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
 
             if (videos.Length == 0)
             {
@@ -157,9 +158,10 @@ namespace RemoteImaging.Query
             this.imageList1.Images.Clear();
 
             DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
-            int cameID = int.Parse(this.comboBox1.Text);
 
-            Bitmap[] faces = proxy.FacesCapturedAt(cameID, time);
+            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
+
+            Bitmap[] faces = proxy.FacesCapturedAt(selectedCamera.ID, time);
             if (faces.Length == 0) return;
 
             foreach (var bmp in faces)

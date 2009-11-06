@@ -29,12 +29,10 @@ namespace RemoteImaging.Query
         {
             InitializeComponent();
 
+            this.comboBox1.DataSource = Configuration.Instance.Cameras;
+            this.comboBox1.DisplayMember = "Name";
 
-            foreach (Camera camera in Configuration.Instance.Cameras)
-            {
-                this.comboBox1.Items.Add(camera.ID.ToString());
-            }
-
+            
             this.PageSize = 20;
         }
 
@@ -114,10 +112,7 @@ namespace RemoteImaging.Query
                 return;
             }
 
-
-            int camID = int.Parse(this.comboBox1.Text);
-
-            string cameraID = camID.ToString("D2");
+            Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
 
             //judge the input validation
             DateTime dateTime1 = CreateDateTime(this.dateTimePicker1, timeEdit1);
@@ -129,11 +124,11 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string address = string.Format("net.tcp://{0}:8000/TcpService", Configuration.Instance.FindCameraByID(camID).IpAddress);
+            string address = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
 
             this.proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
 
-            imagesFound = proxy.SearchFaces(camID, dateTime1, dateTime2);
+            imagesFound = proxy.SearchFaces(selectedCamera.ID, dateTime1, dateTime2);
 
             if (imagesFound.Length == 0)
             {
