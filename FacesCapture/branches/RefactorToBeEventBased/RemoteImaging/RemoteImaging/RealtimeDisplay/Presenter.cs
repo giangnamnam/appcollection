@@ -10,6 +10,7 @@ using OpenCvSharp;
 using System.Threading;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -217,6 +218,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
             catch (System.ArgumentException)//图片格式出错
             {
+                MessageBox.Show("获取摄像头图片错误");
                 return;
             }
 
@@ -226,8 +228,6 @@ namespace RemoteImaging.RealtimeDisplay
                 ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
                 ImageCaptured(this, args);
             }
-
-
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;

@@ -59,7 +59,11 @@ namespace RemoteImaging
                     System.Drawing.Image img = null;
                     if (images.Count > 0)
                     {
-                        img = images.Dequeue();
+                        lock (this.locker)
+                        {
+                            img = images.Dequeue();
+                        }
+                        
                         formatter.Serialize(client.GetStream(), img);
                         img.Dispose();
                     }
@@ -69,8 +73,8 @@ namespace RemoteImaging
             }
             catch (System.IO.IOException ex)
             {
+                this.host.ImageCaptured -= this.host_ImageCaptured;
                 return;
-            	
             }
                 
                 

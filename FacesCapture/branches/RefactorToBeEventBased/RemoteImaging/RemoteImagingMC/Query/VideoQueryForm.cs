@@ -55,10 +55,14 @@ namespace RemoteImaging.Query
                 return;
             }
 
+            if (proxy != null)
+            {
+                proxy.KillPlayer();
+            }
+
             string address = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
 
             proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
-
 
             Video[] videos = proxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
 

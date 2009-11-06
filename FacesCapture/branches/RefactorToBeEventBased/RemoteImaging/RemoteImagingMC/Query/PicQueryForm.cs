@@ -124,6 +124,11 @@ namespace RemoteImaging.Query
                 return;
             }
 
+            if (proxy != null)
+            {
+                proxy.KillPlayer();
+            }
+
             string address = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
 
             this.proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
