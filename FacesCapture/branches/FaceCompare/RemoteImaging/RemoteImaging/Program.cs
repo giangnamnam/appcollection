@@ -11,6 +11,9 @@ namespace RemoteImaging
     static class Program
     {
         public static string directory;
+        public static int ImageSampleCount = 400;
+        public static int ImageLen = 400;
+        public static int EigenNum = 40;
 
         /// <summary>
         /// The main entry point for the application.

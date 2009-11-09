@@ -343,6 +343,8 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (c == null) return;
 
+            FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
+
             this.StartCamera(c);
 
 
@@ -938,5 +940,20 @@ namespace RemoteImaging.RealtimeDisplay
 
 
 
+
+        #region IImageScreen Members
+
+
+        public void ShowFaceRecognitionResult(Image captured, Image fromLib, float similarity)
+        {
+            FaceRecognitionResult form = new FaceRecognitionResult();
+            form.capturedFace.Image = captured;
+            form.faceInLibrary.Image = fromLib;
+            form.similarity.Text = similarity.ToString();
+
+            form.Show(this);
+        }
+
+        #endregion
     }
 }

@@ -105,6 +105,12 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Face.cs" />
+    <Compile Include="FaceRecognitionResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FaceRecognitionResult.Designer.cs">
+      <DependentUpon>FaceRecognitionResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
@@ -178,6 +184,9 @@
     <EmbeddedResource Include="AlertSettingRes.resx">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FaceRecognitionResult.resx">
+      <DependentUpon>FaceRecognitionResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConfigCamera.resx">
       <DependentUpon>FormConfigCamera.cs</DependentUpon>
@@ -313,6 +322,10 @@
     <ProjectReference Include="..\Encryptor\Encryptor.csproj">
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceRecognition\FaceRecognition.csproj">
+      <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
+      <Name>FaceRecognition</Name>
     </ProjectReference>
     <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
       <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>

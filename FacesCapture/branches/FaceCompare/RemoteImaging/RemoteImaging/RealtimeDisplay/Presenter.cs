@@ -405,18 +405,24 @@ namespace RemoteImaging.RealtimeDisplay
                                 IplImage aFaceImg = new IplImage(*faceImgData);
                                 aFaceImg.IsEnabledDispose = false;
 
-                                CvRect* pFaceBounds = (CvRect*)faceWithFrame.CvRects;
-                                CvRect faceRect = pFaceBounds[j];
+                                CvRect* pEnlargedFaceBounds = (CvRect*)faceWithFrame.CvRects;
+                                CvRect* pOriginalFaceRect = (CvRect*) faceWithFrame.OrgCvRect;
+                                CvRect enlargedFaceRect = pEnlargedFaceBounds[j];
+                                CvRect originalFaceRect = pOriginalFaceRect[j];
 
-                                System.Diagnostics.Debug.WriteLine(faceRect);
+                                System.Diagnostics.Debug.WriteLine(enlargedFaceRect);
 
-                                Face aFace = new Face() { Bounds = faceRect, Img = aFaceImg };
+                                Face aFace = new Face{ 
+                                    EnlargedFace = enlargedFaceRect,
+                                    OriginalFace = originalFaceRect,
+                                    Img = aFaceImg,  
+                                    };
 
                                 if (Properties.Settings.Default.RecheckFace
                                     &&BackGround != null)
                                 {
                                     lock(this.bgLocker)
-                                        if (BackGroundComparer.IsFace(aFace.Img.CvPtr, BackGround.CvPtr, faceRect))
+                                        if (BackGroundComparer.IsFace(aFace.Img.CvPtr, BackGround.CvPtr, enlargedFaceRect))
                                             facesList.Add(aFace);
                                 }
                                 else
@@ -442,6 +448,43 @@ namespace RemoteImaging.RealtimeDisplay
 
                         ImageDetail[] imgs = this.SaveImage(tgArr);
                         this.screen.ShowImages(imgs);
+
+                        foreach (var t in tgArr)
+                        {
+                            foreach (var face in t.Faces)
+                            {
+                                IntPtr normalizeFace = IntPtr.Zero;
+
+                                NativeIconExtractor.NormalizeFace(
+                                    t.BaseFrame.image, 
+                                    ref normalizeFace, 
+                                    face.OriginalFace, 
+                                    0);
+
+                                IplImage normalIpl = new IplImage(normalizeFace);
+                                normalIpl.IsEnabledDispose = false;
+
+                                float[] imgData = NativeIconExtractor.ResizeIplTo(normalIpl, 20, 20, BitDepth.U8, 1);
+
+                                FaceRecognition.RecognizeResult result = new FaceRecognition.RecognizeResult();
+
+                                FaceRecognition.FaceRecognizer.Recognize(
+                                    ref imgData[0],
+                                    Program.ImageSampleCount,
+                                    ref result,
+                                    Program.ImageLen, Program.EigenNum);
+
+                                if (result.similarity > 0.6)
+                                {
+                                    Bitmap capturedFace = face.Img.ToBitmap();
+                                    Bitmap faceInLib = (Bitmap) Bitmap.FromFile(result.fileName);
+                                    screen.ShowFaceRecognitionResult(capturedFace, faceInLib, result.similarity);
+                                }
+
+
+
+                            }
+                        }
 
                     }
 

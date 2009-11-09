@@ -15,7 +15,7 @@ namespace FaceRecognition
 
 
         [DllImport(DllName, EntryPoint = "FaceRecognition")]
-        public static extern void FaceRecognition(
+        public static extern void Recognize(
             ref float currentFace, 
             int sampleCount, 
             ref RecognizeResult similarity, 

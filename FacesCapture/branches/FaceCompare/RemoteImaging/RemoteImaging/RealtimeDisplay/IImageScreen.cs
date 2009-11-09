@@ -33,6 +33,11 @@ namespace RemoteImaging.RealtimeDisplay
 
         void ShowImages(ImageDetail[] images);
 
+        void ShowFaceRecognitionResult(
+            System.Drawing.Image captured,
+            System.Drawing.Image fromLib,
+            float similarity);
+
         bool ShowProgress { set; }
         void StepProgress();
     }
