@@ -455,16 +455,17 @@ namespace RemoteImaging.RealtimeDisplay
             NativeIconExtractor.SetExRatio(topRatio,
                                     bottomRatio,
                                     leftRatio,
-                                    rightRatio);
+                                    rightRatio, 0);
 
             NativeIconExtractor.SetROI(SearchRectangle.Left,
                 SearchRectangle.Top,
                 SearchRectangle.Width - 1,
-                SearchRectangle.Height - 1);
+                SearchRectangle.Height - 1,
+                0);
 
-            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio, 0);
 
-            NativeIconExtractor.SetLightMode(envMode);
+            NativeIconExtractor.SetLightMode(envMode, 0);
         }
 
 

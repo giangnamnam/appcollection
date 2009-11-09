@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyGen", "KeyGen\KeyGen.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encryptor", "Encryptor\Encryptor.csproj", "{B377F693-4975-4BB6-A6DC-C0C3844517B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceRecognition", "FaceRecognition\FaceRecognition.csproj", "{21CE9F9A-5A38-437A-96C3-F1D7B7846734}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,16 @@ Global
 		{B377F693-4975-4BB6-A6DC-C0C3844517B1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B377F693-4975-4BB6-A6DC-C0C3844517B1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B377F693-4975-4BB6-A6DC-C0C3844517B1}.Release|Win32.ActiveCfg = Release|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

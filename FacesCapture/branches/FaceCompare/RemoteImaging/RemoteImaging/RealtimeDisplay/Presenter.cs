@@ -372,12 +372,12 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     for (int i = 0; i < frames.Length; ++i)
                     {
-                        NativeIconExtractor.AddInFrame(frames[i]);
+                        NativeIconExtractor.AddInFrame(frames[i], 0);
                     }
 
                     IntPtr target = IntPtr.Zero;
 
-                    int count = NativeIconExtractor.SearchFaces(ref target);
+                    int count = NativeIconExtractor.SearchFaces(ref target, 0);
                     if (count > 0)
                     {
                         Target* pTarget = (Target*)target;
@@ -446,7 +446,7 @@ namespace RemoteImaging.RealtimeDisplay
                     }
 
 
-                    NativeIconExtractor.ReleaseMem();
+                    NativeIconExtractor.ReleaseMem(0);
 
                     Array.ForEach(frames, f => Cv.Release(ref f.image));
                 }

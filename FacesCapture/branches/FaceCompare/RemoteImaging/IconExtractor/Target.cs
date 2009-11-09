@@ -21,5 +21,8 @@ namespace ImageProcess
 
         ///CvRect*
         public System.IntPtr CvRects;
+
+        //人脸比对新加的CvRect*
+        public System.IntPtr OrgCvRect;
     }
 }
