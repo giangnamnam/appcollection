@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSZN.Component", "JSZN.Component\JSZN.Component.csproj", "{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSZN.Net", "JSZN.Net\JSZN.Net.csproj", "{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{544B63DA-3FCB-411F-9163-54D3AAB878A6}"
+	ProjectSection(SolutionItems) = preProject
+		JSZNLibrary.vsmdi = JSZNLibrary.vsmdi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = JSZNLibrary.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DC56F4-DB48-4AF2-B1BE-6B944A81B293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE24702E-0C81-477E-B7EF-FD8DCFF46A04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
