@@ -40,6 +40,7 @@
             this.capturedFace.Location = new System.Drawing.Point(30, 24);
             this.capturedFace.Name = "capturedFace";
             this.capturedFace.Size = new System.Drawing.Size(188, 227);
+            this.capturedFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.capturedFace.TabIndex = 0;
             this.capturedFace.TabStop = false;
             // 
@@ -48,6 +49,7 @@
             this.faceInLibrary.Location = new System.Drawing.Point(310, 24);
             this.faceInLibrary.Name = "faceInLibrary";
             this.faceInLibrary.Size = new System.Drawing.Size(190, 225);
+            this.faceInLibrary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.faceInLibrary.TabIndex = 1;
             this.faceInLibrary.TabStop = false;
             // 
