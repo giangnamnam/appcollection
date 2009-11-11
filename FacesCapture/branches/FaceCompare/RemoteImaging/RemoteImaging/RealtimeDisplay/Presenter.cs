@@ -484,13 +484,30 @@ namespace RemoteImaging.RealtimeDisplay
                                                                         Program.ImageLen, Program.EigenNum);
                                 }
 
-                                
 
-                                if (results[0].similarity > 0.6)
+                                FaceRecognition.RecognizeResult maxSim
+                                    = new FaceRecognition.RecognizeResult();
+
+                                Array.ForEach(results, r => { if (r.similarity > maxSim.similarity)  maxSim = r; });
+                               
+                                if (maxSim.similarity > 0.7)
                                 {
                                     Bitmap capturedFace = face.Img.ToBitmap();
-                                    Bitmap faceInLib = (Bitmap) Bitmap.FromFile(results[0].fileName.ToString());
-                                    screen.ShowFaceRecognitionResult(capturedFace, faceInLib, results[0].similarity);
+
+                                    System.Diagnostics.Debug.Assert(maxSim.fileName != null);
+
+                                    string fName = maxSim.fileName;
+
+
+
+                                    int idx = fName.IndexOf('_');
+
+                                    string path = @"C:\faceRecognition\selectedFace\" + fName.Remove(idx, 5);
+
+                                    System.Diagnostics.Debug.Assert(System.IO.File.Exists(path));
+
+                                    Bitmap faceInLib = (Bitmap) Bitmap.FromFile(path);
+                                    screen.ShowFaceRecognitionResult(capturedFace, faceInLib, maxSim.similarity);
                                 }
 
 

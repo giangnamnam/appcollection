@@ -945,7 +945,7 @@ namespace RemoteImaging.RealtimeDisplay
         #region IImageScreen Members
 
 
-        public void ShowFaceRecognitionResult(Image captured, Image fromLib, float similarity)
+        private void ShowFaceRecognition(Image captured, Image fromLib, float similarity)
         {
             FaceRecognitionResult form = new FaceRecognitionResult();
             form.capturedFace.Image = captured;
@@ -953,6 +953,21 @@ namespace RemoteImaging.RealtimeDisplay
             form.similarity.Text = similarity.ToString();
 
             form.Show(this);
+        }
+        public void ShowFaceRecognitionResult(Image captured, Image fromLib, float similarity)
+        {
+            if (InvokeRequired)
+            {
+                Action<Image, Image, float> show = ShowFaceRecognition;
+
+                this.Invoke(show, captured, fromLib, similarity);
+            }
+            else
+            {
+                ShowFaceRecognition(captured, fromLib, similarity);
+            }
+
+
         }
 
         #endregion
