@@ -338,12 +338,13 @@ namespace RemoteImaging.RealtimeDisplay
         {
             diskSpaceCheckTimer.Enabled = true;
 
+            FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
+
 
             Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
 
             if (c == null) return;
 
-            FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
 
             this.StartCamera(c);
 

@@ -15,7 +15,8 @@ namespace FaceRecognition
 
         /// char*
         [MarshalAs(UnmanagedType.LPStr)]
-        public string fileName;
+        public String fileName;
+ 
     }
 
 }

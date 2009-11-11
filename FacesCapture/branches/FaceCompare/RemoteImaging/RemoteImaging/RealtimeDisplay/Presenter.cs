@@ -9,6 +9,7 @@ using System.Drawing;
 using OpenCvSharp;
 using System.Threading;
 using System.Diagnostics;
+using System.Text;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -466,19 +467,30 @@ namespace RemoteImaging.RealtimeDisplay
 
                                 float[] imgData = NativeIconExtractor.ResizeIplTo(normalIpl, 20, 20, BitDepth.U8, 1);
 
-                                FaceRecognition.RecognizeResult result = new FaceRecognition.RecognizeResult();
+                                FaceRecognition.RecognizeResult[] results = new
+                                     FaceRecognition.RecognizeResult[Program.ImageSampleCount];
 
-                                FaceRecognition.FaceRecognizer.Recognize(
-                                    ref imgData[0],
-                                    Program.ImageSampleCount,
-                                    ref result,
-                                    Program.ImageLen, Program.EigenNum);
+                                for (int i=0; i<results.Length; i++)
+                                {
+                                    //results[i].fileName = new StringBuilder(50);
+                                }
 
-                                if (result.similarity > 0.6)
+                                fixed(float *pImageData = &imgData[0])
+                                {
+                                    FaceRecognition.FaceRecognizer.Recognize(
+                                                                        imgData,
+                                                                        Program.ImageSampleCount,
+                                                                        results,
+                                                                        Program.ImageLen, Program.EigenNum);
+                                }
+
+                                
+
+                                if (results[0].similarity > 0.6)
                                 {
                                     Bitmap capturedFace = face.Img.ToBitmap();
-                                    Bitmap faceInLib = (Bitmap) Bitmap.FromFile(result.fileName);
-                                    screen.ShowFaceRecognitionResult(capturedFace, faceInLib, result.similarity);
+                                    Bitmap faceInLib = (Bitmap) Bitmap.FromFile(results[0].fileName.ToString());
+                                    screen.ShowFaceRecognitionResult(capturedFace, faceInLib, results[0].similarity);
                                 }
 
 
