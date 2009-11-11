@@ -470,10 +470,6 @@ namespace RemoteImaging.RealtimeDisplay
                                 FaceRecognition.RecognizeResult[] results = new
                                      FaceRecognition.RecognizeResult[Program.ImageSampleCount];
 
-                                for (int i=0; i<results.Length; i++)
-                                {
-                                    //results[i].fileName = new StringBuilder(50);
-                                }
 
                                 fixed(float *pImageData = &imgData[0])
                                 {
@@ -497,8 +493,6 @@ namespace RemoteImaging.RealtimeDisplay
                                     System.Diagnostics.Debug.Assert(maxSim.fileName != null);
 
                                     string fName = maxSim.fileName;
-
-
 
                                     int idx = fName.IndexOf('_');
 
