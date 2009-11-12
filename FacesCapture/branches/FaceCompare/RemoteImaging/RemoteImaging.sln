@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encryptor", "Encryptor\Encr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceRecognition", "FaceRecognition\FaceRecognition.csproj", "{21CE9F9A-5A38-437A-96C3-F1D7B7846734}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceSearchWrapper", "FaceSearchWrapper\FaceSearchWrapper.vcproj", "{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,16 @@ Global
 		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{21CE9F9A-5A38-437A-96C3-F1D7B7846734}.Release|Win32.ActiveCfg = Release|Any CPU
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Debug|Win32.Build.0 = Debug|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Release|Any CPU.ActiveCfg = Release|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Release|Win32.ActiveCfg = Release|Win32
+		{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
