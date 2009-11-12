@@ -455,20 +455,23 @@ namespace RemoteImaging.RealtimeDisplay
             float maxFaceWidthRatio,
             Rectangle SearchRectangle)
         {
-            NativeIconExtractor.SetExRatio(topRatio,
+            Program.faceSearch.SetExRatio(topRatio,
                                     bottomRatio,
                                     leftRatio,
-                                    rightRatio, 0);
+                                    rightRatio);
 
-            NativeIconExtractor.SetROI(SearchRectangle.Left,
+
+            Program.faceSearch.SetROI(SearchRectangle.Left,
                 SearchRectangle.Top,
                 SearchRectangle.Width - 1,
-                SearchRectangle.Height - 1,
-                0);
+                SearchRectangle.Height - 1
+                );
 
-            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio, 0);
 
-            NativeIconExtractor.SetLightMode(envMode, 0);
+            Program.faceSearch.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+
+
+            Program.faceSearch.SetLightMode(envMode);
         }
 
 
@@ -563,18 +566,18 @@ namespace RemoteImaging.RealtimeDisplay
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                SetupExtractor(setting.EnvMode,
-                    float.Parse(setting.IconLeftExtRatio),
-                    float.Parse(setting.IconRightExtRatio),
-                    float.Parse(setting.IconTopExtRatio),
-                    float.Parse(setting.IconBottomExtRatio),
-                    minFaceWidth,
-                    ratio,
-                    new Rectangle(int.Parse(setting.SrchRegionLeft),
-                                    int.Parse(setting.SrchRegionTop),
-                                    int.Parse(setting.SrchRegionWidth),
-                                    int.Parse(setting.SrchRegionHeight))
-                               );
+//                 SetupExtractor(setting.EnvMode,
+//                     float.Parse(setting.IconLeftExtRatio),
+//                     float.Parse(setting.IconRightExtRatio),
+//                     float.Parse(setting.IconTopExtRatio),
+//                     float.Parse(setting.IconBottomExtRatio),
+//                     minFaceWidth,
+//                     ratio,
+//                     new Rectangle(int.Parse(setting.SrchRegionLeft),
+//                                     int.Parse(setting.SrchRegionTop),
+//                                     int.Parse(setting.SrchRegionWidth),
+//                                     int.Parse(setting.SrchRegionHeight))
+//                                );
                 StartSetCam(setting);
             }
 

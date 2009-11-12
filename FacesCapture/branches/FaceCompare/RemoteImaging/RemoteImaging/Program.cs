@@ -15,12 +15,16 @@ namespace RemoteImaging
         public static int ImageLen = 400;
         public static int EigenNum = 40;
 
+        public static FaceSearchWrapper.FaceSearch faceSearch;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] argv)
         {
+            faceSearch = new FaceSearchWrapper.FaceSearch();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -47,6 +51,9 @@ namespace RemoteImaging
             Application.Run(new MainForm());
 
         }
+
+
+        
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
         {

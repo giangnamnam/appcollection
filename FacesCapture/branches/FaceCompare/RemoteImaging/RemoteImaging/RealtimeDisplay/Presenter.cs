@@ -37,7 +37,7 @@ namespace RemoteImaging.RealtimeDisplay
 
 
         private IplImage _BackGround;
-        public  IplImage BackGround
+        public IplImage BackGround
         {
             get
             {
@@ -54,13 +54,13 @@ namespace RemoteImaging.RealtimeDisplay
         {
             byte[] imgData = null;
             lock (this.camLocker)
-                 imgData = this.camera.CaptureImageBytes();
+                imgData = this.camera.CaptureImageBytes();
 
             Image img = Image.FromStream(new MemoryStream(imgData));
 
             lock (this.bgLocker)
-                this.BackGround = BitmapConverter.ToIplImage((Bitmap) img);
-        		 
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
+
             img.Save("BG.jpg");
         }
 
@@ -189,12 +189,14 @@ namespace RemoteImaging.RealtimeDisplay
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;
-            f.image = IntPtr.Zero;
             f.cameraID = 2;
 
             IplImage ipl = BitmapConverter.ToIplImage(bmp);
             ipl.IsEnabledDispose = false;
-            f.image = ipl.CvPtr;
+            f.image = ipl;
+
+            System.Diagnostics.Debug.Assert(f.image.CvPtr != IntPtr.Zero);
+            
 
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
@@ -204,7 +206,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private Frame GetNewFrame()
         {
-            Frame newFrame = new Frame();
+            Frame newFrame = null;
 
             lock (this.rawFrameLocker)
             {
@@ -219,26 +221,29 @@ namespace RemoteImaging.RealtimeDisplay
 
         private static bool IsStaticFrame(Frame aFrame)
         {
-            return aFrame.image != null
-                    && (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
+            return (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
         }
 
         private void DetectMotion()
         {
+            int count = 0;
             while (true)
             {
                 Frame newFrame = GetNewFrame();
-                if (newFrame.image != IntPtr.Zero)
+                if (newFrame != null)
                 {
-                    Frame frameToProcess = new Frame();
+                    Frame frameToProcess = newFrame;
 
-                    bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    bool groupCaptured = true; // MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+
+                    frameToProcess.searchRect.Width = frameToProcess.image.Width;
+                    frameToProcess.searchRect.Height = frameToProcess.image.Height;
 
                     Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
                     if (IsStaticFrame(frameToProcess))
                     {
-                        Cv.Release(ref frameToProcess.image);
+                        frameToProcess.image.Dispose();
                     }
                     else
                     {
@@ -272,9 +277,9 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame f = this.GetNewFrame();
 
-                if (f.image != IntPtr.Zero)
+                if (f.image != null)
                 {
-                    IplImage ipl = new IplImage(f.image);
+                    IplImage ipl = f.image;
                     ipl.IsEnabledDispose = false;
                     f.searchRect.Width = ipl.Width;
                     f.searchRect.Height = ipl.Height;
@@ -329,11 +334,11 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        unsafe ImageDetail[] SaveImage(ManagedTarget[] targets)
+        ImageDetail[] SaveImage(Target[] targets)
         {
             IList<ImageDetail> imgs = new List<ImageDetail>();
 
-            foreach (ManagedTarget t in targets)
+            foreach (Target t in targets)
             {
                 Frame frame = t.BaseFrame;
 
@@ -342,7 +347,7 @@ namespace RemoteImaging.RealtimeDisplay
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
                     string facePath = FileSystemStorage.GetFacePath(frame, dt, j);
-                    t.Faces[j].Img.SaveImage(facePath);
+                    t.Faces[j].SaveImage(facePath);
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
 
@@ -356,168 +361,113 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        unsafe void SearchFace()
+        void SearchFace()
         {
             while (true)
             {
-                Frame[] frames = null;
-                lock (locker)
+                try
                 {
-                    if (framesQueue.Count > 0)
+                    Frame[] frames = null;
+                    lock (locker)
                     {
-                        frames = framesQueue.Dequeue();
-                    }
-                }
-
-                if (frames != null)
-                {
-                    for (int i = 0; i < frames.Length; ++i)
-                    {
-                        NativeIconExtractor.AddInFrame(frames[i], 0);
+                        if (framesQueue.Count > 0)
+                        {
+                            frames = framesQueue.Dequeue();
+                        }
                     }
 
-                    IntPtr target = IntPtr.Zero;
-
-                    int count = NativeIconExtractor.SearchFaces(ref target, 0);
-                    if (count > 0)
+                    if (frames != null && frames.Length > 0)
                     {
-                        Target* pTarget = (Target*)target;
-
-                        IList<ManagedTarget> targets = new List<ManagedTarget>();
-
-                        int upLimit = count;
-
-                        if (frames.Length > 1 && Properties.Settings.Default.DetectMotion
-                            && Properties.Settings.Default.removeDuplicatedFace)
+                        foreach (var f in frames)
                         {
-                            upLimit = Math.Min(count, Properties.Settings.Default.MaxDupFaces);
+                            Program.faceSearch.AddInFrame(f);
                         }
 
-                        for (int i = 0; i < upLimit; i++)
-                        {
-                            Target faceWithFrame = pTarget[i];
+                        IntPtr target = IntPtr.Zero;
 
-                            IList<Face> facesList = new List<Face>();
+                        ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
 
-                            for (int j = 0; j < faceWithFrame.FaceCount; ++j)
-                            {
-
-                                IntPtr* faceImgData = ((IntPtr*)(faceWithFrame.FaceData)) + j;
-                                IplImage aFaceImg = new IplImage(*faceImgData);
-                                aFaceImg.IsEnabledDispose = false;
-
-                                CvRect* pEnlargedFaceBounds = (CvRect*)faceWithFrame.CvRects;
-                                CvRect* pOriginalFaceRect = (CvRect*) faceWithFrame.OrgCvRect;
-                                CvRect enlargedFaceRect = pEnlargedFaceBounds[j];
-                                CvRect originalFaceRect = pOriginalFaceRect[j];
-
-                                System.Diagnostics.Debug.WriteLine(enlargedFaceRect);
-
-                                Face aFace = new Face{ 
-                                    EnlargedFace = enlargedFaceRect,
-                                    OriginalFace = originalFaceRect,
-                                    Img = aFaceImg,  
-                                    };
-
-                                if (Properties.Settings.Default.RecheckFace
-                                    &&BackGround != null)
-                                {
-                                    lock(this.bgLocker)
-                                        if (BackGroundComparer.IsFace(aFace.Img.CvPtr, BackGround.CvPtr, enlargedFaceRect))
-                                            facesList.Add(aFace);
-                                }
-                                else
-                                    facesList.Add(aFace);
-                                    
-                            }
-
-                            Face[] faceArray = new Face[facesList.Count];
-                            facesList.CopyTo(faceArray, 0);
-
-                            ManagedTarget t = new ManagedTarget()
-                            {
-                                BaseFrame = faceWithFrame.BaseFrame,
-                                Faces = faceArray
-                            };
-
-                            targets.Add(t);
-                        }
-
-                        ManagedTarget[] tgArr = new ManagedTarget[targets.Count];
-
-                        targets.CopyTo(tgArr, 0);
-
-                        ImageDetail[] imgs = this.SaveImage(tgArr);
+                        ImageDetail[] imgs = this.SaveImage(targets);
                         this.screen.ShowImages(imgs);
 
-                        foreach (var t in tgArr)
+
+                        Array.ForEach(frames, f => {IntPtr cvPtr = f.image.CvPtr;  OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
+                        Array.ForEach(targets, t =>
                         {
-                            foreach (var face in t.Faces)
-                            {
-                                IntPtr normalizeFace = IntPtr.Zero;
-
-                                NativeIconExtractor.NormalizeFace(
-                                    t.BaseFrame.image, 
-                                    ref normalizeFace, 
-                                    face.OriginalFace, 
-                                    0);
-
-                                IplImage normalIpl = new IplImage(normalizeFace);
-                                normalIpl.IsEnabledDispose = false;
-
-                                float[] imgData = NativeIconExtractor.ResizeIplTo(normalIpl, 20, 20, BitDepth.U8, 1);
-
-                                FaceRecognition.RecognizeResult[] results = new
-                                     FaceRecognition.RecognizeResult[Program.ImageSampleCount];
-
-
-                                fixed(float *pImageData = &imgData[0])
-                                {
-                                    FaceRecognition.FaceRecognizer.Recognize(
-                                                                        imgData,
-                                                                        Program.ImageSampleCount,
-                                                                        results,
-                                                                        Program.ImageLen, Program.EigenNum);
-                                }
-
-
-                                FaceRecognition.RecognizeResult maxSim
-                                    = new FaceRecognition.RecognizeResult();
-
-                                Array.ForEach(results, r => { if (r.similarity > maxSim.similarity)  maxSim = r; });
-                               
-                                if (maxSim.similarity > 0.7)
-                                {
-                                    Bitmap capturedFace = face.Img.ToBitmap();
-
-                                    System.Diagnostics.Debug.Assert(maxSim.fileName != null);
-
-                                    string fName = maxSim.fileName;
-
-                                    int idx = fName.IndexOf('_');
-
-                                    string path = @"C:\faceRecognition\selectedFace\" + fName.Remove(idx, 5);
-
-                                    System.Diagnostics.Debug.Assert(System.IO.File.Exists(path));
-
-                                    Bitmap faceInLib = (Bitmap) Bitmap.FromFile(path);
-                                    screen.ShowFaceRecognitionResult(capturedFace, faceInLib, maxSim.similarity);
-                                }
-
-
-
-                            }
-                        }
-
+                            Array.ForEach(t.Faces, ipl => ipl.Dispose());
+                            t.BaseFrame.image.Dispose();
+                        });
                     }
-
-
-                    NativeIconExtractor.ReleaseMem(0);
-
-                    Array.ForEach(frames, f => Cv.Release(ref f.image));
+                    else
+                        goSearch.WaitOne();
                 }
-                else
-                    goSearch.WaitOne();
+
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("exception");
+                }
+
+
+                //                    foreach (var t in targets)
+                //                     {
+                //                         foreach (var face in t.Faces)
+                //                         {
+                //                             IntPtr normalizeFace = IntPtr.Zero;
+                // 
+                //                             NativeIconExtractor.NormalizeFace(
+                //                                 t.BaseFrame.image,
+                //                                 ref normalizeFace,
+                //                                 face.OriginalFace,
+                //                                 0);
+                // 
+                //                             IplImage normalIpl = new IplImage(normalizeFace);
+                //                             normalIpl.IsEnabledDispose = false;
+                // 
+                //                             float[] imgData = NativeIconExtractor.ResizeIplTo(normalIpl, 20, 20, BitDepth.U8, 1);
+                // 
+                //                             FaceRecognition.RecognizeResult[] results = new
+                //                                  FaceRecognition.RecognizeResult[Program.ImageSampleCount];
+                // 
+                // 
+                //                             fixed (float* pImageData = &imgData[0])
+                //                             {
+                //                                 FaceRecognition.FaceRecognizer.Recognize(
+                //                                                                     imgData,
+                //                                                                     Program.ImageSampleCount,
+                //                                                                     results,
+                //                                                                     Program.ImageLen, Program.EigenNum);
+                //                             }
+                // 
+                // 
+                //                             FaceRecognition.RecognizeResult maxSim
+                //                                 = new FaceRecognition.RecognizeResult();
+                // 
+                //                             Array.ForEach(results, r => { if (r.similarity > maxSim.similarity)  maxSim = r; });
+                // 
+                //                             if (maxSim.similarity > 0.7)
+                //                             {
+                //                                 Bitmap capturedFace = face.Img.ToBitmap();
+                // 
+                //                                 System.Diagnostics.Debug.Assert(maxSim.fileName != null);
+                // 
+                //                                 string fName = maxSim.fileName;
+                // 
+                //                                 int idx = fName.IndexOf('_');
+                // 
+                //                                 string path = @"C:\faceRecognition\selectedFace\" + fName.Remove(idx, 5);
+                // 
+                //                                 System.Diagnostics.Debug.Assert(System.IO.File.Exists(path));
+                // 
+                //                                 Bitmap faceInLib = (Bitmap)Bitmap.FromFile(path);
+                //                                 screen.ShowFaceRecognitionResult(capturedFace, faceInLib, maxSim.similarity);
+                //                             }
+                // 
+                //                         }
+                //                     }
+
+
+
+
             }
         }
 

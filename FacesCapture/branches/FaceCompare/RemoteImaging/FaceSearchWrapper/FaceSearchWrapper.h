@@ -11,32 +11,6 @@ using namespace System::Runtime::InteropServices;
 namespace FaceSearchWrapper {
 
 
-	public ref class ManagedFrame
-	{
-	public:
-		byte cameraID;
-
-		OpenCvSharp::IplImage^ image;
-
-		OpenCvSharp::CvRect^ searchRect;
-
-		long timeStamp;
-	};
-
-
-	public ref class ManagedTarget
-	{
-	public:
-		OpenCvSharp::IplImage^ BaseFrame;
-
-		array<OpenCvSharp::IplImage^>^ Faces;
-
-		array<OpenCvSharp::CvRect^>^ EnlargedFaceRect;
-
-		array<OpenCvSharp::CvRect^>^ OriginalFaceRect;
-	};
-
-
 
 	public ref class FaceSearch
 	{
@@ -72,7 +46,6 @@ namespace FaceSearchWrapper {
 
 		void SetOutputDir( const char* dir )
 		{
-
 			pFaceSearch->SetOutputDir(dir);
 		}
 
@@ -89,52 +62,85 @@ namespace FaceSearchWrapper {
 			pFaceSearch->SetLightMode(iMode);
 		}
 
-		void AddInFrame(ManagedFrame^ frame)
+		void AddInFrame(ImageProcess::Frame^ frame)
 		{
-			IntPtr pFrameIntptr = Marshal::AllocHGlobal(Marshal::SizeOf(frame));
-			Marshal::StructureToPtr(frame, pFrameIntptr, true);
 
-			Frame *pFrame = (Frame *) pFrameIntptr.ToPointer();
+			Frame frm;
 
-			pFaceSearch->AddInFrame(*pFrame);
+			frm.cameraID = frame->cameraID;
+			frm.image = (::IplImage *) frame->image->CvPtr.ToPointer();
 
-			Marshal::FreeHGlobal(pFrameIntptr);
+			frm.searchRect.x = frame->searchRect.X;
+			frm.searchRect.y = frame->searchRect.Y;
+			frm.searchRect.width = frame->searchRect.Width;
+			frm.searchRect.height = frame->searchRect.Height;
+
+			frm.timeStamp = frame->timeStamp;
+
+
+			pFaceSearch->AddInFrame(frm);
+
 
 		}
 
-		array<ManagedTarget^>^ SearchFaces()
+		array<ImageProcess::Target^>^ SearchFaces()
 		{
+
 			::Target *pFacesFound = NULL;
 
 			int faceGroupCount = pFaceSearch->SearchFaces(&pFacesFound);
 
-			array<ManagedTarget^>^ mtArray = gcnew array<ManagedTarget^>(faceGroupCount);
+			System::Diagnostics::Debug::WriteLine("after search in wrapper");
+
+			array<ImageProcess::Target^>^ mtArray = gcnew array<ImageProcess::Target^>(faceGroupCount);
 
 			for (int i=0; i<faceGroupCount; ++i)
 			{
-				mtArray[i]->BaseFrame = gcnew OpenCvSharp::IplImage( (IntPtr) pFacesFound->BaseFrame.image);
+				mtArray[i] = gcnew ImageProcess::Target;
+
+			    mtArray[i]->BaseFrame = gcnew ImageProcess::Frame;
+				Frame unmanagedBaseFrame = pFacesFound[i].BaseFrame;
+
+				mtArray[i]->BaseFrame->cameraID = pFacesFound[i].BaseFrame.cameraID;
+				mtArray[i]->BaseFrame->image = gcnew OpenCvSharp::IplImage( (IntPtr) unmanagedBaseFrame.image  );
+
+				mtArray[i]->BaseFrame->image->IsEnabledDispose = false;
+
+ 				mtArray[i]->BaseFrame->searchRect.X = unmanagedBaseFrame.searchRect.x;
+				mtArray[i]->BaseFrame->searchRect.Y = unmanagedBaseFrame.searchRect.y;
+				mtArray[i]->BaseFrame->searchRect.Width = unmanagedBaseFrame.searchRect.width;
+				mtArray[i]->BaseFrame->searchRect.Height = unmanagedBaseFrame.searchRect.height;
+
+ 			    mtArray[i]->BaseFrame->timeStamp = unmanagedBaseFrame.timeStamp;
+
 
 				int facesCount = pFacesFound[i].FaceCount;
 
-				mtArray[i]->EnlargedFaceRect = gcnew array<OpenCvSharp::CvRect^>(facesCount);
-				mtArray[i]->OriginalFaceRect = gcnew array<OpenCvSharp::CvRect^>(facesCount);
+
+				mtArray[i]->Faces = gcnew array<OpenCvSharp::IplImage^>(facesCount);
+				mtArray[i]->FacesRects  = gcnew array<OpenCvSharp::CvRect>(facesCount);
+				mtArray[i]->FacesRectsForCompare = gcnew array<OpenCvSharp::CvRect>(facesCount);
 
 				for (int j=0; j<facesCount; ++j)
 				{
-					mtArray[i]->EnlargedFaceRect[j] = 
-						gcnew OpenCvSharp::CvRect(pFacesFound[i].FaceRects[j].x,
-												  pFacesFound[i].FaceRects[j].y,
-												  pFacesFound[i].FaceRects[j].width,
-												  pFacesFound[i].FaceRects[j].height);
+
+					mtArray[i]->Faces[j] = gcnew OpenCvSharp::IplImage( (IntPtr) pFacesFound[i].FaceData[j] );
+
+					mtArray[i]->Faces[j]->IsEnabledDispose = false;
+
+					mtArray[i]->FacesRects[j] = 
+						OpenCvSharp::CvRect(pFacesFound[i].FaceRects[j].x,
+ 											      pFacesFound[i].FaceRects[j].y,
+ 												  pFacesFound[i].FaceRects[j].width,
+ 												  pFacesFound[i].FaceRects[j].height);
 						
 				}
 				
 			}
 
-			pFaceSearch->ReleaseTargets();
-
 			return mtArray;
 		}
+
 
 
 	private:

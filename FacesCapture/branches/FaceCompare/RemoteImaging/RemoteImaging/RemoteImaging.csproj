@@ -56,6 +56,14 @@
     <Reference Include="DevExpress.XtraTreeList.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraVerticalGrid.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="FaceSearchWrapper, Version=1.0.3603.31485, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\FaceSearchWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
+    </Reference>
     <Reference Include="JSZN.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="MyControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -326,10 +334,6 @@
     <ProjectReference Include="..\FaceRecognition\FaceRecognition.csproj">
       <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
       <Name>FaceRecognition</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
-      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
-      <Name>ImageProcessing</Name>
     </ProjectReference>
     <ProjectReference Include="..\MotionDetect\MotionDetect.csproj">
       <Project>{408A61BC-629F-4A57-80BE-7D18825BF5B2}</Project>
