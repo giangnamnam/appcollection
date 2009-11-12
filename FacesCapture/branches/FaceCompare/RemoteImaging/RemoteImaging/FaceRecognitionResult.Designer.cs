@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.capturedFace = new System.Windows.Forms.PictureBox();
             this.faceInLibrary = new System.Windows.Forms.PictureBox();
             this.similarity = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.capturedFace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.faceInLibrary)).BeginInit();
             this.SuspendLayout();
@@ -62,6 +64,10 @@
             this.similarity.TabIndex = 2;
             this.similarity.Text = "label1";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 5000;
+            // 
             // FaceRecognitionResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -71,7 +77,10 @@
             this.Controls.Add(this.faceInLibrary);
             this.Controls.Add(this.capturedFace);
             this.Name = "FaceRecognitionResult";
+            this.ShowInTaskbar = false;
             this.Text = "FaceRecognitionResult";
+            this.Load += new System.EventHandler(this.FaceRecognitionResult_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FaceRecognitionResult_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.capturedFace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.faceInLibrary)).EndInit();
             this.ResumeLayout(false);
@@ -84,6 +93,7 @@
         public System.Windows.Forms.PictureBox capturedFace;
         public System.Windows.Forms.PictureBox faceInLibrary;
         public System.Windows.Forms.Label similarity;
+        private System.Windows.Forms.Timer timer1;
 
     }
 }
