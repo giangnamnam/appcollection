@@ -16,6 +16,7 @@ namespace RemoteImaging
         public static int EigenNum = 40;
 
         public static FaceSearchWrapper.FaceSearch faceSearch;
+        public static MotionDetectWrapper.MotionDetector motionDetector;
 
         /// <summary>
         /// The main entry point for the application.
@@ -24,6 +25,7 @@ namespace RemoteImaging
         static void Main(string[] argv)
         {
             faceSearch = new FaceSearchWrapper.FaceSearch();
+            motionDetector = new MotionDetectWrapper.MotionDetector();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

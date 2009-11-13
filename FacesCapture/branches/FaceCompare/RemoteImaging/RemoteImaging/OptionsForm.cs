@@ -8,7 +8,6 @@ using System.Xml.Linq;
 
 using System.Timers;
 using System.Runtime.InteropServices;
-using MotionDetect;
 
 namespace RemoteImaging
 {
@@ -171,7 +170,7 @@ namespace RemoteImaging
             Properties.Settings.Default.ImageArr =Convert.ToInt32(cbImageArr.Text.Trim());
             Properties.Settings.Default.Thresholding =Convert.ToInt32(cbThresholding.Text.Trim());
 
-            MotionDetect.MotionDetect.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+            Program.motionDetector.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
             
         }
 

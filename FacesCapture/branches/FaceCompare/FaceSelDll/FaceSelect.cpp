@@ -192,11 +192,11 @@ void CFaceSelect::AddInImage(const char* strFileName)
 
 bool CFaceSelect::AddInImage( IplImage *pImg, CvRect roi )
 {
-	if( !pImg ) return false;
+	assert(pImg != NULL);
 	
 	IplImage *pImage = 0;	
 	pImage = cvCloneImage( pImg );
-	if( !pImage ) return false;//处理载入失败的情况
+	assert(pImage != NULL);//处理载入失败的情况
 	m_rcROI = roi;
 
 	//bool bNormROI = false;

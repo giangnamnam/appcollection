@@ -16,7 +16,6 @@ using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
-using MotionDetect;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -63,11 +62,11 @@ namespace RemoteImaging.RealtimeDisplay
             //StartSetCam(setting);//根据光亮值设置相机
 
             SetMonitor();//启动布控
-            MotionDetect.MotionDetect.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
+            Program.motionDetector.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
 
             InitStatusBar();
 
-            MotionDetect.MotionDetect.SetDrawRect(setting.DrawMotionRect);
+            Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
 
             float left = float.Parse(setting.IconLeftExtRatio);
             float top = float.Parse(setting.IconTopExtRatio);
@@ -107,7 +106,7 @@ namespace RemoteImaging.RealtimeDisplay
                 int oPointy = Convert.ToInt32(strPoints[1]);
                 int tPointx = Convert.ToInt32(strPoints[2]);
                 int tPointy = Convert.ToInt32(strPoints[3]);
-                MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
+                Program.motionDetector.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
             }
         }
 

@@ -77,9 +77,7 @@ namespace FaceSearchWrapper {
 
 			frm.timeStamp = frame->timeStamp;
 
-
 			pFaceSearch->AddInFrame(frm);
-
 
 		}
 

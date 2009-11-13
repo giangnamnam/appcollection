@@ -4,7 +4,6 @@ using System.IO;
 using ImageProcess;
 using RemoteImaging.Core;
 using JSZN.Component;
-using MotionDetect;
 using System.Drawing;
 using OpenCvSharp;
 using System.Threading;
@@ -196,7 +195,7 @@ namespace RemoteImaging.RealtimeDisplay
             f.image = ipl;
 
             System.Diagnostics.Debug.Assert(f.image.CvPtr != IntPtr.Zero);
-            
+
 
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
@@ -221,7 +220,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private static bool IsStaticFrame(Frame aFrame)
         {
-            return (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
+            return aFrame.image == null ||
+                (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
         }
 
         private void DetectMotion()
@@ -229,26 +229,27 @@ namespace RemoteImaging.RealtimeDisplay
             int count = 0;
             while (true)
             {
-                Frame newFrame = GetNewFrame();
-                if (newFrame != null)
+                Frame nextFrame = GetNewFrame();
+                if (nextFrame != null)
                 {
-                    Frame frameToProcess = newFrame;
+                    Frame lastFrame = new Frame();
 
-                    bool groupCaptured = true; // MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    bool groupCaptured = Program.motionDetector.DetectFrame(nextFrame, lastFrame);
 
-                    frameToProcess.searchRect.Width = frameToProcess.image.Width;
-                    frameToProcess.searchRect.Height = frameToProcess.image.Height;
 
-                    Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
-
-                    if (IsStaticFrame(frameToProcess))
+                    if (IsStaticFrame(lastFrame))
                     {
-                        frameToProcess.image.Dispose();
+                        if (lastFrame.image != null)
+                        {
+                            lastFrame.image.IsEnabledDispose = true;
+                            lastFrame.image.Dispose();
+                        }
+
                     }
                     else
                     {
-                        FileSystemStorage.SaveFrame(frameToProcess);
-                        motionFrames.Enqueue(frameToProcess);
+                        FileSystemStorage.SaveFrame(lastFrame);
+                        motionFrames.Enqueue(lastFrame);
                     }
 
                     if (groupCaptured)
@@ -391,7 +392,7 @@ namespace RemoteImaging.RealtimeDisplay
                         this.screen.ShowImages(imgs);
 
 
-                        Array.ForEach(frames, f => {IntPtr cvPtr = f.image.CvPtr;  OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
+                        Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
                         Array.ForEach(targets, t =>
                         {
                             Array.ForEach(t.Faces, ipl => ipl.Dispose());
