@@ -218,6 +218,26 @@ private:
 	int m_nTotalValidImages;
 	void ReleaseTargets( Target* &targets, int &nCnt );
 //End -- 20090716 Defined Interface
+
+
+//20090929 Add for Face Recognition Research
+public:
+	bool FaceImagePreprocess( IplImage* imgIn, IplImage* &imgNorm, CvRect roi = cvRect(0,0,0,0) );
+	bool FaceImagePreprocess_ForTrain( IplImage* imgIn, ImageArray &normImages, CvRect roi = cvRect(0,0,0,0) );
+	void ReleaseImageArray( ImageArray &images )
+	{
+		images.nImageCount = 0;
+		delete[] images.imageArr;
+		images.imageArr = 0;
+	}
+	void DrawRectCenter( IplImage* img, CvRect roi );
+	bool SubImageRotate_Ver1( IplImage* src, CvRect roi, IplImage* &dst, double angle );//has some problem, may rotate more angle
+	bool SubImageRotate( IplImage* src, CvRect roi, IplImage* &dstImage, float radians );//Rotate Clockwisely
+	IplImage* Rotate( IplImage* src , float radians );
+	bool SearchLREyes( CvSeq* leyes, CvSeq* reyes, CvRect* &leye_best, CvRect* &reye_best );
+	bool CheckImageROI( IplImage* img, CvRect roi );
+	void FaceReDraw(IplImage *pImage, CvRect *rRealFace);
+//End -- 20090929 Add for Face Recognition Research
 };
 
 #endif
