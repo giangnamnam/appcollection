@@ -384,18 +384,19 @@ namespace RemoteImaging.RealtimeDisplay
                             Program.faceSearch.AddInFrame(f);
                         }
 
-                        IntPtr target = IntPtr.Zero;
 
                         ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
 
                         ImageDetail[] imgs = this.SaveImage(targets);
                         this.screen.ShowImages(imgs);
 
+                        DetectSuspecious(targets);
+
 
                         Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
                         Array.ForEach(targets, t =>
                         {
-                            Array.ForEach(t.Faces, ipl => ipl.Dispose());
+                            Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
                             t.BaseFrame.image.Dispose();
                         });
                     }
@@ -407,72 +408,57 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     System.Diagnostics.Debug.WriteLine("exception");
                 }
-
-
-                //                    foreach (var t in targets)
-                //                     {
-                //                         foreach (var face in t.Faces)
-                //                         {
-                //                             IntPtr normalizeFace = IntPtr.Zero;
-                // 
-                //                             NativeIconExtractor.NormalizeFace(
-                //                                 t.BaseFrame.image,
-                //                                 ref normalizeFace,
-                //                                 face.OriginalFace,
-                //                                 0);
-                // 
-                //                             IplImage normalIpl = new IplImage(normalizeFace);
-                //                             normalIpl.IsEnabledDispose = false;
-                // 
-                //                             float[] imgData = NativeIconExtractor.ResizeIplTo(normalIpl, 20, 20, BitDepth.U8, 1);
-                // 
-                //                             FaceRecognition.RecognizeResult[] results = new
-                //                                  FaceRecognition.RecognizeResult[Program.ImageSampleCount];
-                // 
-                // 
-                //                             fixed (float* pImageData = &imgData[0])
-                //                             {
-                //                                 FaceRecognition.FaceRecognizer.Recognize(
-                //                                                                     imgData,
-                //                                                                     Program.ImageSampleCount,
-                //                                                                     results,
-                //                                                                     Program.ImageLen, Program.EigenNum);
-                //                             }
-                // 
-                // 
-                //                             FaceRecognition.RecognizeResult maxSim
-                //                                 = new FaceRecognition.RecognizeResult();
-                // 
-                //                             Array.ForEach(results, r => { if (r.similarity > maxSim.similarity)  maxSim = r; });
-                // 
-                //                             if (maxSim.similarity > 0.7)
-                //                             {
-                //                                 Bitmap capturedFace = face.Img.ToBitmap();
-                // 
-                //                                 System.Diagnostics.Debug.Assert(maxSim.fileName != null);
-                // 
-                //                                 string fName = maxSim.fileName;
-                // 
-                //                                 int idx = fName.IndexOf('_');
-                // 
-                //                                 string path = @"C:\faceRecognition\selectedFace\" + fName.Remove(idx, 5);
-                // 
-                //                                 System.Diagnostics.Debug.Assert(System.IO.File.Exists(path));
-                // 
-                //                                 Bitmap faceInLib = (Bitmap)Bitmap.FromFile(path);
-                //                                 screen.ShowFaceRecognitionResult(capturedFace, faceInLib, maxSim.similarity);
-                //                             }
-                // 
-                //                         }
-                //                     }
-
-
-
-
             }
         }
 
 
+        private void DetectSuspecious(Target[] targets)
+        {
+            foreach (var t in targets)
+            {
+                for (int i = 0; i < t.Faces.Length; ++i)
+                {
+
+                    IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
+
+                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 20, 20, BitDepth.U8, 1);
+
+                    FaceRecognition.RecognizeResult[] results = new
+                         FaceRecognition.RecognizeResult[Program.ImageSampleCount];
+
+
+                    FaceRecognition.FaceRecognizer.Recognize(
+                                                            imgData,
+                                                            Program.ImageSampleCount,
+                                                            results,
+                                                            Program.ImageLen, Program.EigenNum);
+
+                    FaceRecognition.RecognizeResult maxSim
+                        = new FaceRecognition.RecognizeResult();
+
+                    Array.ForEach(results, r => { if (r.similarity > maxSim.similarity)  maxSim = r; });
+
+                    if (maxSim.similarity > 0.7)
+                    {
+                        Bitmap capturedFace = t.Faces[i].ToBitmap();
+
+                        System.Diagnostics.Debug.Assert(maxSim.fileName != null);
+
+                        string fName = maxSim.fileName;
+
+                        int idx = fName.IndexOf('_');
+
+                        string path = @"C:\faceRecognition\selectedFace\" + fName.Remove(idx, 5);
+
+                        System.Diagnostics.Debug.Assert(System.IO.File.Exists(path));
+
+                        Bitmap faceInLib = (Bitmap)Bitmap.FromFile(path);
+                        screen.ShowFaceRecognitionResult(capturedFace, faceInLib, maxSim.similarity);
+                    }
+
+                }
+            }
+        }
         #region IImageScreenObserver Members
 
         public void SelectedCameraChanged()

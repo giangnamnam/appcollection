@@ -4,7 +4,6 @@
 #include "../../OutPut/FaceSellDll/FaceSelect.h"
 
 using namespace System;
-using namespace OpenCvSharp;
 using namespace System::Runtime::InteropServices;
 
 
@@ -140,8 +139,58 @@ namespace FaceSearchWrapper {
 		}
 
 
+		OpenCvSharp::IplImage^ NormalizeImage(OpenCvSharp::IplImage^ imgIn, OpenCvSharp::CvRect roi)
+		{
+
+			IplImage* unmanagedIn = (IplImage *) imgIn->CvPtr.ToPointer();
+			IplImage* unmanagedNormalized = NULL;
+
+			::CvRect *pUnmanagedRect = ManagedRectToUnmanaged(roi);
+			pFaceSearch->FaceImagePreprocess(unmanagedIn, unmanagedNormalized, *pUnmanagedRect);
+
+			assert(unmanagedNormalized != NULL);
+
+			OpenCvSharp::IplImage^ normalized = gcnew OpenCvSharp::IplImage((IntPtr) unmanagedNormalized);
+			normalized->IsEnabledDispose = false;
+
+		    Marshal::FreeHGlobal((IntPtr) pUnmanagedRect);
+
+			return normalized;
+
+		}
+
+
+		array<OpenCvSharp::IplImage^>^ NormalizeImageForTraining(OpenCvSharp::IplImage^ imgIn, OpenCvSharp::CvRect roi)
+		{
+			::IplImage *pUnmanagedIn = (::IplImage *) imgIn->CvPtr.ToPointer();
+			ImageArray trainedImages;
+			::CvRect *pUnmanagedRect = ManagedRectToUnmanaged(roi);
+
+			pFaceSearch->FaceImagePreprocess_ForTrain(pUnmanagedIn, trainedImages, *pUnmanagedRect);
+
+			array<OpenCvSharp::IplImage^>^ returnArray = gcnew array<OpenCvSharp::IplImage^>(trainedImages.nImageCount);
+			for (int i=0; i<trainedImages.nImageCount; ++i)
+			{
+				assert(trainedImages.imageArr[i] != NULL);
+
+				returnArray[i] = gcnew OpenCvSharp::IplImage((IntPtr) trainedImages.imageArr[i]);
+				returnArray[i]->IsEnabledDispose = false;
+			}
+
+			pFaceSearch->ReleaseImageArray(trainedImages);
+
+			return returnArray;
+		}
+
+
 
 	private:
+		::CvRect* ManagedRectToUnmanaged(OpenCvSharp::CvRect^ managedRect)
+		{
+			IntPtr unmanagedPtr = Marshal::AllocHGlobal(sizeof(managedRect));
+			Marshal::StructureToPtr(managedRect, unmanagedPtr, true);
+			return (::CvRect *) unmanagedPtr.ToPointer();
+		}
 		CFaceSelect *pFaceSearch;
 	};
 }
