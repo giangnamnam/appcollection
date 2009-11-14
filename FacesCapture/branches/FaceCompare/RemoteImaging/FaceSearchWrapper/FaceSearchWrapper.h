@@ -122,14 +122,12 @@ namespace FaceSearchWrapper {
 				{
 
 					mtArray[i]->Faces[j] = gcnew OpenCvSharp::IplImage( (IntPtr) pFacesFound[i].FaceData[j] );
-
 					mtArray[i]->Faces[j]->IsEnabledDispose = false;
 
-					mtArray[i]->FacesRects[j] = 
-						OpenCvSharp::CvRect(pFacesFound[i].FaceRects[j].x,
- 											      pFacesFound[i].FaceRects[j].y,
- 												  pFacesFound[i].FaceRects[j].width,
- 												  pFacesFound[i].FaceRects[j].height);
+				    mtArray[i]->FacesRects[j] = 
+						UnmanagedRectToManaged(pFacesFound[i].FaceRects[j]);
+					mtArray[i]->FacesRectsForCompare[j] = 
+						UnmanagedRectToManaged(pFacesFound[i].FaceOrgRects[j]);
 						
 				}
 				
@@ -145,15 +143,14 @@ namespace FaceSearchWrapper {
 			IplImage* unmanagedIn = (IplImage *) imgIn->CvPtr.ToPointer();
 			IplImage* unmanagedNormalized = NULL;
 
-			::CvRect *pUnmanagedRect = ManagedRectToUnmanaged(roi);
-			pFaceSearch->FaceImagePreprocess(unmanagedIn, unmanagedNormalized, *pUnmanagedRect);
+			::CvRect UnmanagedRect = ManagedRectToUnmanaged(roi);
+			pFaceSearch->FaceImagePreprocess(unmanagedIn, unmanagedNormalized, UnmanagedRect);
 
 			assert(unmanagedNormalized != NULL);
 
 			OpenCvSharp::IplImage^ normalized = gcnew OpenCvSharp::IplImage((IntPtr) unmanagedNormalized);
 			normalized->IsEnabledDispose = false;
 
-		    Marshal::FreeHGlobal((IntPtr) pUnmanagedRect);
 
 			return normalized;
 
@@ -164,9 +161,9 @@ namespace FaceSearchWrapper {
 		{
 			::IplImage *pUnmanagedIn = (::IplImage *) imgIn->CvPtr.ToPointer();
 			ImageArray trainedImages;
-			::CvRect *pUnmanagedRect = ManagedRectToUnmanaged(roi);
+			::CvRect unmanagedRect = ManagedRectToUnmanaged(roi);
 
-			pFaceSearch->FaceImagePreprocess_ForTrain(pUnmanagedIn, trainedImages, *pUnmanagedRect);
+			pFaceSearch->FaceImagePreprocess_ForTrain(pUnmanagedIn, trainedImages, unmanagedRect);
 
 			array<OpenCvSharp::IplImage^>^ returnArray = gcnew array<OpenCvSharp::IplImage^>(trainedImages.nImageCount);
 			for (int i=0; i<trainedImages.nImageCount; ++i)
@@ -182,15 +179,32 @@ namespace FaceSearchWrapper {
 			return returnArray;
 		}
 
-
-
 	private:
-		::CvRect* ManagedRectToUnmanaged(OpenCvSharp::CvRect^ managedRect)
+		::CvRect ManagedRectToUnmanaged(OpenCvSharp::CvRect^ managedRect)
 		{
-			IntPtr unmanagedPtr = Marshal::AllocHGlobal(sizeof(managedRect));
-			Marshal::StructureToPtr(managedRect, unmanagedPtr, true);
-			return (::CvRect *) unmanagedPtr.ToPointer();
+			CvRect unmanagedRect;
+
+			unmanagedRect.x = managedRect->X;
+			unmanagedRect.y = managedRect->Y;
+			unmanagedRect.width = managedRect->Width;
+			unmanagedRect.height = managedRect->Height;
+
+			return unmanagedRect;
 		}
+
+		OpenCvSharp::CvRect UnmanagedRectToManaged(const ::CvRect& unmanaged)
+		{
+			OpenCvSharp::CvRect managed = OpenCvSharp::CvRect(
+				unmanaged.x,   
+				unmanaged.y,     
+				unmanaged.width,
+				unmanaged.height
+				);
+
+		    return managed;
+		}
+
+
 		CFaceSelect *pFaceSearch;
 	};
 }
