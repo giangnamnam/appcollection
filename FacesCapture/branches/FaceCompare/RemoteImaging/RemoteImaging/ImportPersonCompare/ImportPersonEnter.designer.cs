@@ -272,6 +272,7 @@
             this.Controls.Add(this.s);
             this.Controls.Add(this.lblAge);
             this.Name = "ImportPersonEnter";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "重点目标人信息录入";
             this.Load += new System.EventHandler(this.ImportPersonEnter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picTargetPerson)).EndInit();

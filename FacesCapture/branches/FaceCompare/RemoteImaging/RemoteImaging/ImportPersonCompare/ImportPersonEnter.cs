@@ -169,10 +169,10 @@ namespace RemoteImaging.ImportPersonCompare
 
             if (faceSamples.Length == 0) return;
 
-            Bitmap bmp = (Bitmap)Bitmap.FromFile(faceSamples[0]);
+            Bitmap bmp = (Bitmap) Bitmap.FromFile(faceSamples[0]);
 
             //训练 重新生成 人脸库
-            FaceRecognition.FaceRecognizer.FaceTraining(bmp.Width, bmp.Height, Program.EigenNum);
+            FaceRecognition.FaceRecognizer.FaceTraining(20, 20, Program.EigenNum);
             FaceRecognition.FaceRecognizer.FreeData();
             FaceRecognition.FaceRecognizer.InitData(faceSamples.Length, Program.ImageLen, Program.EigenNum);
         }

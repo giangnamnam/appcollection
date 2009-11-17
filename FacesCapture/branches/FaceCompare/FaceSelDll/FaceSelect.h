@@ -226,9 +226,6 @@ public:
 	bool FaceImagePreprocess_ForTrain( IplImage* imgIn, ImageArray &normImages, CvRect roi = cvRect(0,0,0,0) );
 	void ReleaseImageArray( ImageArray &images )
 	{
-		images.nImageCount = 0;
-		delete[] images.imageArr;
-		images.imageArr = 0;
 	}
 	void DrawRectCenter( IplImage* img, CvRect roi );
 	bool SubImageRotate_Ver1( IplImage* src, CvRect roi, IplImage* &dst, double angle );//has some problem, may rotate more angle

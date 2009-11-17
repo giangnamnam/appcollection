@@ -90,7 +90,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="echo on&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetFileName)&quot;     &quot;$(SolutionDir)..\OutPut\FaceSellDll\$(TargetFileName)&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).pdb&quot;    &quot;$(SolutionDir)..\OutPut\FaceSellDll\$(TargetName).pdb&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).lib&quot;      &quot;$(SolutionDir)..\OutPut\FaceSellDll\$(TargetName).lib&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)FaceSelect.h&quot;            &quot;$(SolutionDir)..\OutPut\FaceSellDll\FaceSelect.h&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)frame.h&quot;           &quot;$(SolutionDir)..\OutPut\FaceSellDll\frame.h&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -166,7 +166,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="copy $TargetDir\TargetFileName ..\OutPut\FaceSellDll&#x0D;&#x0A;copy $TargetDir\TargetName.pdb ..\OutPut\FaceSellDll&#x0D;&#x0A;copy $TargetDir\TargetName.lib ..\OutPut\FaceSellDll&#x0D;&#x0A;copy $ProjectDir\FaceSelect.h ..\OutPut\FaceSellDll&#x0D;&#x0A;copy $ProjectDir\frame.h ..\OutPut\FaceSellDll&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
