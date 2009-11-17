@@ -14,6 +14,9 @@ namespace FaceRecognition
         [DllImport(DllName, EntryPoint = "InitData")]
         public static extern void InitData(int sampleCount, int imgLen, int eigenNum);
 
+        [DllImport(DllName)]
+        public static extern void FreeData();
+
 
         [DllImport(DllName, EntryPoint = "FaceRecognition")]
         public static extern void Recognize(
@@ -22,5 +25,11 @@ namespace FaceRecognition
             [In, Out] RecognizeResult[] similarity, 
             int imgLen, 
             int eigenNum);
+
+        [DllImport(DllName)]
+        public static extern void FaceTraining(int imgWidth, int imgHeight, int eigenNum);
+
+
+        
     }
 }

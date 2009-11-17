@@ -116,12 +116,39 @@
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Core\IplBitmapComposite.cs" />
     <Compile Include="Face.cs" />
-    <Compile Include="FaceRecognitionResult.cs">
+    <Compile Include="ImportPersonCompare\AnalysePersons.cs" />
+    <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FaceRecognitionResult.Designer.cs">
-      <DependentUpon>FaceRecognitionResult.cs</DependentUpon>
+    <Compile Include="ImportPersonCompare\ImmediatelyModel.designer.cs">
+      <DependentUpon>ImmediatelyModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportPersonCompare\ImportPersonEnter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportPersonCompare\ImportPersonEnter.designer.cs">
+      <DependentUpon>ImportPersonEnter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportPersonCompare\InfoEnter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportPersonCompare\InfoEnter.designer.cs">
+      <DependentUpon>InfoEnter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportPersonCompare\PersonInfoHandleXml.cs" />
+    <Compile Include="ImportPersonCompare\SequenceModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportPersonCompare\SequenceModel.designer.cs">
+      <DependentUpon>SequenceModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFaceRecognitionResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFaceRecognitionResult.Designer.cs">
+      <DependentUpon>FormFaceRecognitionResult.cs</DependentUpon>
     </Compile>
     <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
@@ -197,8 +224,20 @@
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FaceRecognitionResult.resx">
-      <DependentUpon>FaceRecognitionResult.cs</DependentUpon>
+    <EmbeddedResource Include="ImportPersonCompare\ImmediatelyModel.resx">
+      <DependentUpon>ImmediatelyModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportPersonCompare\ImportPersonEnter.resx">
+      <DependentUpon>ImportPersonEnter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportPersonCompare\InfoEnter.resx">
+      <DependentUpon>InfoEnter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportPersonCompare\SequenceModel.resx">
+      <DependentUpon>SequenceModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFaceRecognitionResult.resx">
+      <DependentUpon>FormFaceRecognitionResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConfigCamera.resx">
       <DependentUpon>FormConfigCamera.cs</DependentUpon>

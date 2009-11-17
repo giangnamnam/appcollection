@@ -780,8 +780,8 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.UnicastPort = 3939;
             this.axCamImgCtrl1.ComType = 0;
 
-            this.axCamImgCtrl1.CamImgCtrlStart();
-            this.axCamImgCtrl1.CamImgRecStart();
+            //this.axCamImgCtrl1.CamImgCtrlStart();
+            //this.axCamImgCtrl1.CamImgRecStart();
 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
@@ -801,7 +801,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                 try
                 {
-                    camera.Connect();
+                    //camera.Connect();
                 }
                 catch (System.Net.Sockets.SocketException)
                 {
@@ -949,7 +949,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ShowFaceRecognition(Image captured, Image fromLib, float similarity)
         {
-            FaceRecognitionResult form = new FaceRecognitionResult();
+            FormFaceRecognitionResult form = new FormFaceRecognitionResult();
             form.capturedFace.Image = captured;
             form.faceInLibrary.Image = fromLib;
             form.similarity.Text = similarity.ToString();

@@ -161,6 +161,9 @@ namespace FaceSearchWrapper {
 		{
 			::IplImage *pUnmanagedIn = (::IplImage *) imgIn->CvPtr.ToPointer();
 			ImageArray trainedImages;
+			ZeroMemory(&trainedImages, sizeof(trainedImages));
+
+
 			::CvRect unmanagedRect = ManagedRectToUnmanaged(roi);
 
 			pFaceSearch->FaceImagePreprocess_ForTrain(pUnmanagedIn, trainedImages, unmanagedRect);
@@ -171,7 +174,6 @@ namespace FaceSearchWrapper {
 				assert(trainedImages.imageArr[i] != NULL);
 
 				returnArray[i] = gcnew OpenCvSharp::IplImage((IntPtr) trainedImages.imageArr[i]);
-				returnArray[i]->IsEnabledDispose = false;
 			}
 
 			pFaceSearch->ReleaseImageArray(trainedImages);

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace RemoteImaging
 {
-    public partial class FaceRecognitionResult : Form
+    public partial class FormFaceRecognitionResult : Form
     {
-        public FaceRecognitionResult()
+        public FormFaceRecognitionResult()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace RemoteImaging
 {
-    partial class FaceRecognitionResult
+    partial class FormFaceRecognitionResult
     {
         /// <summary>
         /// Required designer variable.

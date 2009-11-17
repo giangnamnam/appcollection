@@ -38,6 +38,7 @@ namespace RemoteImaging
             this.textBox4.Text = Properties.Settings.Default.CurIp;
             this.cbImageArr.Text = Properties.Settings.Default.ImageArr.ToString();
             this.cbThresholding.Text = Properties.Settings.Default.Thresholding.ToString();
+            this.txtSavePath.Text = Properties.Settings.Default.WarnPicSavePath;
             SaveDay = Properties.Settings.Default.SaveDay;
             SetControl();
             SaveDay = Properties.Settings.Default.SaveDay;
@@ -161,7 +162,7 @@ namespace RemoteImaging
             Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
             Properties.Settings.Default.CurIp = this.textBox4.Text;
             Properties.Settings.Default.ComName = this.cmbComPort.Text;
-            
+            Properties.Settings.Default.WarnInfoHandleMode = this.ragHandleMode.SelectedIndex;
             //图片和录像过期时间设置，磁盘警告设置
             Properties.Settings.Default.SaveDay = SaveDay;
 
@@ -253,6 +254,23 @@ namespace RemoteImaging
         private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
         {
             SetControl();
+        }
+
+        private void btnBrowseImportPerPic_Click(object sender, EventArgs e)
+        {
+            ImportPersonCompare.ImportPersonEnter ipe = new ImportPersonCompare.ImportPersonEnter();
+            ipe.ShowDialog();
+        }
+
+        private void btnBrowseSavePath_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                dlg.ShowNewFolderButton = true;
+                dlg.RootFolder = Environment.SpecialFolder.MyComputer;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    Properties.Settings.Default.WarnPicSavePath = dlg.SelectedPath;
+            }
         }
     }
 }
