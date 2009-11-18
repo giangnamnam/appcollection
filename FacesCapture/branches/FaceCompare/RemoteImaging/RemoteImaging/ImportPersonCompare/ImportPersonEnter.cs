@@ -21,7 +21,7 @@ namespace RemoteImaging.ImportPersonCompare
             InitializeComponent();
             InitCotrol(false);
         }
-        PersonInfoHandleXml perinfo =PersonInfoHandleXml.GetInstance();
+        PersonInfoHandleXml perinfo = PersonInfoHandleXml.GetInstance();
         string FileSavePath = Properties.Settings.Default.ImpSelectPersonPath;
         protected void InitCotrol(bool statu)
         {
@@ -78,7 +78,7 @@ namespace RemoteImaging.ImportPersonCompare
 
             //搜索人脸
             Frame fm = new Frame();
-            fm.image = OpenCvSharp.IplImage.FromBitmap((Bitmap) this.picTargetPerson.Image);
+            fm.image = OpenCvSharp.IplImage.FromBitmap((Bitmap)this.picTargetPerson.Image);
             ImageProcess.Target[] facesFound = Program.faceSearch.SearchFacesFastMode(fm);
 
             if (facesFound.Length == 0
@@ -91,7 +91,7 @@ namespace RemoteImaging.ImportPersonCompare
 
             OpenCvSharp.IplImage iplFace = facesFound[0].Faces[0];
 
-            string savePath = Path.Combine(FileSavePath,  fileName);
+            string savePath = Path.Combine(FileSavePath, fileName);
             fm.image.SaveImage(savePath);
 
 
@@ -102,7 +102,7 @@ namespace RemoteImaging.ImportPersonCompare
 
             for (int i = 0; i < normalizedImages.Length; ++i)
             {
-                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg", 
+                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg",
                     System.IO.Path.GetFileNameWithoutExtension(fileName), i);
 
                 string fullPath = System.IO.Path.Combine(Properties.Settings.Default.FaceSampleLib,
@@ -151,7 +151,7 @@ namespace RemoteImaging.ImportPersonCompare
 
 
             Array.ForEach(normalizedImages, ipl => ipl.Dispose());
-   
+
             InitCotrol(false);
         }
 
@@ -180,18 +180,27 @@ namespace RemoteImaging.ImportPersonCompare
 
         }
 
-        private void addFinished_Click(object sender, EventArgs e)
+        private int GetFaceSamplesCount()
         {
             string[] faceSamples = System.IO.Directory.GetFiles(Properties.Settings.Default.FaceSampleLib, "*.jpg");
-
-            if (faceSamples.Length == 0) return;
-
-            Bitmap bmp = (Bitmap) Bitmap.FromFile(faceSamples[0]);
-
-            //训练 重新生成 人脸库
-            FaceRecognition.FaceRecognizer.FaceTraining(100, 100, Program.EigenNum);
-            FaceRecognition.FaceRecognizer.FreeData();
-            FaceRecognition.FaceRecognizer.InitData(faceSamples.Length, Program.ImageLen, Program.EigenNum);
+            return faceSamples.Length;
         }
+
+       
+        private void addFinished_Click(object sender, EventArgs e)
+        {
+            if (GetFaceSamplesCount() < Program.EigenNum)
+            {
+                MessageBox.Show(this, "样本数量不足, 请继续添加", "错误", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            FormProgress form = new FormProgress();
+            form.ShowDialog(this);
+           
+
+        }
+
+        
     }
 }

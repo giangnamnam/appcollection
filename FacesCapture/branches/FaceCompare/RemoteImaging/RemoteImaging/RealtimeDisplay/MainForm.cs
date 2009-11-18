@@ -965,12 +965,8 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 ShowFaceRecognition(captured, fromLib, similarity);
             }
-
-
         }
 
-
-        
         public void ShowSuspectsInternal(ImportantPersonDetail[] suspects, Image captured)
         {
 
@@ -979,7 +975,6 @@ namespace RemoteImaging.RealtimeDisplay
             formAlert.PicCheckImg = captured;
 
             formAlert.ShowDialog(this);
-            
         }
 
 
