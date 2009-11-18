@@ -102,8 +102,14 @@ namespace RemoteImaging.ImportPersonCompare
 
             for (int i = 0; i < normalizedImages.Length; ++i)
             {
-                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg", System.IO.Path.GetFileNameWithoutExtension(fileName), i);
-                string fullPath = System.IO.Path.Combine(Properties.Settings.Default.FaceSampleLib, normalizedFaceName);
+                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg", 
+                    System.IO.Path.GetFileNameWithoutExtension(fileName), i);
+
+                string fullPath = System.IO.Path.Combine(Properties.Settings.Default.FaceSampleLib,
+                    normalizedFaceName);
+
+
+
                 normalizedImages[i].SaveImage(fullPath);
             }
 

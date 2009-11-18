@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportPersonEnter));
             this.picTargetPerson = new System.Windows.Forms.PictureBox();
             this.lblAge = new System.Windows.Forms.Label();
             this.s = new System.Windows.Forms.Label();
@@ -56,7 +55,6 @@
             // picTargetPerson
             // 
             this.picTargetPerson.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picTargetPerson.Image = ((System.Drawing.Image)(resources.GetObject("picTargetPerson.Image")));
             this.picTargetPerson.Location = new System.Drawing.Point(3, 17);
             this.picTargetPerson.Name = "picTargetPerson";
             this.picTargetPerson.Size = new System.Drawing.Size(167, 185);
