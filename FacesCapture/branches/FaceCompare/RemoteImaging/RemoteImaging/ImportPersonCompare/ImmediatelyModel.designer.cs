@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImmediatelyModel));
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblAddress = new System.Windows.Forms.Label();
@@ -84,7 +83,6 @@
             // 
             // picCheck
             // 
-            this.picCheck.Image = ((System.Drawing.Image)(resources.GetObject("picCheck.Image")));
             this.picCheck.Location = new System.Drawing.Point(6, 16);
             this.picCheck.Name = "picCheck";
             this.picCheck.Size = new System.Drawing.Size(158, 179);
@@ -152,7 +150,6 @@
             // 
             // picStandard
             // 
-            this.picStandard.Image = ((System.Drawing.Image)(resources.GetObject("picStandard.Image")));
             this.picStandard.Location = new System.Drawing.Point(6, 20);
             this.picStandard.Name = "picStandard";
             this.picStandard.Size = new System.Drawing.Size(158, 179);
@@ -231,6 +228,7 @@
             this.Name = "ImmediatelyModel";
             this.Text = "报警 立即处理模式";
             this.Load += new System.EventHandler(this.PersonCheck_Load);
+            this.Shown += new System.EventHandler(this.ImmediatelyModel_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.picCheck)).EndInit();
             this.grbTargetImg.ResumeLayout(false);
             this.grbTargetImg.PerformLayout();

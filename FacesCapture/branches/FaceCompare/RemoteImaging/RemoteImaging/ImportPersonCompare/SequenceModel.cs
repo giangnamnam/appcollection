@@ -73,11 +73,8 @@ namespace RemoteImaging.ImportPersonCompare
             private get { return listPersons; }
             set
             {
-                if (listPersons == null)
-                {
-                    listPersons = new List<ImportantPersonDetail>();
-                }
-                listPersons = (List<ImportantPersonDetail>)value;
+                if (value == null) return;
+                listPersons = value;
                 InitControl(listPersons);
             }
         }
@@ -119,13 +116,8 @@ namespace RemoteImaging.ImportPersonCompare
                 MessageBox.Show("请选择报警信息！", "警告");
                 return;
             }
-            bool res = false;
-            if (MessageBox.Show("确定要保存当前选择的报警信息？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                res = true;
-            else
-                return;
 
-            if (res)
+            if (MessageBox.Show("确定要保存当前选择的报警信息？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 SaveCurrentSelectedInfo();
         }
 

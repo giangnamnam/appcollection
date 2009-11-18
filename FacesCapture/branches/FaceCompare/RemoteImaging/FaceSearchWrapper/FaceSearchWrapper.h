@@ -80,6 +80,13 @@ namespace FaceSearchWrapper {
 
 		}
 
+
+		array<ImageProcess::Target^>^ SearchFacesFastMode(ImageProcess::Frame^ frame)
+		{
+			AddInFrame(frame);
+			return SearchFaces();
+		}
+
 		array<ImageProcess::Target^>^ SearchFaces()
 		{
 

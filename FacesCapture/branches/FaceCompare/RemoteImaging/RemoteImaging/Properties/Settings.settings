@@ -117,7 +117,7 @@
       <Value Profile="(Default)">ImpPersonConfigure.xml</Value>
     </Setting>
     <Setting Name="ImpSelectPersonPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\faceRecogniton\selectedFace\</Value>
+      <Value Profile="(Default)">C:\faceRecognition\selectedFace\</Value>
     </Setting>
     <Setting Name="FaceStoregePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

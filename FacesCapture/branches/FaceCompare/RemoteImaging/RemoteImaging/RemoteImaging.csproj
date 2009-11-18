@@ -172,6 +172,7 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ImportPersonCompare\SuspectsRepository.cs" />
     <Compile Include="ManagedTarget.cs" />
     <Compile Include="MockCamera.cs" />
     <Compile Include="OptionsForm.cs">

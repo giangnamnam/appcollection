@@ -481,7 +481,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\faceRecogniton\\selectedFace\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\faceRecognition\\selectedFace\\")]
         public string ImpSelectPersonPath {
             get {
                 return ((string)(this["ImpSelectPersonPath"]));

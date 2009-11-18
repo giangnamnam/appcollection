@@ -22,7 +22,7 @@ namespace RemoteImaging.ImportPersonCompare
         
         private void PersonCheck_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public ImageDirSys SetWarnInfo
@@ -85,37 +85,33 @@ namespace RemoteImaging.ImportPersonCompare
             private get { return listPersons; }
             set
             {
-                if (listPersons == null)
-                {
-                    listPersons = new List<ImportantPersonDetail>();
-                }
-                listPersons = (List<ImportantPersonDetail>)value;
+                this.listPersons = value;
+
                 InitControl(listPersons);
             }
         }
 
         protected void InitControl(List<ImportantPersonDetail> listpersons)
         {
-            if (listPersons.Count > 0 )
-            {
+            ListViewItem item = null;
                 foreach (ImportantPersonDetail ipd in listPersons)
                 {
-                    string[] p = ipd.SimilarityRange;
-                    float x = Convert.ToSingle(p[0]);
-                    float y = Convert.ToSingle(p[1]);
+                    
+//                     float x = Convert.ToSingle(p[0]);
+//                     float y = Convert.ToSingle(p[1]);
 
-                    ListViewItem lvi = new ListViewItem(string.Format("",
+                    ListViewItem lvi = new ListViewItem(new string[] { "",
                                                             ipd.Info.Name,
                                                             ipd.Info.Sex.ToString(),
                                                             ipd.Info.Age.ToString(),
                                                             ipd.Info.CardId,
-                                                            string.Format("{0}%-{1}%", x * 100,y * 100)));
+                                                            string.Empty});
                     lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
                     lvi.SubItems[1].Tag = ipd.Info.FileName;//犯罪分子图片  未进行灰度图转换
-                    v.Items.Add(lvi);
+                    item = v.Items.Add(lvi);
                 }
-                v.Items[0].Selected = true ;
-            }
+
+            if (item != null) item.Selected = true;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -173,9 +169,9 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void lvPersonInfo_SelectedIndexChanged(object sender, EventArgs e)
         {
-             if (v.FocusedItem !=null)
+             if (v.SelectedItems.Count > 0 )
              {
-                 ListViewItem lvi = v.FocusedItem;
+                 ListViewItem lvi = v.SelectedItems[0];
                  RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
                  string range = lvi.SubItems[5].Text;
                  lblTextSim.Text = string.Format("预计范围: {0}  检测结果: {1}", range, sm.similarity);
@@ -185,9 +181,23 @@ namespace RemoteImaging.ImportPersonCompare
                      picStandard.Image.Dispose();
                      picStandard.Image = null;
                  }
-                 picStandard.Image = Image.FromFile(Path.Combine(Properties.Settings.Default.FaceSampleLib, sm.fileName));
+
+                 string path = Path.Combine(Properties.Settings.Default.ImpSelectPersonPath, lvi.SubItems[1].Tag as string);
+
+
+                 picStandard.Image = Image.FromFile(path);
                  btnOK.Enabled = true;
              }
+        }
+
+        private void ImmediatelyModel_Shown(object sender, EventArgs e)
+        {
+            if (this.v.Items.Count > 0)
+            {
+                this.v.Items[0].Selected = true;
+                this.v.Select();
+            }
+
         }
     }
 

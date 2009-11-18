@@ -9,7 +9,6 @@ using System.Drawing;
 namespace RemoteImaging.ImportPersonCompare
 {
 
-
     public class PersonInfoHandleXml
     {
         string FileName = Properties.Settings.Default.ImpPersonConfigure;
@@ -18,6 +17,7 @@ namespace RemoteImaging.ImportPersonCompare
         {
             this.LevelList = Properties.Settings.Default.SimilarityLevel.Split('|');
         }
+
 
         public static PersonInfoHandleXml GetInstance()
         {
@@ -67,49 +67,21 @@ namespace RemoteImaging.ImportPersonCompare
             xDoc.Save(FileName);
         }
 
+
+        private System.Collections.Generic.Dictionary<string, PersonInfo> suspects
+            = new System.Collections.Generic.Dictionary<string, PersonInfo>();
+
         public bool HasCurInfoNode(string cardid)
         {
+            if (suspects.ContainsKey(cardid)) return true;
+
             XmlDocument doc = new XmlDocument();
             doc.Load(FileName);
             XmlNodeList resNodeList = doc.SelectNodes("//person[@card=\"" + cardid + "\"]");
-            return resNodeList.Count > 0 ? true : false;
+            return resNodeList.Count > 0;
         }
 
-        /// <summary>
-        /// 传入的文件名 091031113752226-0001.jpg
-        /// </summary>
-        /// <param name="filename">file name</param>
-        /// <returns></returns>
-        public PersonInfo ReadInfo(string fileName)
-        {
-            string temp = "";
-            if (fileName.EndsWith(".jpg"))
-                temp = ".jpg";
-            else if (fileName.EndsWith(".bmp"))
-                temp = ".bmp";
-            else
-                return null;
-            string filename = fileName.Substring(0, 15) + temp;
-            XmlDocument doc = new XmlDocument();
-            doc.Load(FileName);
-            XmlNode resNode = doc.SelectSingleNode("//person[@filename=\"" + filename + "\"]");
-            if (resNode != null)
-            {
-                PersonInfo personinfo = new PersonInfo();
-                personinfo.ID = resNode.Attributes["id"].Value.ToString();
-                personinfo.Name = resNode.Attributes["name"].Value.ToString();
-                personinfo.Sex = resNode.Attributes["sex"].Value.ToString();
-                personinfo.Age = Convert.ToInt32(resNode.Attributes["age"].Value.ToString());
-                personinfo.CardId = resNode.Attributes["card"].Value.ToString();
-                //personinfo.FileName = resNode.Attributes["filename"].Value.ToString();
-                personinfo.FileName = fileName;//传入的要比对的文件名
-                personinfo.Similarity = Convert.ToInt32(resNode.Attributes["similarity"].Value);
-                return personinfo;
-            }
-            else
-                return null;
-
-        }
+       
     }
 
     //重要 50-58

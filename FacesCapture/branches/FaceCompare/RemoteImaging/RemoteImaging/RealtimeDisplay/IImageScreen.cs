@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
+using System.Drawing;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -40,5 +41,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         bool ShowProgress { set; }
         void StepProgress();
+
+        void ShowSuspects(ImportPersonCompare.ImportantPersonDetail[] suspects, Image captured);
     }
 }

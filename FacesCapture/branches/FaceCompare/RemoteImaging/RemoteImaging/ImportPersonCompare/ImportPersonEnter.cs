@@ -61,6 +61,7 @@ namespace RemoteImaging.ImportPersonCompare
                     {
                         string name = ofd.SafeFileName;
                         picTargetPerson.Image = Image.FromFile(temp);
+                        picTargetPerson.Image.Tag = name;
                         InitCotrol(true);
                     }
                     else
@@ -73,12 +74,44 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            String fileName = this.picTargetPerson.Image.Tag as string;
+
+            //搜索人脸
+            Frame fm = new Frame();
+            fm.image = OpenCvSharp.IplImage.FromBitmap((Bitmap) this.picTargetPerson.Image);
+            ImageProcess.Target[] facesFound = Program.faceSearch.SearchFacesFastMode(fm);
+
+            if (facesFound.Length == 0
+                || facesFound[0].Faces.Length != 1)
+            {
+                MessageBox.Show("搜索人脸未能完成");
+                fm.image.Dispose();
+                return;
+            }
+
+            OpenCvSharp.IplImage iplFace = facesFound[0].Faces[0];
+
+            string savePath = Path.Combine(FileSavePath,  fileName);
+            fm.image.SaveImage(savePath);
+
+
+            //归一化
+            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(0, 0, iplFace.Width, iplFace.Height);
+            OpenCvSharp.IplImage[] normalizedImages =
+                Program.faceSearch.NormalizeImageForTraining(iplFace, rect);
+
+            for (int i = 0; i < normalizedImages.Length; ++i)
+            {
+                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg", System.IO.Path.GetFileNameWithoutExtension(fileName), i);
+                string fullPath = System.IO.Path.Combine(Properties.Settings.Default.FaceSampleLib, normalizedFaceName);
+                normalizedImages[i].SaveImage(fullPath);
+            }
+
             string id = txtId.Text.ToString();
             string name = txtName.Text.ToString();
             string sex = rabMan.Checked ? "男" : "女";
             int age = Convert.ToInt32(txtAge.Text.ToString());
             string card = txtCard.Text.ToString();
-            string filename = GetFileNameWithoutExtension();
             int similarity = cmbSimLevel.SelectedIndex;
 
             PersonInfo info = new PersonInfo();
@@ -87,14 +120,9 @@ namespace RemoteImaging.ImportPersonCompare
             info.Sex = sex;
             info.Age = age;
             info.CardId = card;
-            info.FileName = filename;
+            info.FileName = fileName;
             info.Similarity = similarity;
-            //if (perinfo.HasSameId(id))
-            //{
-            //    MessageBox.Show("已存在相同编号,请重新输入！","警告");
-            //    txtId.Focus();
-            //    return;
-            //}
+
 
             if (perinfo.HasCurInfoNode(card))
             {
@@ -115,23 +143,6 @@ namespace RemoteImaging.ImportPersonCompare
                 Directory.CreateDirectory(FileSavePath);
             }
 
-            IplBitmapComposite iplBitmap = IplBitmapComposite.From((Bitmap) this.picTargetPerson.Image);
-            Image curImg = picTargetPerson.Image;
-            string savePath = Path.Combine(FileSavePath, info.FileName + ".jpg");
-            curImg.Save(savePath);
-
-
-            //归一化
-            OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(0, 0, iplBitmap.Ipl.Width, iplBitmap.Ipl.Height);
-            OpenCvSharp.IplImage[] normalizedImages =
-                Program.faceSearch.NormalizeImageForTraining(iplBitmap.Ipl, rect);
-
-            for (int i = 0; i < normalizedImages.Length; ++i)
-            {
-                string normalizedFaceName = string.Format("{0}_{1:d4}.jpg", info.FileName, i);
-                string fullPath = System.IO.Path.Combine(Properties.Settings.Default.FaceSampleLib, normalizedFaceName);
-                normalizedImages[i].SaveImage(fullPath);
-            }
 
             Array.ForEach(normalizedImages, ipl => ipl.Dispose());
    
@@ -172,7 +183,7 @@ namespace RemoteImaging.ImportPersonCompare
             Bitmap bmp = (Bitmap) Bitmap.FromFile(faceSamples[0]);
 
             //训练 重新生成 人脸库
-            FaceRecognition.FaceRecognizer.FaceTraining(20, 20, Program.EigenNum);
+            FaceRecognition.FaceRecognizer.FaceTraining(100, 100, Program.EigenNum);
             FaceRecognition.FaceRecognizer.FreeData();
             FaceRecognition.FaceRecognizer.InitData(faceSamples.Length, Program.ImageLen, Program.EigenNum);
         }

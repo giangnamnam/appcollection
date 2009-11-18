@@ -12,7 +12,7 @@ namespace RemoteImaging
     {
         public static string directory;
         public static int ImageSampleCount = 2230;
-        public static int ImageLen = 400;
+        public static int ImageLen = 100*100;
         public static int EigenNum = 40;
 
         public static FaceSearchWrapper.FaceSearch faceSearch;

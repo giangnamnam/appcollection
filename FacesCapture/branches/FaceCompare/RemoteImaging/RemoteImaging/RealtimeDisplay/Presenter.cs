@@ -9,6 +9,9 @@ using OpenCvSharp;
 using System.Threading;
 using System.Diagnostics;
 using System.Text;
+using RemoteImaging.ImportPersonCompare;
+using System.Linq;
+
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -421,7 +424,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
-                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 20, 20, BitDepth.U8, 1);
+                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100, BitDepth.U8, 1);
 
                     FaceRecognition.RecognizeResult[] results = new
                          FaceRecognition.RecognizeResult[Program.ImageSampleCount];
@@ -433,28 +436,39 @@ namespace RemoteImaging.RealtimeDisplay
                                                             results,
                                                             Program.ImageLen, Program.EigenNum);
 
-                    FaceRecognition.RecognizeResult maxSim
-                        = new FaceRecognition.RecognizeResult();
 
-                    Array.ForEach(results, r => { if (r.similarity > maxSim.similarity)  maxSim = r; });
+                    FaceRecognition.RecognizeResult[] filtered =
+                        Array.FindAll(results, r => r.similarity > 0.85);
 
-                    if (maxSim.similarity > 0.7)
+
+                    if (filtered.Length == 0) return;
+
+                    int j = 0;
+
+                    IList<ImportantPersonDetail> details =
+                        new List<ImportantPersonDetail>();
+
+                    foreach (PersonInfo p in SuspectsRepository.Instance.Peoples)
                     {
-                        Bitmap capturedFace = t.Faces[i].ToBitmap();
+                        foreach (FaceRecognition.RecognizeResult result in filtered)
+                        {
+                            string fileName = System.IO.Path.GetFileName(result.fileName);
 
-                        System.Diagnostics.Debug.Assert(maxSim.fileName != null);
+                            int idx = fileName.IndexOf('_');
+                            fileName = fileName.Remove(idx, 5);
 
-                        string fName = maxSim.fileName;
-
-                        int idx = fName.IndexOf('_');
-
-                        string path = @"C:\faceRecognition\selectedFace\" + fName.Remove(idx, 5);
-
-                        System.Diagnostics.Debug.Assert(System.IO.File.Exists(path));
-
-                        Bitmap faceInLib = (Bitmap)Bitmap.FromFile(path);
-                        screen.ShowFaceRecognitionResult(capturedFace, faceInLib, maxSim.similarity);
+                            if (fileName == p.FileName)
+                            {
+                                details.Add(new ImportantPersonDetail(p, result));
+                            }
+                        }
                     }
+
+                    ImportantPersonDetail[] distinct = details.Distinct(new ImportantPersonComparer()).ToArray();
+
+                    if (distinct.Length == 0) return;
+
+                    screen.ShowSuspects(distinct, t.Faces[i].ToBitmap());
 
                 }
             }
@@ -482,4 +496,25 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
     }
+
+
+    public class ImportantPersonComparer : System.Collections.Generic.IEqualityComparer<ImportantPersonDetail>
+    {
+
+
+        #region IEqualityComparer<ImportantPersonDetail> Members
+
+        public bool Equals(ImportantPersonDetail x, ImportantPersonDetail y)
+        {
+            return x.Info.FileName == y.Info.FileName;
+        }
+
+        public int GetHashCode(ImportantPersonDetail obj)
+        {
+            return obj.Info.FileName.GetHashCode();
+        }
+
+        #endregion
+    }
+
 }

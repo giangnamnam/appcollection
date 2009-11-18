@@ -16,6 +16,7 @@ using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
+using RemoteImaging.ImportPersonCompare;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -565,18 +566,18 @@ namespace RemoteImaging.RealtimeDisplay
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-//                 SetupExtractor(setting.EnvMode,
-//                     float.Parse(setting.IconLeftExtRatio),
-//                     float.Parse(setting.IconRightExtRatio),
-//                     float.Parse(setting.IconTopExtRatio),
-//                     float.Parse(setting.IconBottomExtRatio),
-//                     minFaceWidth,
-//                     ratio,
-//                     new Rectangle(int.Parse(setting.SrchRegionLeft),
-//                                     int.Parse(setting.SrchRegionTop),
-//                                     int.Parse(setting.SrchRegionWidth),
-//                                     int.Parse(setting.SrchRegionHeight))
-//                                );
+                //                 SetupExtractor(setting.EnvMode,
+                //                     float.Parse(setting.IconLeftExtRatio),
+                //                     float.Parse(setting.IconRightExtRatio),
+                //                     float.Parse(setting.IconTopExtRatio),
+                //                     float.Parse(setting.IconBottomExtRatio),
+                //                     minFaceWidth,
+                //                     ratio,
+                //                     new Rectangle(int.Parse(setting.SrchRegionLeft),
+                //                                     int.Parse(setting.SrchRegionTop),
+                //                                     int.Parse(setting.SrchRegionWidth),
+                //                                     int.Parse(setting.SrchRegionHeight))
+                //                                );
                 StartSetCam(setting);
             }
 
@@ -780,7 +781,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.UnicastPort = 3939;
             this.axCamImgCtrl1.ComType = 0;
 
-            //this.axCamImgCtrl1.CamImgCtrlStart();
+            this.axCamImgCtrl1.CamImgCtrlStart();
             //this.axCamImgCtrl1.CamImgRecStart();
 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
@@ -801,7 +802,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                 try
                 {
-                    //camera.Connect();
+                    camera.Connect();
                 }
                 catch (System.Net.Sockets.SocketException)
                 {
@@ -941,11 +942,7 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-
-
-
         #region IImageScreen Members
-
 
         private void ShowFaceRecognition(Image captured, Image fromLib, float similarity)
         {
@@ -969,6 +966,37 @@ namespace RemoteImaging.RealtimeDisplay
                 ShowFaceRecognition(captured, fromLib, similarity);
             }
 
+
+        }
+
+
+        
+        public void ShowSuspectsInternal(ImportantPersonDetail[] suspects, Image captured)
+        {
+
+            ImportPersonCompare.ImmediatelyModel formAlert = new ImportPersonCompare.ImmediatelyModel();
+            formAlert.ShowPersons = suspects.ToList();
+            formAlert.PicCheckImg = captured;
+
+            formAlert.ShowDialog(this);
+            
+        }
+
+
+        public void ShowSuspects(ImportantPersonDetail[] suspects, Image captured)
+        {
+            if (InvokeRequired)
+            {
+                Action<ImportantPersonDetail[], Image> showSuspectsDel =
+                    this.ShowSuspectsInternal;
+
+                this.BeginInvoke(showSuspectsDel, suspects, captured);
+
+            }
+            else
+            {
+                ShowSuspectsInternal(suspects, captured);
+            }
 
         }
 
