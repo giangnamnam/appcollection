@@ -189,7 +189,8 @@ namespace FaceLibraryBuilder
 
             FormProgress form = new FormProgress();
             form.ShowDialog(this);
-            SuspectsRepositoryManager.Instance.ReLoad();
+
+            this.Close();
 
 
         }
