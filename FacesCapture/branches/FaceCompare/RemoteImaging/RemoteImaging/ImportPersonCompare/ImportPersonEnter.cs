@@ -16,6 +16,7 @@ namespace RemoteImaging.ImportPersonCompare
 {
     public partial class ImportPersonEnter : Form
     {
+
         public ImportPersonEnter()
         {
             InitializeComponent();
@@ -52,7 +53,6 @@ namespace RemoteImaging.ImportPersonCompare
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.RestoreDirectory = true;
-                //文本文件|*.*|C#文件|*.cs|所有文件|*.*
                 ofd.Filter = "Jpeg 文件|*.jpg|Bmp 文件|*.bmp";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {

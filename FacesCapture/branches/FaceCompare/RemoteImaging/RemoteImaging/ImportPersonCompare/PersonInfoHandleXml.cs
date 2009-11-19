@@ -56,7 +56,12 @@ namespace RemoteImaging.ImportPersonCompare
         public void WriteInfo(PersonInfo info)
         {
             XDocument xDoc = XDocument.Load(FileName);
-            xDoc.Root.RemoveNodes();
+
+            if (xDoc.Root.Nodes().Count() > 1)
+            {
+                xDoc.Root.FirstNode.Remove();
+            }
+
             xDoc.Root.Add(new XElement("person",
                 new XAttribute("id", info.ID),
                 new XAttribute("name", info.Name),
