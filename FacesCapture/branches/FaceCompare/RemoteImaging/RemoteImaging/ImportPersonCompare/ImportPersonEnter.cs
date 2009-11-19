@@ -74,7 +74,9 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            String fileName = this.picTargetPerson.Image.Tag as string;
+            String oldFileName = this.picTargetPerson.Image.Tag as string;
+
+            String fileName = System.Guid.NewGuid().ToString().ToUpper() + System.IO.Path.GetExtension(oldFileName);
 
             //搜索人脸
             Frame fm = new Frame();
@@ -197,6 +199,7 @@ namespace RemoteImaging.ImportPersonCompare
 
             FormProgress form = new FormProgress();
             form.ShowDialog(this);
+            SuspectsRepository.Instance.ReLoad();
            
 
         }

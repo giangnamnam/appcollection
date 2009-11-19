@@ -216,7 +216,7 @@
             this.groupBox1.Size = new System.Drawing.Size(736, 205);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "犯罪分子";
+            this.groupBox1.Text = "预设目标";
             // 
             // ImmediatelyModel
             // 
@@ -225,7 +225,12 @@
             this.ClientSize = new System.Drawing.Size(736, 410);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grbTargetImg);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ImmediatelyModel";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "报警 立即处理模式";
             this.Load += new System.EventHandler(this.PersonCheck_Load);
             this.Shown += new System.EventHandler(this.ImmediatelyModel_Shown);

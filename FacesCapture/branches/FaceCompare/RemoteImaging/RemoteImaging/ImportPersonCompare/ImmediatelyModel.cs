@@ -19,10 +19,10 @@ namespace RemoteImaging.ImportPersonCompare
             InitializeComponent();
             btnOK.Enabled = false;
         }
-        
+
         private void PersonCheck_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         public ImageDirSys SetWarnInfo
@@ -79,7 +79,7 @@ namespace RemoteImaging.ImportPersonCompare
             set { picCheck.Image = (Image)value; }
         }
 
-        private List<ImportantPersonDetail> listPersons =null;
+        private List<ImportantPersonDetail> listPersons = null;
         public List<ImportantPersonDetail> ShowPersons
         {
             private get { return listPersons; }
@@ -93,25 +93,22 @@ namespace RemoteImaging.ImportPersonCompare
 
         protected void InitControl(List<ImportantPersonDetail> listpersons)
         {
-            ListViewItem item = null;
-                foreach (ImportantPersonDetail ipd in listPersons)
-                {
-                    
-//                     float x = Convert.ToSingle(p[0]);
-//                     float y = Convert.ToSingle(p[1]);
+            foreach (ImportantPersonDetail ipd in listPersons)
+            {
 
-                    ListViewItem lvi = new ListViewItem(new string[] { "",
+                //                     float x = Convert.ToSingle(p[0]);
+                //                     float y = Convert.ToSingle(p[1]);
+
+                ListViewItem lvi = new ListViewItem(new string[] { "",
                                                             ipd.Info.Name,
                                                             ipd.Info.Sex.ToString(),
                                                             ipd.Info.Age.ToString(),
                                                             ipd.Info.CardId,
                                                             string.Empty});
-                    lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
-                    lvi.SubItems[1].Tag = ipd.Info.FileName;//犯罪分子图片  未进行灰度图转换
-                    item = v.Items.Add(lvi);
-                }
+                lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
+                lvi.SubItems[1].Tag = ipd.Info.FileName;//犯罪分子图片  未进行灰度图转换
+            }
 
-            if (item != null) item.Selected = true;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -169,25 +166,25 @@ namespace RemoteImaging.ImportPersonCompare
 
         private void lvPersonInfo_SelectedIndexChanged(object sender, EventArgs e)
         {
-             if (v.SelectedItems.Count > 0 )
-             {
-                 ListViewItem lvi = v.SelectedItems[0];
-                 RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
-                 string range = lvi.SubItems[5].Text;
-                 lblTextSim.Text = string.Format("预计范围: {0}  检测结果: {1}", range, sm.similarity);
-                 //犯罪分子图片显示
-                 if (picStandard.Image !=null)
-                 {
-                     picStandard.Image.Dispose();
-                     picStandard.Image = null;
-                 }
+            if (v.SelectedItems.Count > 0)
+            {
+                ListViewItem lvi = v.SelectedItems[0];
+                RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
+                string range = lvi.SubItems[5].Text;
+                lblTextSim.Text = string.Format("预计范围: {0}  检测结果: {1}", range, sm.similarity);
+                //犯罪分子图片显示
+                if (picStandard.Image != null)
+                {
+                    picStandard.Image.Dispose();
+                    picStandard.Image = null;
+                }
 
-                 string path = Path.Combine(Properties.Settings.Default.ImpSelectPersonPath, lvi.SubItems[1].Tag as string);
+                string path = Path.Combine(Properties.Settings.Default.ImpSelectPersonPath, lvi.SubItems[1].Tag as string);
 
 
-                 picStandard.Image = Image.FromFile(path);
-                 btnOK.Enabled = true;
-             }
+                picStandard.Image = Image.FromFile(path);
+                btnOK.Enabled = true;
+            }
         }
 
         private void ImmediatelyModel_Shown(object sender, EventArgs e)

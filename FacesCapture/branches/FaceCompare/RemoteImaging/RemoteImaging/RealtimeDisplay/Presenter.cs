@@ -457,7 +457,7 @@ namespace RemoteImaging.RealtimeDisplay
                             int idx = fileName.IndexOf('_');
                             fileName = fileName.Remove(idx, 5);
 
-                            if (fileName == p.FileName)
+                            if (string.Compare(fileName, p.FileName, true)==0)
                             {
                                 details.Add(new ImportantPersonDetail(p, result));
                             }

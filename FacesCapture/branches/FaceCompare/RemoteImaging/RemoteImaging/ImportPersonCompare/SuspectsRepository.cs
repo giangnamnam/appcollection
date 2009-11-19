@@ -24,19 +24,15 @@ namespace RemoteImaging.ImportPersonCompare
 
                 return instance;
             }
-            
-
         }
 
-        public static SuspectsRepository Load()
+        private static void loadInternal(Dictionary<string, PersonInfo> repo)
         {
-            SuspectsRepository repo = new SuspectsRepository();
-
             XmlDocument doc = new XmlDocument();
             doc.Load(Properties.Settings.Default.ImpPersonConfigure);
 
             XmlNodeList nodes = doc.SelectNodes("//person");
-            
+
             foreach (XmlNode n in nodes)
             {
                 PersonInfo p = new PersonInfo();
@@ -48,10 +44,23 @@ namespace RemoteImaging.ImportPersonCompare
                 p.FileName = n.Attributes["filename"].Value.ToString();
                 p.Similarity = Convert.ToInt32(n.Attributes["similarity"].Value);
 
-                repo.storage[p.CardId] = p;
+                repo[p.FileName] = p;
             }
+        }
 
+        public static SuspectsRepository Load()
+        {
+            SuspectsRepository repo = new SuspectsRepository();
+
+            loadInternal(repo.storage);
             return repo;
+        }
+
+        public void ReLoad()
+        {
+            this.storage.Clear();
+
+            loadInternal(this.storage);
         }
 
         public bool Contains(string id)
