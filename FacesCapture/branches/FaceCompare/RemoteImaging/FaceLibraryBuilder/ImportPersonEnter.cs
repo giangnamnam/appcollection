@@ -95,14 +95,14 @@ namespace FaceLibraryBuilder
             String fileName = System.Guid.NewGuid().ToString().ToUpper() + System.IO.Path.GetExtension(oldFileName);
 
             //搜索人脸
-            OpenCvSharp.IplImage iplFace = BitmapConverter.ToIplImage( (Bitmap) this.picTargetPerson.Image);
+            OpenCvSharp.IplImage iplFace = BitmapConverter.ToIplImage((Bitmap)this.picTargetPerson.Image);
 
             string savePath = Path.Combine(FileSavePath, fileName);
             iplFace.SaveImage(savePath);
 
             //归一化
             OpenCvSharp.CvRect rect = new OpenCvSharp.CvRect(
-                this.drawRectangle.X, 
+                this.drawRectangle.X,
                 this.drawRectangle.Y,
                 this.drawRectangle.Width,
                 this.drawRectangle.Height);
@@ -269,7 +269,7 @@ namespace FaceLibraryBuilder
 
             Control ctrl = (Control)sender;
 
-            drawRectangle = ctrl.RectangleToClient(theRectangle);
+            drawRectangle = ctrl.RectangleToClient(NormalizeRectangle( theRectangle ));
             ctrl.Invalidate();
 
             theRectangle = new Rectangle(0, 0, 0, 0);
@@ -307,28 +307,30 @@ namespace FaceLibraryBuilder
 
         }
 
+        private static Rectangle NormalizeRectangle(Rectangle rc)
+        {
+            int x = rc.Left;
+            int width = Math.Abs(rc.Width);
+            int height = Math.Abs(rc.Height);
+
+            if (rc.Width < 0)
+            {
+                x -= width;
+            }
+
+            int y = rc.Top;
+            if (rc.Height < 0)
+            {
+                y -= height;
+            }
+
+            return new Rectangle(x, y, width, height);
+        }
         private void picTargetPerson_Paint(object sender, PaintEventArgs e)
         {
             if (this.drawRectangle.Size != Size.Empty)
             {
-                int x = drawRectangle.Left;
-                int width = Math.Abs(drawRectangle.Width);
-                int height = Math.Abs(drawRectangle.Height);
-
-                if (drawRectangle.Width < 0)
-                {
-                    x -= width;
-                }
-
-                int y = drawRectangle.Top;
-                if (drawRectangle.Height < 0)
-                {
-                    y -= height;
-                }
-
-
-                Rectangle rc = new Rectangle(x, y, width, height);
-                e.Graphics.DrawRectangle(Pens.Black, rc);
+                e.Graphics.DrawRectangle(Pens.Black, drawRectangle);
             }
 
         }
