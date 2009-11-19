@@ -506,7 +506,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         public bool Equals(ImportantPersonDetail x, ImportantPersonDetail y)
         {
-            return x.Info.FileName == y.Info.FileName;
+            return string.Compare(x.Info.FileName, y.Info.FileName, true) == 0;
         }
 
         public int GetHashCode(ImportantPersonDetail obj)

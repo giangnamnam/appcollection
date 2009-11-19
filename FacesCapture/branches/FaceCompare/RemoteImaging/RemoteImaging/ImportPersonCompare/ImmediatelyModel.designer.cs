@@ -34,7 +34,6 @@
             this.picCheck = new System.Windows.Forms.PictureBox();
             this.lblTextSim = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
-            this.lblSimilarity = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.grbTargetImg = new System.Windows.Forms.GroupBox();
             this.picStandard = new System.Windows.Forms.PictureBox();
@@ -93,9 +92,10 @@
             // lblTextSim
             // 
             this.lblTextSim.AutoSize = true;
-            this.lblTextSim.Location = new System.Drawing.Point(528, 31);
+            this.lblTextSim.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTextSim.Location = new System.Drawing.Point(489, 29);
             this.lblTextSim.Name = "lblTextSim";
-            this.lblTextSim.Size = new System.Drawing.Size(89, 12);
+            this.lblTextSim.Size = new System.Drawing.Size(130, 16);
             this.lblTextSim.TabIndex = 16;
             this.lblTextSim.Text = "检测结果 55.9%";
             // 
@@ -108,17 +108,6 @@
             this.btnOK.Text = "处理";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // lblSimilarity
-            // 
-            this.lblSimilarity.AutoSize = true;
-            this.lblSimilarity.Font = new System.Drawing.Font("NSimSun", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblSimilarity.ForeColor = System.Drawing.Color.Red;
-            this.lblSimilarity.Location = new System.Drawing.Point(441, 26);
-            this.lblSimilarity.Name = "lblSimilarity";
-            this.lblSimilarity.Size = new System.Drawing.Size(72, 19);
-            this.lblSimilarity.TabIndex = 10;
-            this.lblSimilarity.Text = "相似度";
             // 
             // btnCancel
             // 
@@ -133,7 +122,6 @@
             // grbTargetImg
             // 
             this.grbTargetImg.Controls.Add(this.btnCancel);
-            this.grbTargetImg.Controls.Add(this.lblSimilarity);
             this.grbTargetImg.Controls.Add(this.btnOK);
             this.grbTargetImg.Controls.Add(this.lblTextSim);
             this.grbTargetImg.Controls.Add(this.picCheck);
@@ -251,7 +239,6 @@
         private System.Windows.Forms.PictureBox picCheck;
         private System.Windows.Forms.Label lblTextSim;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Label lblSimilarity;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox grbTargetImg;
         private System.Windows.Forms.PictureBox picStandard;

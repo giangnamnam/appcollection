@@ -91,8 +91,15 @@ namespace RemoteImaging.ImportPersonCompare
             }
         }
 
+        private static int CompareTarget(ImportantPersonDetail x, ImportantPersonDetail y)
+        {
+            return (int) (y.Similarity.similarity - x.Similarity.similarity);
+        }
+
         protected void InitControl(List<ImportantPersonDetail> listpersons)
         {
+            listpersons.Sort(CompareTarget);
+
             foreach (ImportantPersonDetail ipd in listPersons)
             {
 
@@ -107,6 +114,7 @@ namespace RemoteImaging.ImportPersonCompare
                                                             string.Empty});
                 lvi.SubItems[0].Tag = ipd.Similarity; //人脸库中的图片
                 lvi.SubItems[1].Tag = ipd.Info.FileName;//犯罪分子图片  未进行灰度图转换
+                this.v.Items.Add(lvi);
             }
 
         }
@@ -171,7 +179,7 @@ namespace RemoteImaging.ImportPersonCompare
                 ListViewItem lvi = v.SelectedItems[0];
                 RecognizeResult sm = (RecognizeResult)lvi.SubItems[0].Tag;
                 string range = lvi.SubItems[5].Text;
-                lblTextSim.Text = string.Format("预计范围: {0}  检测结果: {1}", range, sm.similarity);
+                lblTextSim.Text = string.Format("相似度: {0:F0}%", sm.similarity*100);
                 //犯罪分子图片显示
                 if (picStandard.Image != null)
                 {
