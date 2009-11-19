@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -108,15 +108,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.rgBrightMode = new DevExpress.XtraEditors.RadioGroup();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.label42 = new System.Windows.Forms.Label();
-            this.ragHandleMode = new DevExpress.XtraEditors.RadioGroup();
-            this.btnBrowseSavePath = new System.Windows.Forms.Button();
-            this.txtSavePath = new System.Windows.Forms.TextBox();
-            this.lblPersonPicSavePath = new System.Windows.Forms.Label();
-            this.lblHandleMethod = new System.Windows.Forms.Label();
-            this.btnBrowseImportPerPic = new System.Windows.Forms.Button();
-            this.lblSel = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -146,8 +137,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ragSaveDay.Properties)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).BeginInit();
-            this.tabPage6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ragHandleMode.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -198,7 +187,6 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(6, 71);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -325,37 +313,37 @@
             // 
             // dataGridCameras
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridCameras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCameras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridCameras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridCameras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.ID,
             this.IP});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridCameras.Location = new System.Drawing.Point(16, 30);
             this.dataGridCameras.Name = "dataGridCameras";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridCameras.RowTemplate.Height = 23;
             this.dataGridCameras.Size = new System.Drawing.Size(449, 228);
             this.dataGridCameras.TabIndex = 0;
@@ -983,102 +971,6 @@
             this.rgBrightMode.Size = new System.Drawing.Size(332, 26);
             this.rgBrightMode.TabIndex = 29;
             // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.label42);
-            this.tabPage6.Controls.Add(this.ragHandleMode);
-            this.tabPage6.Controls.Add(this.btnBrowseSavePath);
-            this.tabPage6.Controls.Add(this.txtSavePath);
-            this.tabPage6.Controls.Add(this.lblPersonPicSavePath);
-            this.tabPage6.Controls.Add(this.lblHandleMethod);
-            this.tabPage6.Controls.Add(this.btnBrowseImportPerPic);
-            this.tabPage6.Controls.Add(this.lblSel);
-            this.tabPage6.Location = new System.Drawing.Point(4, 21);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(486, 314);
-            this.tabPage6.TabIndex = 6;
-            this.tabPage6.Text = "重点人脸识别布防";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(10, 165);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(113, 12);
-            this.label42.TabIndex = 50;
-            this.label42.Text = "人脸识别度级别设置";
-            // 
-            // ragHandleMode
-            // 
-            this.ragHandleMode.EditValue = 1;
-            this.ragHandleMode.Location = new System.Drawing.Point(36, 68);
-            this.ragHandleMode.Name = "ragHandleMode";
-            this.ragHandleMode.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.ragHandleMode.Properties.Appearance.Options.UseBackColor = true;
-            this.ragHandleMode.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.ragHandleMode.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(0, "立即"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "顺序")});
-            this.ragHandleMode.Size = new System.Drawing.Size(157, 31);
-            this.ragHandleMode.TabIndex = 49;
-            // 
-            // btnBrowseSavePath
-            // 
-            this.btnBrowseSavePath.Location = new System.Drawing.Point(343, 127);
-            this.btnBrowseSavePath.Name = "btnBrowseSavePath";
-            this.btnBrowseSavePath.Size = new System.Drawing.Size(75, 23);
-            this.btnBrowseSavePath.TabIndex = 48;
-            this.btnBrowseSavePath.Text = "选择";
-            this.btnBrowseSavePath.UseVisualStyleBackColor = true;
-            this.btnBrowseSavePath.Click += new System.EventHandler(this.btnBrowseSavePath_Click);
-            // 
-            // txtSavePath
-            // 
-            this.txtSavePath.Location = new System.Drawing.Point(39, 129);
-            this.txtSavePath.Name = "txtSavePath";
-            this.txtSavePath.Size = new System.Drawing.Size(275, 21);
-            this.txtSavePath.TabIndex = 47;
-            this.txtSavePath.Text = global::RemoteImaging.Properties.Settings.Default.WarnPicSavePath;
-            // 
-            // lblPersonPicSavePath
-            // 
-            this.lblPersonPicSavePath.AutoSize = true;
-            this.lblPersonPicSavePath.Location = new System.Drawing.Point(10, 113);
-            this.lblPersonPicSavePath.Name = "lblPersonPicSavePath";
-            this.lblPersonPicSavePath.Size = new System.Drawing.Size(161, 12);
-            this.lblPersonPicSavePath.TabIndex = 46;
-            this.lblPersonPicSavePath.Text = "报警图片目标保存路径设置：";
-            // 
-            // lblHandleMethod
-            // 
-            this.lblHandleMethod.AutoSize = true;
-            this.lblHandleMethod.Location = new System.Drawing.Point(10, 48);
-            this.lblHandleMethod.Name = "lblHandleMethod";
-            this.lblHandleMethod.Size = new System.Drawing.Size(89, 12);
-            this.lblHandleMethod.TabIndex = 45;
-            this.lblHandleMethod.Text = "报警处置模式：";
-            // 
-            // btnBrowseImportPerPic
-            // 
-            this.btnBrowseImportPerPic.Location = new System.Drawing.Point(345, 16);
-            this.btnBrowseImportPerPic.Name = "btnBrowseImportPerPic";
-            this.btnBrowseImportPerPic.Size = new System.Drawing.Size(75, 23);
-            this.btnBrowseImportPerPic.TabIndex = 42;
-            this.btnBrowseImportPerPic.Text = "选择目标人";
-            this.btnBrowseImportPerPic.UseVisualStyleBackColor = true;
-            this.btnBrowseImportPerPic.Click += new System.EventHandler(this.btnBrowseImportPerPic_Click);
-            // 
-            // lblSel
-            // 
-            this.lblSel.AutoSize = true;
-            this.lblSel.Location = new System.Drawing.Point(10, 21);
-            this.lblSel.Name = "lblSel";
-            this.lblSel.Size = new System.Drawing.Size(197, 12);
-            this.lblSel.TabIndex = 40;
-            this.lblSel.Text = "选取目标人(只支持jpg和bmp格式)：";
-            // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1240,9 +1132,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).EndInit();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ragHandleMode.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1339,14 +1228,5 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox DiskQuota;
         private System.Windows.Forms.CheckBox checkBoxRecheckFace;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.Label lblSel;
-        private DevExpress.XtraEditors.RadioGroup ragHandleMode;
-        private System.Windows.Forms.Button btnBrowseSavePath;
-        private System.Windows.Forms.TextBox txtSavePath;
-        private System.Windows.Forms.Label lblPersonPicSavePath;
-        private System.Windows.Forms.Label lblHandleMethod;
-        private System.Windows.Forms.Button btnBrowseImportPerPic;
-        private System.Windows.Forms.Label label42;
     }
 }

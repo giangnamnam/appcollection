@@ -75,7 +75,11 @@
     </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\IconExtractor\thirdparty\libs\OpenCvSharp\OpenCvSharp.dll</HintPath>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SuspectsRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\SuspectsRepository.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -112,30 +116,18 @@
     <Compile Include="AlertSettingRes.Designer.cs">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalysePersons.cs" />
     <Compile Include="BackGroundComparer.cs" />
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Core\IplBitmapComposite.cs" />
     <Compile Include="Face.cs" />
-    <Compile Include="FormProgress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormProgress.Designer.cs">
-      <DependentUpon>FormProgress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ImportPersonCompare\AnalysePersons.cs" />
     <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ImportPersonCompare\ImmediatelyModel.designer.cs">
       <DependentUpon>ImmediatelyModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ImportPersonCompare\ImportPersonEnter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ImportPersonCompare\ImportPersonEnter.designer.cs">
-      <DependentUpon>ImportPersonEnter.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportPersonCompare\InfoEnter.cs">
       <SubType>Form</SubType>
@@ -143,7 +135,6 @@
     <Compile Include="ImportPersonCompare\InfoEnter.designer.cs">
       <DependentUpon>InfoEnter.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImportPersonCompare\PersonInfoHandleXml.cs" />
     <Compile Include="ImportPersonCompare\SequenceModel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,7 +169,6 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportPersonCompare\SuspectsRepository.cs" />
     <Compile Include="ManagedTarget.cs" />
     <Compile Include="MockCamera.cs" />
     <Compile Include="OptionsForm.cs">
@@ -231,14 +221,8 @@
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormProgress.resx">
-      <DependentUpon>FormProgress.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImportPersonCompare\ImmediatelyModel.resx">
       <DependentUpon>ImmediatelyModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImportPersonCompare\ImportPersonEnter.resx">
-      <DependentUpon>ImportPersonEnter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportPersonCompare\InfoEnter.resx">
       <DependentUpon>InfoEnter.cs</DependentUpon>
@@ -368,6 +352,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Library\Back.dll" />
+    <Content Include="ImpPersonConfigure.xml" />
     <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />

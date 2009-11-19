@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Text;
 using RemoteImaging.ImportPersonCompare;
 using System.Linq;
+using SuspectsRepository;
 
 
 namespace RemoteImaging.RealtimeDisplay
@@ -448,7 +449,7 @@ namespace RemoteImaging.RealtimeDisplay
                     IList<ImportantPersonDetail> details =
                         new List<ImportantPersonDetail>();
 
-                    foreach (PersonInfo p in SuspectsRepository.Instance.Peoples)
+                    foreach (PersonInfo p in SuspectsRepositoryManager.Instance.Peoples)
                     {
                         foreach (FaceRecognition.RecognizeResult result in filtered)
                         {

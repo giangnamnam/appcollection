@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "../../OutPut/MotionDetect/PreProcess.h"
+#include "../../OutPut/PreProcess.h"
 
 using namespace System;
 
