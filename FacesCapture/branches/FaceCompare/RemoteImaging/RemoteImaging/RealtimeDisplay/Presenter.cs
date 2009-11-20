@@ -394,8 +394,7 @@ namespace RemoteImaging.RealtimeDisplay
                         ImageDetail[] imgs = this.SaveImage(targets);
                         this.screen.ShowImages(imgs);
 
-                        DetectSuspecious(targets);
-
+                        if (this.FaceRecognize) DetectSuspecious(targets);
 
                         Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
                         Array.ForEach(targets, t =>
@@ -474,6 +473,9 @@ namespace RemoteImaging.RealtimeDisplay
                 }
             }
         }
+
+        public bool FaceRecognize { get; set; }
+
         #region IImageScreenObserver Members
 
         public void SelectedCameraChanged()

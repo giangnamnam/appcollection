@@ -996,5 +996,12 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
         #endregion
+
+        private void faceRecognize_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.presenter == null) return;
+
+            this.presenter.FaceRecognize = faceRecognize.Checked;
+        }
     }
 }
