@@ -35,7 +35,7 @@ namespace SuspectsRepository
         {
             XDocument xDoc = XDocument.Load(FileName);
 
-            if (xDoc.Root.Nodes().Count() > 1)
+            if (xDoc.Root.Nodes().Count() > 4)
             {
                 xDoc.Root.FirstNode.Remove();
             }

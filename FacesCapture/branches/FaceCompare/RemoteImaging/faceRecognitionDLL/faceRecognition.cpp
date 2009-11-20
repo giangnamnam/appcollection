@@ -408,7 +408,15 @@ extern "C" void _declspec(dllexport) FaceRecognition(float*currentFace, int samp
 	//calc the percents on every trained face image: %=(face[i]-min)/(max-min)
 	for(faceIndex=0;faceIndex<sampleCount;faceIndex++)
 	{
-		similarityPtr[faceIndex].similarity = 1 - (similarityPtr[faceIndex].similarity-myMin) / (myMax-myMin);
+		if (myMin<110000000)
+		{
+			similarityPtr[faceIndex].similarity = 1 - (similarityPtr[faceIndex].similarity-myMin) / (myMax-myMin);
+		}
+		else
+		{
+			similarityPtr[faceIndex].similarity = 0.0;
+		}
+		//similarityPtr[faceIndex].similarity = 1 - (similarityPtr[faceIndex].similarity-myMin) / (myMax-myMin);
 		similarityPtr[faceIndex].fileName	= gc_sampleFileName[faceIndex];
 	}
 	TIMELOG("End FaceRecognition");

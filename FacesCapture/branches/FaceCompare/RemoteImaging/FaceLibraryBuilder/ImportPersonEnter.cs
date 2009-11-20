@@ -141,9 +141,10 @@ namespace FaceLibraryBuilder
 
             perinfo.WriteInfo(info);
 
+            MessageBox.Show("添加成功");
+
             Array.ForEach(normalizedImages, ipl => ipl.Dispose());
 
-            InitCotrol(false);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -180,6 +181,12 @@ namespace FaceLibraryBuilder
 
         private void addFinished_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show(
+                this, 
+                "确定生成人脸特征库？", 
+                "请确认", 
+                MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+
 
             if (GetFaceSamplesCount() < 40)
             {
@@ -216,6 +223,8 @@ namespace FaceLibraryBuilder
                 string extenstion = System.IO.Path.GetExtension(files[0]);
                 if (string.Compare(extenstion, ".jpg", false) == 0)
                 {
+                    InitCotrol(true);
+
                     Image img = Image.FromFile(files[0]);
                     img.Tag = files[0];
                     this.picTargetPerson.Image = img;

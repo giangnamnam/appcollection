@@ -80,6 +80,10 @@ namespace RemoteImaging.RealtimeDisplay
             this.screen = screen;
             this.camera = camera;
 
+#if DEBUG
+            this.FaceRecognize = true;
+#endif
+
             motionDetectThread =
                 Properties.Settings.Default.DetectMotion ?
                 new Thread(this.DetectMotion) : new Thread(this.BypassDetectMotion);
