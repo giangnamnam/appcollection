@@ -26,8 +26,6 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 	CFileFind imageFile;
 	CString fileName;
 	CString imgFileAdd = "C:\\faceRecognition\\faceSample\\091028212230000_0000.jpg";  
-	int strLen = imgFileAdd.GetLength();
-	char *fileAddress = new char[strLen+1];
 
 	int sampleCount = 0;//训练样本的图片个数
 
@@ -47,8 +45,8 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "no sample pictures!!!", "FaceTraining.cpp", 36, NULL);
 	}
 
-	char *imgFileName[25]; //定义指针数组用来存储样本文件名 
-	for (int i=0; i<25; i++)
+	char *imgFileName[50]; //定义指针数组用来存储样本文件名 
+	for (int i=0; i<50; i++)
 	{
 		imgFileName[i] = new char[sampleCount];
 	}
@@ -78,7 +76,10 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 			}
 			imgFileName[fileNameLen][imgCount] = '\0';
 
-			imgFileAdd = "C:\\faceRecognition\\faceSample\\" + fileName; 
+			imgFileAdd = "C:\\faceRecognition\\faceSample\\" + fileName;
+
+			int strLen = imgFileAdd.GetLength();
+			char *fileAddress = new char[strLen+1];
 
 			for (int i=0; i<strLen; i++)
 			{
@@ -87,6 +88,9 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 			fileAddress[strLen] = '\0';
 
 			IplImage *bigImg = cvLoadImage(fileAddress, 0);
+
+			delete []fileAddress;
+
 			IplImage *smallImg = cvCreateImage(cvSize(imgWidth, imgHeight), 8, 1);
 			uchar *smallImgData = (uchar*)smallImg->imageData;
 
@@ -146,9 +150,6 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 
 				cvGEMM(faceDB, EigenVectorFinal, 1, NULL, 0, resCoeff, CV_GEMM_A_T); 
 
-				//cvCalcPCA(faceMat, AvgVector, EigenValue, EigenVector, CV_PCA_DATA_AS_COL);//根据样本数据，计算样本图片的
-				//cvCalcPCA(faceMat, AvgVector, EigenValue, EigenVector, CV_PCA_USE_AVG);
-
 				//平均值和特征值，特征向量
 				fstream txtFile;
 				bool txtExist = false;
@@ -205,8 +206,6 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 					out2<<endl;
 				}
 				out2.close();  
-
-				//cvProjectPCA(faceMat, AvgVector, EigenVector, resCoeff);//计算样本在投影空间的投影系数
 
 				txtExist = false;
 				txtFile.open("C:\\faceRecognition\\data\\SampleCoefficient.txt");
@@ -265,8 +264,8 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 		}
 	}
 
-	delete []fileAddress;
-	for (int i=0; i<25; i++)
+	//delete []fileAddress;
+	for (int i=0; i<50; i++)
 	{
 		delete []imgFileName[i];
 	}
@@ -462,28 +461,15 @@ FACEPCA_API void FaceRecognition(float *currentFace, int sampleCount, similarity
 	float *targetResultData = targetResult->data.fl;
 
 	float coeff = 0.0;
-	float targetSum = 0.0;
 
 	for (int i=0; i<sampleCount; i++)//计算得到待识别图片与训练样本之间的差
 	{
 		diff = 0.0;
-		targetSum = 0.0;
 		for (int j=0; j<eigenNum; j++)
 		{
-			targetSum += abs(resCoeffData[i*resCols+j]);
+			diff += abs(resCoeffData[i*resCols+j] - targetResultData[j]); 
 		}
-		for (int j=0; j<eigenNum; j++)
-		{
-			//diff += abs(resCoeffData[i*resCols+j] - targetResultData[j]);
-			//diff += (resCoeffData[i*resCols+j] - targetResultData[j])*(resCoeffData[i*resCols+j] - targetResultData[j]);//计算待识别图片与样本图片在影射系数之间的差值之和
-			diff += pow((resCoeffData[i*resCols+j] - targetResultData[j]), 2);
-			/*mol = abs(abs(resCoeffData[i*resCols+j]) - abs(targetResultData[j]));
-			den = max(abs(resCoeffData[i*resCols+j]), abs(targetResultData[j]));
-			coeff = abs(resCoeffData[i*resCols+j])/targetSum;
-			diff += coeff*(1- mol/den);*/ 
-		}
-		similarity[i].similarity = cvSqrt(diff);//此处的距离计算采用欧氏距离
-		//similarity[i].similarity = diff;
+		similarity[i].similarity = diff;
 	}
 
 	fstream txtFile;
@@ -502,55 +488,39 @@ FACEPCA_API void FaceRecognition(float *currentFace, int sampleCount, similarity
 		remove("C:\\faceRecognition\\data\\diff.txt");//如果文件存在，则删除
 	}
 
-	ofstream out1("C:\\faceRecognition\\data\\diff.txt"); 
+	//ofstream out1("C:\\faceRecognition\\data\\diff.txt"); 
 	float minNum = similarity[0].similarity;//定义最小值
 	float maxNum = similarity[0].similarity;//定义最大值
-	for (int i=1; i<sampleCount; i++)//计算得到待识别图片与样本图片映射系数之间差值的最大和最小值
-	{
-		out1<<similarity[i].similarity<<endl; 
-		if (similarity[i].similarity > maxNum)
-		{
-			maxNum = similarity[i].similarity;
-		}
-		if (similarity[i].similarity < minNum)
-		{
-			minNum = similarity[i].similarity;
-		}
-	}
-	maxNum = maxNum>minNum ? maxNum:(minNum+1);
-	out1.close();
-
-	//////////////////////////////////////直接进行相似度表示///////////////////////////////////////////////////////////
-	for (int i=0; i<sampleCount; i++)
-	{
-		similarity[i].similarity = 1 - (similarity[i].similarity-minNum)/(maxNum-minNum);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//for (int i=1; i<sampleCount; i++)//计算得到待识别图片与样本图片映射系数之间差值的最大和最小值
+	//{
+	//	out1<<similarity[i].similarity<<endl; 
+	//	if (similarity[i].similarity > maxNum)
+	//	{
+	//		maxNum = similarity[i].similarity;
+	//	}
+	//	if (similarity[i].similarity < minNum)
+	//	{
+	//		minNum = similarity[i].similarity;
+	//	}
+	//}
+	maxNum = maxNum>minNum ? maxNum:(minNum+1); 
+	//out1.close();
 
 	/////////////////////////////////////加入距离判定后的相似度表示方法////////////////////////////////////////////////
-	//if (minNum < 1000)
-	//{
-	//	for (int i=0; i<sampleCount; i++)
-	//	{
-	//		//if (similarity[i].similarity < 900)
-	//		//{
-	//		//	similarity[i].similarity = 1 - (similarity[i].similarity-minNum)/(1200-minNum);
-	//		//	//similarity[i].similarity = 1 - similarity[i].similarity*0.4/900;
-	//		//}
-	//		//else
-	//		//{
-	//		//	similarity[i].similarity = 0.0;
-	//		//}
-	//		similarity[i].similarity = 1 - (similarity[i].similarity-minNum)/(maxNum-minNum);
-	//	}
-	//}
-	//else
-	//{
-	//	for (int i=0; i<sampleCount; i++)
-	//	{
-	//		similarity[i].similarity = 0.0;
-	//	}
-	//}
+	if (minNum < 130000000)
+	{
+		for (int i=0; i<sampleCount; i++)
+		{
+			similarity[i].similarity = 1 - (similarity[i].similarity-minNum)/(maxNum-minNum);
+		}
+	}
+	else
+	{
+		for (int i=0; i<sampleCount; i++)
+		{
+			similarity[i].similarity = 0.0;
+		}
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	cvReleaseMat(&targetMat);
