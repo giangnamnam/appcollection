@@ -103,10 +103,6 @@ class matrix			//矩阵类matrix
 		
 		if(stCol >= GetColNum())	throw "stCol >= ColNum";//断定stCol不超实际矩阵列值
 		
-
-
-		cout<<__FILE__<<","<<__LINE__<<endl;
-
 		return m_Datas[stRow * GetColNum() + stCol];
 	}
 /******

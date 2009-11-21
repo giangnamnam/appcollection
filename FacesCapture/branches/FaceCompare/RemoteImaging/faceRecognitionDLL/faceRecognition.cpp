@@ -322,12 +322,10 @@ extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400,
 	}
 	else
 	{
-		cout<<__LINE__<<endl;
 		for (i=0;i<imgLen;i++)
 		{
 			fscanf(fp,"%f\n", &((*meanVectorPtr)(i,0)));
 		}
-		cout<<__LINE__<<endl;
 	}
 	fclose(fp);
 	cout<<__LINE__<<endl;
@@ -349,7 +347,6 @@ extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400,
 	}
 	fclose(fp);
 
-	cout<<__LINE__<<endl;
 
 	//load coefficient that sample in eigen vector, smallImgLen*eigenNum
 	if (!(fp=fopen(gc_SampleCoefficientFile.c_str(),"r")))
