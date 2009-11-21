@@ -782,7 +782,10 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.ComType = 0;
 
             this.axCamImgCtrl1.CamImgCtrlStart();
-            //this.axCamImgCtrl1.CamImgRecStart();
+#if !DEBUG
+            this.axCamImgCtrl1.CamImgRecStart();
+#endif
+
 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
