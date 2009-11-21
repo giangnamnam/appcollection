@@ -99,8 +99,13 @@ class matrix			//矩阵类matrix
 	*****/
 	_Ty& operator () (size_t stRow, size_t stCol)
 	{
-		Assert(stRow < GetRowNum());	//断定stRow不超实际矩阵行值
-		Assert(stCol < GetColNum());	//断定stCol不超实际矩阵列值
+		if(stRow >= GetRowNum())	throw "stRow >= RowNum";//断定stRow不超实际矩阵行值
+		
+		if(stCol >= GetColNum())	throw "stCol >= ColNum";//断定stCol不超实际矩阵列值
+		
+
+
+		cout<<__FILE__<<","<<__LINE__<<endl;
 
 		return m_Datas[stRow * GetColNum() + stCol];
 	}
