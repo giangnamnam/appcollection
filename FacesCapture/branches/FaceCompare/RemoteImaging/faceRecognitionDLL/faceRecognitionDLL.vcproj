@@ -241,6 +241,30 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath=".\Common.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Common.inl"
+				>
+			</File>
+			<File
+				RelativePath=".\EigenvalueVector.h"
+				>
+			</File>
+			<File
+				RelativePath=".\EigenvalueVector.inl"
+				>
+			</File>
+			<File
+				RelativePath=".\Matrix.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Matrix.inl"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
