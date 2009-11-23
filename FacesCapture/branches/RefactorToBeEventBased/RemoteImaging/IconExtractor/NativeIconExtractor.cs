@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using OpenCvSharp;
 
-namespace ImageProcessing
+namespace ImageProcess
 {
     public static class NativeIconExtractor
     {
@@ -18,91 +19,42 @@ namespace ImageProcessing
             set
             {
                 configuration = value;
-
-                SetExRatio(configuration.TopRation,
-                           configuration.BottomRation,
-                           configuration.LeftRation,
-                           configuration.RightRation);
-
-                SetROI(configuration.SearchRectangle.Left,
-                    configuration.SearchRectangle.Top,
-                    configuration.SearchRectangle.Width - 1,
-                    configuration.SearchRectangle.Height - 1);
-
-
-                SetFaceParas(configuration.MinFaceWidth, configuration.FaceWidthRatio);
-
-                SetLightMode(configuration.EnvironmentMode);
             }
         }
 
-#if DEBUG
-        const string FaceSearchDll = "FaceSelDllD.dll";
-#else
         const string FaceSearchDll = "FaceSelDll.dll";
-#endif
 
-        /// Return Type: void
-        ///x: int
-        ///y: int
-        ///width: int
-        ///height: int
-        [DllImport(FaceSearchDll)]
-        public static extern void SetROI(int x, int y, int width, int height);
+        [DllImport(FaceSearchDll, EntryPoint = "FaceImagePreprocess")]
+        public static extern void NormalizeFace(
+            System.IntPtr faceIplPtr,
+            ref System.IntPtr normalizedFace,
+            CvRect roi);
 
 
+        public static float[] ResizeIplTo(IplImage Face, int width, int height, BitDepth bitDepth, int channel)
+        {
+            IplImage smallerFace = new IplImage(new OpenCvSharp.CvSize(width, height), bitDepth, channel);
 
-        /// Return Type: void
-        ///dir: char*
-        [DllImport(FaceSearchDll)]
-        public static extern void SetOutputDir([InAttribute()]
-                                                [MarshalAs(UnmanagedType.LPStr)] 
-                                                string dir);
+            Face.Resize(smallerFace, Interpolation.Linear);
 
+            unsafe
+            {
+                byte* smallFaceData = smallerFace.ImageDataPtr;
+                float[] currentFace = new float[width * height * 8 * channel];
+                for (int i = 0; i < smallerFace.Height; i++)
+                {
+                    for (int j = 0; j < smallerFace.Width; j++)
+                    {
+                        currentFace[i * smallerFace.WidthStep + j] = 
+                            (float)smallFaceData[i * smallerFace.WidthStep + j];
+                    }
+                }
 
-        /// Return Type: void
-        ///iMinFace: int
-        ///dFaceChangeRatio: double
-        [DllImport(FaceSearchDll)]
-        public static extern void SetFaceParas(int iMinFace, double dFaceChangeRatio);
+                smallerFace.Dispose();
 
-
-        /// Return Type: void
-        ///topExRatio: double
-        ///bottomExRatio: double
-        ///leftExRatio: double
-        ///rightExRatio: double
-        [DllImport(FaceSearchDll)]
-        public static extern void SetExRatio(double topExRatio,
-            double bottomExRatio,
-            double leftExRatio,
-            double rightExRatio);
-
-
-        /// Return Type: void
-        ///dRatio: double
-        [DllImport(FaceSearchDll)]
-        public static extern void SetDwSmpRatio(double dRatio);
-
-
-        [DllImport(FaceSearchDll)]
-        public static extern void SetLightMode(int iMode);
-
-
-        [DllImport(FaceSearchDll)]
-        public static extern void ReleaseMem();
-
-
-        /// Return Type: void
-        ///frame: Frame*
-        [DllImport(FaceSearchDll)]
-        public static extern void AddInFrame(Frame frame);
-
-
-        /// Return Type: int
-        ///targets: Target**
-        [DllImport(FaceSearchDll)]
-        public static extern int SearchFaces(ref System.IntPtr targets);
+                return currentFace;
+            }
+        }
 
     }
 }

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +33,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -65,39 +69,6 @@
     <Content Include="data\Nose25x15.xml" />
     <Content Include="data\REye18x12.xml" />
     <Content Include="Doc\读我.txt" />
-    <None Include="FaceSelDll.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="thirdparty\libs\OpenCvSharp\OpenCvSharp.Blob.dll" />
-    <Content Include="thirdparty\libs\OpenCvSharp\OpenCvSharp.dll" />
-    <Content Include="thirdparty\libs\OpenCvSharp\OpenCvSharp.Extensions.dll" />
-    <Content Include="thirdparty\libs\OpenCvSharp\OpenCvSharp.MachineLearning.dll" />
-    <Content Include="thirdparty\libs\OpenCvSharp\OpenCvSharp.UserInterface.dll" />
-    <Content Include="thirdparty\libs\OpenCvSharp\OpenCvSharpExtern.dll" />
-    <Content Include="thirdparty\libs\opencv\cv100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\cvaux100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\cvcam100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\cxcore100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\cxts001.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\highgui100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\libguide40.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="thirdparty\libs\opencv\ml100.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Doc\接口说明.doc" />
@@ -110,4 +81,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)"     "$(SolutionDir)..\OutPut\$(TargetFileName)"
+copy "$(TargetDir)$(TargetName).pdb"    "$(SolutionDir)..\OutPut\$(TargetName).pdb"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

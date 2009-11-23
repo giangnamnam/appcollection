@@ -8,7 +8,7 @@ using System.Management;
 using System.Security.Cryptography;
 using Encryptor;
 using Microsoft.Win32;
-using ImageProcessing;
+using ImageProcess;
 
 namespace RemoteImaging
 {
@@ -23,6 +23,23 @@ namespace RemoteImaging
         {
             string keyFile = Path.Combine(Application.StartupPath, "key");
             return keyFile;
+        }
+
+        public static OpenCvSharp.IplImage SubImage(
+            this OpenCvSharp.IplImage whole,
+            OpenCvSharp.CvRect region)
+        {
+            whole.SetROI(region);
+
+            OpenCvSharp.IplImage part =
+                new OpenCvSharp.IplImage(new OpenCvSharp.CvSize(region.Width, region.Height),
+                                         whole.Depth, whole.NChannels);
+
+            whole.Copy(part);
+
+            whole.ResetROI();
+
+            return part;
         }
 
 
@@ -185,19 +202,6 @@ namespace RemoteImaging
                 uuid = System.Guid.NewGuid().ToString();
 
             return uuid.ToUpper();
-        }
-
-
-        public static ManagedFrame ToManaged(this Frame f)
-        {
-            ManagedFrame mf = new ManagedFrame();
-            mf.CameraID = f.cameraID;
-            mf.Ipl = new OpenCvSharp.IplImage(f.IplPtr);
-            mf.Ipl.IsEnabledDispose = false;
-            mf.TimeStamp = DateTime.FromBinary(f.timeStamp);
-            mf.MotionRect = f.searchRect;
-
-            return mf;
         }
     }
 }

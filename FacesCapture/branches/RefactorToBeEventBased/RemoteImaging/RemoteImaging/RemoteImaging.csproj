@@ -56,14 +56,30 @@
     <Reference Include="DevExpress.XtraTreeList.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraVerticalGrid.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="FaceSearchWrapper, Version=1.0.3603.31485, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\FaceSearchWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
+    </Reference>
     <Reference Include="JSZN.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MotionDetectWrapper, Version=1.0.3604.21378, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\MotionDetectWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="MyControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Reference\MyControls.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\IconExtractor\thirdparty\libs\OpenCvSharp\OpenCvSharp.dll</HintPath>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SuspectsRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\SuspectsRepository.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -106,14 +122,39 @@
     <Compile Include="AlertSettingRes.Designer.cs">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalysePersons.cs" />
     <Compile Include="BackGroundComparer.cs" />
     <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Core\IplBitmapComposite.cs" />
     <Compile Include="Core\Video.cs" />
     <Compile Include="DateTimeInString.cs" />
     <Compile Include="Face.cs" />
-    <Compile Include="FaceDetector.cs" />
+    <Compile Include="ImportPersonCompare\ImmediatelyModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportPersonCompare\ImmediatelyModel.designer.cs">
+      <DependentUpon>ImmediatelyModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportPersonCompare\InfoEnter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportPersonCompare\InfoEnter.designer.cs">
+      <DependentUpon>InfoEnter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportPersonCompare\SequenceModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportPersonCompare\SequenceModel.designer.cs">
+      <DependentUpon>SequenceModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFaceRecognitionResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFaceRecognitionResult.Designer.cs">
+      <DependentUpon>FormFaceRecognitionResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
       <SubType>Form</SubType>
@@ -127,9 +168,6 @@
     <Compile Include="FormDetailedPic.Designer.cs">
       <DependentUpon>FormDetailedPic.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrameCapturedEventArgs.cs" />
-    <Compile Include="FrameCapturer.cs" />
-    <Compile Include="FrameHandler.cs" />
     <Compile Include="ImageCapturedEventArgs.cs" />
     <Compile Include="ImageProcess\Controls\FilterPreview.cs">
       <SubType>Component</SubType>
@@ -141,11 +179,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LiveServer.cs" />
-    <Compile Include="ManagedFrame.cs" />
     <Compile Include="ManagedTarget.cs" />
     <Compile Include="MockCamera.cs" />
-    <Compile Include="MotionFrameDetectedEventArgs.cs" />
-    <Compile Include="MotionFrameDetector.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +229,18 @@
     <EmbeddedResource Include="AlertSettingRes.resx">
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportPersonCompare\ImmediatelyModel.resx">
+      <DependentUpon>ImmediatelyModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportPersonCompare\InfoEnter.resx">
+      <DependentUpon>InfoEnter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportPersonCompare\SequenceModel.resx">
+      <DependentUpon>SequenceModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFaceRecognitionResult.resx">
+      <DependentUpon>FormFaceRecognitionResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConfigCamera.resx">
       <DependentUpon>FormConfigCamera.cs</DependentUpon>
@@ -315,6 +362,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Library\Back.dll" />
+    <Content Include="ImpPersonConfigure.xml" />
     <Content Include="Library\JSZN.Component.dll" />
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />
@@ -335,13 +383,9 @@
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
-      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
-      <Name>ImageProcessing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MotionDetect\MotionDetect.csproj">
-      <Project>{408A61BC-629F-4A57-80BE-7D18825BF5B2}</Project>
-      <Name>MotionDetect</Name>
+    <ProjectReference Include="..\FaceRecognition\FaceRecognition.csproj">
+      <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
+      <Name>FaceRecognition</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>

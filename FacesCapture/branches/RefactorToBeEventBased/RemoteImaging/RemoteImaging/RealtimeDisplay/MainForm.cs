@@ -9,14 +9,14 @@ using System.Windows.Forms;
 using MyControls;
 using System.IO;
 using DevExpress.XtraNavBar;
-using ImageProcessing;
+using ImageProcess;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
-using MotionDetect;
+using RemoteImaging.ImportPersonCompare;
 using RemoteImaging.Query;
 
 namespace RemoteImaging.RealtimeDisplay
@@ -64,11 +64,11 @@ namespace RemoteImaging.RealtimeDisplay
             //StartSetCam(setting);//根据光亮值设置相机
 
             SetMonitor();//启动布控
-            MotionDetect.MotionDetecter.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
+            Program.motionDetector.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
 
             InitStatusBar();
 
-            MotionDetect.MotionDetecter.SetDrawRect(setting.DrawMotionRect);
+            Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
 
             FaceSearchConfiguration faceSearchConfig = new FaceSearchConfiguration();
 
@@ -103,7 +103,7 @@ namespace RemoteImaging.RealtimeDisplay
                 int oPointy = Convert.ToInt32(strPoints[1]);
                 int tPointx = Convert.ToInt32(strPoints[2]);
                 int tPointy = Convert.ToInt32(strPoints[3]);
-                MotionDetect.MotionDetecter.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
+                Program.motionDetector.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
             }
         }
 
@@ -334,6 +334,9 @@ namespace RemoteImaging.RealtimeDisplay
         {
             diskSpaceCheckTimer.Enabled = true;
 
+            FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
+
+
             Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
 
             if (c == null) return;
@@ -462,19 +465,23 @@ namespace RemoteImaging.RealtimeDisplay
             float maxFaceWidthRatio,
             Rectangle SearchRectangle)
         {
-            NativeIconExtractor.SetExRatio(topRatio,
+            Program.faceSearch.SetExRatio(topRatio,
                                     bottomRatio,
                                     leftRatio,
                                     rightRatio);
 
-            NativeIconExtractor.SetROI(SearchRectangle.Left,
+
+            Program.faceSearch.SetROI(SearchRectangle.Left,
                 SearchRectangle.Top,
                 SearchRectangle.Width - 1,
-                SearchRectangle.Height - 1);
+                SearchRectangle.Height - 1
+                );
 
-            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
 
-            NativeIconExtractor.SetLightMode(envMode);
+            Program.faceSearch.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+
+
+            Program.faceSearch.SetLightMode(envMode);
         }
 
 
@@ -568,18 +575,18 @@ namespace RemoteImaging.RealtimeDisplay
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                SetupExtractor(setting.EnvMode,
-                    float.Parse(setting.IconLeftExtRatio),
-                    float.Parse(setting.IconRightExtRatio),
-                    float.Parse(setting.IconTopExtRatio),
-                    float.Parse(setting.IconBottomExtRatio),
-                    minFaceWidth,
-                    ratio,
-                    new Rectangle(int.Parse(setting.SrchRegionLeft),
-                                    int.Parse(setting.SrchRegionTop),
-                                    int.Parse(setting.SrchRegionWidth),
-                                    int.Parse(setting.SrchRegionHeight))
-                               );
+                //                 SetupExtractor(setting.EnvMode,
+                //                     float.Parse(setting.IconLeftExtRatio),
+                //                     float.Parse(setting.IconRightExtRatio),
+                //                     float.Parse(setting.IconTopExtRatio),
+                //                     float.Parse(setting.IconBottomExtRatio),
+                //                     minFaceWidth,
+                //                     ratio,
+                //                     new Rectangle(int.Parse(setting.SrchRegionLeft),
+                //                                     int.Parse(setting.SrchRegionTop),
+                //                                     int.Parse(setting.SrchRegionWidth),
+                //                                     int.Parse(setting.SrchRegionHeight))
+                //                                );
                 StartSetCam(setting);
             }
 
@@ -784,7 +791,10 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.ComType = 0;
 
             this.axCamImgCtrl1.CamImgCtrlStart();
+#if !DEBUG
             this.axCamImgCtrl1.CamImgRecStart();
+#endif
+
 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
@@ -944,7 +954,66 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        #region IImageScreen Members
+
+        private void ShowFaceRecognition(Image captured, Image fromLib, float similarity)
+        {
+            FormFaceRecognitionResult form = new FormFaceRecognitionResult();
+            form.capturedFace.Image = captured;
+            form.faceInLibrary.Image = fromLib;
+            form.similarity.Text = similarity.ToString();
+
+            form.Show(this);
+        }
+        public void ShowFaceRecognitionResult(Image captured, Image fromLib, float similarity)
+        {
+            if (InvokeRequired)
+            {
+                Action<Image, Image, float> show = ShowFaceRecognition;
+
+                this.Invoke(show, captured, fromLib, similarity);
+            }
+            else
+            {
+                ShowFaceRecognition(captured, fromLib, similarity);
+            }
+        }
+
+        public void ShowSuspectsInternal(ImportantPersonDetail[] suspects, Image captured)
+        {
+
+            ImportPersonCompare.ImmediatelyModel formAlert = new ImportPersonCompare.ImmediatelyModel();
+            formAlert.ShowPersons = suspects.ToList();
+            formAlert.PicCheckImg = captured;
+
+            formAlert.ShowDialog(this);
+        }
 
 
+        public void ShowSuspects(ImportantPersonDetail[] suspects, Image captured)
+        {
+            if (InvokeRequired)
+            {
+                Action<ImportantPersonDetail[], Image> showSuspectsDel =
+                    this.ShowSuspectsInternal;
+
+                this.BeginInvoke(showSuspectsDel, suspects, captured);
+
+            }
+            else
+            {
+                ShowSuspectsInternal(suspects, captured);
+            }
+
+        }
+
+        #endregion
+
+        private void faceRecognize_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.presenter == null) return;
+
+            this.presenter.FaceRecognize = faceRecognize.Checked;
+        }
     }
 }

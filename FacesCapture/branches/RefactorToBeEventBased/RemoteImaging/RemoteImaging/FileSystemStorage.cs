@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
 using System.IO;
-using ImageProcessing;
+using ImageProcess;
 using OpenCvSharp;
+using RemoteControlService;
 
 namespace RemoteImaging
 {
@@ -46,7 +47,7 @@ namespace RemoteImaging
 
         public static void SaveFrame(Frame frame)
         {
-            IplImage ipl = new IplImage(frame.IplPtr);
+            IplImage ipl = frame.image;
             ipl.IsEnabledDispose = false;
 
             string path = frame.GetFileName();
@@ -200,13 +201,13 @@ namespace RemoteImaging
             }
         }
 
-        public static Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public static RemoteImaging.Core.Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
             string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
 
             DateTime startUTC = startLocalTime.ToUniversalTime();
             DateTime endUTC = endLocalTime.ToUniversalTime();
-            List<Video> videos = new List<Video>();
+            List<RemoteImaging.Core.Video> videos = new List<RemoteImaging.Core.Video>();
 
             while (startUTC <= endUTC)
             {
@@ -218,7 +219,7 @@ namespace RemoteImaging
                     bool hasFaceCaptured =
                         FaceImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
 
-                    videos.Add(new Video { HasFaceCaptured = hasFaceCaptured, Path = path });
+                    videos.Add(new RemoteImaging.Core.Video { HasFaceCaptured = hasFaceCaptured, Path = path });
                 }
 
                 startUTC = startUTC.AddMinutes(1);

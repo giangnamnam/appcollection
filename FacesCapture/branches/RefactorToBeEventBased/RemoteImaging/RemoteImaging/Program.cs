@@ -14,6 +14,12 @@ namespace RemoteImaging
     static class Program
     {
         public static string directory;
+        public static int ImageSampleCount = 2230;
+        public static int ImageLen = 100*100;
+        public static int EigenNum = 40;
+
+        public static FaceSearchWrapper.FaceSearch faceSearch;
+        public static MotionDetectWrapper.MotionDetector motionDetector;
 
         /// <summary>
         /// The main entry point for the application.
@@ -21,6 +27,10 @@ namespace RemoteImaging
         [STAThread]
         static void Main(string[] argv)
         {
+            faceSearch = new FaceSearchWrapper.FaceSearch();
+            motionDetector = new MotionDetectWrapper.MotionDetector();
+            ImageSampleCount = System.IO.Directory.GetFiles(Properties.Settings.Default.FaceSampleLib, "*.jpg").Length;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -59,6 +69,9 @@ namespace RemoteImaging
             Application.Run(new MainForm());
 
         }
+
+
+        
 
         static void watcher_ImagesUploaded(object Sender, ImageUploadEventArgs args)
         {

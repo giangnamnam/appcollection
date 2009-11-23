@@ -9,14 +9,14 @@ using System.Windows.Forms;
 using MyControls;
 using System.IO;
 using DevExpress.XtraNavBar;
-using ImageProcessing;
+using ImageProcess;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
 using Microsoft.Win32;
 using JSZN.Component;
 using System.Threading;
-using MotionDetect;
+using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
 

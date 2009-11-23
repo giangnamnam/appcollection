@@ -4,22 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace ImageProcessing
+namespace ImageProcess
 {
-    [StructLayoutAttribute(LayoutKind.Sequential)]
-    public struct Target
+    public class Target
     {
 
         /// Frame
         public Frame BaseFrame;
 
-        /// int
-        public int FaceCount;
-
-        /// IplImage*
-        public System.IntPtr FaceData;
+        public OpenCvSharp.IplImage[] Faces;
 
         ///CvRect*
-        public System.IntPtr CvRects;
+        public OpenCvSharp.CvRect[] FacesRects;
+
+        //人脸比对新加的CvRect*
+        public OpenCvSharp.CvRect[] FacesRectsForCompare;
     }
 }
