@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FaceSearchConfiguration.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="NativeIconExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

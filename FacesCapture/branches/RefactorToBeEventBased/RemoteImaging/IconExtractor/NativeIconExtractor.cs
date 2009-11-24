@@ -9,19 +9,6 @@ namespace ImageProcess
 {
     public static class NativeIconExtractor
     {
-        private static FaceSearchConfiguration configuration;
-        public static FaceSearchConfiguration Configuration
-        {
-            get
-            {
-                return configuration;
-            }
-            set
-            {
-                configuration = value;
-            }
-        }
-
         const string FaceSearchDll = "FaceSelDll.dll";
 
         [DllImport(FaceSearchDll, EntryPoint = "FaceImagePreprocess")]

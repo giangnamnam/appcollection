@@ -70,7 +70,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
 
-            FaceSearchConfiguration faceSearchConfig = new FaceSearchConfiguration();
+            var faceSearchConfig = new FaceSearchWrapper.FaceSearchConfiguration();
 
             faceSearchConfig.LeftRation = float.Parse(setting.IconLeftExtRatio);
             faceSearchConfig.TopRation = float.Parse(setting.IconTopExtRatio);
@@ -89,7 +89,7 @@ namespace RemoteImaging.RealtimeDisplay
                               int.Parse(setting.SrchRegionWidth),
                               int.Parse(setting.SrchRegionHeight));
 
-            NativeIconExtractor.Configuration = faceSearchConfig;
+            Program.faceSearch.Configuration = faceSearchConfig;
         }
 
 

@@ -42,8 +42,12 @@ namespace FaceLibraryBuilder
 
             this.Close();
 
-
-            MessageBox.Show("特征库生成完毕", "成功", 
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message, "失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+                MessageBox.Show("特征库生成完毕", "成功", 
                  MessageBoxButtons.OK, MessageBoxIcon.Information);
             
         }

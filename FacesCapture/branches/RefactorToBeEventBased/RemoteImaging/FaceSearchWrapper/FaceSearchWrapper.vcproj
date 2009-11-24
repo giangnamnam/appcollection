@@ -205,6 +205,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FaceSearchConfiguration.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FaceSearchWrapper.cpp"
 				>
 			</File>
@@ -234,6 +238,11 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\FaceSearchConfiguration.h"
+				FileType="1"
+				>
+			</File>
 			<File
 				RelativePath=".\FaceSearchWrapper.h"
 				>

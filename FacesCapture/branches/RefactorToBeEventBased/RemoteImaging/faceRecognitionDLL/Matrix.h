@@ -112,8 +112,8 @@ class matrix			//矩阵类matrix
 ******/
 	const _Ty operator () (size_t stRow, size_t stCol) const
 	{
-		Assert(stRow < GetRowNum());	//断定stRow不超实际矩阵行值
-		Assert(stCol < GetColNum());	//断定stCol不超实际矩阵列值
+		Assert((stRow < GetRowNum()) == true);	//断定stRow不超实际矩阵行值
+		Assert(stCol < GetColNum() == true);	//断定stCol不超实际矩阵列值
 
 		return m_Datas[stRow * GetColNum() + stCol];
 	}

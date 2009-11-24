@@ -1,9 +1,7 @@
 // Common.h
 // Ver 1.0.0.0
 // 
-
-#ifndef _COMM_H		//避免多次编译
-#define _COMM_H
+#pragma once
 
  /******
      由于NDEBUG是为程序调试(debug)期间使用的，当调试期完毕，程序出
@@ -69,5 +67,4 @@
  
  #include "Common.inl"	//实现
 
-#endif	// _COMM_H
 

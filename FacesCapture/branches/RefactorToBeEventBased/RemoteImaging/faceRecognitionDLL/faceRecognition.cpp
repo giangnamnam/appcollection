@@ -44,6 +44,7 @@
 #include "cxcore.h"
 
 
+#define PATH_MAX_LEN 200
 using namespace std;	
 
 /*macro definition */
@@ -99,7 +100,7 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 	TIMELOG("enter face training...");
 
 	FILE* fp;
-	if (!(fp=fopen(gc_FileNameFile.c_str(),"w")))
+	if (fopen_s(&fp, gc_FileNameFile.c_str(),"w") != 0)
 	{
 		throw "File Can't be opened";
 	}
@@ -128,9 +129,9 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 	TIMELOG("load img samples to faceDBPtr...");
 	//load img samples to faceDBPtr
 
-	if (!(fp=fopen(gc_FileNameFile.c_str(),"r")))
+	if (fopen_s(&fp, gc_FileNameFile.c_str(),"r") != 0)
 	{
-		return -1;
+		throw "can't open file";
 	}
 	int i=0;
 	IplImage *bigImg;
@@ -145,8 +146,8 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 
 	for (i=0;i<sampleCount;i++)
 	{
-		char sPath[200];
-		fscanf(fp,"%s\n",sPath);
+		char sPath[PATH_MAX_LEN];
+		fscanf_s(fp,"%s\n",sPath, PATH_MAX_LEN);
 		bigImg = cvLoadImage(sPath, 0);
 		assert(bigImg != NULL);
 		cvResize(bigImg, smallImg, CV_INTER_LINEAR); //resize image to small size
@@ -234,9 +235,9 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 	TIMELOG("store eigen vector/value/train image path to file...");
 	//store eigen vector/value/train image path to file
 	//store mean value, smallImgLen lines
-	if (!(fp=fopen(gc_AverageValueFile.c_str(),"w")))
+	if (fopen_s(&fp, gc_AverageValueFile.c_str(),"w") != 0)
 	{
-		return false;
+		throw "can't open file";
 	}
 	else
 	{
@@ -247,9 +248,9 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 	}
 	fclose(fp);
 	//store eigen vector, smallImgLen*eigenNum
-	if (!(fp=fopen(gc_eigenVectorFile.c_str(),"w")))
+	if (fopen_s(&fp, gc_eigenVectorFile.c_str(),"w") != 0)
 	{
-		return false;
+		throw "can't open file";
 	}
 	else
 	{
@@ -264,9 +265,9 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 	}
 	fclose(fp);
 	//store coefficient that sample in eigen vector, smallImgLen*eigenNum
-	if (!(fp=fopen(gc_SampleCoefficientFile.c_str(),"w")))
+	if (fopen_s(&fp, gc_SampleCoefficientFile.c_str(),"w") != 0)
 	{
-		return false;
+		throw "can't open file";
 	}
 	else
 	{
@@ -287,7 +288,6 @@ extern "C" int _declspec(dllexport) FaceTraining(int imgWidth=20, int imgHeight=
 
 extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400, int eigenNum=40)
 {
-	cout<<__LINE__<<endl;
 	meanVectorPtr = new matrixf(imgLen,1); //store mean result
 	trainedEigenSpaceMatPtr = new matrixf(imgLen,eigenNum);
 	signatureFaceDBPtr = new matrixf (sampleCount,eigenNum);
@@ -295,45 +295,40 @@ extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400,
 	FILE* fp;
 	int i;
 
-	cout<<__LINE__<<endl;
 
 	gc_sampleFileName = new char*[sampleCount];
 	gi_sampleCount = sampleCount;
-	if (!(fp=fopen(gc_FileNameFile.c_str(),"r")))
+	if (fopen_s(&fp, gc_FileNameFile.c_str(),"r") != 0)
 	{
-		return false;
+		throw "can't open file";
 	}
 	for (i=0;i<sampleCount;i++)
 	{
-		gc_sampleFileName[i] = new char[200];
-		fscanf(fp,"%s\n",gc_sampleFileName[i]);
+		gc_sampleFileName[i] = new char[PATH_MAX_LEN];
+		fscanf_s(fp,"%s\n",gc_sampleFileName[i], PATH_MAX_LEN);
 	}
 	fclose(fp);
 
 
-	cout<<__LINE__<<"---------"<<gc_AverageValueFile.c_str()<< endl;
-
 	//load eigen vector/value/train image path to file
 	//load mean value, smallImgLen lines
-	if (!(fp=fopen(gc_AverageValueFile.c_str(),"r")))
+	if (fopen_s(&fp, gc_AverageValueFile.c_str(),"r") != 0)
 	{
-		cout<<__LINE__<<endl;
-		assert(false);
+		throw "can't open file";
 	}
 	else
 	{
 		for (i=0;i<imgLen;i++)
 		{
-			fscanf(fp,"%f\n", &((*meanVectorPtr)(i,0)));
+			fscanf_s(fp,"%f\n", &((*meanVectorPtr)(i,0)));
 		}
 	}
 	fclose(fp);
-	cout<<__LINE__<<endl;
 	//MatrixLinePrint(*meanVectorPtr);
 	//load eigen vector, smallImgLen*eigenNum
-	if (!(fp=fopen(gc_eigenVectorFile.c_str(),"r")))
+	if (fopen_s(&fp, gc_eigenVectorFile.c_str(),"r") != 0)
 	{
-		assert(false);
+		throw "can't open file";
 	}
 	else
 	{
@@ -341,7 +336,7 @@ extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400,
 		{
 			for (int col=0;col<eigenNum;col++)
 			{
-				fscanf(fp,"%f ",&((*trainedEigenSpaceMatPtr)(row,col)));
+				fscanf_s(fp,"%f ",&((*trainedEigenSpaceMatPtr)(row,col)));
 			}
 		}
 	}
@@ -349,9 +344,9 @@ extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400,
 
 
 	//load coefficient that sample in eigen vector, smallImgLen*eigenNum
-	if (!(fp=fopen(gc_SampleCoefficientFile.c_str(),"r")))
+	if (fopen_s(&fp, gc_SampleCoefficientFile.c_str(),"r") != 0)
 	{
-		assert(false);
+		throw "can't open file";
 	}
 	else
 	{
@@ -359,7 +354,7 @@ extern "C"  bool _declspec(dllexport) InitData( int sampleCount, int imgLen=400,
 		{
 			for (int col=0;col<eigenNum;col++)
 			{
-				fscanf(fp,"%f ",&((*signatureFaceDBPtr)(row,col)));
+				fscanf_s(fp,"%f ",&((*signatureFaceDBPtr)(row,col)));
 			}
 			//fscanf(fp,"\n");
 		}
