@@ -21,7 +21,7 @@ imgWidth:用于识别的缩放后的图片的宽度，该参数为本函数内部使用
 imgHeight:用于识别的缩放后的图片的高度,该参数为本函数内部使用
 eigenNum:投影空间的维数
 ***************************************************************************************/
-FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
+FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 {
 	CFileFind imageFile;
 	CString fileName;
@@ -39,10 +39,10 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 		}
 	}
 
-	if (sampleCount == 0)
+	if (eigenNum > sampleCount)
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "no sample pictures!!!", "FaceTraining.cpp", 36, NULL);
+		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "sampleCount should greater than(or equal to) eigenNum", __FILE__, __LINE__, NULL);
 	}
 
 	char *imgFileName[50]; //定义指针数组用来存储样本文件名 
@@ -170,7 +170,7 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 				if (out1.fail())
 				{
 					cvSetErrMode(CV_ErrModeParent);
-					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write path error!!", "FaceTraining.cpp", 36, NULL);
+					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write path error!!", __FILE__, __LINE__, NULL);
 				}
 				for (int i=0; i<imgWidth*imgHeight; i++)
 				{
@@ -195,7 +195,7 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 				if (out2.fail())
 				{
 					cvSetErrMode(CV_ErrModeParent);
-					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write path error!!!", "FaceTraining.cpp", 36, NULL);
+					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write path error!!!", __FILE__, __LINE__, NULL);
 				}
 				for (int i=0; i<EigenVectorFinal->height; i++)
 				{
@@ -238,12 +238,12 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 				if (out3.fail())
 				{
 					cvSetErrMode(CV_ErrModeParent);
-					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write error!!!", "FaceTraining.cpp", 36, NULL);
+					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write error!!!", __FILE__, __LINE__, NULL);
 				}
 				if (out4.fail())
 				{
 					cvSetErrMode(CV_ErrModeParent);
-					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write error!!!", "FaceTraining.cpp", 36, NULL);
+					cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write error!!!", __FILE__, __LINE__, NULL); 
 				}
 				for (int i=0; i<sampleCount; i++)
 				{
@@ -277,6 +277,8 @@ FACEPCA_API void FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 	cvReleaseMat(&EigenValue);
 	cvReleaseMat(&EigenVector);
 	cvReleaseMat(&resCoeff);
+
+	return sampleCount;
 }
 
 /**********************************************************************************
@@ -294,7 +296,7 @@ FACEPCA_API void InitData(int sampleCount, int imgLen, int eigenNum)
 	if (fileIn1.fail())//如果文件不存在
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "AverageValue.txt was not found!!!", "FaceRecognition.cpp", 25, NULL);
+		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "AverageValue.txt was not found!!!", __FILE__, __LINE__, NULL);
 	}
 
 	float avgData;
@@ -311,7 +313,7 @@ FACEPCA_API void InitData(int sampleCount, int imgLen, int eigenNum)
 	if (fileIn2.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "EigenVector.txt was not found!!!", "FaceRecognition.cpp", 41, NULL);
+		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "EigenVector.txt was not found!!!", __FILE__, __LINE__, NULL);
 	}
 
 	float eigenVectorData;
@@ -328,7 +330,7 @@ FACEPCA_API void InitData(int sampleCount, int imgLen, int eigenNum)
 	if (filein3.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "SampleCoefficient.txt was not found!!!", "FaceRecognition.cpp", 59, NULL);
+		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "SampleCoefficient.txt was not found!!!", __FILE__, __LINE__, NULL);
 	}
 
 	float refCoeffData;
@@ -345,7 +347,7 @@ FACEPCA_API void InitData(int sampleCount, int imgLen, int eigenNum)
 	if (fileIn4.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "FileName.txt was not found!!!", "FaceRecognition.cpp", 75, NULL);
+		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "FileName.txt was not found!!!", __FILE__, __LINE__, NULL);
 	}
 
 	char *name = new char[50];
@@ -491,18 +493,18 @@ FACEPCA_API void FaceRecognition(float *currentFace, int sampleCount, similarity
 	//ofstream out1("C:\\faceRecognition\\data\\diff.txt"); 
 	float minNum = similarity[0].similarity;//定义最小值
 	float maxNum = similarity[0].similarity;//定义最大值
-	//for (int i=1; i<sampleCount; i++)//计算得到待识别图片与样本图片映射系数之间差值的最大和最小值
-	//{
-	//	out1<<similarity[i].similarity<<endl; 
-	//	if (similarity[i].similarity > maxNum)
-	//	{
-	//		maxNum = similarity[i].similarity;
-	//	}
-	//	if (similarity[i].similarity < minNum)
-	//	{
-	//		minNum = similarity[i].similarity;
-	//	}
-	//}
+	for (int i=1; i<sampleCount; i++)//计算得到待识别图片与样本图片映射系数之间差值的最大和最小值
+	{
+		//out1<<similarity[i].similarity<<endl; 
+		if (similarity[i].similarity > maxNum)
+		{
+			maxNum = similarity[i].similarity;
+		}
+		if (similarity[i].similarity < minNum)
+		{
+			minNum = similarity[i].similarity;
+		}
+	}
 	maxNum = maxNum>minNum ? maxNum:(minNum+1); 
 	//out1.close();
 

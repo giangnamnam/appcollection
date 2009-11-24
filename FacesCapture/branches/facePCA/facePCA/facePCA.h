@@ -28,7 +28,7 @@ struct similarityMat
 
 extern "C"
 {
-	FACEPCA_API void FaceTraining(int imgWidth=20, int imgHeight=20, int eigenNum=40);
+	FACEPCA_API int FaceTraining(int imgWidth=20, int imgHeight=20, int eigenNum=40);
 	FACEPCA_API void InitData( int sampleCount, int imgLen=400, int eigenNum=40);
 	FACEPCA_API void FreeData();
 	FACEPCA_API void FaceRecognition(float *currentFace, int sampleCount, similarityMat *similarity,int imgLen=400, int eigenNum=40);
