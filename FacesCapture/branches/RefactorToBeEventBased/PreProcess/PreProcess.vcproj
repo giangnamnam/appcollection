@@ -87,7 +87,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo on&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetFileName)&quot;     &quot;$(SolutionDir)..\OutPut\$(TargetFileName)&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).pdb&quot;    &quot;$(SolutionDir)..\OutPut\$(TargetName).pdb&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).lib&quot;    &quot;$(SolutionDir)..\OutPut\$(TargetName).lib&quot;&#x0D;&#x0A;copy .\PreProcess.h &quot;$(SolutionDir)..\OutPut\PreProcess.h&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
