@@ -23,7 +23,7 @@ namespace RemoteImaging
             trueCamera = new Camera[listCamera.Count];
             listCamera.CopyTo(trueCamera);
 
-            config = new Configuration();
+            config = Configuration.Instance;
             config = configd;
 
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);

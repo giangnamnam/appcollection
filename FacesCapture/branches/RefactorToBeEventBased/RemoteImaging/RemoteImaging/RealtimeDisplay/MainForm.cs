@@ -792,10 +792,6 @@ namespace RemoteImaging.RealtimeDisplay
                 presenter.Start();
                 this.faceRecognize.Enabled = true;
             }
-
-
-
-
         }
 
 

@@ -12,7 +12,7 @@ namespace RemoteImaging
         /// <summary>
         /// Initializes a new instance of the Configuration class.
         /// </summary>
-        public Configuration()
+        private Configuration()
         {
             List<Camera> lineCam = new List<Camera>();
             XDocument camXMLDoc = XDocument.Load(fileName);
@@ -46,20 +46,25 @@ namespace RemoteImaging
             }
 
             doc.Save(Properties.Settings.Default.CamConfigFile);
+            instance = new Configuration();
         }
 
 
-        public Camera FindCameraByID(int ID)
+        public Camera this[int ID]
         {
-            try
+            get
             {
-                return this.Cameras.First(c => c.ID == ID);
-            }
-            catch (System.InvalidOperationException)
-            {
-                return null;
+                try
+                {
+                    return this.Cameras.First(c => c.ID == ID);
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return null;
+                }
 
             }
+            
         }
 
         public IList<Camera> Cameras

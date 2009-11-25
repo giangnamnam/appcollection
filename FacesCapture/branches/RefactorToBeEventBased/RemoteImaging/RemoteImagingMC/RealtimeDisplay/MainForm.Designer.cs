@@ -47,7 +47,6 @@
             this.statusTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.squareListView1 = new MyControls.SquareListView();
             this.squareViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spot2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,8 +64,6 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.label1 = new System.Windows.Forms.Label();
@@ -90,6 +87,9 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.squareListView1 = new MyControls.SquareListView();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -105,12 +105,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.mainToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -194,27 +194,6 @@
             this.panelControl1.Size = new System.Drawing.Size(767, 477);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
-            // 
-            // squareListView1
-            // 
-            this.squareListView1.AutoDisposeImage = true;
-            this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
-            this.squareListView1.ContextMenuStrip = this.squareViewContextMenu;
-            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.squareListView1.Location = new System.Drawing.Point(3, 3);
-            this.squareListView1.MaxCountOfCells = 25;
-            this.squareListView1.Name = "squareListView1";
-            this.squareListView1.NumberOfColumns = 2;
-            this.squareListView1.NumberofRows = 2;
-            this.squareListView1.Padding = new System.Windows.Forms.Padding(3);
-            this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(761, 471);
-            this.squareListView1.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
-            this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
-            this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
             // 
             // squareViewContextMenu
             // 
@@ -424,32 +403,6 @@
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.panelControl1;
-            this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(116, 0);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(777, 487);
-            this.layoutControlItem5.Text = "layoutControlItem5";
-            this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextToControlDistance = 0;
-            this.layoutControlItem5.TextVisible = false;
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.panelControl2;
-            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(110, 487);
-            this.layoutControlItem2.Text = "layoutControlItem2";
-            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextToControlDistance = 0;
-            this.layoutControlItem2.TextVisible = false;
-            // 
             // splitterItem2
             // 
             this.splitterItem2.ContentVisible = false;
@@ -639,6 +592,52 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
+            // squareListView1
+            // 
+            this.squareListView1.AutoDisposeImage = true;
+            this.squareListView1.BackColor = System.Drawing.SystemColors.Control;
+            this.squareListView1.ContextMenuStrip = this.squareViewContextMenu;
+            this.squareListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.squareListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.squareListView1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.squareListView1.Location = new System.Drawing.Point(3, 3);
+            this.squareListView1.MaxCountOfCells = 25;
+            this.squareListView1.Name = "squareListView1";
+            this.squareListView1.NumberOfColumns = 2;
+            this.squareListView1.NumberofRows = 2;
+            this.squareListView1.SelectedCell = null;
+            this.squareListView1.Size = new System.Drawing.Size(761, 471);
+            this.squareListView1.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
+            this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
+            this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
+            // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.panelControl1;
+            this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
+            this.layoutControlItem5.Location = new System.Drawing.Point(116, 0);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(777, 487);
+            this.layoutControlItem5.Text = "layoutControlItem5";
+            this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextToControlDistance = 0;
+            this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.panelControl2;
+            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(110, 487);
+            this.layoutControlItem2.Text = "layoutControlItem2";
+            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextToControlDistance = 0;
+            this.layoutControlItem2.TextVisible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -671,14 +670,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

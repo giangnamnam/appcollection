@@ -24,7 +24,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen
     {
-        Configuration config = new Configuration();
+        Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
         public MainForm()
         {
