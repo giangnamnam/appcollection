@@ -371,7 +371,8 @@ namespace RemoteImaging.RealtimeDisplay
                 this.worker.RunWorkerAsync();
             }
 
-            ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
+            if (this.liveServer == null)
+                ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)

@@ -252,23 +252,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         public ImageDetail BigImage
         {
-            set
-            {
-                try
-                {
-                    Image img = Image.FromFile(value.Path);
-                    this.pictureEdit1.Image = img;
-                    this.pictureEdit1.Tag = value;
-                }
-                catch (System.IO.IOException)
-                {
-                    string msg = string.Format("无法打开文件:\"{0}\"，请检查。", value.Path);
-
-                    MessageBox.Show(this, msg, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-
-            }
+            set {  }
+           
         }
 
         public IImageScreenObserver Observer { get; set; }
@@ -613,18 +598,6 @@ namespace RemoteImaging.RealtimeDisplay
             detail.Dispose();
         }
 
-        private void pictureEdit1_DoubleClick(object sender, EventArgs e)
-        {
-            if (this.pictureEdit1.Tag == null)
-            {
-                return;
-            }
-
-            ImageDetail img = this.pictureEdit1.Tag as ImageDetail;
-
-            ShowDetailPic(img);
-
-        }
 
         private void ShowPic()
         {

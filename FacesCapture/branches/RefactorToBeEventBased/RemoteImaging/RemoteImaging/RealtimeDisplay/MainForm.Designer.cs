@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -95,9 +95,9 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.enhanceImg = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.faceRecognize = new System.Windows.Forms.ToolStripButton();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.faceRecognize = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -340,30 +340,30 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "Node1";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "192.168.1.2";
-            treeNode8.ImageIndex = 2;
-            treeNode8.Name = "Node4";
-            treeNode8.SelectedImageIndex = 2;
-            treeNode8.Text = "2";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "南门";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "Node3";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "192.168.1.1";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node5";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "3";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "北门";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "192.168.1.2";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "Node4";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "2";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "南门";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "Node3";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "192.168.1.1";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "Node5";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "3";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode12});
+            treeNode3,
+            treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(176, 155);
             this.cameraTree.TabIndex = 1;
@@ -737,6 +737,17 @@
             this.toolStripButton1.Text = "设置背景";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // faceRecognize
+            // 
+            this.faceRecognize.CheckOnClick = true;
+            this.faceRecognize.Enabled = false;
+            this.faceRecognize.Image = ((System.Drawing.Image)(resources.GetObject("faceRecognize.Image")));
+            this.faceRecognize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.faceRecognize.Name = "faceRecognize";
+            this.faceRecognize.Size = new System.Drawing.Size(81, 23);
+            this.faceRecognize.Text = "人脸比对";
+            this.faceRecognize.CheckedChanged += new System.EventHandler(this.faceRecognize_CheckedChanged);
+            // 
             // diskSpaceCheckTimer
             // 
             this.diskSpaceCheckTimer.Interval = 600000;
@@ -745,16 +756,6 @@
             // alertControl1
             // 
             this.alertControl1.ShowPinButton = false;
-            // 
-            // faceRecognize
-            // 
-            this.faceRecognize.CheckOnClick = true;
-            this.faceRecognize.Image = ((System.Drawing.Image)(resources.GetObject("faceRecognize.Image")));
-            this.faceRecognize.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.faceRecognize.Name = "faceRecognize";
-            this.faceRecognize.Size = new System.Drawing.Size(81, 23);
-            this.faceRecognize.Text = "人脸比对";
-            this.faceRecognize.CheckedChanged += new System.EventHandler(this.faceRecognize_CheckedChanged);
             // 
             // MainForm
             // 

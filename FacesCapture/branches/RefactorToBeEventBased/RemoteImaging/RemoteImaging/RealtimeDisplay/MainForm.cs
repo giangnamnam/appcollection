@@ -779,9 +779,30 @@ namespace RemoteImaging.RealtimeDisplay
             //Properties.Settings.Default.CurIp = cam.IpAddress;
         }
 
+        private void OnConnectionFinished(object ex)
+        {
+            if (ex != null)
+                MessageBox.Show(this,
+                                 "无法连接摄像头，请检查摄像头后重新连接",
+                                 "连接错误",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
+            else
+            {
+                presenter.Start();
+                this.faceRecognize.Enabled = true;
+            }
+
+
+
+
+        }
+
 
         private void StartCamera(Camera cam)
         {
+            SynchronizationContext context = SynchronizationContext.Current;
+
             ICamera Icam = null;
 
             if (string.IsNullOrEmpty(Program.directory))
@@ -792,20 +813,26 @@ namespace RemoteImaging.RealtimeDisplay
                 camera.UserName = "guest";
                 camera.Password = "guest";
 
-                try
-                {
-                    camera.Connect();
-                }
-                catch (System.Net.Sockets.SocketException)
-                {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
-                    return;
-                }
-                catch (System.Net.WebException)
-                {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
-                    return;
-                }
+
+                System.Threading.ThreadPool.QueueUserWorkItem((object o) =>
+                    {
+                        System.Exception error = null;
+                        try
+                        {
+                            camera.Connect();
+                        }
+                        catch (System.Net.Sockets.SocketException ex)
+                        {
+                            error = ex;
+                        }
+                        catch (System.Net.WebException ex)
+                        {
+                            error = ex;
+                        }
+
+                        context.Post(OnConnectionFinished, error);
+
+                    });
 
 
                 Icam = camera;
@@ -822,9 +849,9 @@ namespace RemoteImaging.RealtimeDisplay
                 Icam = mc;
             }
 
-            presenter = new Presenter(this, Icam);
+            if (presenter == null)
+                presenter = new Presenter(this, Icam);
 
-            presenter.Start();
         }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
