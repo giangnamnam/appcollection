@@ -86,7 +86,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;$(TargetDir)$(TargetFileName)&quot;     &quot;$(SolutionDir)..\OutPut\$(TargetFileName)&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).pdb&quot;    &quot;$(SolutionDir)..\OutPut\$(TargetName).pdb&quot;&#x0D;&#x0A;"
+				CommandLine="&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
