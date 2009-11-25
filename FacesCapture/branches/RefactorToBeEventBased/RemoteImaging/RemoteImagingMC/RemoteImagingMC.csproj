@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\IconExtractor\thirdparty\libs\OpenCvSharp\OpenCvSharp.dll</HintPath>
+      <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
     </Reference>
     <Reference Include="RemoteControlService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -127,7 +127,6 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="DateTimeInString.cs" />
-    <Compile Include="Face.cs" />
     <Compile Include="FaceDetector.cs" />
     <Compile Include="FileSystemStorage.cs" />
     <Compile Include="FormConfigCamera.cs">
