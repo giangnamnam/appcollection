@@ -83,7 +83,7 @@
     </Reference>
     <Reference Include="MyControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Reference\MyControls.dll</HintPath>
+      <HintPath>..\..\OutPut\MyControls.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
