@@ -746,7 +746,6 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(81, 23);
             this.toolStripButton1.Text = "设置背景";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // diskSpaceCheckTimer
             // 
@@ -772,7 +771,6 @@
             this.Text = "智能人像抓拍系统监控中心";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

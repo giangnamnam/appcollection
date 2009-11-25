@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
 using System.IO;
-using ImageProcessing;
+using ImageProcess;
 using OpenCvSharp;
 
 namespace RemoteImaging
@@ -48,7 +48,7 @@ namespace RemoteImaging
 
         public static void SaveFrame(Frame frame)
         {
-            IplImage ipl = new IplImage(frame.IplPtr);
+            IplImage ipl = frame.image;
             ipl.IsEnabledDispose = false;
 
             string path = frame.GetFileName();
@@ -71,7 +71,7 @@ namespace RemoteImaging
         {
             DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-            string folderFace = FileSystemStorage.GetOrCreateFolderForFacesAt(frame.cameraID, dt);
+            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.cameraID, dt);
 
             string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
 
@@ -93,7 +93,7 @@ namespace RemoteImaging
             return folderForFaces;
         }
 
-        private static string GetOrCreateFolderForFacesAt(int camID, DateTime dt)
+        private static string EnsureFolderForFacesAt(int camID, DateTime dt)
         {
             string folderForFaces = ContainerDirectoryOfFaceAt(camID, dt);
 

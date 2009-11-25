@@ -81,9 +81,6 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     if (chechLiveImg())
                     {
-                        MotionDetect.MotionDetecter.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, checkBox1.Checked ? true : false);
-                        Properties.Settings.Default.Point = listPointStr;
-                        //Properties.Settings.Default.Save();
                     }
                 }
                 else

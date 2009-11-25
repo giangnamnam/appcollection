@@ -8,7 +8,6 @@ using System.Xml.Linq;
 
 using System.Timers;
 using System.Runtime.InteropServices;
-using MotionDetect;
 
 namespace RemoteImaging
 {
@@ -158,20 +157,6 @@ namespace RemoteImaging
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.EnvMode = this.envModes.SelectedIndex;
-            Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
-            Properties.Settings.Default.CurIp = this.textBox4.Text;
-            Properties.Settings.Default.ComName = this.cmbComPort.Text;
-
-            //图片和录像过期时间设置，磁盘警告设置
-            Properties.Settings.Default.SaveDay = SaveDay;
-
-
-            //调用的薛晓莉的接口
-            Properties.Settings.Default.ImageArr = Convert.ToInt32(cbImageArr.Text.Trim());
-            Properties.Settings.Default.Thresholding = Convert.ToInt32(cbThresholding.Text.Trim());
-
-            MotionDetect.MotionDetecter.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
 
         }
 

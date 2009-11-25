@@ -8,7 +8,7 @@ using System.Management;
 using System.Security.Cryptography;
 using Encryptor;
 using Microsoft.Win32;
-using ImageProcessing;
+using ImageProcess;
 
 namespace RemoteImaging
 {
@@ -185,19 +185,6 @@ namespace RemoteImaging
                 uuid = System.Guid.NewGuid().ToString();
 
             return uuid.ToUpper();
-        }
-
-
-        public static ManagedFrame ToManaged(this Frame f)
-        {
-            ManagedFrame mf = new ManagedFrame();
-            mf.CameraID = f.cameraID;
-            mf.Ipl = new OpenCvSharp.IplImage(f.IplPtr);
-            mf.Ipl.IsEnabledDispose = false;
-            mf.TimeStamp = DateTime.FromBinary(f.timeStamp);
-            mf.MotionRect = f.searchRect;
-
-            return mf;
         }
     }
 }

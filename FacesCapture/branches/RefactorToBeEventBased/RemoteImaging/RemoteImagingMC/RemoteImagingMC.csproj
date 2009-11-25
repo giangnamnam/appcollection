@@ -56,7 +56,15 @@
     <Reference Include="DevExpress.XtraTreeList.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraVerticalGrid.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
+    </Reference>
     <Reference Include="JSZN.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MotionDetectWrapper, Version=1.0.3615.29008, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\MotionDetectWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="MyControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Reference\MyControls.dll</HintPath>
@@ -126,8 +134,6 @@
     <Compile Include="FormDetailedPic.Designer.cs">
       <DependentUpon>FormDetailedPic.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrameCapturedEventArgs.cs" />
-    <Compile Include="FrameCapturer.cs" />
     <Compile Include="FrameHandler.cs" />
     <Compile Include="ImageCapturedEventArgs.cs" />
     <Compile Include="ImageProcess\Controls\FilterPreview.cs">
@@ -139,12 +145,8 @@
     <Compile Include="ImageProcess\FilterForms\ContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LiveServer.cs" />
     <Compile Include="ManagedFrame.cs" />
-    <Compile Include="ManagedTarget.cs" />
     <Compile Include="MockCamera.cs" />
-    <Compile Include="MotionFrameDetectedEventArgs.cs" />
-    <Compile Include="MotionFrameDetector.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,7 +180,6 @@
     <Compile Include="RealtimeDisplay\InvalidFileNameFormat.cs" />
     <Compile Include="RealtimeDisplay\IImageScreen.cs" />
     <Compile Include="RealtimeDisplay\LiveClient.cs" />
-    <Compile Include="RealtimeDisplay\Presenter.cs" />
     <Compile Include="RealtimeDisplay\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,14 +335,6 @@
     <ProjectReference Include="..\Encryptor\Encryptor.csproj">
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IconExtractor\ImageProcessing.csproj">
-      <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>
-      <Name>ImageProcessing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MotionDetect\MotionDetect.csproj">
-      <Project>{408A61BC-629F-4A57-80BE-7D18825BF5B2}</Project>
-      <Name>MotionDetect</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
       <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>

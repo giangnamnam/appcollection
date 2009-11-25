@@ -64,48 +64,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             //StartSetCam(setting);//根据光亮值设置相机
 
-            SetMonitor();//启动布控
-            MotionDetect.MotionDetecter.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
 
             InitStatusBar();
 
-            MotionDetect.MotionDetecter.SetDrawRect(setting.DrawMotionRect);
-
-            FaceSearchConfiguration faceSearchConfig = new FaceSearchConfiguration();
-
-            faceSearchConfig.LeftRation = float.Parse(setting.IconLeftExtRatio);
-            faceSearchConfig.TopRation = float.Parse(setting.IconTopExtRatio);
-            faceSearchConfig.RightRation = float.Parse(setting.IconRightExtRatio);
-            faceSearchConfig.BottomRation = float.Parse(setting.IconBottomExtRatio);
-
-            faceSearchConfig.MinFaceWidth = int.Parse(setting.MinFaceWidth);
-            int maxFaceWidth = int.Parse(setting.MaxFaceWidth);
-            faceSearchConfig.FaceWidthRatio = (float)maxFaceWidth / faceSearchConfig.MinFaceWidth;
-
-            faceSearchConfig.EnvironmentMode = setting.EnvMode;
-
-            faceSearchConfig.SearchRectangle =
-                new Rectangle(int.Parse(setting.SrchRegionLeft),
-                              int.Parse(setting.SrchRegionTop),
-                              int.Parse(setting.SrchRegionWidth),
-                              int.Parse(setting.SrchRegionHeight));
-
-            NativeIconExtractor.Configuration = faceSearchConfig;
-        }
-
-
-        private void SetMonitor()
-        {
-            string point = Properties.Settings.Default.Point;
-            if (point != "")
-            {
-                string[] strPoints = point.Split(' ');
-                int oPointx = Convert.ToInt32(strPoints[0]);
-                int oPointy = Convert.ToInt32(strPoints[1]);
-                int tPointx = Convert.ToInt32(strPoints[2]);
-                int tPointy = Convert.ToInt32(strPoints[3]);
-                MotionDetect.MotionDetecter.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
-            }
         }
 
 
@@ -222,7 +183,7 @@ namespace RemoteImaging.RealtimeDisplay
             rootNode.BackColor = System.Drawing.Color.Gray;
             rootNode.Text = rootNode.Text + "(不可用)";
         }
-        private Presenter presenter;
+
         Camera allCamera = new Camera() { ID = -1 };
 
         private TreeNode getTopCamera(TreeNode node)
@@ -331,30 +292,6 @@ namespace RemoteImaging.RealtimeDisplay
         #endregion
 
 
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            diskSpaceCheckTimer.Enabled = true;
-
-            Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
-
-            if (c == null) return;
-
-            if (FileSystemStorage.DriveRemoveable(Properties.Settings.Default.OutputPath))
-            {
-                DialogResult result = MessageBox.Show(this,
-                    "输出目录位于可移动介质！继续吗?", "警告",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (result == DialogResult.No)
-                {
-                    return;
-                }
-            }
-
-
-            this.StartCamera(c);
-
-
-        }
 
         #region IImageScreen Members
 
@@ -455,30 +392,6 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        private static void SetupExtractor(int envMode, float leftRatio,
-            float rightRatio,
-            float topRatio,
-            float bottomRatio,
-            int minFaceWidth,
-            float maxFaceWidthRatio,
-            Rectangle SearchRectangle)
-        {
-            NativeIconExtractor.SetExRatio(topRatio,
-                                    bottomRatio,
-                                    leftRatio,
-                                    rightRatio);
-
-            NativeIconExtractor.SetROI(SearchRectangle.Left,
-                SearchRectangle.Top,
-                SearchRectangle.Width - 1,
-                SearchRectangle.Height - 1);
-
-            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
-
-            NativeIconExtractor.SetLightMode(envMode);
-        }
-
-
         private void simpleButton4_Click(object sender, EventArgs e)
         {
 
@@ -568,20 +481,6 @@ namespace RemoteImaging.RealtimeDisplay
 
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
-
-                SetupExtractor(setting.EnvMode,
-                    float.Parse(setting.IconLeftExtRatio),
-                    float.Parse(setting.IconRightExtRatio),
-                    float.Parse(setting.IconTopExtRatio),
-                    float.Parse(setting.IconBottomExtRatio),
-                    minFaceWidth,
-                    ratio,
-                    new Rectangle(int.Parse(setting.SrchRegionLeft),
-                                    int.Parse(setting.SrchRegionTop),
-                                    int.Parse(setting.SrchRegionWidth),
-                                    int.Parse(setting.SrchRegionHeight))
-                               );
-                StartSetCam(setting);
             }
 
         }
@@ -773,52 +672,6 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        private void StartCamera(Camera cam)
-        {
-            ICamera Icam = null;
-
-            if (string.IsNullOrEmpty(Program.directory))
-            {
-
-                SanyoNetCamera camera = new SanyoNetCamera();
-                camera.IPAddress = cam.IpAddress;
-                camera.UserName = "guest";
-                camera.Password = "guest";
-
-                try
-                {
-                    camera.Connect();
-                }
-                catch (System.Net.Sockets.SocketException)
-                {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
-                    return;
-                }
-                catch (System.Net.WebException)
-                {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
-                    return;
-                }
-
-
-                Icam = camera;
-
-                StartRecord(cam);
-
-                Properties.Settings.Default.LastSelCamID = cam.ID;
-
-            }
-            else
-            {
-                MockCamera mc = new MockCamera(Program.directory);
-                mc.Repeat = true;
-                Icam = mc;
-            }
-
-            presenter = new Presenter(this, Icam);
-
-            presenter.Start();
-        }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
@@ -886,13 +739,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ViewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.cameraTree.SelectedNode == null) return;
 
-            Action<string> setupCamera = this.cameraTree.SelectedNode.Tag as Action<string>;
-            if (setupCamera == null) return;
-
-            Camera cam = this.getTopCamera(this.cameraTree.SelectedNode).Tag as Camera;
-            StartCamera(cam);
         }
 
         private void diskSpaceCheckTimer_Tick(object sender, EventArgs e)
@@ -910,17 +757,6 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            if (presenter == null) return;
-
-            DialogResult res = MessageBox.Show("设置背景后将影响人脸识别准确度, 你确认要设置背景吗?", "警告",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (res != DialogResult.Yes) return;
-
-            presenter.UpdateBG();
-        }
 
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
