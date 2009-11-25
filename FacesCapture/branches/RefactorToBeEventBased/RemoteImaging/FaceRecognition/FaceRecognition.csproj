@@ -60,7 +60,6 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)"     "$(SolutionDir)..\OutPut\$(TargetFileName)"
-copy "$(TargetDir)$(TargetName).pdb"    "$(SolutionDir)..\OutPut\$(TargetName).pdb"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

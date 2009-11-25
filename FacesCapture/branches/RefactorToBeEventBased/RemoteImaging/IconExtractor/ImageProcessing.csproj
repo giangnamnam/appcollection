@@ -81,8 +81,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)"     "$(SolutionDir)..\OutPut\$(TargetFileName)"
-copy "$(TargetDir)$(TargetName).pdb"    "$(SolutionDir)..\OutPut\$(TargetName).pdb"
-</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)"     "$(SolutionDir)..\OutPut\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

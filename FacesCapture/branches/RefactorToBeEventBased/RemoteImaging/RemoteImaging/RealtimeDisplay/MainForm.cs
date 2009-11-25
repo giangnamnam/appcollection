@@ -558,11 +558,6 @@ namespace RemoteImaging.RealtimeDisplay
 
                 Properties.Settings setting = Properties.Settings.Default;
 
-
-
-
-
-
                 Configuration.Instance.Cameras = frm.Cameras;//这里添加设置摄像机的 IP 和 ID 对应的设置类文件 ResetCameraInfo
                 Configuration.Instance.Save();
 
@@ -575,18 +570,6 @@ namespace RemoteImaging.RealtimeDisplay
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                //                 SetupExtractor(setting.EnvMode,
-                //                     float.Parse(setting.IconLeftExtRatio),
-                //                     float.Parse(setting.IconRightExtRatio),
-                //                     float.Parse(setting.IconTopExtRatio),
-                //                     float.Parse(setting.IconBottomExtRatio),
-                //                     minFaceWidth,
-                //                     ratio,
-                //                     new Rectangle(int.Parse(setting.SrchRegionLeft),
-                //                                     int.Parse(setting.SrchRegionTop),
-                //                                     int.Parse(setting.SrchRegionWidth),
-                //                                     int.Parse(setting.SrchRegionHeight))
-                //                                );
                 StartSetCam(setting);
             }
 
@@ -656,9 +639,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
 
         }
-
-
-
 
 
         #region IImageScreen Members
