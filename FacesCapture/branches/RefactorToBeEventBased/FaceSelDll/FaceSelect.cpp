@@ -2754,7 +2754,7 @@ void CFaceSelect::SkinTest(const char *cFileName)
 
 	///////////////////////////Êä³ö·µ»ØµÄ×Ö·û´®/////////////////////////
 	FILE *fp = 0;
-	fp = fopen("../Debug/result.txt","a+");
+	fopen_s(&fp, "../Debug/result.txt","a+");
 
 	float fChnlRang[2] = {0, 255}; //Ö±·½Í¼·¶Î§
 	int iDimSize = 256;
@@ -5818,5 +5818,20 @@ void CFaceSelect::FaceReDraw(IplImage *pImage, CvRect *rRealFace)
 	cvReleaseImage(&s_plane);
 	cvReleaseImage(&v_plane);
 	cvReleaseImage(&s_plane_thr);
+}
+
+
+
+
+extern "C" __declspec(dllexport) void ReleaseImageArray( ImageArray &images )
+{
+	int i = 0;
+	for( i = 0; i < images.nImageCount; i++ )
+	{
+		cvReleaseImage( &images.imageArr[i] );
+	}
+	images.nImageCount = 0;
+	delete[] images.imageArr;
+	images.imageArr = 0;
 }
 

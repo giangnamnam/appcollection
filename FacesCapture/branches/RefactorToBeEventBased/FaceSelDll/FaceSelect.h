@@ -1,5 +1,4 @@
-#ifndef _FACESELECT_H_
-#define _FACESELECT_H_
+#pragma once
 
 #ifdef DLL_EXPORTS
 #define DLL_API _declspec(dllexport)
@@ -237,4 +236,3 @@ public:
 //End -- 20090929 Add for Face Recognition Research
 };
 
-#endif
