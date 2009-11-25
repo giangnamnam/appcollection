@@ -55,6 +55,10 @@
     <Reference Include="DevExpress.XtraRichEdit.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraVerticalGrid.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Encryptor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\Encryptor.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,6 +76,10 @@
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\IconExtractor\thirdparty\libs\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="RemoteControlService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\RemoteControlService.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -326,20 +334,6 @@
     <None Include="ThirdParty\Libs\AForge.dll" />
     <None Include="ThirdParty\Libs\AForge.Imaging.dll" />
     <None Include="ThirdParty\Libs\AForge.Math.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Encryptor\Encryptor.csproj">
-      <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
-      <Name>Encryptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
-      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
-      <Name>RemoteControlService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxAXVLC">

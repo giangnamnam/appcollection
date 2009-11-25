@@ -56,4 +56,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)"     "$(SolutionDir)..\OutPut\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

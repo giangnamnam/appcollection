@@ -35,6 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Imaging, Version=1.1.0.0, Culture=neutral, PublicKeyToken=d604c8342bbdeba9, processorArchitecture=MSIL" />
+    <Reference Include="CommonLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\CommonLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.CodeRush.Common, Version=9.1.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
     <Reference Include="DevExpress.CodeRush.Core, Version=9.1.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
@@ -55,7 +59,15 @@
     <Reference Include="DevExpress.XtraRichEdit.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraVerticalGrid.v9.1, Version=9.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Encryptor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\Encryptor.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="FaceRecognition, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\FaceRecognition.dll</HintPath>
+    </Reference>
     <Reference Include="FaceSearchWrapper, Version=1.0.3603.31485, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\FaceSearchWrapper.dll</HintPath>
@@ -76,6 +88,10 @@
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\OpenCvSharp\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="RemoteControlService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\RemoteControlService.dll</HintPath>
     </Reference>
     <Reference Include="SuspectsRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -372,24 +388,6 @@
     <None Include="ThirdParty\Libs\AForge.dll" />
     <None Include="ThirdParty\Libs\AForge.Imaging.dll" />
     <None Include="ThirdParty\Libs\AForge.Math.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Encryptor\Encryptor.csproj">
-      <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
-      <Name>Encryptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FaceRecognition\FaceRecognition.csproj">
-      <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
-      <Name>FaceRecognition</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RemoteControlService\RemoteControlService.csproj">
-      <Project>{3F01A85F-C1C4-4060-AA37-57AB6F0C90AB}</Project>
-      <Name>RemoteControlService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxAXVLC">
