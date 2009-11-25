@@ -110,6 +110,8 @@ namespace MyControls
                 SizeF sizeOfText = SizeF.Empty;
                 int space = 3;
 
+                Rectangle recOfImg = this.Rec;
+
                 if (!string.IsNullOrEmpty(this.Text))
                 {
                     sizeOfText = g.MeasureString(this.Text, font);
@@ -118,10 +120,10 @@ namespace MyControls
                     recText.Offset(0, h);
                     recText.Height -= h;
                     DrawStringInCenterOfRectangle(this.Text, g, font, recText);
+
+                    recOfImg.Height -= (int)sizeOfText.Height + space;
                 }
 
-                Rectangle recOfImg = this.Rec;
-                recOfImg.Height -= (int)sizeOfText.Height + space;
 
                 g.DrawImage(this.Image,
                     CalculateAutoFitRectangle(Rectangle.Round(recOfImg),

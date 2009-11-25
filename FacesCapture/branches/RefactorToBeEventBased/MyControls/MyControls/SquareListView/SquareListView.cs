@@ -14,7 +14,6 @@ namespace MyControls
             InitializeComponent();
 
             this.DoubleBuffered = true;
-            this.Padding = new Padding(3);
 
             refreshTimer.Interval = 1000;
             refreshTimer.Enabled = false;
@@ -34,6 +33,8 @@ namespace MyControls
 
             this.Resize += SquareListView_Resize;
             this.MouseDoubleClick += new MouseEventHandler(SquareListView_MouseDoubleClick);
+
+            this.PaddingChanged += (sender, args) => this.CalcLayout();
         }
 
         void SquareListView_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -179,6 +180,8 @@ namespace MyControls
                         height - this.Padding.Vertical);
                 }
             }
+
+            this.Invalidate();
         }
 
 
