@@ -11,6 +11,8 @@ using System.IO;
 using RemoteImaging.Core;
 using RemoteControlService;
 using System.Diagnostics;
+using System.ServiceModel.Channels;
+using System.ServiceModel;
 
 namespace RemoteImaging.Query
 {
@@ -27,6 +29,20 @@ namespace RemoteImaging.Query
 
            
             setListViewColumns();
+        }
+
+        private void CreateProxy()
+        {
+            Camera selected = this.comboBox1.SelectedItem as Camera;
+            if (selected == null)
+            {
+                throw new Exception("No camera selected");
+            }
+
+            string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", selected.IpAddress);
+            string StreamingAddress = string.Format("net.tcp://{0}:8001/TcpService", selected.IpAddress);
+            StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
+            SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(SearchAddress);
         }
 
         private void queryBtn_Click(object sender, EventArgs e)
@@ -61,11 +77,7 @@ namespace RemoteImaging.Query
                 StreamServerProxy.Stop();
             }
 
-            string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
-            string StreamingAddress = string.Format("net.tcp://{0}:8001/TcpService", selectedCamera.IpAddress);
-            StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
-            SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(SearchAddress);
-
+            CreateProxy();
             Video[] videos = null;
 
 
@@ -75,10 +87,16 @@ namespace RemoteImaging.Query
             }
             catch (System.ServiceModel.CommunicationException)
             {
-                MessageBox.Show("通讯错误");
+                MessageBox.Show("通讯错误, 请重试");
+                IChannel ch = SearchProxy as IChannel;
+                if (ch.State == CommunicationState.Faulted)
+                {
+                    this.CreateProxy();
+                }
+
                 return;
             }
-            
+
 
             if (videos.Length == 0)
             {
@@ -193,7 +211,13 @@ namespace RemoteImaging.Query
             }
             catch (System.ServiceModel.CommunicationException)
             {
-                MessageBox.Show("通讯错误");
+                MessageBox.Show("通讯错误, 请重试");
+                IChannel ch = SearchProxy as IChannel;
+                if (ch.State == CommunicationState.Faulted)
+                {
+                    this.CreateProxy();
+                }
+
                 return;
             }
 

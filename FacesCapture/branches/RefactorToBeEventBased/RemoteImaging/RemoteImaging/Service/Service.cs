@@ -12,6 +12,7 @@ using System.Diagnostics;
 namespace RemoteImaging.Service
 {
     [ServiceKnownType(typeof(System.Drawing.Bitmap))]
+    [ServiceBehavior(IncludeExceptionDetailInFaults=true)]
     class Service : IServiceFacade
     {
         string[] FaceFiles;
