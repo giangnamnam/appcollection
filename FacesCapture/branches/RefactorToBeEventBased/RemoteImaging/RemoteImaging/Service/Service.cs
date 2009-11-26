@@ -68,29 +68,7 @@ namespace RemoteImaging.Service
         }
 
 
-        Process player;
 
-        public void BroadcastVideo(string path)
-        {
-            string cmdString = "-vvv {0} --sout udp:239.255.12.12 --ttl 1";
-
-            path = "\"" + path + "\"";
-
-            string cmd = string.Format(cmdString, path);
-
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = VideoPlayer.ExePath;
-            psi.CreateNoWindow = true;
-            psi.WindowStyle = ProcessWindowStyle.Hidden;
-            psi.Arguments = cmd;
-
-            this.KillPlayer();
-           
-
-            player = Process.Start(psi);
-
-            Debug.WriteLine(path);
-        }
 
 
         public string VideoFilePathRecordedAt(DateTime time, int camID)
@@ -118,17 +96,7 @@ namespace RemoteImaging.Service
         }
 
 
-        public void KillPlayer()
-        {
-            if (player != null)
-            {
-                if (!player.HasExited)
-                {
-                    player.Kill();
-                    Debug.WriteLine("kill player");
-                }
-            }
-        }
+   
 
         #endregion
     }

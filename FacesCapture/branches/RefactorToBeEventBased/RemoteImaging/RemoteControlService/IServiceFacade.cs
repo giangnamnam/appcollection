@@ -24,14 +24,20 @@ namespace RemoteControlService
         [OperationContract]
         Bitmap[] FacesCapturedAt(int cameraID, DateTime time);
 
-        [OperationContract]
-        void BroadcastVideo(string path);
 
         [OperationContract]
         string VideoFilePathRecordedAt(DateTime time, int camID);
 
+    }
+
+    [ServiceContract]
+    public interface IStreamPlayer
+    {
         [OperationContract]
-        void KillPlayer();
+        bool StreamVideo(string path);
+
+        [OperationContract]
+        void Stop();
     }
 
 

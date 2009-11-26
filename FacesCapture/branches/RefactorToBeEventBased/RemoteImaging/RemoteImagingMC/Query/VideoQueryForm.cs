@@ -16,7 +16,8 @@ namespace RemoteImaging.Query
 {
     public partial class VideoQueryForm : Form
     {
-        private IServiceFacade proxy;
+        private IStreamPlayer StreamServerProxy;
+        private IServiceFacade SearchProxy;
         public VideoQueryForm()
         {
             InitializeComponent();
@@ -55,16 +56,17 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            if (proxy != null)
+            if (StreamServerProxy != null)
             {
-                proxy.KillPlayer();
+                StreamServerProxy.Stop();
             }
 
-            string address = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
+            string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
+            string StreamingAddress = string.Format("net.tcp://{0}:8001/TcpService", selectedCamera.IpAddress);
+            StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
+            SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(SearchAddress);
 
-            proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
-
-            Video[] videos = proxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
+            Video[] videos = SearchProxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
 
             if (videos.Length == 0)
             {
@@ -136,9 +138,9 @@ namespace RemoteImaging.Query
 
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
-            bindPiclist();
+            
 
-            if (proxy == null) return;
+            if (StreamServerProxy == null) return;
             if (this.videoList.SelectedItems.Count == 0) return;
             if (string.IsNullOrEmpty(VideoPlayer.ExePath))
             {
@@ -148,9 +150,13 @@ namespace RemoteImaging.Query
 
             ListViewItem item = this.videoList.SelectedItems[0];
 
-            proxy.BroadcastVideo(item.Tag as string);
-
             ReceiveVideoStream();
+
+            StreamServerProxy.StreamVideo(item.Tag as string);
+
+            
+
+            bindPiclist();
         }
 
 
@@ -165,7 +171,7 @@ namespace RemoteImaging.Query
 
             Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
 
-            Bitmap[] faces = proxy.FacesCapturedAt(selectedCamera.ID, time);
+            Bitmap[] faces = SearchProxy.FacesCapturedAt(selectedCamera.ID, time);
             if (faces.Length == 0) return;
 
             foreach (var bmp in faces)
@@ -197,9 +203,9 @@ namespace RemoteImaging.Query
                 System.Threading.Thread.Sleep(1000);
             }
 
-            if (proxy != null)
+            if (StreamServerProxy != null)
             {
-                proxy.KillPlayer();
+                StreamServerProxy.Stop();
             }
 
         }

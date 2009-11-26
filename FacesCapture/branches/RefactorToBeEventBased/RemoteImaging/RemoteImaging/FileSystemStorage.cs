@@ -183,7 +183,12 @@ namespace RemoteImaging
             string relPath = RelativePathNameForVideoFile(utcTime);
 
             string videoFilePath = Path.Combine(rootFolder, relPath);
-            return videoFilePath;
+
+            if (System.IO.File.Exists(videoFilePath))
+                return videoFilePath;
+            else 
+                return string.Empty;
+
         }
 
 

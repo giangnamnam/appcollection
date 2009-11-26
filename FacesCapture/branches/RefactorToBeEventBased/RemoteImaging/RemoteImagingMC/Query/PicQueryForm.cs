@@ -22,7 +22,8 @@ namespace RemoteImaging.Query
         int lastSpotID = 0;
         DateTime lastBeginTime = DateTime.Now;
         DateTime lastEndTime = DateTime.Now;
-        RemoteControlService.IServiceFacade proxy;
+        RemoteControlService.IServiceFacade SearchProxy;
+        RemoteControlService.IStreamPlayer StreamProxy;
 
 
         public PicQueryForm()
@@ -59,7 +60,7 @@ namespace RemoteImaging.Query
                 (i < currentPage * PageSize) && (i < imagesFound.Length);
                 ++i)
             {
-                ImagePair ip = proxy.GetFace(imagesFound[i]);
+                ImagePair ip = SearchProxy.GetFace(imagesFound[i]);
 
                 this.imageList1.Images.Add(ip.Face);
                 string text = System.IO.Path.GetFileName(ip.Face.Tag as string);
@@ -124,16 +125,17 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            if (proxy != null)
+            if (StreamProxy != null)
             {
-                proxy.KillPlayer();
+                StreamProxy.Stop();
             }
 
-            string address = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
+            string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", selectedCamera.IpAddress);
+            string playerAddress = string.Format("net.tcp://{0}:8001/TcpService", selectedCamera.IpAddress);
 
-            this.proxy = ServiceProxy.ProxyFactory.CreateProxy(address);
-
-            imagesFound = proxy.SearchFaces(selectedCamera.ID, dateTime1, dateTime2);
+            this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(searchAddress);
+            this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);
+            imagesFound = SearchProxy.SearchFaces(selectedCamera.ID, dateTime1, dateTime2);
 
             if (imagesFound.Length == 0)
             {
@@ -324,14 +326,14 @@ namespace RemoteImaging.Query
 
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
-            if (proxy == null) return;
+            if (SearchProxy == null) return;
             if (this.bestPicListView.SelectedItems.Count != 1) return;
 
             ImagePair ip = this.bestPicListView.SelectedItems[0].Tag as ImagePair;
 
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
-            string video = proxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
+            string video = SearchProxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
 
             if (string.IsNullOrEmpty(video))
             {
@@ -339,9 +341,11 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            proxy.BroadcastVideo(video);
-
             this.ReceiveVideoStream();
+
+            StreamProxy.StreamVideo(video);
+
+            
 
         }
 
@@ -391,9 +395,9 @@ namespace RemoteImaging.Query
                 System.Threading.Thread.Sleep(1000);
             }
 
-            if (proxy != null)
+            if (StreamProxy != null)
             {
-                proxy.KillPlayer();
+                StreamProxy.Stop();
             }
 
         }
