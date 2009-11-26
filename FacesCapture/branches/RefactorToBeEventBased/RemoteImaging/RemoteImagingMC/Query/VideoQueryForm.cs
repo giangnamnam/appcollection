@@ -66,7 +66,19 @@ namespace RemoteImaging.Query
             StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
             SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(SearchAddress);
 
-            Video[] videos = SearchProxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
+            Video[] videos = null;
+
+
+            try
+            {
+                videos = SearchProxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                MessageBox.Show("通讯错误");
+                return;
+            }
+            
 
             if (videos.Length == 0)
             {
@@ -127,6 +139,7 @@ namespace RemoteImaging.Query
             if (this.axVLCPlugin21.playlist.isPlaying)
             {
                 this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(20);
             }
 
             this.axVLCPlugin21.playlist.items.clear();
@@ -150,6 +163,7 @@ namespace RemoteImaging.Query
 
             ListViewItem item = this.videoList.SelectedItems[0];
 
+
             ReceiveVideoStream();
 
             StreamServerProxy.StreamVideo(item.Tag as string);
@@ -171,7 +185,23 @@ namespace RemoteImaging.Query
 
             Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
 
-            Bitmap[] faces = SearchProxy.FacesCapturedAt(selectedCamera.ID, time);
+            Bitmap[] faces = null;
+
+            try
+            {
+                faces = SearchProxy.FacesCapturedAt(selectedCamera.ID, time);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                MessageBox.Show("通讯错误");
+                return;
+            }
+
+
+            
+
+
+
             if (faces.Length == 0) return;
 
             foreach (var bmp in faces)
@@ -222,6 +252,11 @@ namespace RemoteImaging.Query
             detail.Img = img;
             detail.ShowDialog(this);
             detail.Dispose();
+        }
+
+        private void VideoQueryForm_Load(object sender, EventArgs e)
+        {
+            ReceiveVideoStream();
         }
     }
 }

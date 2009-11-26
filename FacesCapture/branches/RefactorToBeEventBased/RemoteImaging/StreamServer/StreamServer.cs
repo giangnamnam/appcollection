@@ -61,7 +61,11 @@ namespace StreamServer
         {
             Log("stop");
 
-            this.axVLCPlugin21.playlist.stop();
+            if (this.axVLCPlugin21.playlist.isPlaying)
+            {
+                this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(200);
+            }
         }
 
         public bool StreamVideo(string path)

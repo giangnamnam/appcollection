@@ -60,7 +60,18 @@ namespace RemoteImaging.Query
                 (i < currentPage * PageSize) && (i < imagesFound.Length);
                 ++i)
             {
-                ImagePair ip = SearchProxy.GetFace(imagesFound[i]);
+                ImagePair ip = null;
+
+                try
+                {
+                    ip = SearchProxy.GetFace(imagesFound[i]);
+                }
+                catch (System.ServiceModel.CommunicationException)
+                {
+                    MessageBox.Show("通讯错误");
+                    break;
+                }
+                
 
                 this.imageList1.Images.Add(ip.Face);
                 string text = System.IO.Path.GetFileName(ip.Face.Tag as string);
@@ -135,7 +146,18 @@ namespace RemoteImaging.Query
 
             this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(searchAddress);
             this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);
-            imagesFound = SearchProxy.SearchFaces(selectedCamera.ID, dateTime1, dateTime2);
+
+            try
+            {
+                imagesFound = SearchProxy.SearchFaces(selectedCamera.ID, dateTime1, dateTime2);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                MessageBox.Show("通讯错误");
+                return;
+            }
+
+            
 
             if (imagesFound.Length == 0)
             {
@@ -315,6 +337,7 @@ namespace RemoteImaging.Query
             if (this.axVLCPlugin21.playlist.isPlaying)
             {
                 this.axVLCPlugin21.playlist.stop();
+                System.Threading.Thread.Sleep(20);
             }
 
             this.axVLCPlugin21.playlist.items.clear();
@@ -333,7 +356,19 @@ namespace RemoteImaging.Query
 
             ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
 
-            string video = SearchProxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
+            string video = null;
+
+            try
+            {
+                video  = SearchProxy.VideoFilePathRecordedAt(imgInfo.CaptureTime, imgInfo.FromCamera);
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                MessageBox.Show("通讯错误");
+                return;
+            }
+
+            
 
             if (string.IsNullOrEmpty(video))
             {
