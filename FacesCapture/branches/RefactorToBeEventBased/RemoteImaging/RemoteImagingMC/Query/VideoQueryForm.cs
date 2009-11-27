@@ -31,16 +31,20 @@ namespace RemoteImaging.Query
             setListViewColumns();
         }
 
-        private void CreateProxy()
+        private string GetSelectedIP()
         {
             Camera selected = this.comboBox1.SelectedItem as Camera;
             if (selected == null)
             {
                 throw new Exception("No camera selected");
             }
+            return selected.IpAddress;
+        }
 
-            string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", selected.IpAddress);
-            string StreamingAddress = string.Format("net.tcp://{0}:8001/TcpService", selected.IpAddress);
+        private void CreateProxy()
+        {
+            string SearchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
+            string StreamingAddress = string.Format("net.tcp://{0}:8001/TcpService", GetSelectedIP());
             StreamServerProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(StreamingAddress);
             SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(SearchAddress);
         }
@@ -162,7 +166,9 @@ namespace RemoteImaging.Query
 
             this.axVLCPlugin21.playlist.items.clear();
 
-            int idx = this.axVLCPlugin21.playlist.add(@"udp://@239.255.12.12", null, "-vvv");
+            string mrl = string.Format("udp://@{0}", GetSelectedIP());
+
+            int idx = this.axVLCPlugin21.playlist.add(mrl, null, "-vvv");
 
             this.axVLCPlugin21.playlist.playItem(idx);
         }

@@ -8,13 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.ServiceModel;
 using RemoteControlService;
+using System.ServiceModel.Channels;
 
 
 namespace StreamServer
 {
     [ServiceBehavior(
-        InstanceContextMode=InstanceContextMode.Single,
-        IncludeExceptionDetailInFaults=true
+        InstanceContextMode = InstanceContextMode.Single,
+        IncludeExceptionDetailInFaults = true
         )]
     public partial class StreamServer : Form, RemoteControlService.IStreamPlayer
     {
@@ -72,8 +73,16 @@ namespace StreamServer
         {
             Log("play " + path);
 
-            string mrl = string.Format("file://{0}", path); 
-            string[] options =  new string[] {"-vvv", ":sout=udp:239.255.12.12", ":ttl=1"};
+            string mrl = string.Format("file://{0}", path);
+
+            //client ip
+            OperationContext context = OperationContext.Current;
+            MessageProperties prop = context.IncomingMessageProperties;
+            RemoteEndpointMessageProperty endpoint = prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
+            string ip = endpoint.Address;
+
+            string streamTo = string.Format(":sout=udp:{0}", ip);
+            string[] options = new string[] { "-vvv", streamTo, ":ttl=1" };
 
 
             this.axVLCPlugin21.playlist.items.clear();

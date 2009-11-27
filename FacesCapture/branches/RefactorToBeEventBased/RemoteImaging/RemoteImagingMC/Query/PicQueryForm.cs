@@ -81,7 +81,7 @@ namespace RemoteImaging.Query
                 
 
                 this.imageList1.Images.Add(ip.Face);
-                string text = System.IO.Path.GetFileName(ip.Face.Tag as string);
+                string text = System.IO.Path.GetFileName(ip.FacePath as string);
                 ListViewItem item = new ListViewItem()
                 {
                     Tag = ip,
@@ -119,6 +119,17 @@ namespace RemoteImaging.Query
 
             return dt;
         }
+
+        private string GetSelectedIP()
+        {
+            Camera selected = this.comboBox1.SelectedItem as Camera;
+            if (selected == null)
+            {
+                throw new Exception("No camera selected");
+            }
+            return selected.IpAddress;
+        }
+
         private void CreateProxy()
         {
             Camera selected = this.comboBox1.SelectedItem as Camera;
@@ -127,12 +138,14 @@ namespace RemoteImaging.Query
                 throw new Exception("No camera selected");
             }
 
-            string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", selected.IpAddress);
-            string playerAddress = string.Format("net.tcp://{0}:8001/TcpService", selected.IpAddress);
+            string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
+            string playerAddress = string.Format("net.tcp://{0}:8001/TcpService", GetSelectedIP());
 
             this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(searchAddress);
             this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);
         }
+
+
         private void queryBtn_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -363,7 +376,11 @@ namespace RemoteImaging.Query
 
             this.axVLCPlugin21.playlist.items.clear();
 
-            int idx = this.axVLCPlugin21.playlist.add(@"udp://@239.255.12.12", null, "-vvv");
+            this.axVLCPlugin21.playlist.items.clear();
+
+            string mrl = string.Format("udp://@{0}", GetSelectedIP());
+
+            int idx = this.axVLCPlugin21.playlist.add(mrl, null, "-vvv");
 
             this.axVLCPlugin21.playlist.playItem(idx);
         }
@@ -413,21 +430,18 @@ namespace RemoteImaging.Query
         private void SaveSelectedImage()
         {
             if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
-            string filePath = this.bestPicListView.FocusedItem.Tag as string;
+            ImagePair ip = this.bestPicListView.FocusedItem.Tag as ImagePair;
 
-            if (File.Exists(filePath))
-            {
-                this.pictureBoxFace.Image = Image.FromFile(filePath);
-            }
-            ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
+
+            ImageDetail imgInfo = ImageDetail.FromPath(ip.FacePath);
+            string bigImgPath = ip.BigImagePath;
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
                 saveDialog.RestoreDirectory = true;
                 saveDialog.Filter = "Jpeg 文件|*.jpg";
                 //saveDialog.FileName = filePath.Substring(filePath.Length - 27, 27);
-                string fileName = Path.GetFileName(filePath);
+                string fileName = Path.GetFileName(ip.FacePath);
                 saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
