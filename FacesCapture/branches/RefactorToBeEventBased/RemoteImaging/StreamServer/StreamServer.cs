@@ -81,7 +81,7 @@ namespace StreamServer
             RemoteEndpointMessageProperty endpoint = prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
             string ip = endpoint.Address;
 
-            string streamTo = string.Format(":sout=udp:{0}", ip);
+            string streamTo = string.Format(":sout=udp:{0}", "239.255.12.12");
             string[] options = new string[] { "-vvv", streamTo, ":ttl=1" };
 
 

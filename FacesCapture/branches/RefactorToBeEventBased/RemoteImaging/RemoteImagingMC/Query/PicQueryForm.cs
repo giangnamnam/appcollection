@@ -378,7 +378,7 @@ namespace RemoteImaging.Query
 
             this.axVLCPlugin21.playlist.items.clear();
 
-            string mrl = string.Format("udp://@{0}", GetSelectedIP());
+            string mrl = string.Format("udp://@{0}", "239.255.12.12");
 
             int idx = this.axVLCPlugin21.playlist.add(mrl, null, "-vvv");
 
