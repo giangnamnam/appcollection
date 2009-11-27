@@ -64,13 +64,8 @@ namespace RemoteImaging.Service
                 };
             }
 
-
             return serviceVideos;
         }
-
-
-
-
 
         public string VideoFilePathRecordedAt(DateTime time, int camID)
         {
@@ -78,17 +73,18 @@ namespace RemoteImaging.Service
         }
 
 
-        public Bitmap[] FacesCapturedAt(int cameraID, DateTime time)
+        public ImagePair[] FacesCapturedAt(int cameraID, DateTime time)
         {
             string[] files = ImageSearch.FacesCapturedAt(time, cameraID, true);
-            Bitmap[] bmps = new Bitmap[files.Length];
+            ImagePair[] bmps = new ImagePair[files.Length];
 
             for (int i = 0; i < files.Length ; i++)
             {
-            	Bitmap bmp = (Bitmap) Bitmap.FromFile(files[i]);
-                bmp.Tag = files[i];
+                ImagePair ip = new ImagePair();
+                ip.Face = (Bitmap) Bitmap.FromFile(files[i]);
+                ip.FacePath = files[i];
 
-                bmps[i] = bmp;
+                bmps[i] = ip;
             }
 
             return bmps;

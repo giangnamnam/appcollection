@@ -764,8 +764,6 @@ namespace RemoteImaging.RealtimeDisplay
             lc.Start();
 
 
-
-
         }
 
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)

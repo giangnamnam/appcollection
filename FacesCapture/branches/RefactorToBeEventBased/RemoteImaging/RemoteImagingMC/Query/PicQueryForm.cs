@@ -106,6 +106,7 @@ namespace RemoteImaging.Query
             ClearCurPageList();
             this.imageList2.Images.Clear();
             this.pictureBoxFace.Image = null;
+            this.pictureBoxWholeImg.Image = null;
         }
 
         private DateTime CreateDateTime(
@@ -149,8 +150,6 @@ namespace RemoteImaging.Query
         private void queryBtn_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-
-            ClearLists();
 
             if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
             {

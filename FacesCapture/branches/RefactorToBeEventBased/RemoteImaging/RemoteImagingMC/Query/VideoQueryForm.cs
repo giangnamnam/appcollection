@@ -209,7 +209,7 @@ namespace RemoteImaging.Query
 
             Camera selectedCamera = this.comboBox1.SelectedItem as Camera;
 
-            Bitmap[] faces = null;
+            ImagePair[] faces = null;
 
             try
             {
@@ -228,20 +228,16 @@ namespace RemoteImaging.Query
             }
 
 
-            
-
-
-
             if (faces.Length == 0) return;
 
-            foreach (var bmp in faces)
+            foreach (var aFace in faces)
             {
-                this.imageList1.Images.Add(bmp);
-                //string text = System.IO.Path.GetFileName(fileArr[i]);
+                this.imageList1.Images.Add(aFace.Face);
+                string text = System.IO.Path.GetFileName(aFace.FacePath);
                 ListViewItem item = new ListViewItem
                 {
-                    //Tag = fileArr[i].ToString(),
-                    //Text = text,
+                    Tag = aFace,
+                    Text = text,
                     ImageIndex = this.imageList1.Images.Count-1,
                 };
                 this.picList.Items.Add(item);
@@ -270,11 +266,6 @@ namespace RemoteImaging.Query
 
         }
 
-        private void picList_DoubleClick(object sender, EventArgs e)
-        {
-            //MessageBox.Show("图片路径："+this.picList.FocusedItem.Tag.ToString());
-            ShowDetailPic(ImageDetail.FromPath(this.picList.FocusedItem.Tag.ToString()));
-        }
 
         private void ShowDetailPic(ImageDetail img)
         {

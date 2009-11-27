@@ -14,6 +14,11 @@ namespace RemoteImaging
         /// </summary>
         private Configuration()
         {
+            
+        }
+
+        public void LoadConfig()
+        {
             List<Camera> lineCam = new List<Camera>();
             XDocument camXMLDoc = XDocument.Load(fileName);
             var camsElements = camXMLDoc.Root.Descendants("cam");
@@ -46,7 +51,7 @@ namespace RemoteImaging
             }
 
             doc.Save(Properties.Settings.Default.CamConfigFile);
-            instance = new Configuration();
+            LoadConfig();
         }
 
 
@@ -81,6 +86,7 @@ namespace RemoteImaging
                 if (instance == null)
                 {
                     instance = new Configuration();
+                    instance.LoadConfig();
                 }
                 return instance;
             }

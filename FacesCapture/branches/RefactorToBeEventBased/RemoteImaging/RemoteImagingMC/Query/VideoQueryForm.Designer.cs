@@ -246,7 +246,6 @@
             this.picList.Size = new System.Drawing.Size(746, 116);
             this.picList.TabIndex = 22;
             this.picList.UseCompatibleStateImageBehavior = false;
-            this.picList.DoubleClick += new System.EventHandler(this.picList_DoubleClick);
             // 
             // label5
             // 

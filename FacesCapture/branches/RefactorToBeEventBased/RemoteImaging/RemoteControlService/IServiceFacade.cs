@@ -22,7 +22,7 @@ namespace RemoteControlService
         Video[] SearchVideos(int cameraID, DateTime from, DateTime to);
 
         [OperationContract]
-        Bitmap[] FacesCapturedAt(int cameraID, DateTime time);
+        ImagePair[] FacesCapturedAt(int cameraID, DateTime time);
 
 
         [OperationContract]
