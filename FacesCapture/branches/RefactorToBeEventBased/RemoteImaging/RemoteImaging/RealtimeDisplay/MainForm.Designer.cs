@@ -64,7 +64,6 @@
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -98,6 +97,7 @@
             this.faceRecognize = new System.Windows.Forms.ToolStripButton();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -183,10 +183,6 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.Options.UseForeColor = true;
-            this.layoutControl1.Appearance.DisabledLayoutItem.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.layoutControl1.Appearance.DisabledLayoutItem.Options.UseForeColor = true;
             this.layoutControl1.Controls.Add(this.panelControl3);
             this.layoutControl1.Controls.Add(this.panelControl1);
             this.layoutControl1.Controls.Add(this.simpleButton2);
@@ -229,8 +225,8 @@
             this.panelControl5.Appearance.BackColor = System.Drawing.Color.SteelBlue;
             this.panelControl5.Appearance.Options.UseBackColor = true;
             this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl5.Controls.Add(this.pictureBox2);
             this.panelControl5.Controls.Add(this.labelControl2);
+            this.panelControl5.Controls.Add(this.pictureBox2);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(0, 0);
             this.panelControl5.Name = "panelControl5";
@@ -408,8 +404,8 @@
             this.panelControl4.Appearance.BackColor = System.Drawing.Color.SteelBlue;
             this.panelControl4.Appearance.Options.UseBackColor = true;
             this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl4.Controls.Add(this.labelControl3);
             this.panelControl4.Controls.Add(this.pictureBox1);
-            this.panelControl4.Controls.Add(this.labelControl1);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
@@ -427,27 +423,6 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.BackColor = System.Drawing.Color.SteelBlue;
-            this.labelControl1.Appearance.BackColor2 = System.Drawing.Color.LightGray;
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
-            this.labelControl1.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.labelControl1.Appearance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelControl1.Appearance.Options.UseBackColor = true;
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Appearance.Options.UseForeColor = true;
-            this.labelControl1.Appearance.Options.UseTextOptions = true;
-            this.labelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.labelControl1.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl1.Location = new System.Drawing.Point(44, 0);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(127, 24);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "摄像头列表";
-            // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.simpleButton1;
@@ -456,7 +431,6 @@
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(158, 320);
             this.layoutControlItem1.Text = "layoutControlItem1";
-            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
             this.layoutControlItem1.TextVisible = false;
@@ -469,7 +443,6 @@
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(317, 320);
             this.layoutControlItem3.Text = "layoutControlItem3";
-            this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
             this.layoutControlItem3.TextVisible = false;
@@ -485,8 +458,8 @@
             this.splitterItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
+            this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Size = new System.Drawing.Size(897, 491);
-            this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -498,7 +471,6 @@
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(701, 487);
             this.layoutControlItem5.Text = "layoutControlItem5";
-            this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
             this.layoutControlItem5.TextVisible = false;
@@ -511,7 +483,6 @@
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(186, 189);
             this.layoutControlItem2.Text = "layoutControlItem2";
-            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
             this.layoutControlItem2.TextVisible = false;
@@ -524,13 +495,13 @@
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(186, 292);
             this.layoutControlItem4.Text = "layoutControlItem4";
-            this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
             this.layoutControlItem4.TextVisible = false;
             // 
             // splitterItem2
             // 
+            this.splitterItem2.AllowHotTrack = true;
             this.splitterItem2.ContentVisible = false;
             this.splitterItem2.CustomizationFormText = "splitterItem2";
             this.splitterItem2.Location = new System.Drawing.Point(186, 0);
@@ -539,6 +510,7 @@
             // 
             // splitterItem1
             // 
+            this.splitterItem1.AllowHotTrack = true;
             this.splitterItem1.CustomizationFormText = "splitterItem1";
             this.splitterItem1.Location = new System.Drawing.Point(0, 189);
             this.splitterItem1.Name = "splitterItem1";
@@ -757,6 +729,19 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Location = new System.Drawing.Point(43, 0);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(133, 24);
+            this.labelControl3.TabIndex = 2;
+            this.labelControl3.Text = "摄像头列表";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -833,7 +818,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl4;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -871,6 +855,7 @@
         private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton faceRecognize;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
 
     }
 }

@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -61,7 +61,6 @@
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -88,6 +87,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -165,10 +165,6 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.Options.UseForeColor = true;
-            this.layoutControl1.Appearance.DisabledLayoutItem.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.layoutControl1.Appearance.DisabledLayoutItem.Options.UseForeColor = true;
             this.layoutControl1.Controls.Add(this.panelControl1);
             this.layoutControl1.Controls.Add(this.simpleButton2);
             this.layoutControl1.Controls.Add(this.simpleButton1);
@@ -187,9 +183,9 @@
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.squareListView1);
-            this.panelControl1.Location = new System.Drawing.Point(123, 7);
+            this.panelControl1.Location = new System.Drawing.Point(163, 7);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(767, 477);
+            this.panelControl1.Size = new System.Drawing.Size(727, 477);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
             // 
@@ -207,7 +203,7 @@
             this.squareListView1.NumberOfColumns = 3;
             this.squareListView1.NumberofRows = 3;
             this.squareListView1.SelectedCell = null;
-            this.squareListView1.Size = new System.Drawing.Size(761, 471);
+            this.squareListView1.Size = new System.Drawing.Size(721, 471);
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
@@ -259,7 +255,7 @@
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Location = new System.Drawing.Point(7, 7);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(100, 477);
+            this.panelControl2.Size = new System.Drawing.Size(140, 477);
             this.panelControl2.TabIndex = 11;
             // 
             // cameraTree
@@ -273,32 +269,32 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "Node1";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "192.168.1.2";
-            treeNode8.ImageIndex = 2;
-            treeNode8.Name = "Node4";
-            treeNode8.SelectedImageIndex = 2;
-            treeNode8.Text = "2";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "Node0";
-            treeNode9.Text = "南门";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "Node3";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "192.168.1.1";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node5";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "3";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "北门";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Node1";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "192.168.1.2";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "Node4";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "2";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "南门";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "Node3";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "192.168.1.1";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "Node5";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "3";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode12});
+            treeNode3,
+            treeNode6});
             this.cameraTree.SelectedImageIndex = 0;
-            this.cameraTree.Size = new System.Drawing.Size(100, 453);
+            this.cameraTree.Size = new System.Drawing.Size(140, 453);
             this.cameraTree.TabIndex = 1;
             this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
@@ -341,12 +337,12 @@
             this.panelControl4.Appearance.BackColor = System.Drawing.Color.SteelBlue;
             this.panelControl4.Appearance.Options.UseBackColor = true;
             this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl4.Controls.Add(this.labelControl3);
             this.panelControl4.Controls.Add(this.pictureBox1);
-            this.panelControl4.Controls.Add(this.labelControl1);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(0, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(100, 24);
+            this.panelControl4.Size = new System.Drawing.Size(140, 24);
             this.panelControl4.TabIndex = 0;
             // 
             // pictureBox1
@@ -360,27 +356,6 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.BackColor = System.Drawing.Color.SteelBlue;
-            this.labelControl1.Appearance.BackColor2 = System.Drawing.Color.LightGray;
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
-            this.labelControl1.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.labelControl1.Appearance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelControl1.Appearance.Options.UseBackColor = true;
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Appearance.Options.UseForeColor = true;
-            this.labelControl1.Appearance.Options.UseTextOptions = true;
-            this.labelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.labelControl1.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl1.Location = new System.Drawing.Point(44, 0);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(127, 24);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "监控点列表";
-            // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.simpleButton1;
@@ -389,7 +364,6 @@
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(158, 320);
             this.layoutControlItem1.Text = "layoutControlItem1";
-            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
             this.layoutControlItem1.TextVisible = false;
@@ -402,7 +376,6 @@
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(317, 320);
             this.layoutControlItem3.Text = "layoutControlItem3";
-            this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
             this.layoutControlItem3.TextVisible = false;
@@ -416,8 +389,8 @@
             this.splitterItem2});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
+            this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
             this.layoutControlGroup1.Size = new System.Drawing.Size(897, 491);
-            this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -425,11 +398,10 @@
             // 
             this.layoutControlItem5.Control = this.panelControl1;
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(116, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(156, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(777, 487);
+            this.layoutControlItem5.Size = new System.Drawing.Size(737, 487);
             this.layoutControlItem5.Text = "layoutControlItem5";
-            this.layoutControlItem5.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
             this.layoutControlItem5.TextVisible = false;
@@ -440,18 +412,18 @@
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(110, 487);
+            this.layoutControlItem2.Size = new System.Drawing.Size(150, 487);
             this.layoutControlItem2.Text = "layoutControlItem2";
-            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
             this.layoutControlItem2.TextVisible = false;
             // 
             // splitterItem2
             // 
+            this.splitterItem2.AllowHotTrack = true;
             this.splitterItem2.ContentVisible = false;
             this.splitterItem2.CustomizationFormText = "splitterItem2";
-            this.splitterItem2.Location = new System.Drawing.Point(110, 0);
+            this.splitterItem2.Location = new System.Drawing.Point(150, 0);
             this.splitterItem2.Name = "splitterItem2";
             this.splitterItem2.Size = new System.Drawing.Size(6, 487);
             // 
@@ -620,6 +592,19 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Location = new System.Drawing.Point(35, 0);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(102, 24);
+            this.labelControl3.TabIndex = 3;
+            this.labelControl3.Text = "摄像头列表";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -681,7 +666,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraEditors.PanelControl panelControl4;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ImageList cameraImageList;
         private System.Windows.Forms.PictureBox pictureBox3;
@@ -715,6 +699,7 @@
         private System.Windows.Forms.ContextMenuStrip squareViewContextMenu;
         private System.Windows.Forms.ToolStripMenuItem spot1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spot2ToolStripMenuItem;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
 
     }
 }
