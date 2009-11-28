@@ -4,12 +4,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MyControls;
+using Damany.Windows.Form;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
-using JSZN.Component;
+using Damany.Component;
 using System.Threading;
 using RemoteImaging.ImportPersonCompare;
 using RemoteImaging.Query;
@@ -786,6 +786,7 @@ namespace RemoteImaging.RealtimeDisplay
                 presenter.Start();
                 this.faceRecognize.Enabled = true;
             }
+
         }
 
 
@@ -797,40 +798,13 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (string.IsNullOrEmpty(Program.directory))
             {
-
-                SanyoNetCamera camera = new SanyoNetCamera();
+                var camera = new SanyoNetCamera();
                 camera.IPAddress = cam.IpAddress;
                 camera.UserName = "guest";
                 camera.Password = "guest";
 
-
-                System.Threading.ThreadPool.QueueUserWorkItem((object o) =>
-                    {
-                        System.Exception error = null;
-                        try
-                        {
-                            camera.Connect();
-                        }
-                        catch (System.Net.Sockets.SocketException ex)
-                        {
-                            error = ex;
-                        }
-                        catch (System.Net.WebException ex)
-                        {
-                            error = ex;
-                        }
-
-                        context.Post(OnConnectionFinished, error);
-
-                    });
-
-
                 Icam = camera;
-
-                StartRecord(cam);
-
-                Properties.Settings.Default.LastSelCamID = cam.ID;
-
+                this.StartRecord(cam);
             }
             else
             {
@@ -839,8 +813,34 @@ namespace RemoteImaging.RealtimeDisplay
                 Icam = mc;
             }
 
+
             if (presenter == null)
                 presenter = new Presenter(this, Icam);
+
+            System.Threading.ThreadPool.QueueUserWorkItem((object o) =>
+                {
+                    System.Exception error = null;
+                    try
+                    {
+                        Icam.Connect();
+                    }
+                    catch (System.Net.Sockets.SocketException ex)
+                    {
+                        error = ex;
+                    }
+                    catch (System.Net.WebException ex)
+                    {
+                        error = ex;
+                    }
+
+                    context.Post(OnConnectionFinished, error);
+
+                    if (error == null)
+                    {
+                        Properties.Settings.Default.LastSelCamID = cam.ID;
+                    }
+
+                });
 
         }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

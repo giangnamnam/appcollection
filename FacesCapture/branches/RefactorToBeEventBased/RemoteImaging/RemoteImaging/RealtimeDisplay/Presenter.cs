@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using ImageProcess;
 using RemoteImaging.Core;
-using JSZN.Component;
+using Damany.Component;
 using System.Drawing;
 using OpenCvSharp;
 using System.Threading;

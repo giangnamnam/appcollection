@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using JSZN.Component;
+using Damany.Component;
 
 namespace RemoteImaging
 {
@@ -41,6 +41,34 @@ namespace RemoteImaging
             System.Diagnostics.Debug.WriteLine(idx);
 
             return System.IO.File.ReadAllBytes(file);
+        }
+
+
+
+        public void Connect()
+        {
+        }
+
+        #endregion
+
+        #region ICamera Members
+
+
+        public bool Record
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Start()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

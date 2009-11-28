@@ -47,7 +47,7 @@
             this.statusTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.squareListView1 = new MyControls.SquareListView();
+            this.squareListView1 = new Damany.Windows.Form.SquareListView();
             this.squareViewContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spot2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -207,7 +207,7 @@
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
-            this.squareListView1.CellDoubleClick += new MyControls.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
+            this.squareListView1.CellDoubleClick += new Damany.Windows.Form.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
             // 
             // squareViewContextMenu
             // 
@@ -695,7 +695,7 @@
         private System.Windows.Forms.ToolStripMenuItem ViewCameraToolStripMenuItem;
         private System.Windows.Forms.Timer diskSpaceCheckTimer;
         private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
-        private MyControls.SquareListView squareListView1;
+        private Damany.Windows.Form.SquareListView squareListView1;
         private System.Windows.Forms.ContextMenuStrip squareViewContextMenu;
         private System.Windows.Forms.ToolStripMenuItem spot1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spot2ToolStripMenuItem;

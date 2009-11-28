@@ -39,6 +39,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\CommonLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Damany.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
+    </Reference>
+    <Reference Include="Damany.Windows.Form, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Damany.Library\OutPut\Damany.Windows.Form.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.BonusSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
     <Reference Include="DevExpress.Data.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.OfficeSkins.v9.2, Version=9.2.9.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a" />
@@ -73,7 +81,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
     </Reference>
-    <Reference Include="JSZN.Component, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\Messages.dll</HintPath>
@@ -81,10 +88,6 @@
     <Reference Include="MotionDetectWrapper, Version=1.0.3604.21378, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\MotionDetectWrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="MyControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\MyControls.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
