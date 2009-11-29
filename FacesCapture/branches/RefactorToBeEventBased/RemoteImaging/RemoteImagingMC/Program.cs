@@ -36,7 +36,20 @@ namespace RemoteImaging
                 
                 return;
             }
+
+
+            Login log = null;
+
+            do
+	        {
+                 log = new Login();
+                 if (log.ShowDialog() != DialogResult.OK)
+                     return;
+
+	        } while ( log.UserName != Properties.Settings.Default.UserName
+                || log.Password != Properties.Settings.Default.PassWord ); 
 #endif
+  
 
             if (argv.Length > 0)
             {

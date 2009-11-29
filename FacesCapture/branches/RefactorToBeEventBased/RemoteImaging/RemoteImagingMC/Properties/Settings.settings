@@ -113,5 +113,11 @@
     <Setting Name="RecheckFace" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">user</Value>
+    </Setting>
+    <Setting Name="PassWord" Type="System.String" Scope="User">
+      <Value Profile="(Default)">user</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
