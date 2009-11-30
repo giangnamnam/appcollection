@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -55,9 +55,6 @@
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.cameraTree = new System.Windows.Forms.TreeView();
-            this.contextMenuStripForCamTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ViewCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SetupCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
@@ -84,8 +81,6 @@
             this.videoSearch = new System.Windows.Forms.ToolStripButton();
             this.options = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
-            this.tsbMonitoring = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.statusStrip1.SuspendLayout();
@@ -96,7 +91,6 @@
             this.squareViewContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
-            this.contextMenuStripForCamTreeView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -262,7 +256,6 @@
             // cameraTree
             // 
             this.cameraTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cameraTree.ContextMenuStrip = this.contextMenuStripForCamTreeView;
             this.cameraTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cameraTree.FullRowSelect = true;
             this.cameraTree.HideSelection = false;
@@ -270,57 +263,35 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "192.168.1.2";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "Node4";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "2";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "南门";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "Node3";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "192.168.1.1";
-            treeNode5.ImageIndex = 2;
-            treeNode5.Name = "Node5";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "3";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "北门";
+            treeNode7.ImageIndex = 1;
+            treeNode7.Name = "Node1";
+            treeNode7.SelectedImageIndex = 1;
+            treeNode7.Text = "192.168.1.2";
+            treeNode8.ImageIndex = 2;
+            treeNode8.Name = "Node4";
+            treeNode8.SelectedImageIndex = 2;
+            treeNode8.Text = "2";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "Node0";
+            treeNode9.Text = "南门";
+            treeNode10.ImageIndex = 1;
+            treeNode10.Name = "Node3";
+            treeNode10.SelectedImageIndex = 1;
+            treeNode10.Text = "192.168.1.1";
+            treeNode11.ImageIndex = 2;
+            treeNode11.Name = "Node5";
+            treeNode11.SelectedImageIndex = 2;
+            treeNode11.Text = "3";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode6});
+            treeNode9,
+            treeNode12});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(140, 453);
             this.cameraTree.TabIndex = 1;
             this.cameraTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseDoubleClick);
             this.cameraTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.cameraTree_NodeMouseClick);
-            // 
-            // contextMenuStripForCamTreeView
-            // 
-            this.contextMenuStripForCamTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ViewCameraToolStripMenuItem,
-            this.SetupCameraToolStripMenuItem});
-            this.contextMenuStripForCamTreeView.Name = "contextMenuStripForCamTreeView";
-            this.contextMenuStripForCamTreeView.Size = new System.Drawing.Size(105, 52);
-            // 
-            // ViewCameraToolStripMenuItem
-            // 
-            this.ViewCameraToolStripMenuItem.Name = "ViewCameraToolStripMenuItem";
-            this.ViewCameraToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
-            this.ViewCameraToolStripMenuItem.Text = "查看";
-            this.ViewCameraToolStripMenuItem.Click += new System.EventHandler(this.ViewCameraToolStripMenuItem_Click);
-            // 
-            // SetupCameraToolStripMenuItem
-            // 
-            this.SetupCameraToolStripMenuItem.Name = "SetupCameraToolStripMenuItem";
-            this.SetupCameraToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
-            this.SetupCameraToolStripMenuItem.Text = "设置";
-            this.SetupCameraToolStripMenuItem.Click += new System.EventHandler(this.SetupCameraToolStripMenuItem_Click);
             // 
             // cameraImageList
             // 
@@ -537,9 +508,7 @@
             this.toolStripSeparator1,
             this.options,
             this.toolStripSeparator3,
-            this.aboutButton,
-            this.tsbMonitoring,
-            this.toolStripSeparator5});
+            this.aboutButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(897, 26);
@@ -583,20 +552,6 @@
             this.aboutButton.Text = "关于系统";
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
-            // tsbMonitoring
-            // 
-            this.tsbMonitoring.Image = ((System.Drawing.Image)(resources.GetObject("tsbMonitoring.Image")));
-            this.tsbMonitoring.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMonitoring.Name = "tsbMonitoring";
-            this.tsbMonitoring.Size = new System.Drawing.Size(55, 23);
-            this.tsbMonitoring.Text = "布控";
-            this.tsbMonitoring.Click += new System.EventHandler(this.tsbMonitoring_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 26);
-            // 
             // diskSpaceCheckTimer
             // 
             this.diskSpaceCheckTimer.Interval = 600000;
@@ -631,7 +586,6 @@
             this.squareViewContextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
-            this.contextMenuStripForCamTreeView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -689,11 +643,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel aboutButton;
         private System.Windows.Forms.ToolStrip mainToolStrip;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton tsbMonitoring;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripForCamTreeView;
-        private System.Windows.Forms.ToolStripMenuItem SetupCameraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ViewCameraToolStripMenuItem;
         private System.Windows.Forms.Timer diskSpaceCheckTimer;
         private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
         private Damany.Windows.Form.SquareListView squareListView1;

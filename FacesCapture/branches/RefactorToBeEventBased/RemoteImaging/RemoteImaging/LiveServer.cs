@@ -56,6 +56,8 @@ namespace RemoteImaging
             {
                 while (true)
                 {
+                    
+
                     System.Drawing.Image img = null;
                     if (images.Count > 0)
                     {
@@ -63,6 +65,8 @@ namespace RemoteImaging
                         {
                             img = images.Dequeue();
                         }
+
+                        client.GetStream().ReadByte();
                         
                         formatter.Serialize(client.GetStream(), img);
                         img.Dispose();

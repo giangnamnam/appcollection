@@ -195,10 +195,6 @@ namespace RemoteImaging.RealtimeDisplay
                     SelectedImageIndex = 5
                 };
 
-                if (!camera.Status)
-                {
-                    SetNodeUnClick(camNode);
-                }
 
                 propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
                 camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
@@ -211,11 +207,8 @@ namespace RemoteImaging.RealtimeDisplay
             this.cameraTree.ExpandAll();
         }
 
-        private void SetNodeUnClick(TreeNode rootNode)
-        {
-            rootNode.BackColor = System.Drawing.Color.Gray;
-            rootNode.Text = rootNode.Text + "(不可用)";
-        }
+
+
         private Presenter presenter;
         Camera allCamera = new Camera() { ID = -1 };
 

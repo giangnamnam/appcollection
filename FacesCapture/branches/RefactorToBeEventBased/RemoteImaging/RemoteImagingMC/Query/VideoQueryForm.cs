@@ -27,13 +27,17 @@ namespace RemoteImaging.Query
             this.comboBox1.DataSource = Configuration.Instance.Cameras;
             this.comboBox1.DisplayMember = "Name";
 
-           
+
             setListViewColumns();
         }
 
         private string GetSelectedIP()
         {
             Camera selected = this.comboBox1.SelectedItem as Camera;
+
+            selected = Configuration.Instance[selected.ID];
+
+
             if (selected == null)
             {
                 throw new Exception("No camera selected");
@@ -51,6 +55,8 @@ namespace RemoteImaging.Query
 
         private void queryBtn_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             this.picList.Clear();
 
             if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
@@ -76,18 +82,27 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            if (StreamServerProxy != null)
+            if (StreamServerProxy != null && IsPlaying)
             {
-                StreamServerProxy.Stop();
+                try
+                {
+                    StreamServerProxy.Stop();
+                    IsPlaying = false;
+                }
+                catch (System.ServiceModel.EndpointNotFoundException)
+                {
+
+                }
             }
 
             CreateProxy();
             Video[] videos = null;
 
 
+
             try
             {
-                videos = SearchProxy.SearchVideos(selectedCamera.ID, dateTime1, dateTime2);
+                videos = SearchProxy.SearchVideos(2, dateTime1, dateTime2);
             }
             catch (System.ServiceModel.CommunicationException)
             {
@@ -136,9 +151,9 @@ namespace RemoteImaging.Query
                         lvl.ImageIndex = 1;
                     videoList.Items.Add(lvl);
                 }
-
-
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void setListViewColumns()//添加ListView行头
@@ -173,9 +188,11 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.playlist.playItem(idx);
         }
 
+        bool IsPlaying = false;
+
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
-            
+
 
             if (StreamServerProxy == null) return;
             if (this.videoList.SelectedItems.Count == 0) return;
@@ -186,13 +203,14 @@ namespace RemoteImaging.Query
             }
 
             ListViewItem item = this.videoList.SelectedItems[0];
+            IsPlaying = true;
 
 
             ReceiveVideoStream();
 
             StreamServerProxy.StreamVideo(item.Tag as string);
 
-            
+
 
             bindPiclist();
         }
@@ -213,7 +231,7 @@ namespace RemoteImaging.Query
 
             try
             {
-                faces = SearchProxy.FacesCapturedAt(selectedCamera.ID, time);
+                faces = SearchProxy.FacesCapturedAt(2, time);
             }
             catch (System.ServiceModel.CommunicationException)
             {
@@ -238,7 +256,7 @@ namespace RemoteImaging.Query
                 {
                     Tag = aFace,
                     Text = text,
-                    ImageIndex = this.imageList1.Images.Count-1,
+                    ImageIndex = this.imageList1.Images.Count - 1,
                 };
                 this.picList.Items.Add(item);
             }
@@ -259,7 +277,7 @@ namespace RemoteImaging.Query
                 System.Threading.Thread.Sleep(1000);
             }
 
-            if (StreamServerProxy != null)
+            if (StreamServerProxy != null && IsPlaying)
             {
                 StreamServerProxy.Stop();
             }

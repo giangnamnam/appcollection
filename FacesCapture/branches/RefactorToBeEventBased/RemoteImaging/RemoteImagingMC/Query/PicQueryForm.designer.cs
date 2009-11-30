@@ -198,7 +198,7 @@
             this.bestPicListView.MultiSelect = false;
             this.bestPicListView.Name = "bestPicListView";
             this.bestPicListView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bestPicListView.Size = new System.Drawing.Size(840, 195);
+            this.bestPicListView.Size = new System.Drawing.Size(840, 256);
             this.bestPicListView.TabIndex = 10;
             this.bestPicListView.UseCompatibleStateImageBehavior = false;
             this.bestPicListView.ItemActivate += new System.EventHandler(this.bestPicListView_ItemActivate);
@@ -228,17 +228,13 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(282, 246);
+            this.groupBox4.Size = new System.Drawing.Size(184, 185);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "放大显示";
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.layoutControl1.Appearance.DisabledLayoutGroupCaption.Options.UseForeColor = true;
-            this.layoutControl1.Appearance.DisabledLayoutItem.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.layoutControl1.Appearance.DisabledLayoutItem.Options.UseForeColor = true;
             this.layoutControl1.Controls.Add(this.pictureBoxFace);
             this.layoutControl1.Controls.Add(this.labelCaptureLoc);
             this.layoutControl1.Controls.Add(this.labelCaptureTime);
@@ -246,7 +242,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(3, 17);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(276, 226);
+            this.layoutControl1.Size = new System.Drawing.Size(178, 165);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -254,25 +250,25 @@
             // 
             this.pictureBoxFace.Location = new System.Drawing.Point(7, 7);
             this.pictureBoxFace.Name = "pictureBoxFace";
-            this.pictureBoxFace.Size = new System.Drawing.Size(262, 147);
-            this.pictureBoxFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxFace.Size = new System.Drawing.Size(164, 86);
+            this.pictureBoxFace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxFace.TabIndex = 19;
             this.pictureBoxFace.TabStop = false;
             // 
             // labelCaptureLoc
             // 
-            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 164);
+            this.labelCaptureLoc.Location = new System.Drawing.Point(7, 103);
             this.labelCaptureLoc.Name = "labelCaptureLoc";
-            this.labelCaptureLoc.Size = new System.Drawing.Size(262, 22);
+            this.labelCaptureLoc.Size = new System.Drawing.Size(164, 22);
             this.labelCaptureLoc.TabIndex = 17;
             this.labelCaptureLoc.Text = "抓拍地点：";
             this.labelCaptureLoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCaptureTime
             // 
-            this.labelCaptureTime.Location = new System.Drawing.Point(7, 196);
+            this.labelCaptureTime.Location = new System.Drawing.Point(7, 135);
             this.labelCaptureTime.Name = "labelCaptureTime";
-            this.labelCaptureTime.Size = new System.Drawing.Size(262, 23);
+            this.labelCaptureTime.Size = new System.Drawing.Size(164, 23);
             this.labelCaptureTime.TabIndex = 18;
             this.labelCaptureTime.Text = "抓拍时间：";
             this.labelCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -286,8 +282,8 @@
             this.layoutControlItem3});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(276, 226);
-            this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 5;
+            this.layoutControlGroup1.Size = new System.Drawing.Size(178, 165);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -295,14 +291,13 @@
             // 
             this.layoutControlItem1.Control = this.labelCaptureTime;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 189);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 128);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 33);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(31, 33);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(272, 33);
+            this.layoutControlItem1.Size = new System.Drawing.Size(174, 33);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "layoutControlItem1";
-            this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
             this.layoutControlItem1.TextVisible = false;
@@ -311,14 +306,13 @@
             // 
             this.layoutControlItem2.Control = this.labelCaptureLoc;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 157);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 96);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 32);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(31, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(272, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(174, 32);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "layoutControlItem2";
-            this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
             this.layoutControlItem2.TextVisible = false;
@@ -329,9 +323,8 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(272, 157);
+            this.layoutControlItem3.Size = new System.Drawing.Size(174, 96);
             this.layoutControlItem3.Text = "layoutControlItem3";
-            this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
             this.layoutControlItem3.TextVisible = false;
@@ -352,7 +345,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.bestPicListView);
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Size = new System.Drawing.Size(840, 472);
-            this.splitContainer1.SplitterDistance = 246;
+            this.splitContainer1.SplitterDistance = 185;
             this.splitContainer1.TabIndex = 20;
             // 
             // splitContainer2
@@ -370,17 +363,17 @@
             this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer2.Panel2.Controls.Add(this.splitter1);
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(840, 246);
-            this.splitContainer2.SplitterDistance = 282;
+            this.splitContainer2.Size = new System.Drawing.Size(840, 185);
+            this.splitContainer2.SplitterDistance = 184;
             this.splitContainer2.TabIndex = 21;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.axVLCPlugin21);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(432, 0);
+            this.groupBox2.Location = new System.Drawing.Point(442, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(122, 246);
+            this.groupBox2.Size = new System.Drawing.Size(210, 185);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "视频";
@@ -392,14 +385,14 @@
             this.axVLCPlugin21.Location = new System.Drawing.Point(3, 17);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(116, 226);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(204, 165);
             this.axVLCPlugin21.TabIndex = 31;
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(429, 0);
+            this.splitter1.Location = new System.Drawing.Point(439, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 246);
+            this.splitter1.Size = new System.Drawing.Size(3, 185);
             this.splitter1.TabIndex = 18;
             this.splitter1.TabStop = false;
             // 
@@ -409,7 +402,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(429, 246);
+            this.groupBox1.Size = new System.Drawing.Size(439, 185);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "全身像";
@@ -419,7 +412,7 @@
             this.pictureBoxWholeImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxWholeImg.Location = new System.Drawing.Point(3, 17);
             this.pictureBoxWholeImg.Name = "pictureBoxWholeImg";
-            this.pictureBoxWholeImg.Size = new System.Drawing.Size(423, 226);
+            this.pictureBoxWholeImg.Size = new System.Drawing.Size(433, 165);
             this.pictureBoxWholeImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxWholeImg.TabIndex = 16;
             this.pictureBoxWholeImg.TabStop = false;

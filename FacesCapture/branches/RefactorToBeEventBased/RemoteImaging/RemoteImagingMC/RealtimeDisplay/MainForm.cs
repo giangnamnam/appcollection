@@ -26,6 +26,10 @@ namespace RemoteImaging.RealtimeDisplay
     {
         Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
+        System.Collections.Generic.Dictionary<Cell, LiveClient> CellCameraMap =
+            new System.Collections.Generic.Dictionary<Cell, LiveClient>();
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -50,19 +54,10 @@ namespace RemoteImaging.RealtimeDisplay
             cpuCounter.CounterName = "% Processor Time";
             cpuCounter.InstanceName = "_Total";
 
-            //Camera[] cams = new Camera[Configuration.Instance.Cameras.Count];
-            //Configuration.Instance.Cameras.CopyTo(cams, 0);
-            //this.Cameras = cams;
-
             time = new System.Windows.Forms.Timer();
             time.Tick += time_Elapsed;
             time.Interval = 3000;
             time.Enabled = true;
-
-            //FileHandle fh = new FileHandle();//删除无效视频
-            //fh.DeleteInvalidVideo();
-
-            //StartSetCam(setting);//根据光亮值设置相机
 
 
             InitStatusBar();
@@ -162,10 +157,6 @@ namespace RemoteImaging.RealtimeDisplay
                     SelectedImageIndex = 5
                 };
 
-                if (!camera.Status)
-                {
-                    SetNodeUnClick(camNode);
-                }
 
                 propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
                 camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
@@ -178,11 +169,7 @@ namespace RemoteImaging.RealtimeDisplay
             this.cameraTree.ExpandAll();
         }
 
-        private void SetNodeUnClick(TreeNode rootNode)
-        {
-            rootNode.BackColor = System.Drawing.Color.Gray;
-            rootNode.Text = rootNode.Text + "(不可用)";
-        }
+
 
         Camera allCamera = new Camera() { ID = -1 };
 
@@ -252,8 +239,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         public ImageDetail BigImage
         {
-            set {  }
-           
+            set { }
+
         }
 
         public IImageScreenObserver Observer { get; set; }
@@ -734,53 +721,126 @@ namespace RemoteImaging.RealtimeDisplay
         private void squareViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
             this.squareViewContextMenu.Items.Clear();
+            Cell c = this.squareListView1.SelectedCell;
 
             foreach (var cam in config.Cameras)
             {
                 ToolStripMenuItem mi = new ToolStripMenuItem(cam.Name);
                 mi.Tag = cam;
                 mi.Click += new EventHandler(mi_Click);
+
+                if (CellCameraMap.ContainsKey(c))
+                {
+                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == cam)
+                    {
+                        mi.Enabled = false;
+                    }
+
+                }
+
                 this.squareViewContextMenu.Items.Add(mi);
             }
 
         }
 
+        private void ConnectCallback(IAsyncResult ar)
+        {
+            LiveClient lc = ar.AsyncState as LiveClient;
+            ConnectInfo info = lc.Tag as ConnectInfo;
+
+            try
+            {
+                info.Socket.EndConnect(ar);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                string msg = string.Format("无法连接 {0}, 请检查设备", info.Source.Name);
+                
+                Action showMsg = ()=> MessageBox.Show(this, msg, "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                this.BeginInvoke(showMsg);
+
+                return;
+            }
+
+            if (CellCameraMap.ContainsKey(info.Target))
+            {
+                CellCameraMap[info.Target].ImageReceived -= this.lc_ImageReceived;
+
+                CellCameraMap[info.Target].Stop();
+
+                CellCameraMap.Remove(info.Target);
+            }
+
+            
+            lc.ImageReceived += new EventHandler<ImageCapturedEventArgs>(lc_ImageReceived);
+            lc.ConnectAborted += new EventHandler(lc_ConnectAborted);
+            lc.Start();
+
+            CellCameraMap.Add(info.Target, lc);
+
+        }
+
         void mi_Click(object sender, EventArgs e)
         {
-            if (this.squareListView1.SelectedCell == null) return;
+            Cell c = this.squareListView1.SelectedCell;
+
+            if (c == null) return;
 
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
 
             Camera cam = menuItem.Tag as Camera;
 
+
+
+
             TcpClient tcp = new TcpClient();
             System.Net.IPAddress ip = System.Net.IPAddress.Parse(cam.IpAddress);
             System.Net.IPEndPoint ep = new System.Net.IPEndPoint(ip, 20000);
-            tcp.Connect(ep);
+            try
+            {
+                ConnectInfo info = new ConnectInfo() { Socket = tcp, Target = c, Source = cam };
 
-            LiveClient lc = new LiveClient(tcp);
-            lc.Tag = this.squareListView1.SelectedCell;
-            lc.ImageReceived += new EventHandler<ImageCapturedEventArgs>(lc_ImageReceived);
-            lc.Start();
+                LiveClient lc = new LiveClient(tcp);
+                lc.Tag = info;
+
+                tcp.BeginConnect(ip, 20000, this.ConnectCallback, lc);
+
+               
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                MessageBox.Show(this, "无法连接, 请检查设备", "连接错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+
 
 
         }
 
+        void lc_ConnectAborted(object sender, EventArgs e)
+        {
+            LiveClient lc = sender as LiveClient;
+
+            this.CellCameraMap.Remove((lc.Tag as ConnectInfo).Target);
+        }
+
         void lc_ImageReceived(object sender, ImageCapturedEventArgs e)
         {
-            Cell c = (sender as LiveClient).Tag as Cell;
+            ConnectInfo c = (sender as LiveClient).Tag as ConnectInfo;
 
             if (this.InvokeRequired)
             {
-                Action<Image> updateImage = img => c.Image = img;
+                Action<Image> updateImage = img => c.Target.Image = img;
                 this.BeginInvoke(updateImage, e.ImageCaptured);
             }
             else
             {
-                c.Image = e.ImageCaptured;
+                c.Target.Image = e.ImageCaptured;
             }
 
-            this.squareListView1.Invalidate(c.Rec);
+            this.squareListView1.Invalidate(c.Target.Rec);
         }
 
         private void squareListView1_MouseDown(object sender, MouseEventArgs e)
@@ -789,7 +849,18 @@ namespace RemoteImaging.RealtimeDisplay
             if (cell != null)
             {
                 this.squareListView1.SelectedCell = cell;
-            } 
+            }
         }
     }
+
+
+    internal class ConnectInfo
+    {
+        public Cell Target { get; set; }
+        public Camera Source { get; set; }
+        public TcpClient Socket { get; set; }
+    }
+
+
+
 }

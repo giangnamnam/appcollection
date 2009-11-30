@@ -134,6 +134,9 @@ namespace RemoteImaging.Query
         private void CreateProxy()
         {
             Camera selected = this.comboBox1.SelectedItem as Camera;
+
+            selected = Configuration.Instance[selected.ID];
+
             if (selected == null)
             {
                 throw new Exception("No camera selected");
@@ -169,15 +172,24 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            if (StreamProxy != null)
+            if (StreamProxy != null && isPlaying)
             {
-                StreamProxy.Stop();
+                try
+                {
+                    StreamProxy.Stop();
+                    isPlaying = false;
+                }
+                catch (System.ServiceModel.EndpointNotFoundException)
+                {
+                    
+                }
+                
             }
 
             CreateProxy();
             try
             {
-                imagesFound = SearchProxy.SearchFaces(selectedCamera.ID, dateTime1, dateTime2);
+                imagesFound = SearchProxy.SearchFaces(2, dateTime1, dateTime2);
             }
             catch (System.ServiceModel.CommunicationException)
             {
@@ -384,6 +396,8 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.playlist.playItem(idx);
         }
 
+        bool isPlaying = false;
+
         private void toolStripButtonPlayVideo_Click(object sender, EventArgs e)
         {
             if (SearchProxy == null) return;
@@ -421,6 +435,7 @@ namespace RemoteImaging.Query
             this.ReceiveVideoStream();
 
             StreamProxy.StreamVideo(video);
+            isPlaying = true;
 
             
 
@@ -469,7 +484,7 @@ namespace RemoteImaging.Query
                 System.Threading.Thread.Sleep(1000);
             }
 
-            if (StreamProxy != null)
+            if (StreamProxy != null && isPlaying)
             {
                 StreamProxy.Stop();
             }
