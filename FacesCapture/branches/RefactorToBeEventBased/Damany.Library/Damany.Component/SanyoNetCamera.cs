@@ -259,6 +259,27 @@ namespace Damany.Component
             return buff;
         }
 
+
+
+        public bool Record
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Start()
+        {
+
+
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

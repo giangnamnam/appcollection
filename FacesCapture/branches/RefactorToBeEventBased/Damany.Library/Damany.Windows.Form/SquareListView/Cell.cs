@@ -11,6 +11,14 @@ namespace Damany.Windows.Form
     public class Cell
     {
         public Rectangle Rec { get; set; }
+
+        public static Cell Empty
+        {
+            get
+            {
+                return new Cell() { Rec = Rectangle.Empty };
+            }
+        }
 		
 		
         private Image _image;

@@ -9,6 +9,10 @@ namespace Damany.Component
     public interface ICamera
     {
         void Connect();
+        bool Record { get; set; }
+        void Start();
+
+
         Image CaptureImage();
         byte[] CaptureImageBytes();
     }

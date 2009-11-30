@@ -49,10 +49,9 @@
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.axCamImgCtrl1 = new AxIMGCTRLLib.AxCamImgCtrl();
             this.squareListView1 = new Damany.Windows.Form.SquareListView();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
@@ -63,13 +62,11 @@
             this.SetupCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
             this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
@@ -97,7 +94,10 @@
             this.faceRecognize = new System.Windows.Forms.ToolStripButton();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.axCamImgCtrl1 = new AxIMGCTRLLib.AxCamImgCtrl();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -109,7 +109,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             this.contextMenuStripForCamTreeView.SuspendLayout();
@@ -119,14 +118,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.mainToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -233,17 +233,6 @@
             this.panelControl5.Size = new System.Drawing.Size(176, 24);
             this.panelControl5.TabIndex = 1;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox2.Image = global::RemoteImaging.Properties.Resources.Peoples32;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 24);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
             // labelControl2
             // 
             this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
@@ -257,6 +246,17 @@
             this.labelControl2.TabIndex = 0;
             this.labelControl2.Text = "全身像";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBox2.Image = global::RemoteImaging.Properties.Resources.Peoples32;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(32, 24);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.axCamImgCtrl1);
@@ -266,16 +266,6 @@
             this.panelControl1.Size = new System.Drawing.Size(691, 477);
             this.panelControl1.TabIndex = 10;
             this.panelControl1.SizeChanged += new System.EventHandler(this.panelControl1_SizeChanged);
-            // 
-            // axCamImgCtrl1
-            // 
-            this.axCamImgCtrl1.Enabled = true;
-            this.axCamImgCtrl1.Location = new System.Drawing.Point(82, 6);
-            this.axCamImgCtrl1.Name = "axCamImgCtrl1";
-            this.axCamImgCtrl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCamImgCtrl1.OcxState")));
-            this.axCamImgCtrl1.Size = new System.Drawing.Size(704, 353);
-            this.axCamImgCtrl1.TabIndex = 3;
-            this.axCamImgCtrl1.InfoChanged += new AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEventHandler(this.axCamImgCtrl1_InfoChanged);
             // 
             // squareListView1
             // 
@@ -412,6 +402,19 @@
             this.panelControl4.Size = new System.Drawing.Size(176, 24);
             this.panelControl4.TabIndex = 0;
             // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Location = new System.Drawing.Point(43, 0);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(133, 24);
+            this.labelControl3.TabIndex = 2;
+            this.labelControl3.Text = "摄像头列表";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -462,42 +465,6 @@
             this.layoutControlGroup1.Size = new System.Drawing.Size(897, 491);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
-            // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.panelControl1;
-            this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(192, 0);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(701, 487);
-            this.layoutControlItem5.Text = "layoutControlItem5";
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextToControlDistance = 0;
-            this.layoutControlItem5.TextVisible = false;
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.panelControl2;
-            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(186, 189);
-            this.layoutControlItem2.Text = "layoutControlItem2";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextToControlDistance = 0;
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.panelControl3;
-            this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 195);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(186, 292);
-            this.layoutControlItem4.Text = "layoutControlItem4";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextToControlDistance = 0;
-            this.layoutControlItem4.TextVisible = false;
             // 
             // splitterItem2
             // 
@@ -729,18 +696,51 @@
             // 
             this.alertControl1.ShowPinButton = false;
             // 
-            // labelControl3
+            // axCamImgCtrl1
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl3.Location = new System.Drawing.Point(43, 0);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(133, 24);
-            this.labelControl3.TabIndex = 2;
-            this.labelControl3.Text = "摄像头列表";
+            this.axCamImgCtrl1.Enabled = true;
+            this.axCamImgCtrl1.Location = new System.Drawing.Point(82, 6);
+            this.axCamImgCtrl1.Name = "axCamImgCtrl1";
+            this.axCamImgCtrl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCamImgCtrl1.OcxState")));
+            this.axCamImgCtrl1.Size = new System.Drawing.Size(704, 353);
+            this.axCamImgCtrl1.TabIndex = 3;
+            this.axCamImgCtrl1.InfoChanged += new AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEventHandler(this.axCamImgCtrl1_InfoChanged);
+            // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.panelControl1;
+            this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
+            this.layoutControlItem5.Location = new System.Drawing.Point(192, 0);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(701, 487);
+            this.layoutControlItem5.Text = "layoutControlItem5";
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextToControlDistance = 0;
+            this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.panelControl2;
+            this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(186, 189);
+            this.layoutControlItem2.Text = "layoutControlItem2";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem2.TextToControlDistance = 0;
+            this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.panelControl3;
+            this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 195);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(186, 292);
+            this.layoutControlItem4.Text = "layoutControlItem4";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextToControlDistance = 0;
+            this.layoutControlItem4.TextVisible = false;
             // 
             // MainForm
             // 
@@ -771,7 +771,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.contextMenuStripForCamTreeView.ResumeLayout(false);
@@ -781,9 +780,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -791,6 +787,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

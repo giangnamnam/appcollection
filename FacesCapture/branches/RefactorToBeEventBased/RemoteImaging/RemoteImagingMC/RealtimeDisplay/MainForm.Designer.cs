@@ -60,6 +60,7 @@
             this.SetupCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -87,7 +88,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -206,6 +206,7 @@
             this.squareListView1.Size = new System.Drawing.Size(721, 471);
             this.squareListView1.TabIndex = 0;
             this.toolTip1.SetToolTip(this.squareListView1, "双击查看全身图片");
+            this.squareListView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.squareListView1_MouseDown);
             this.squareListView1.SelectedCellChanged += new System.EventHandler(this.squareListView1_SelectedCellChanged);
             this.squareListView1.CellDoubleClick += new Damany.Windows.Form.CellDoubleClickHandler(this.squareListView1_CellDoubleClick);
             // 
@@ -344,6 +345,19 @@
             this.panelControl4.Name = "panelControl4";
             this.panelControl4.Size = new System.Drawing.Size(140, 24);
             this.panelControl4.TabIndex = 0;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Appearance.Options.UseForeColor = true;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Location = new System.Drawing.Point(35, 0);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(102, 24);
+            this.labelControl3.TabIndex = 3;
+            this.labelControl3.Text = "摄像头列表";
             // 
             // pictureBox1
             // 
@@ -591,19 +605,6 @@
             // alertControl1
             // 
             this.alertControl1.ShowPinButton = false;
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl3.Location = new System.Drawing.Point(35, 0);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(102, 24);
-            this.labelControl3.TabIndex = 3;
-            this.labelControl3.Text = "摄像头列表";
             // 
             // MainForm
             // 

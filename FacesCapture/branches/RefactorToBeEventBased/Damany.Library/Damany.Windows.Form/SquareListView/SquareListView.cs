@@ -35,6 +35,8 @@ namespace Damany.Windows.Form
             this.MouseDoubleClick += new MouseEventHandler(SquareListView_MouseDoubleClick);
 
             this.PaddingChanged += (sender, args) => this.CalcLayout();
+
+            this.LastSelectedCell = Cell.Empty;
         }
 
         void SquareListView_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -213,28 +215,22 @@ namespace Damany.Windows.Form
             return null;
         }
 
+        private void PaintSelectedCell(Cell c)
+        {
+            LastSelectedCell.Selected = false;
+            this.Invalidate(Rectangle.Round(LastSelectedCell.Rec));
+
+            c.Selected = true;
+            this.Invalidate(Rectangle.Round(c.Rec));
+        }
+
+
         private void SquareListView_MouseClick(object sender, MouseEventArgs e)
         {
             Cell c = CellFromPoint(e.Location);
             if (c != null)
             {
-                if (LastSelectedCell != c)
-                {
-                    LastSelectedCell = c;
-                }
-
-                if (SelectedCell != null)
-                {
-                    SelectedCell.Selected = false;
-                    this.Invalidate(Rectangle.Round(SelectedCell.Rec));
-                }
-
-                c.Selected = true;
-                this.Invalidate(Rectangle.Round(c.Rec));
-
-                SelectedCell = c;
-
-                FireSelectedCellChanged();
+                this.SelectedCell = c;
             }
         }
 
@@ -322,9 +318,45 @@ namespace Damany.Windows.Form
         }
 
 
+        public Cell HitTest(Point pt)
+        {
+            return CellFromPoint(pt);
+        }
+
+        public Cell HitTest(int x, int y)
+        {
+            return CellFromPoint(new Point(x, y));
+        }
+
+
+
+
+        private Cell _SelectedCell;
+        public Cell SelectedCell
+        {
+            get
+            {
+                return _SelectedCell;
+            }
+            set
+            {
+                if (_SelectedCell == value)
+                    return;
+
+                _SelectedCell = value;
+
+                this.PaintSelectedCell(value);
+
+                FireSelectedCellChanged();
+
+                LastSelectedCell = value;
+            }
+        }
+
 
         public Cell LastSelectedCell { get; private set; }
-        public Cell SelectedCell { get; set; }
+
+
         public int CellsCount { get { return this.numOfColumns * this.numOfRows; } }
         public int MaxCountOfCells { get; set; }
 

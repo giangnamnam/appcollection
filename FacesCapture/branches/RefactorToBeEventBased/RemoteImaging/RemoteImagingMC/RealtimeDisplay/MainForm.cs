@@ -782,5 +782,14 @@ namespace RemoteImaging.RealtimeDisplay
 
             this.squareListView1.Invalidate(c.Rec);
         }
+
+        private void squareListView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            var cell = this.squareListView1.HitTest(e.Location);
+            if (cell != null)
+            {
+                this.squareListView1.SelectedCell = cell;
+            } 
+        }
     }
 }
