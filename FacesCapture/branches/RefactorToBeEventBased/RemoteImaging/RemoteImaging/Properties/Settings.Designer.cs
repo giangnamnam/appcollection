@@ -550,5 +550,17 @@ namespace RemoteImaging.Properties {
                 this["RecheckFace"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowFaceRecognizeButton {
+            get {
+                return ((bool)(this["ShowFaceRecognizeButton"]));
+            }
+            set {
+                this["ShowFaceRecognizeButton"] = value;
+            }
+        }
     }
 }

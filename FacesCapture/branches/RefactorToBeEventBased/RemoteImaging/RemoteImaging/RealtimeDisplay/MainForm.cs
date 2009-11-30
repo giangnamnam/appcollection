@@ -866,6 +866,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+
             CenterLiveControl();
         }
 
