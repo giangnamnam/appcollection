@@ -180,6 +180,10 @@ namespace Damany.Windows.Form
                         i * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
                         height - this.Padding.Vertical);
+
+                    this.cells[idx].Column = j;
+                    this.cells[idx].Row = i;
+                    this.cells[idx].Index = idx;
                 }
             }
 

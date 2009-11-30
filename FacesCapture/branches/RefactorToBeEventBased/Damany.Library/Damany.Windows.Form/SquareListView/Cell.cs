@@ -11,6 +11,10 @@ namespace Damany.Windows.Form
     public class Cell
     {
         public Rectangle Rec { get; set; }
+        public int Row { get; set; }
+        public int Column { get; set; }
+        public int Index { get; set; }
+
 
         public static Cell Empty
         {
@@ -19,8 +23,8 @@ namespace Damany.Windows.Form
                 return new Cell() { Rec = Rectangle.Empty };
             }
         }
-		
-		
+
+
         private Image _image;
         public Image Image
         {
@@ -40,8 +44,8 @@ namespace Damany.Windows.Form
                 }
             }
         }
-		
-		
+
+
         public bool Selected { get; set; }
         public object Tag { get; set; }
 
@@ -139,6 +143,20 @@ namespace Damany.Windows.Form
 
                 g.DrawRectangle(Pens.Gray, recOfImg);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Index;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            if (!(obj is Cell)) return false;
+
+            return this.Index == (obj as Cell).Index;
         }
     }
 }
