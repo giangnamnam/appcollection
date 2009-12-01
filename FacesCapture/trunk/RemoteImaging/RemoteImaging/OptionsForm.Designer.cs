@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,6 +53,7 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBoxRecheckFace = new System.Windows.Forms.CheckBox();
             this.cbImageArr = new System.Windows.Forms.ComboBox();
             this.cbThresholding = new System.Windows.Forms.ComboBox();
             this.label41 = new System.Windows.Forms.Label();
@@ -118,7 +122,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.checkBoxRecheckFace = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -143,17 +146,17 @@
             this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(this.label1);
             this.groupControl1.Controls.Add(this.pictureBox1);
-            this.groupControl1.Location = new System.Drawing.Point(-6, -26);
+            this.groupControl1.Location = new System.Drawing.Point(-3, -20);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(574, 96);
+            this.groupControl1.Size = new System.Drawing.Size(525, 88);
             this.groupControl1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(100, 68);
+            this.label2.Location = new System.Drawing.Point(83, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(295, 13);
+            this.label2.Size = new System.Drawing.Size(293, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "在这里设置系统参数，如上传目录，图片转存目录等等";
             // 
@@ -161,7 +164,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(114, 28);
+            this.label1.Location = new System.Drawing.Point(100, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 1;
@@ -170,7 +173,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(46, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(29, 28);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -184,10 +187,10 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(5, 77);
+            this.tabControl1.Location = new System.Drawing.Point(6, 71);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(494, 367);
+            this.tabControl1.Size = new System.Drawing.Size(494, 339);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -200,10 +203,10 @@
             this.tabPage1.Controls.Add(this.browseForUploadFolder);
             this.tabPage1.Controls.Add(this.textBoxUploadFolder);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 21);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(486, 341);
+            this.tabPage1.Size = new System.Drawing.Size(486, 314);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "目录";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -211,7 +214,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(37, 247);
+            this.pictureBox2.Location = new System.Drawing.Point(37, 228);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -223,7 +226,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label5.Location = new System.Drawing.Point(66, 246);
+            this.label5.Location = new System.Drawing.Point(66, 227);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(380, 17);
             this.label5.TabIndex = 6;
@@ -231,9 +234,9 @@
             // 
             // browseForOutputFolder
             // 
-            this.browseForOutputFolder.Location = new System.Drawing.Point(381, 131);
+            this.browseForOutputFolder.Location = new System.Drawing.Point(381, 121);
             this.browseForOutputFolder.Name = "browseForOutputFolder";
-            this.browseForOutputFolder.Size = new System.Drawing.Size(75, 23);
+            this.browseForOutputFolder.Size = new System.Drawing.Size(75, 21);
             this.browseForOutputFolder.TabIndex = 5;
             this.browseForOutputFolder.Text = "浏览";
             this.browseForOutputFolder.UseVisualStyleBackColor = true;
@@ -242,26 +245,26 @@
             // textBoxOutputFolder
             // 
             this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 133);
+            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 123);
             this.textBoxOutputFolder.Name = "textBoxOutputFolder";
-            this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 20);
+            this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 21);
             this.textBoxOutputFolder.TabIndex = 4;
             this.textBoxOutputFolder.Text = global::RemoteImaging.Properties.Settings.Default.OutputPath;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 117);
+            this.label4.Location = new System.Drawing.Point(34, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.Size = new System.Drawing.Size(83, 12);
             this.label4.TabIndex = 3;
             this.label4.Text = "图片输出目录:";
             // 
             // browseForUploadFolder
             // 
-            this.browseForUploadFolder.Location = new System.Drawing.Point(381, 63);
+            this.browseForUploadFolder.Location = new System.Drawing.Point(381, 58);
             this.browseForUploadFolder.Name = "browseForUploadFolder";
-            this.browseForUploadFolder.Size = new System.Drawing.Size(75, 23);
+            this.browseForUploadFolder.Size = new System.Drawing.Size(75, 21);
             this.browseForUploadFolder.TabIndex = 2;
             this.browseForUploadFolder.Text = "浏览";
             this.browseForUploadFolder.UseVisualStyleBackColor = true;
@@ -270,18 +273,18 @@
             // textBoxUploadFolder
             // 
             this.textBoxUploadFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ImageUploadPool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 65);
+            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 60);
             this.textBoxUploadFolder.Name = "textBoxUploadFolder";
-            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 20);
+            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 21);
             this.textBoxUploadFolder.TabIndex = 1;
             this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 49);
+            this.label3.Location = new System.Drawing.Point(34, 45);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 13);
+            this.label3.Size = new System.Drawing.Size(119, 12);
             this.label3.TabIndex = 0;
             this.label3.Text = "摄像头图片上传目录:";
             // 
@@ -289,10 +292,10 @@
             // 
             this.tabPage2.Controls.Add(this.linkLabelConfigCamera);
             this.tabPage2.Controls.Add(this.dataGridCameras);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 21);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(486, 341);
+            this.tabPage2.Size = new System.Drawing.Size(486, 314);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "摄像头";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -300,9 +303,9 @@
             // linkLabelConfigCamera
             // 
             this.linkLabelConfigCamera.AutoSize = true;
-            this.linkLabelConfigCamera.Location = new System.Drawing.Point(374, 16);
+            this.linkLabelConfigCamera.Location = new System.Drawing.Point(374, 15);
             this.linkLabelConfigCamera.Name = "linkLabelConfigCamera";
-            this.linkLabelConfigCamera.Size = new System.Drawing.Size(91, 13);
+            this.linkLabelConfigCamera.Size = new System.Drawing.Size(89, 12);
             this.linkLabelConfigCamera.TabIndex = 1;
             this.linkLabelConfigCamera.TabStop = true;
             this.linkLabelConfigCamera.Text = "设置摄像头参数";
@@ -310,15 +313,39 @@
             // 
             // dataGridCameras
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCameras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridCameras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridCameras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.ID,
             this.IP});
-            this.dataGridCameras.Location = new System.Drawing.Point(16, 33);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridCameras.Location = new System.Drawing.Point(16, 30);
             this.dataGridCameras.Name = "dataGridCameras";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridCameras.RowTemplate.Height = 23;
-            this.dataGridCameras.Size = new System.Drawing.Size(449, 247);
+            this.dataGridCameras.Size = new System.Drawing.Size(449, 228);
             this.dataGridCameras.TabIndex = 0;
             // 
             // name
@@ -368,13 +395,26 @@
             this.tabPage3.Controls.Add(this.topExtRatio);
             this.tabPage3.Controls.Add(this.rightExtRatio);
             this.tabPage3.Controls.Add(this.leftExtRatio);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 21);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(486, 341);
+            this.tabPage3.Size = new System.Drawing.Size(486, 314);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "人像截取";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRecheckFace
+            // 
+            this.checkBoxRecheckFace.AutoSize = true;
+            this.checkBoxRecheckFace.Checked = global::RemoteImaging.Properties.Settings.Default.RecheckFace;
+            this.checkBoxRecheckFace.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRecheckFace.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "RecheckFace", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxRecheckFace.Location = new System.Drawing.Point(265, 247);
+            this.checkBoxRecheckFace.Name = "checkBoxRecheckFace";
+            this.checkBoxRecheckFace.Size = new System.Drawing.Size(96, 16);
+            this.checkBoxRecheckFace.TabIndex = 42;
+            this.checkBoxRecheckFace.Text = "二次识别人脸";
+            this.checkBoxRecheckFace.UseVisualStyleBackColor = true;
             // 
             // cbImageArr
             // 
@@ -387,9 +427,9 @@
             "7",
             "8",
             "9"});
-            this.cbImageArr.Location = new System.Drawing.Point(400, 292);
+            this.cbImageArr.Location = new System.Drawing.Point(400, 270);
             this.cbImageArr.Name = "cbImageArr";
-            this.cbImageArr.Size = new System.Drawing.Size(68, 21);
+            this.cbImageArr.Size = new System.Drawing.Size(68, 20);
             this.cbImageArr.TabIndex = 41;
             // 
             // cbThresholding
@@ -404,59 +444,59 @@
             "800",
             "900",
             "1000"});
-            this.cbThresholding.Location = new System.Drawing.Point(229, 292);
+            this.cbThresholding.Location = new System.Drawing.Point(229, 270);
             this.cbThresholding.Name = "cbThresholding";
-            this.cbThresholding.Size = new System.Drawing.Size(68, 21);
+            this.cbThresholding.Size = new System.Drawing.Size(68, 20);
             this.cbThresholding.TabIndex = 40;
             // 
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(308, 297);
+            this.label41.Location = new System.Drawing.Point(308, 274);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(85, 13);
+            this.label41.Size = new System.Drawing.Size(89, 12);
             this.label41.TabIndex = 39;
             this.label41.Text = "图片数(每组)：";
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(160, 297);
+            this.label32.Location = new System.Drawing.Point(160, 274);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(67, 13);
+            this.label32.Size = new System.Drawing.Size(65, 12);
             this.label32.TabIndex = 37;
             this.label32.Text = "画框域值：";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(167, 235);
+            this.label27.Location = new System.Drawing.Point(167, 217);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(36, 13);
+            this.label27.Size = new System.Drawing.Size(35, 12);
             this.label27.TabIndex = 35;
             this.label27.Text = "帧/秒";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(21, 235);
+            this.label25.Location = new System.Drawing.Point(21, 217);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(103, 13);
+            this.label25.Size = new System.Drawing.Size(101, 12);
             this.label25.TabIndex = 33;
             this.label25.Text = "摄像头获取频率：";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(21, 163);
+            this.label26.Location = new System.Drawing.Point(21, 150);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(55, 13);
+            this.label26.Size = new System.Drawing.Size(53, 12);
             this.label26.TabIndex = 28;
             this.label26.Text = "环境模式";
             // 
             // envModes
             // 
-            this.envModes.Location = new System.Drawing.Point(78, 186);
+            this.envModes.Location = new System.Drawing.Point(78, 172);
             this.envModes.Name = "envModes";
             this.envModes.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
             this.envModes.Properties.Appearance.Options.UseBackColor = true;
@@ -465,85 +505,85 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "顺光"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "逆光"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "强逆光")});
-            this.envModes.Size = new System.Drawing.Size(319, 28);
+            this.envModes.Size = new System.Drawing.Size(319, 26);
             this.envModes.TabIndex = 14;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(238, 127);
+            this.label19.Location = new System.Drawing.Point(238, 117);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(67, 13);
+            this.label19.Size = new System.Drawing.Size(65, 12);
             this.label19.TabIndex = 15;
             this.label19.Text = "最大脸宽：";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(67, 127);
+            this.label18.Location = new System.Drawing.Point(67, 117);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(67, 13);
+            this.label18.Size = new System.Drawing.Size(65, 12);
             this.label18.TabIndex = 13;
             this.label18.Text = "最小脸宽：";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(21, 100);
+            this.label11.Location = new System.Drawing.Point(21, 92);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(109, 13);
+            this.label11.Size = new System.Drawing.Size(113, 12);
             this.label11.TabIndex = 11;
             this.label11.Text = "人像截取阈值(像素)";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(368, 52);
+            this.label10.Location = new System.Drawing.Point(368, 48);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.Size = new System.Drawing.Size(29, 12);
             this.label10.TabIndex = 9;
             this.label10.Text = "下：";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(261, 52);
+            this.label9.Location = new System.Drawing.Point(261, 48);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 13);
+            this.label9.Size = new System.Drawing.Size(29, 12);
             this.label9.TabIndex = 7;
             this.label9.Text = "上：";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(148, 52);
+            this.label8.Location = new System.Drawing.Point(148, 48);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(31, 13);
+            this.label8.Size = new System.Drawing.Size(29, 12);
             this.label8.TabIndex = 5;
             this.label8.Text = "右：";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(51, 52);
+            this.label7.Location = new System.Drawing.Point(51, 48);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 13);
+            this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 3;
             this.label7.Text = "左：";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 25);
+            this.label6.Location = new System.Drawing.Point(21, 23);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 13);
+            this.label6.Size = new System.Drawing.Size(77, 12);
             this.label6.TabIndex = 2;
             this.label6.Text = "人像扩展比例";
             // 
             // label28
             // 
             this.label28.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label28.Location = new System.Drawing.Point(49, 33);
+            this.label28.Location = new System.Drawing.Point(49, 30);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(410, 2);
             this.label28.TabIndex = 29;
@@ -551,7 +591,7 @@
             // label29
             // 
             this.label29.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label29.Location = new System.Drawing.Point(49, 107);
+            this.label29.Location = new System.Drawing.Point(49, 99);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(410, 2);
             this.label29.TabIndex = 30;
@@ -559,7 +599,7 @@
             // label31
             // 
             this.label31.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label31.Location = new System.Drawing.Point(49, 168);
+            this.label31.Location = new System.Drawing.Point(49, 155);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(410, 2);
             this.label31.TabIndex = 32;
@@ -570,9 +610,9 @@
             this.removeDuplication.Checked = global::RemoteImaging.Properties.Settings.Default.removeDuplicatedFace;
             this.removeDuplication.CheckState = System.Windows.Forms.CheckState.Checked;
             this.removeDuplication.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "removeDuplicatedFace", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.removeDuplication.Location = new System.Drawing.Point(150, 268);
+            this.removeDuplication.Location = new System.Drawing.Point(150, 247);
             this.removeDuplication.Name = "removeDuplication";
-            this.removeDuplication.Size = new System.Drawing.Size(98, 17);
+            this.removeDuplication.Size = new System.Drawing.Size(96, 16);
             this.removeDuplication.TabIndex = 17;
             this.removeDuplication.Text = "去除重复人脸";
             this.removeDuplication.UseVisualStyleBackColor = true;
@@ -583,9 +623,9 @@
             this.detectMotion.Checked = global::RemoteImaging.Properties.Settings.Default.DetectMotion;
             this.detectMotion.CheckState = System.Windows.Forms.CheckState.Checked;
             this.detectMotion.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "DetectMotion", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.detectMotion.Location = new System.Drawing.Point(26, 268);
+            this.detectMotion.Location = new System.Drawing.Point(26, 247);
             this.detectMotion.Name = "detectMotion";
-            this.detectMotion.Size = new System.Drawing.Size(74, 17);
+            this.detectMotion.Size = new System.Drawing.Size(72, 16);
             this.detectMotion.TabIndex = 16;
             this.detectMotion.Text = "运动检测";
             this.detectMotion.UseVisualStyleBackColor = true;
@@ -595,9 +635,9 @@
             this.drawMotionRect.AutoSize = true;
             this.drawMotionRect.Checked = global::RemoteImaging.Properties.Settings.Default.DrawMotionRect;
             this.drawMotionRect.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "DrawMotionRect", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.drawMotionRect.Location = new System.Drawing.Point(33, 294);
+            this.drawMotionRect.Location = new System.Drawing.Point(33, 271);
             this.drawMotionRect.Name = "drawMotionRect";
-            this.drawMotionRect.Size = new System.Drawing.Size(122, 17);
+            this.drawMotionRect.Size = new System.Drawing.Size(120, 16);
             this.drawMotionRect.TabIndex = 18;
             this.drawMotionRect.Text = "标识运动检测结果";
             this.drawMotionRect.UseVisualStyleBackColor = true;
@@ -605,63 +645,63 @@
             // textBox3
             // 
             this.textBox3.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "FPs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox3.Location = new System.Drawing.Point(128, 232);
+            this.textBox3.Location = new System.Drawing.Point(128, 214);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(33, 20);
+            this.textBox3.Size = new System.Drawing.Size(33, 21);
             this.textBox3.TabIndex = 15;
             this.textBox3.Text = global::RemoteImaging.Properties.Settings.Default.FPs;
             // 
             // maxFaceWidth
             // 
             this.maxFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MaxFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.maxFaceWidth.Location = new System.Drawing.Point(308, 124);
+            this.maxFaceWidth.Location = new System.Drawing.Point(308, 114);
             this.maxFaceWidth.Name = "maxFaceWidth";
-            this.maxFaceWidth.Size = new System.Drawing.Size(51, 20);
+            this.maxFaceWidth.Size = new System.Drawing.Size(51, 21);
             this.maxFaceWidth.TabIndex = 13;
             this.maxFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MaxFaceWidth;
             // 
             // minFaceWidth
             // 
             this.minFaceWidth.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "MinFaceWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.minFaceWidth.Location = new System.Drawing.Point(137, 124);
+            this.minFaceWidth.Location = new System.Drawing.Point(137, 114);
             this.minFaceWidth.Name = "minFaceWidth";
-            this.minFaceWidth.Size = new System.Drawing.Size(51, 20);
+            this.minFaceWidth.Size = new System.Drawing.Size(51, 21);
             this.minFaceWidth.TabIndex = 12;
             this.minFaceWidth.Text = global::RemoteImaging.Properties.Settings.Default.MinFaceWidth;
             // 
             // bottomExtRatio
             // 
             this.bottomExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconBottomExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.bottomExtRatio.Location = new System.Drawing.Point(400, 49);
+            this.bottomExtRatio.Location = new System.Drawing.Point(400, 45);
             this.bottomExtRatio.Name = "bottomExtRatio";
-            this.bottomExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.bottomExtRatio.Size = new System.Drawing.Size(51, 21);
             this.bottomExtRatio.TabIndex = 8;
             this.bottomExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconBottomExtRatio;
             // 
             // topExtRatio
             // 
             this.topExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconTopExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.topExtRatio.Location = new System.Drawing.Point(294, 49);
+            this.topExtRatio.Location = new System.Drawing.Point(294, 45);
             this.topExtRatio.Name = "topExtRatio";
-            this.topExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.topExtRatio.Size = new System.Drawing.Size(51, 21);
             this.topExtRatio.TabIndex = 6;
             this.topExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconTopExtRatio;
             // 
             // rightExtRatio
             // 
             this.rightExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconRightExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rightExtRatio.Location = new System.Drawing.Point(180, 49);
+            this.rightExtRatio.Location = new System.Drawing.Point(180, 45);
             this.rightExtRatio.Name = "rightExtRatio";
-            this.rightExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.rightExtRatio.Size = new System.Drawing.Size(51, 21);
             this.rightExtRatio.TabIndex = 4;
             this.rightExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconRightExtRatio;
             // 
             // leftExtRatio
             // 
             this.leftExtRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "IconLeftExtRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.leftExtRatio.Location = new System.Drawing.Point(83, 49);
+            this.leftExtRatio.Location = new System.Drawing.Point(83, 45);
             this.leftExtRatio.Name = "leftExtRatio";
-            this.leftExtRatio.Size = new System.Drawing.Size(51, 20);
+            this.leftExtRatio.Size = new System.Drawing.Size(51, 21);
             this.leftExtRatio.TabIndex = 0;
             this.leftExtRatio.Text = global::RemoteImaging.Properties.Settings.Default.IconLeftExtRatio;
             // 
@@ -673,9 +713,9 @@
             this.tabPage5.Controls.Add(this.label35);
             this.tabPage5.Controls.Add(this.label33);
             this.tabPage5.Controls.Add(this.gBoxImgFileSet);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 21);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(486, 341);
+            this.tabPage5.Size = new System.Drawing.Size(486, 314);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "存储设置";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -689,43 +729,43 @@
             "300",
             "500",
             "1000"});
-            this.DiskQuota.Location = new System.Drawing.Point(140, 220);
+            this.DiskQuota.Location = new System.Drawing.Point(140, 203);
             this.DiskQuota.Name = "DiskQuota";
-            this.DiskQuota.Size = new System.Drawing.Size(68, 21);
+            this.DiskQuota.Size = new System.Drawing.Size(68, 20);
             this.DiskQuota.TabIndex = 35;
             this.DiskQuota.Text = global::RemoteImaging.Properties.Settings.Default.DiskQuota;
             // 
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(15, 189);
+            this.label40.Location = new System.Drawing.Point(15, 174);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(103, 13);
+            this.label40.Size = new System.Drawing.Size(101, 12);
             this.label40.TabIndex = 34;
             this.label40.Text = "磁盘存储空间预警";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(44, 223);
+            this.label34.Location = new System.Drawing.Point(44, 206);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(91, 13);
+            this.label34.Size = new System.Drawing.Size(89, 12);
             this.label34.TabIndex = 31;
             this.label34.Text = "当磁盘空间不足";
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(214, 223);
+            this.label35.Location = new System.Drawing.Point(214, 206);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(77, 13);
+            this.label35.Size = new System.Drawing.Size(77, 12);
             this.label35.TabIndex = 32;
             this.label35.Text = "MB  时，提示";
             // 
             // label33
             // 
             this.label33.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label33.Location = new System.Drawing.Point(38, 195);
+            this.label33.Location = new System.Drawing.Point(38, 180);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(410, 2);
             this.label33.TabIndex = 30;
@@ -740,9 +780,9 @@
             this.gBoxImgFileSet.Controls.Add(this.textBox2);
             this.gBoxImgFileSet.Controls.Add(this.label37);
             this.gBoxImgFileSet.Controls.Add(this.label38);
-            this.gBoxImgFileSet.Location = new System.Drawing.Point(10, 25);
+            this.gBoxImgFileSet.Location = new System.Drawing.Point(10, 23);
             this.gBoxImgFileSet.Name = "gBoxImgFileSet";
-            this.gBoxImgFileSet.Size = new System.Drawing.Size(469, 124);
+            this.gBoxImgFileSet.Size = new System.Drawing.Size(469, 114);
             this.gBoxImgFileSet.TabIndex = 22;
             this.gBoxImgFileSet.TabStop = false;
             this.gBoxImgFileSet.Text = "图片保存期限设置";
@@ -750,9 +790,9 @@
             // ckbInvocFile
             // 
             this.ckbInvocFile.AutoSize = true;
-            this.ckbInvocFile.Location = new System.Drawing.Point(391, 72);
+            this.ckbInvocFile.Location = new System.Drawing.Point(391, 66);
             this.ckbInvocFile.Name = "ckbInvocFile";
-            this.ckbInvocFile.Size = new System.Drawing.Size(50, 17);
+            this.ckbInvocFile.Size = new System.Drawing.Size(48, 16);
             this.ckbInvocFile.TabIndex = 31;
             this.ckbInvocFile.Text = "启用";
             this.ckbInvocFile.UseVisualStyleBackColor = true;
@@ -760,7 +800,7 @@
             // ragSaveDay
             // 
             this.ragSaveDay.EditValue = 1;
-            this.ragSaveDay.Location = new System.Drawing.Point(106, 22);
+            this.ragSaveDay.Location = new System.Drawing.Point(106, 20);
             this.ragSaveDay.Name = "ragSaveDay";
             this.ragSaveDay.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
             this.ragSaveDay.Properties.Appearance.Options.UseBackColor = true;
@@ -769,25 +809,25 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "1天"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(2, "2天"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(3, "3天")});
-            this.ragSaveDay.Size = new System.Drawing.Size(229, 34);
+            this.ragSaveDay.Size = new System.Drawing.Size(229, 31);
             this.ragSaveDay.TabIndex = 26;
             // 
             // label39
             // 
             this.label39.AutoSize = true;
             this.label39.ForeColor = System.Drawing.Color.Red;
-            this.label39.Location = new System.Drawing.Point(189, 74);
+            this.label39.Location = new System.Drawing.Point(189, 68);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(67, 13);
+            this.label39.Size = new System.Drawing.Size(65, 12);
             this.label39.TabIndex = 23;
             this.label39.Text = "请输入数字";
             // 
             // ckbImageAndVideo
             // 
             this.ckbImageAndVideo.AutoSize = true;
-            this.ckbImageAndVideo.Location = new System.Drawing.Point(12, 70);
+            this.ckbImageAndVideo.Location = new System.Drawing.Point(12, 65);
             this.ckbImageAndVideo.Name = "ckbImageAndVideo";
-            this.ckbImageAndVideo.Size = new System.Drawing.Size(86, 17);
+            this.ckbImageAndVideo.Size = new System.Drawing.Size(84, 16);
             this.ckbImageAndVideo.TabIndex = 24;
             this.ckbImageAndVideo.Text = "自定义设置";
             this.ckbImageAndVideo.UseVisualStyleBackColor = true;
@@ -796,17 +836,17 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(157, 74);
+            this.label36.Location = new System.Drawing.Point(157, 68);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(19, 13);
+            this.label36.Size = new System.Drawing.Size(17, 12);
             this.label36.TabIndex = 21;
             this.label36.Text = "天";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(106, 68);
+            this.textBox2.Location = new System.Drawing.Point(106, 63);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(51, 20);
+            this.textBox2.Size = new System.Drawing.Size(51, 21);
             this.textBox2.TabIndex = 25;
             this.textBox2.Text = "3";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -817,16 +857,16 @@
             this.label37.ForeColor = System.Drawing.Color.Red;
             this.label37.Location = new System.Drawing.Point(127, 0);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(259, 13);
+            this.label37.Size = new System.Drawing.Size(257, 12);
             this.label37.TabIndex = 19;
             this.label37.Text = "系统会根据设置的时间来删除存放过期的的相片";
             // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(10, 33);
+            this.label38.Location = new System.Drawing.Point(10, 30);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(79, 13);
+            this.label38.Size = new System.Drawing.Size(77, 12);
             this.label38.TabIndex = 18;
             this.label38.Text = "照片存放时间";
             // 
@@ -841,34 +881,34 @@
             this.tabPage4.Controls.Add(this.label20);
             this.tabPage4.Controls.Add(this.label21);
             this.tabPage4.Controls.Add(this.rgBrightMode);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 21);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(486, 341);
+            this.tabPage4.Size = new System.Drawing.Size(486, 314);
             this.tabPage4.TabIndex = 5;
             this.tabPage4.Text = "相机设置";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(37, 216);
+            this.textBox4.Location = new System.Drawing.Point(37, 199);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.Size = new System.Drawing.Size(100, 21);
             this.textBox4.TabIndex = 37;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(10, 186);
+            this.label24.Location = new System.Drawing.Point(10, 172);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(41, 13);
+            this.label24.Size = new System.Drawing.Size(41, 12);
             this.label24.TabIndex = 35;
             this.label24.Text = "IP地址";
             // 
             // label30
             // 
             this.label30.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label30.Location = new System.Drawing.Point(61, 192);
+            this.label30.Location = new System.Drawing.Point(61, 177);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(410, 2);
             this.label30.TabIndex = 36;
@@ -876,25 +916,25 @@
             // cmbComPort
             // 
             this.cmbComPort.FormattingEnabled = true;
-            this.cmbComPort.Location = new System.Drawing.Point(37, 140);
+            this.cmbComPort.Location = new System.Drawing.Point(37, 129);
             this.cmbComPort.Name = "cmbComPort";
-            this.cmbComPort.Size = new System.Drawing.Size(100, 21);
+            this.cmbComPort.Size = new System.Drawing.Size(100, 20);
             this.cmbComPort.TabIndex = 30;
             this.cmbComPort.SelectedIndexChanged += new System.EventHandler(this.cmbComPort_SelectedIndexChanged);
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(10, 101);
+            this.label22.Location = new System.Drawing.Point(10, 93);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(55, 13);
+            this.label22.Size = new System.Drawing.Size(47, 12);
             this.label22.TabIndex = 32;
             this.label22.Text = "COM接口";
             // 
             // label23
             // 
             this.label23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label23.Location = new System.Drawing.Point(61, 106);
+            this.label23.Location = new System.Drawing.Point(61, 98);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(410, 2);
             this.label23.TabIndex = 33;
@@ -902,16 +942,16 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(10, 21);
+            this.label20.Location = new System.Drawing.Point(10, 19);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 13);
+            this.label20.Size = new System.Drawing.Size(53, 12);
             this.label20.TabIndex = 30;
             this.label20.Text = "光照模式";
             // 
             // label21
             // 
             this.label21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label21.Location = new System.Drawing.Point(61, 26);
+            this.label21.Location = new System.Drawing.Point(61, 24);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(410, 2);
             this.label21.TabIndex = 31;
@@ -919,7 +959,7 @@
             // rgBrightMode
             // 
             this.rgBrightMode.EditValue = "Indoor_Front";
-            this.rgBrightMode.Location = new System.Drawing.Point(28, 49);
+            this.rgBrightMode.Location = new System.Drawing.Point(28, 45);
             this.rgBrightMode.Name = "rgBrightMode";
             this.rgBrightMode.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
             this.rgBrightMode.Properties.Appearance.Options.UseBackColor = true;
@@ -928,16 +968,16 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem("Indoor_Front", "室内顺光"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem("Indoor_Back", "室内逆光"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem("Outdoor", "室外")});
-            this.rgBrightMode.Size = new System.Drawing.Size(332, 28);
+            this.rgBrightMode.Size = new System.Drawing.Size(332, 26);
             this.rgBrightMode.TabIndex = 29;
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(344, 451);
+            this.buttonOK.Location = new System.Drawing.Point(344, 416);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.Size = new System.Drawing.Size(75, 21);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "确定";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -947,9 +987,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(425, 451);
+            this.buttonCancel.Location = new System.Drawing.Point(425, 416);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 21);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "取消";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -985,7 +1025,7 @@
             // 
             this.textBox5.Location = new System.Drawing.Point(400, 49);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(51, 20);
+            this.textBox5.Size = new System.Drawing.Size(51, 21);
             this.textBox5.TabIndex = 8;
             // 
             // label14
@@ -1001,7 +1041,7 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(294, 49);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(51, 20);
+            this.textBox6.Size = new System.Drawing.Size(51, 21);
             this.textBox6.TabIndex = 6;
             // 
             // label15
@@ -1017,7 +1057,7 @@
             // 
             this.textBox7.Location = new System.Drawing.Point(180, 49);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(51, 20);
+            this.textBox7.Size = new System.Drawing.Size(51, 21);
             this.textBox7.TabIndex = 4;
             // 
             // label16
@@ -1050,28 +1090,15 @@
             // 
             this.textBox8.Location = new System.Drawing.Point(83, 49);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(51, 20);
+            this.textBox8.Size = new System.Drawing.Size(51, 21);
             this.textBox8.TabIndex = 0;
-            // 
-            // checkBoxRecheckFace
-            // 
-            this.checkBoxRecheckFace.AutoSize = true;
-            this.checkBoxRecheckFace.Checked = global::RemoteImaging.Properties.Settings.Default.RecheckFace;
-            this.checkBoxRecheckFace.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxRecheckFace.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::RemoteImaging.Properties.Settings.Default, "RecheckFace", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxRecheckFace.Location = new System.Drawing.Point(265, 268);
-            this.checkBoxRecheckFace.Name = "checkBoxRecheckFace";
-            this.checkBoxRecheckFace.Size = new System.Drawing.Size(98, 17);
-            this.checkBoxRecheckFace.TabIndex = 42;
-            this.checkBoxRecheckFace.Text = "二次识别人脸";
-            this.checkBoxRecheckFace.UseVisualStyleBackColor = true;
             // 
             // OptionsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(504, 477);
+            this.ClientSize = new System.Drawing.Size(504, 440);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.tabControl1);

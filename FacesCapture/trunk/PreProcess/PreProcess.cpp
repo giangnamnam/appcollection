@@ -179,7 +179,7 @@ void FindRectY(IplImage *img, const int leftX, const int rightX)
 /*每次从摄像头获得一张图片后调用，进行运动目标检测，并画框，
   当完成一个分组后返回true, 分组没结束，则返回false,
   该函数由UI来调用*/
-PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
+PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 {
 	Frame tempFrame; 
 	tempFrame = prevFrame; 
@@ -292,7 +292,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		cvReleaseImage(&grayImg);
 		cvReleaseImage(&diffImg_2);   
 		prevFrame = frame;
-		*lastFrame = tempFrame; 
+		lastFrame = tempFrame; 
 
 		if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
 		{
@@ -325,20 +325,44 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame *lastFrame)
 		//}
 		//else //如果检测到多人情况，每张图片分为一组
 		//{
-		//	signelCount = 0;
-		//	cvReleaseImage(&grayImg);
-		//	cvReleaseImage(&diffImg_2); 
-		//	prevFrame = frame;
-		//	*lastFrame = tempFrame;
-		//	return true;
-		//} 
+		//	return false;
+		//}
+		
+
+		if((minLeftY < 360) && ((maxRightX-minLeftX) < 420))//如果检测到框为单人大小
+		{
+			signelCount++; 
+			cvReleaseImage(&grayImg);
+			cvReleaseImage(&diffImg_2);  
+			prevFrame = frame;
+			lastFrame = tempFrame; 
+
+			if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
+			{
+				signelCount = 0;
+				return true;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+		else //如果检测到多人情况，每张图片分为一组
+		{
+			signelCount = 0;
+			cvReleaseImage(&grayImg);
+			cvReleaseImage(&diffImg_2); 
+			prevFrame = frame;
+			lastFrame = tempFrame;
+			return true;
+		} 
 	}
 	else //当前帧没检测到
 	{ 
 		cvReleaseImage(&grayImg);
 		cvReleaseImage(&diffImg_2);
 		prevFrame = frame; 
-		*lastFrame = tempFrame;  
+		lastFrame = tempFrame;  
 
 		if (signelCount > 0)//如果前一帧为单人，当前帧没有人
 		{

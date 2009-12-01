@@ -107,11 +107,35 @@
     <Setting Name="Temp" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="WarnPicSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WarnInfoHandleMode" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ImpPersonConfigure" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ImpPersonConfigure.xml</Value>
+    </Setting>
+    <Setting Name="ImpSelectPersonPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\faceRecognition\selectedFace\</Value>
+    </Setting>
+    <Setting Name="FaceStoregePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SimilarityLevel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5,0.58|0.58,0.68|0.68,1</Value>
+    </Setting>
     <Setting Name="DiskQuota" Type="System.String" Scope="User">
       <Value Profile="(Default)">300</Value>
     </Setting>
+    <Setting Name="FaceSampleLib" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\faceRecognition\faceSample\</Value>
+    </Setting>
     <Setting Name="RecheckFace" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShowFaceRecognizeButton" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -24,9 +24,10 @@ namespace RemoteImaging.Query
             setListViewColumns();
         }
 
-        ImageSearch imgSearch = new ImageSearch();
         private void queryBtn_Click(object sender, EventArgs e)
         {
+            this.axVLCPlugin21.Toolbar = true;
+
             this.picList.Clear();
 
             if (this.comboBox1.Text == "" || this.comboBox1.Text == null)
@@ -52,9 +53,9 @@ namespace RemoteImaging.Query
                 return;
             }
 
-            string[] files = FileSystemStorage.FindVideos(cameraID, dateTime1, dateTime2);
+            Video[] videos = FileSystemStorage.VideoFilesBetween(cameraID, dateTime1, dateTime2);
 
-            if (files == null)
+            if (videos.Length == 0)
             {
                 MessageBox.Show("没有搜索到满足条件的视频！", "警告");
                 return;
@@ -62,42 +63,42 @@ namespace RemoteImaging.Query
 
             this.videoList.Items.Clear();
 
-            foreach (string file in files)
+            foreach (Video v in videos)
             {
-                DateTime dTime = imgSearch.getDateTimeStr(file);//"2009-6-29 14:00:00"
+                string videoPath = v.Path;
+                DateTime dTime = ImageSearch.getDateTimeStr(videoPath);//"2009-6-29 14:00:00"
                 ListViewItem lvl = new ListViewItem();
+                lvl.Text = dTime.ToString();
+                lvl.SubItems.Add(videoPath);
+                lvl.Tag = videoPath;
 
-                #region
-                if (radioButton1.Checked == true)
+                if (faceCapturedVideoRadioButton.Checked == true)
                 {
-                    if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (v.HasFaceCaptured)
                     {
-                        lvl.Text = file;
-                        lvl.SubItems.Add(dTime.ToString());
-                        videoList.Items.Add(lvl);
                         lvl.ImageIndex = 0;
+                        videoList.Items.Add(lvl);
                     }
                 }
 
-                if (radioButton2.Checked == true)
+                if (AllVideoTypeRadioButton.Checked == true)
                 {
-                    lvl.Text = file;
-                    lvl.SubItems.Add(dTime.ToString());
-                    videoList.Items.Add(lvl);
-                    if (imgSearch.getPicFiles(file, this.comboBox1.Text, true).Length > 0)
+                    if (v.HasFaceCaptured)
                         lvl.ImageIndex = 0;
                     else
                         lvl.ImageIndex = 1;
+                    videoList.Items.Add(lvl);
                 }
-                #endregion
+
+
             }
         }
 
         private void setListViewColumns()//添加ListView行头
         {
-            videoList.Columns.Add("视频文件", 250);
-            videoList.Columns.Add("抓拍时间", 120);
-            radioButton1.Checked = true;
+            videoList.Columns.Add("抓拍时间", 150);
+            videoList.Columns.Add("视频文件", 150);
+            faceCapturedVideoRadioButton.Checked = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -109,6 +110,10 @@ namespace RemoteImaging.Query
 
         private void videoList_ItemActivate(object sender, EventArgs e)
         {
+            bindPiclist();
+
+            if (this.videoList.SelectedItems.Count == 0) return;
+
             if (this.axVLCPlugin21.playlist.isPlaying)
             {
                 this.axVLCPlugin21.playlist.stop();
@@ -116,17 +121,11 @@ namespace RemoteImaging.Query
 
             this.axVLCPlugin21.playlist.items.clear();
 
-            foreach (ListViewItem item in this.videoList.SelectedItems)
-            {
-                this.axVLCPlugin21.playlist.add(item.Text, null, null);
-            }
+            ListViewItem item = this.videoList.SelectedItems[0];
 
-            if (this.axVLCPlugin21.playlist.itemCount > 0)
-            {
-                this.axVLCPlugin21.playlist.play();
-            }
+            int idx = this.axVLCPlugin21.playlist.add(item.Tag as string, null, null);
 
-            bindPiclist();
+            this.axVLCPlugin21.playlist.playItem(idx);
         }
 
 
@@ -136,12 +135,13 @@ namespace RemoteImaging.Query
         {
             this.picList.Clear();
             this.imageList1.Images.Clear();
-            string[] fileArr = imgSearch.getPicFiles(videoList.FocusedItem.Text, this.comboBox1.Text, true);//得到图片路径
-            if (fileArr.Length == 0)
-            {
-                MessageBox.Show("没有符合的图片", "警告");
-                return;
-            }
+
+            DateTime time = ImageSearch.getDateTimeStr(videoList.FocusedItem.Tag as string);
+            int cameID = int.Parse(this.comboBox1.Text);
+
+            string[] fileArr = ImageSearch.FacesCapturedAt(time, cameID, true);//得到图片路径
+            if (fileArr.Length == 0) return;
+
             for (int i = 0; i < fileArr.Length; ++i)
             {
                 this.imageList1.Images.Add(Image.FromFile(fileArr[i]));

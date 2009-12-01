@@ -8,7 +8,6 @@ using System.Xml.Linq;
 
 using System.Timers;
 using System.Runtime.InteropServices;
-using MotionDetect;
 
 namespace RemoteImaging
 {
@@ -18,7 +17,7 @@ namespace RemoteImaging
 
         public static OptionsForm Instance
         {
-            get 
+            get
             {
                 if (instance == null)
                 {
@@ -162,23 +161,22 @@ namespace RemoteImaging
             Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
             Properties.Settings.Default.CurIp = this.textBox4.Text;
             Properties.Settings.Default.ComName = this.cmbComPort.Text;
-            
             //图片和录像过期时间设置，磁盘警告设置
             Properties.Settings.Default.SaveDay = SaveDay;
 
 
             //调用的薛晓莉的接口
-            Properties.Settings.Default.ImageArr =Convert.ToInt32(cbImageArr.Text.Trim());
-            Properties.Settings.Default.Thresholding =Convert.ToInt32(cbThresholding.Text.Trim());
+            Properties.Settings.Default.ImageArr = Convert.ToInt32(cbImageArr.Text.Trim());
+            Properties.Settings.Default.Thresholding = Convert.ToInt32(cbThresholding.Text.Trim());
 
-            MotionDetect.MotionDetect.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
+            Program.motionDetector.SetRectThr(Properties.Settings.Default.Thresholding, Properties.Settings.Default.ImageArr);
             
         }
 
 
         private string SaveDay
         {
-            get 
+            get
             {
                 string value = textBox2.Text.Trim();
                 if (ckbImageAndVideo.Checked)
@@ -202,11 +200,10 @@ namespace RemoteImaging
             }
         }
 
-        FileHandle fileHandle = new FileHandle();
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         //设置控件 
@@ -254,6 +251,19 @@ namespace RemoteImaging
         private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
         {
             SetControl();
+        }
+
+     
+
+        private void btnBrowseSavePath_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                dlg.ShowNewFolderButton = true;
+                dlg.RootFolder = Environment.SpecialFolder.MyComputer;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                    Properties.Settings.Default.WarnPicSavePath = dlg.SelectedPath;
+            }
         }
     }
 }

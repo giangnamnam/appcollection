@@ -9,6 +9,7 @@ namespace RemoteImaging
     internal class Face
     {
         public IplImage Img { get; set; }
-        public CvRect Bounds { get; set; }
+        public CvRect EnlargedFace { get; set; }
+        public CvRect OriginalFace { get; set; }
     }
 }

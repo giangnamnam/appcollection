@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MyControls;
+using Damany.Windows.Form;
 using System.IO;
-using DevExpress.XtraNavBar;
-using ImageProcess;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using RemoteImaging.Core;
-using Microsoft.Win32;
-using JSZN.Component;
+using Damany.Component;
 using System.Threading;
-using MotionDetect;
+using RemoteImaging.ImportPersonCompare;
+using RemoteImaging.Query;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -63,37 +59,32 @@ namespace RemoteImaging.RealtimeDisplay
             //StartSetCam(setting);//根据光亮值设置相机
 
             SetMonitor();//启动布控
-            MotionDetect.MotionDetect.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
+            Program.motionDetector.SetRectThr(setting.Thresholding, setting.ImageArr);//调用分组设置值
 
             InitStatusBar();
 
-            MotionDetect.MotionDetect.SetDrawRect(setting.DrawMotionRect);
+            Program.motionDetector.DrawMotionRect = setting.DrawMotionRect;
 
-            float left = float.Parse(setting.IconLeftExtRatio);
-            float top = float.Parse(setting.IconTopExtRatio);
-            float right = float.Parse(setting.IconRightExtRatio);
-            float bottom = float.Parse(setting.IconBottomExtRatio);
+            var faceSearchConfig = new FaceSearchWrapper.FaceSearchConfiguration();
 
-            int minFaceWidth = int.Parse(setting.MinFaceWidth);
+            faceSearchConfig.LeftRation = float.Parse(setting.IconLeftExtRatio);
+            faceSearchConfig.TopRation = float.Parse(setting.IconTopExtRatio);
+            faceSearchConfig.RightRation = float.Parse(setting.IconRightExtRatio);
+            faceSearchConfig.BottomRation = float.Parse(setting.IconBottomExtRatio);
+
+            faceSearchConfig.MinFaceWidth = int.Parse(setting.MinFaceWidth);
             int maxFaceWidth = int.Parse(setting.MaxFaceWidth);
+            faceSearchConfig.FaceWidthRatio = (float)maxFaceWidth / faceSearchConfig.MinFaceWidth;
 
-            float ratio = (float)maxFaceWidth / minFaceWidth;
+            faceSearchConfig.EnvironmentMode = setting.EnvMode;
 
-            SetupExtractor(setting.EnvMode,
-                left,
-                right,
-                top,
-                bottom,
-                minFaceWidth,
-                ratio,
+            faceSearchConfig.SearchRectangle =
                 new Rectangle(int.Parse(setting.SrchRegionLeft),
-                    int.Parse(setting.SrchRegionTop),
-                    int.Parse(setting.SrchRegionWidth),
-                    int.Parse(setting.SrchRegionHeight))
-                    );
+                              int.Parse(setting.SrchRegionTop),
+                              int.Parse(setting.SrchRegionWidth),
+                              int.Parse(setting.SrchRegionHeight));
 
-
-
+            Program.faceSearch.Configuration = faceSearchConfig;
         }
 
 
@@ -107,7 +98,7 @@ namespace RemoteImaging.RealtimeDisplay
                 int oPointy = Convert.ToInt32(strPoints[1]);
                 int tPointx = Convert.ToInt32(strPoints[2]);
                 int tPointy = Convert.ToInt32(strPoints[3]);
-                MotionDetect.MotionDetect.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
+                Program.motionDetector.SetAlarmArea(oPointx, oPointy, tPointx, tPointy, false);
             }
         }
 
@@ -204,10 +195,6 @@ namespace RemoteImaging.RealtimeDisplay
                     SelectedImageIndex = 5
                 };
 
-                if (!camera.Status)
-                {
-                    SetNodeUnClick(camNode);
-                }
 
                 propertyNode.Nodes.AddRange(new TreeNode[] { ipNode, idNode });
                 camNode.Nodes.AddRange(new TreeNode[] { setupNode, propertyNode });
@@ -220,11 +207,8 @@ namespace RemoteImaging.RealtimeDisplay
             this.cameraTree.ExpandAll();
         }
 
-        private void SetNodeUnClick(TreeNode rootNode)
-        {
-            rootNode.BackColor = System.Drawing.Color.Gray;
-            rootNode.Text = rootNode.Text + "(不可用)";
-        }
+
+
         private Presenter presenter;
         Camera allCamera = new Camera() { ID = -1 };
 
@@ -338,10 +322,23 @@ namespace RemoteImaging.RealtimeDisplay
         {
             diskSpaceCheckTimer.Enabled = true;
 
+            FaceRecognition.FaceRecognizer.InitData(Program.ImageSampleCount, Program.ImageLen, Program.EigenNum);
 
             Camera c = config.FindCameraByID(Properties.Settings.Default.LastSelCamID);
 
             if (c == null) return;
+
+            if (FileSystemStorage.DriveRemoveable(Properties.Settings.Default.OutputPath))
+            {
+                DialogResult result = MessageBox.Show(this,
+                    "输出目录位于可移动介质！继续吗?", "警告",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
 
             this.StartCamera(c);
 
@@ -441,7 +438,10 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            new RemoteImaging.Query.PicQueryForm().ShowDialog(this);
+            using (PicQueryForm form = new PicQueryForm())
+            {
+                form.ShowDialog(this);
+            }
         }
 
         private static void SetupExtractor(int envMode, float leftRatio,
@@ -452,19 +452,23 @@ namespace RemoteImaging.RealtimeDisplay
             float maxFaceWidthRatio,
             Rectangle SearchRectangle)
         {
-            NativeIconExtractor.SetExRatio(topRatio,
+            Program.faceSearch.SetExRatio(topRatio,
                                     bottomRatio,
                                     leftRatio,
                                     rightRatio);
 
-            NativeIconExtractor.SetROI(SearchRectangle.Left,
+
+            Program.faceSearch.SetROI(SearchRectangle.Left,
                 SearchRectangle.Top,
                 SearchRectangle.Width - 1,
-                SearchRectangle.Height - 1);
+                SearchRectangle.Height - 1
+                );
 
-            NativeIconExtractor.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
 
-            NativeIconExtractor.SetLightMode(envMode);
+            Program.faceSearch.SetFaceParas(minFaceWidth, maxFaceWidthRatio);
+
+
+            Program.faceSearch.SetLightMode(envMode);
         }
 
 
@@ -521,7 +525,6 @@ namespace RemoteImaging.RealtimeDisplay
             new RemoteImaging.Query.VideoQueryForm().ShowDialog(this);
         }
 
-        FileHandle fh = new FileHandle();
         Thread thread = null;
         string tempComName = "";
         int tempModel = 0;
@@ -542,11 +545,6 @@ namespace RemoteImaging.RealtimeDisplay
 
                 Properties.Settings setting = Properties.Settings.Default;
 
-
-
-
-
-
                 Configuration.Instance.Cameras = frm.Cameras;//这里添加设置摄像机的 IP 和 ID 对应的设置类文件 ResetCameraInfo
                 Configuration.Instance.Save();
 
@@ -559,18 +557,6 @@ namespace RemoteImaging.RealtimeDisplay
                 var minFaceWidth = int.Parse(setting.MinFaceWidth);
                 float ratio = float.Parse(setting.MaxFaceWidth) / minFaceWidth;
 
-                SetupExtractor(setting.EnvMode,
-                    float.Parse(setting.IconLeftExtRatio),
-                    float.Parse(setting.IconRightExtRatio),
-                    float.Parse(setting.IconTopExtRatio),
-                    float.Parse(setting.IconBottomExtRatio),
-                    minFaceWidth,
-                    ratio,
-                    new Rectangle(int.Parse(setting.SrchRegionLeft),
-                                    int.Parse(setting.SrchRegionTop),
-                                    int.Parse(setting.SrchRegionWidth),
-                                    int.Parse(setting.SrchRegionHeight))
-                               );
                 StartSetCam(setting);
             }
 
@@ -640,9 +626,6 @@ namespace RemoteImaging.RealtimeDisplay
         {
 
         }
-
-
-
 
 
         #region IImageScreen Members
@@ -743,7 +726,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             ImageDetail imgInfo = ImageDetail.FromPath(c.Path);
 
-            string[] videos = FileSystemStorage.FindVideos(imgInfo);
+            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
 
             if (videos.Length == 0)
             {
@@ -775,46 +758,46 @@ namespace RemoteImaging.RealtimeDisplay
             this.axCamImgCtrl1.ComType = 0;
 
             this.axCamImgCtrl1.CamImgCtrlStart();
+#if !DEBUG
             this.axCamImgCtrl1.CamImgRecStart();
+#endif
+
 
             //Properties.Settings.Default.CurIp = cam.IpAddress;
+        }
+
+        private void OnConnectionFinished(object ex)
+        {
+            if (ex != null)
+                MessageBox.Show(this,
+                                 "无法连接摄像头，请检查摄像头后重新连接",
+                                 "连接错误",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
+            else
+            {
+                presenter.Start();
+                this.faceRecognize.Enabled = true;
+            }
+
         }
 
 
         private void StartCamera(Camera cam)
         {
+            SynchronizationContext context = SynchronizationContext.Current;
+
             ICamera Icam = null;
 
             if (string.IsNullOrEmpty(Program.directory))
             {
-
-                SanyoNetCamera camera = new SanyoNetCamera();
+                var camera = new SanyoNetCamera();
                 camera.IPAddress = cam.IpAddress;
                 camera.UserName = "guest";
                 camera.Password = "guest";
 
-                try
-                {
-                    camera.Connect();
-                }
-                catch (System.Net.Sockets.SocketException)
-                {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
-                    return;
-                }
-                catch (System.Net.WebException)
-                {
-                    MessageBox.Show("无法连接摄像头，请检查摄像头后重新连接");
-                    return;
-                }
-
-
                 Icam = camera;
-
-                StartRecord(cam);
-
-                Properties.Settings.Default.LastSelCamID = cam.ID;
-
+                this.StartRecord(cam);
             }
             else
             {
@@ -823,9 +806,35 @@ namespace RemoteImaging.RealtimeDisplay
                 Icam = mc;
             }
 
-            presenter = new Presenter(this, Icam);
 
-            presenter.Start();
+            if (presenter == null)
+                presenter = new Presenter(this, Icam);
+
+            System.Threading.ThreadPool.QueueUserWorkItem((object o) =>
+                {
+                    System.Exception error = null;
+                    try
+                    {
+                        Icam.Connect();
+                    }
+                    catch (System.Net.Sockets.SocketException ex)
+                    {
+                        error = ex;
+                    }
+                    catch (System.Net.WebException ex)
+                    {
+                        error = ex;
+                    }
+
+                    context.Post(OnConnectionFinished, error);
+
+                    if (error == null)
+                    {
+                        Properties.Settings.Default.LastSelCamID = cam.ID;
+                    }
+
+                });
+
         }
         private void cameraTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -835,7 +844,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void axCamImgCtrl1_InfoChanged(object sender, AxIMGCTRLLib._ICamImgCtrlEvents_InfoChangedEvent e)
         {
-            //https://appcollection.googlecode.com/svn/trunk/RemoteImaging
+            Debug.WriteLine("========info changed" + e.infoConn.AlarmInfo);
         }
 
         private void enhanceImg_Click(object sender, EventArgs e)
@@ -857,6 +866,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+
             CenterLiveControl();
         }
 
@@ -935,7 +945,66 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        #region IImageScreen Members
+
+        private void ShowFaceRecognition(Image captured, Image fromLib, float similarity)
+        {
+            FormFaceRecognitionResult form = new FormFaceRecognitionResult();
+            form.capturedFace.Image = captured;
+            form.faceInLibrary.Image = fromLib;
+            form.similarity.Text = similarity.ToString();
+
+            form.Show(this);
+        }
+        public void ShowFaceRecognitionResult(Image captured, Image fromLib, float similarity)
+        {
+            if (InvokeRequired)
+            {
+                Action<Image, Image, float> show = ShowFaceRecognition;
+
+                this.Invoke(show, captured, fromLib, similarity);
+            }
+            else
+            {
+                ShowFaceRecognition(captured, fromLib, similarity);
+            }
+        }
+
+        public void ShowSuspectsInternal(ImportantPersonDetail[] suspects, Image captured)
+        {
+
+            ImportPersonCompare.ImmediatelyModel formAlert = new ImportPersonCompare.ImmediatelyModel();
+            formAlert.ShowPersons = suspects.ToList();
+            formAlert.PicCheckImg = captured;
+
+            formAlert.ShowDialog(this);
+        }
 
 
+        public void ShowSuspects(ImportantPersonDetail[] suspects, Image captured)
+        {
+            if (InvokeRequired)
+            {
+                Action<ImportantPersonDetail[], Image> showSuspectsDel =
+                    this.ShowSuspectsInternal;
+
+                this.BeginInvoke(showSuspectsDel, suspects, captured);
+
+            }
+            else
+            {
+                ShowSuspectsInternal(suspects, captured);
+            }
+
+        }
+
+        #endregion
+
+        private void faceRecognize_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.presenter == null) return;
+
+            this.presenter.FaceRecognize = faceRecognize.Checked;
+        }
     }
 }

@@ -38,13 +38,10 @@ namespace RemoteImaging.Query
 
         private int CalcPagesCount()
         {
-            totalPage = imagesFound.Length / PageSize;
 
-            if (totalPage == 0) totalPage = 1;
+            totalPage = (imagesFound.Length + PageSize - 1) / PageSize;
 
             return totalPage;
-
-
         }
 
         void ShowCurrentPage()
@@ -113,25 +110,14 @@ namespace RemoteImaging.Query
                 return;
             }
             /////
-            string year1 = dateTime1.Year.ToString("D4");
-            string month1 = dateTime1.Month.ToString("D2");
-            string day1 = dateTime1.Day.ToString("D2");
-            string hour1 = dateTime1.Hour.ToString("D2");
-            string minute1 = dateTime1.Minute.ToString("D2");
-            string second1 = dateTime1.Second.ToString("D2");
+            DateTimeInString dtString1 = DateTimeInString.FromDateTime(dateTime1);
 
-            string year2 = dateTime2.Year.ToString("D4");
-            string month2 = dateTime2.Month.ToString("D2");
-            string day2 = dateTime2.Day.ToString("D2");
-            string hour2 = dateTime2.Hour.ToString("D2");
-            string minute2 = dateTime2.Minute.ToString("D2");
-            string second2 = dateTime2.Second.ToString("D2");
+            DateTimeInString dtString2 = DateTimeInString.FromDateTime(dateTime2);
 
-            Query.ImageDirSys startDir = new ImageDirSys(cameraID, year1, month1, day1, hour1, minute1, second1);
-            Query.ImageDirSys endDir = new ImageDirSys(cameraID, year2, month2, day2, hour2, minute2, second2);
-            Query.ImageSearch imageSearch = new ImageSearch();
+            Query.ImageDirSys startDir = new ImageDirSys(cameraID, dtString1);
+            Query.ImageDirSys endDir = new ImageDirSys(cameraID, dtString2);
 
-            imagesFound = imageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
+            imagesFound = ImageSearch.SearchImages(startDir, endDir, RemoteImaging.Query.ImageDirSys.SearchType.PicType);
 
             if (imagesFound.Length == 0)
             {
@@ -189,10 +175,10 @@ namespace RemoteImaging.Query
             string captureTime = string.Format("抓拍时间: {0}", imgInfo.CaptureTime);
             this.labelCaptureTime.Text = captureTime;
 
-            string bigImgPath = FileSystemStorage.BigImgPathFor(imgInfo);
+            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
             this.pictureBoxWholeImg.Image = Image.FromFile(bigImgPath);
-            
+
         }
 
 
@@ -200,8 +186,7 @@ namespace RemoteImaging.Query
         {
             this.imageList2.Images.Clear();
 
-            Query.ImageSearch imageSearch = new ImageSearch();
-            string[] files = imageSearch.SelectedBestImageChanged(iconFile);
+            string[] files = ImageSearch.SelectedBestImageChanged(iconFile);
             if (files == null)
             {
                 MessageBox.Show("没有搜索到对应的二级图片", "警告");
@@ -224,7 +209,7 @@ namespace RemoteImaging.Query
         private void secPicListView_ItemActive(object sender, System.EventArgs e)
         {
 
-          
+
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
@@ -239,7 +224,7 @@ namespace RemoteImaging.Query
 
         private void secPicListView_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
         private void PicQueryForm_Load(object sender, EventArgs e)
@@ -319,7 +304,7 @@ namespace RemoteImaging.Query
 
             ImageDetail imgInfo = ImageDetail.FromPath(imgPath);
 
-            string[] videos = FileSystemStorage.FindVideos(imgInfo);
+            string[] videos = FileSystemStorage.VideoFilesOfImage(imgInfo);
 
             if (videos.Length == 0)
             {
@@ -331,7 +316,7 @@ namespace RemoteImaging.Query
 
         }
 
-        private void tsbImgSaveAs_Click(object sender, EventArgs e)
+        private void SaveSelectedImage()
         {
             if ((this.bestPicListView.Items.Count <= 0) || (this.bestPicListView.FocusedItem == null)) return;
             string filePath = this.bestPicListView.FocusedItem.Tag as string;
@@ -341,26 +326,32 @@ namespace RemoteImaging.Query
                 this.pictureBox1.Image = Image.FromFile(filePath);
             }
             ImageDetail imgInfo = ImageDetail.FromPath(filePath);
-            string bigImgPath = FileSystemStorage.BigImgPathFor(imgInfo);
+            string bigImgPath = FileSystemStorage.BigImgPathForFace(imgInfo);
 
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {
                 saveDialog.RestoreDirectory = true;
                 saveDialog.Filter = "Jpeg 文件|*.jpg";
                 //saveDialog.FileName = filePath.Substring(filePath.Length - 27, 27);
-                string fileName=Path.GetFileName(filePath);
-                saveDialog.FileName =fileName;
+                string fileName = Path.GetFileName(filePath);
+                saveDialog.FileName = fileName;
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
                     if (pictureBox1.Image != null)
                     {
                         string path = saveDialog.FileName;
                         pictureBox1.Image.Save(path);
-                        path =path.Replace(fileName, Path.GetFileName(bigImgPath));
+                        path = path.Replace(fileName, Path.GetFileName(bigImgPath));
                         pictureBoxWholeImg.Image.Save(path);
                     }
                 }
             }
+        }
+
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveSelectedImage();
         }
     }
 }

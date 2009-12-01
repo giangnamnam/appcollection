@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RemoteImaging.Core;
+using System.Drawing;
 
 namespace RemoteImaging.RealtimeDisplay
 {
@@ -33,7 +34,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         void ShowImages(ImageDetail[] images);
 
+        void ShowFaceRecognitionResult(
+            System.Drawing.Image captured,
+            System.Drawing.Image fromLib,
+            float similarity);
+
         bool ShowProgress { set; }
         void StepProgress();
+
+        void ShowSuspects(ImportPersonCompare.ImportantPersonDetail[] suspects, Image captured);
     }
 }

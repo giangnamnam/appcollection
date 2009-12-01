@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using ImageProcess;
 using RemoteImaging.Core;
-using JSZN.Component;
-using MotionDetect;
+using Damany.Component;
 using System.Drawing;
 using OpenCvSharp;
 using System.Threading;
 using System.Diagnostics;
+using System.Text;
+using RemoteImaging.ImportPersonCompare;
+using System.Linq;
+using SuspectsRepository;
+using System.Net.Sockets;
+using System.Windows.Forms;
+
 
 namespace RemoteImaging.RealtimeDisplay
 {
     public class Presenter : IImageScreenObserver
     {
+        private TcpListener liveServer;
         IImageScreen screen;
         ICamera camera;
         System.ComponentModel.BackgroundWorker worker;
@@ -36,7 +43,7 @@ namespace RemoteImaging.RealtimeDisplay
 
 
         private IplImage _BackGround;
-        public  IplImage BackGround
+        public IplImage BackGround
         {
             get
             {
@@ -53,14 +60,23 @@ namespace RemoteImaging.RealtimeDisplay
         {
             byte[] imgData = null;
             lock (this.camLocker)
-                 imgData = this.camera.CaptureImageBytes();
+                imgData = this.camera.CaptureImageBytes();
 
             Image img = Image.FromStream(new MemoryStream(imgData));
 
             lock (this.bgLocker)
-                this.BackGround = BitmapConverter.ToIplImage((Bitmap) img);
-        		 
+                this.BackGround = BitmapConverter.ToIplImage((Bitmap)img);
+
             img.Save("BG.jpg");
+        }
+
+
+        public void RemoteListener(LiveServer s)
+        {
+            if (this.ImageCaptured != null)
+            {
+                //this.ImageCaptured -= s.ImageCaptured;
+            }
         }
 
 
@@ -75,6 +91,10 @@ namespace RemoteImaging.RealtimeDisplay
         {
             this.screen = screen;
             this.camera = camera;
+
+#if DEBUG
+            this.FaceRecognize = true;
+#endif
 
             motionDetectThread =
                 Properties.Settings.Default.DetectMotion ?
@@ -121,10 +141,30 @@ namespace RemoteImaging.RealtimeDisplay
         {
             DateTime time = DateTime.Now.AddMinutes(-2);
 
-            if (!FileSystemStorage.FacesCapturedAt(2, time))
+            if (!FileSystemStorage.MotionImagesCapturedWhen(2, time))
                 DeleteVideoFileAt(time);
 
 
+        }
+
+        public void StartServer(object serverPort)
+        {
+            if (liveServer == null)
+            {
+                liveServer = new TcpListener((int)serverPort);
+                liveServer.Start(1);
+            }
+
+            while (true)
+            {
+                TcpClient client = liveServer.AcceptTcpClient();
+
+                System.Diagnostics.Debug.WriteLine("accept connection:" + client.Client.RemoteEndPoint);
+
+                LiveServer ls = new LiveServer(client, this);
+                ls.Start();
+
+            }
         }
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -165,6 +205,9 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
+
+
         private void QueryRawFrame()
         {
             byte[] image;
@@ -183,17 +226,25 @@ namespace RemoteImaging.RealtimeDisplay
             }
             catch (System.ArgumentException)//图片格式出错
             {
+                MessageBox.Show("获取摄像头图片错误");
                 return;
+            }
+
+
+            if (ImageCaptured != null)
+            {
+                ImageCapturedEventArgs args = new ImageCapturedEventArgs() { ImageCaptured = bmp };
+                ImageCaptured(this, args);
             }
 
             Frame f = new Frame();
             f.timeStamp = DateTime.Now.Ticks;
-            f.image = IntPtr.Zero;
             f.cameraID = 2;
 
             IplImage ipl = BitmapConverter.ToIplImage(bmp);
             ipl.IsEnabledDispose = false;
-            f.image = ipl.CvPtr;
+            f.image = ipl;
+
 
             lock (this.rawFrameLocker) rawFrames.Enqueue(f);
 
@@ -203,7 +254,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         private Frame GetNewFrame()
         {
-            Frame newFrame = new Frame();
+            Frame newFrame = null;
 
             lock (this.rawFrameLocker)
             {
@@ -218,31 +269,36 @@ namespace RemoteImaging.RealtimeDisplay
 
         private static bool IsStaticFrame(Frame aFrame)
         {
-            return aFrame.image != null
-                    && (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
+            return aFrame.image == null ||
+                (aFrame.searchRect.Width == 0 || aFrame.searchRect.Height == 0);
         }
 
         private void DetectMotion()
         {
+            int count = 0;
             while (true)
             {
-                Frame newFrame = GetNewFrame();
-                if (newFrame.image != IntPtr.Zero)
+                Frame nextFrame = GetNewFrame();
+                if (nextFrame != null)
                 {
-                    Frame frameToProcess = new Frame();
+                    Frame lastFrame = new Frame();
 
-                    bool groupCaptured = MotionDetect.MotionDetect.PreProcessFrame(newFrame, ref frameToProcess);
+                    bool groupCaptured = Program.motionDetector.DetectFrame(nextFrame, lastFrame);
 
-                    Debug.WriteLine(DateTime.FromBinary(frameToProcess.timeStamp));
 
-                    if (IsStaticFrame(frameToProcess))
+                    if (IsStaticFrame(lastFrame))
                     {
-                        Cv.Release(ref frameToProcess.image);
+                        if (lastFrame.image != null)
+                        {
+                            lastFrame.image.IsEnabledDispose = true;
+                            lastFrame.image.Dispose();
+                        }
+
                     }
                     else
                     {
-                        FileSystemStorage.SaveFrame(frameToProcess);
-                        motionFrames.Enqueue(frameToProcess);
+                        FileSystemStorage.SaveFrame(lastFrame);
+                        motionFrames.Enqueue(lastFrame);
                     }
 
                     if (groupCaptured)
@@ -271,9 +327,9 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 Frame f = this.GetNewFrame();
 
-                if (f.image != IntPtr.Zero)
+                if (f.image != null)
                 {
-                    IplImage ipl = new IplImage(f.image);
+                    IplImage ipl = f.image;
                     ipl.IsEnabledDispose = false;
                     f.searchRect.Width = ipl.Width;
                     f.searchRect.Height = ipl.Height;
@@ -314,6 +370,9 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 this.worker.RunWorkerAsync();
             }
+
+            if (this.liveServer == null)
+                ThreadPool.QueueUserWorkItem(this.StartServer, 20000);
         }
 
         private string PrepareDestFolder(ImageDetail imgToProcess)
@@ -328,20 +387,18 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        unsafe ImageDetail[] SaveImage(ManagedTarget[] targets)
+        ImageDetail[] SaveImage(Target[] targets)
         {
             IList<ImageDetail> imgs = new List<ImageDetail>();
 
-            foreach (ManagedTarget t in targets)
+            foreach (Target t in targets)
             {
                 Frame frame = t.BaseFrame;
 
-                DateTime dt = DateTime.FromBinary(frame.timeStamp);
-
                 for (int j = 0; j < t.Faces.Length; ++j)
                 {
-                    string facePath = FileSystemStorage.GetFacePath(frame, dt, j);
-                    t.Faces[j].Img.SaveImage(facePath);
+                    string facePath = FileSystemStorage.PathForFaceImage(frame, j);
+                    t.Faces[j].SaveImage(facePath);
                     imgs.Add(ImageDetail.FromPath(facePath));
                 }
 
@@ -355,106 +412,115 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
-        unsafe void SearchFace()
+        void SearchFace()
         {
             while (true)
             {
-                Frame[] frames = null;
-                lock (locker)
+                try
                 {
-                    if (framesQueue.Count > 0)
+                    Frame[] frames = null;
+                    lock (locker)
                     {
-                        frames = framesQueue.Dequeue();
-                    }
-                }
-
-                if (frames != null)
-                {
-                    for (int i = 0; i < frames.Length; ++i)
-                    {
-                        NativeIconExtractor.AddInFrame(frames[i]);
+                        if (framesQueue.Count > 0)
+                        {
+                            frames = framesQueue.Dequeue();
+                        }
                     }
 
-                    IntPtr target = IntPtr.Zero;
-
-                    int count = NativeIconExtractor.SearchFaces(ref target);
-                    if (count > 0)
+                    if (frames != null && frames.Length > 0)
                     {
-                        Target* pTarget = (Target*)target;
-
-                        IList<ManagedTarget> targets = new List<ManagedTarget>();
-
-                        int upLimit = count;
-
-                        if (frames.Length > 1 && Properties.Settings.Default.DetectMotion
-                            && Properties.Settings.Default.removeDuplicatedFace)
+                        foreach (var f in frames)
                         {
-                            upLimit = Math.Min(count, Properties.Settings.Default.MaxDupFaces);
+                            Program.faceSearch.AddInFrame(f);
                         }
 
-                        for (int i = 0; i < upLimit; i++)
-                        {
-                            Target faceWithFrame = pTarget[i];
 
-                            IList<Face> facesList = new List<Face>();
+                        ImageProcess.Target[] targets = Program.faceSearch.SearchFaces();
 
-                            for (int j = 0; j < faceWithFrame.FaceCount; ++j)
-                            {
-
-                                IntPtr* faceImgData = ((IntPtr*)(faceWithFrame.FaceData)) + j;
-                                IplImage aFaceImg = new IplImage(*faceImgData);
-                                aFaceImg.IsEnabledDispose = false;
-
-                                CvRect* pFaceBounds = (CvRect*)faceWithFrame.CvRects;
-                                CvRect faceRect = pFaceBounds[j];
-
-                                System.Diagnostics.Debug.WriteLine(faceRect);
-
-                                Face aFace = new Face() { Bounds = faceRect, Img = aFaceImg };
-
-                                if (Properties.Settings.Default.RecheckFace
-                                    &&BackGround != null)
-                                {
-                                    lock(this.bgLocker)
-                                        if (BackGroundComparer.IsFace(aFace.Img.CvPtr, BackGround.CvPtr, faceRect))
-                                            facesList.Add(aFace);
-                                }
-                                else
-                                    facesList.Add(aFace);
-                                    
-                            }
-
-                            Face[] faceArray = new Face[facesList.Count];
-                            facesList.CopyTo(faceArray, 0);
-
-                            ManagedTarget t = new ManagedTarget()
-                            {
-                                BaseFrame = faceWithFrame.BaseFrame,
-                                Faces = faceArray
-                            };
-
-                            targets.Add(t);
-                        }
-
-                        ManagedTarget[] tgArr = new ManagedTarget[targets.Count];
-
-                        targets.CopyTo(tgArr, 0);
-
-                        ImageDetail[] imgs = this.SaveImage(tgArr);
+                        ImageDetail[] imgs = this.SaveImage(targets);
                         this.screen.ShowImages(imgs);
 
+                        if (this.FaceRecognize) DetectSuspecious(targets);
+
+                        Array.ForEach(frames, f => { IntPtr cvPtr = f.image.CvPtr; OpenCvSharp.Cv.Release(ref cvPtr); f.image.Dispose(); });
+                        Array.ForEach(targets, t =>
+                        {
+                            Array.ForEach(t.Faces, ipl => { ipl.IsEnabledDispose = true; ipl.Dispose(); });
+                            t.BaseFrame.image.Dispose();
+                        });
                     }
-
-
-                    NativeIconExtractor.ReleaseMem();
-
-                    Array.ForEach(frames, f => Cv.Release(ref f.image));
+                    else
+                        goSearch.WaitOne();
                 }
-                else
-                    goSearch.WaitOne();
+
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("exception");
+                }
             }
         }
 
+
+        private void DetectSuspecious(Target[] targets)
+        {
+            foreach (var t in targets)
+            {
+                for (int i = 0; i < t.Faces.Length; ++i)
+                {
+
+                    IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
+
+                    float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100, BitDepth.U8, 1);
+
+                    FaceRecognition.RecognizeResult[] results = new
+                         FaceRecognition.RecognizeResult[Program.ImageSampleCount];
+
+
+                    FaceRecognition.FaceRecognizer.Recognize(
+                                                            imgData,
+                                                            Program.ImageSampleCount,
+                                                            results,
+                                                            Program.ImageLen, Program.EigenNum);
+
+
+                    FaceRecognition.RecognizeResult[] filtered =
+                        Array.FindAll(results, r => r.similarity > 0.85);
+
+
+                    if (filtered.Length == 0) return;
+
+                    int j = 0;
+
+                    IList<ImportantPersonDetail> details =
+                        new List<ImportantPersonDetail>();
+
+                    foreach (PersonInfo p in SuspectsRepositoryManager.Instance.Peoples)
+                    {
+                        foreach (FaceRecognition.RecognizeResult result in filtered)
+                        {
+                            string fileName = System.IO.Path.GetFileName(result.fileName);
+
+                            int idx = fileName.IndexOf('_');
+                            fileName = fileName.Remove(idx, 5);
+
+                            if (string.Compare(fileName, p.FileName, true)==0)
+                            {
+                                details.Add(new ImportantPersonDetail(p, result));
+                            }
+                        }
+                    }
+
+                    ImportantPersonDetail[] distinct = details.Distinct(new ImportantPersonComparer()).ToArray();
+
+                    if (distinct.Length == 0) return;
+
+                    screen.ShowSuspects(distinct, t.Faces[i].ToBitmap());
+
+                }
+            }
+        }
+
+        public bool FaceRecognize { get; set; }
 
         #region IImageScreenObserver Members
 
@@ -470,7 +536,7 @@ namespace RemoteImaging.RealtimeDisplay
             ImageDetail img = this.screen.SelectedImage;
             if (img != null && !string.IsNullOrEmpty(img.Path))
             {
-                string bigPicPathName = FileSystemStorage.BigImgPathFor(img);
+                string bigPicPathName = FileSystemStorage.BigImgPathForFace(img);
                 ImageDetail bigImageDetail = ImageDetail.FromPath(bigPicPathName);
                 this.screen.BigImage = bigImageDetail;
 
@@ -479,4 +545,25 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
     }
+
+
+    public class ImportantPersonComparer : System.Collections.Generic.IEqualityComparer<ImportantPersonDetail>
+    {
+
+
+        #region IEqualityComparer<ImportantPersonDetail> Members
+
+        public bool Equals(ImportantPersonDetail x, ImportantPersonDetail y)
+        {
+            return string.Compare(x.Info.FileName, y.Info.FileName, true) == 0;
+        }
+
+        public int GetHashCode(ImportantPersonDetail obj)
+        {
+            return obj.Info.FileName.GetHashCode();
+        }
+
+        #endregion
+    }
+
 }

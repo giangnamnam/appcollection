@@ -7,12 +7,11 @@ using OpenCvSharp;
 
 namespace ImageProcess
 {
-    [StructLayoutAttribute(LayoutKind.Sequential)]
-    public struct Frame
+    public class Frame
     {
         public byte cameraID;
         /// IplImage*
-        public System.IntPtr image;
+        public OpenCvSharp.IplImage image;
 
         public CvRect searchRect;
 

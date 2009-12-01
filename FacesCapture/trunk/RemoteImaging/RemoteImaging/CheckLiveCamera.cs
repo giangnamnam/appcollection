@@ -29,7 +29,7 @@ namespace RemoteImaging
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             iep1 = new IPEndPoint(IPAddress.Broadcast, 10001);//255.255.255.255
             iep = new IPEndPoint(IPAddress.Any, 10000);
-            sock.Bind(iep);
+            //sock.Bind(iep);
         }
 
         private Camera[] trueCamera;

@@ -6,18 +6,18 @@ using RemoteImaging.Core;
 using System.IO;
 using ImageProcess;
 using OpenCvSharp;
+using RemoteControlService;
 
 namespace RemoteImaging
 {
     public static class FileSystemStorage
     {
-        private static string MinutesFolderNameFor(DateTime dt)
+        private static string ToStringYearToMinute(DateTime dt)
         {
             return dt.Year.ToString("D4") + dt.Month.ToString("D2") + dt.Day.ToString("D2") + dt.Hour.ToString("D2") + dt.Minute.ToString("D2");
         }
 
-
-        private static string RootFolderForCamera(int cameraID)
+        private static string RootStoragePathForCamera(int cameraID)
         {
             return Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
         }
@@ -29,23 +29,32 @@ namespace RemoteImaging
             long FreeSpace = driveInfo.AvailableFreeSpace;
 
             FreeSpace /= 1024 * 1024;
-
-            return (int) FreeSpace;
+            return (int)FreeSpace;
         }
 
+        public static bool DriveRemoveable(string drive)
+        {
+            System.IO.DriveInfo di = new System.IO.DriveInfo(Properties.Settings.Default.OutputPath);
+            return (di.DriveType == DriveType.Removable);
+        }
+
+        private static string StorageRootPathForCamera(int cameraID)
+        {
+            string root = Path.Combine(Properties.Settings.Default.OutputPath,
+                                  cameraID.ToString("d2"));
+            return root;
+        }
 
         public static void SaveFrame(Frame frame)
         {
-            IplImage ipl = new IplImage(frame.image);
+            IplImage ipl = frame.image;
             ipl.IsEnabledDispose = false;
 
             string path = frame.GetFileName();
             DateTime dt = DateTime.FromBinary(frame.timeStamp);
 
-            string root = Path.Combine(Properties.Settings.Default.OutputPath,
-                      frame.cameraID.ToString("d2"));
-
-            string folder = FileSystemStorage.BuildDestDirectory(root, dt, Properties.Settings.Default.BigImageDirectoryName);
+            string root = StorageRootPathForCamera(frame.cameraID);
+            string folder = BuildBigImgPath(root, dt);
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -56,33 +65,36 @@ namespace RemoteImaging
         }
 
 
-        public static string GetFacePath(Frame frame, DateTime timeStamp, int sequence)
-        {
-            string folderFace = FileSystemStorage.GetOrCreateFolderForFacesAt(frame.cameraID, timeStamp);
 
-            string faceFileName = FileSystemStorage.GetFaceFileName(frame.GetFileName(), sequence);
+        public static string PathForFaceImage(Frame frame, int sequence)
+        {
+            DateTime dt = DateTime.FromBinary(frame.timeStamp);
+
+            string folderFace = FileSystemStorage.EnsureFolderForFacesAt(frame.cameraID, dt);
+
+            string faceFileName = FileSystemStorage.FaceImageFileNameOf(frame.GetFileName(), sequence);
 
             string facePath = Path.Combine(folderFace, faceFileName);
             return facePath;
         }
 
-        private static string GetFaceFileName(string bigImagePath, int indexOfFace)
+        private static string FaceImageFileNameOf(string bigImagePath, int indexOfFace)
         {
             int idx = bigImagePath.IndexOf('.');
             string faceFileName = bigImagePath.Insert(idx, "-" + indexOfFace.ToString("d4"));
             return faceFileName;
         }
 
-        private static string FolderPathForFaceAt(int camID, DateTime dt)
+        private static string ContainerDirectoryOfFaceAt(int camID, DateTime dt)
         {
-            string folderForFaces = BuildDestDirectory(RootFolderForCamera(camID),
+            string folderForFaces = BuildDestDirectory(RootStoragePathForCamera(camID),
                                                 dt, Properties.Settings.Default.IconDirectoryName);
             return folderForFaces;
         }
 
-        private static string GetOrCreateFolderForFacesAt(int camID, DateTime dt)
+        private static string EnsureFolderForFacesAt(int camID, DateTime dt)
         {
-            string folderForFaces = FolderPathForFaceAt(camID, dt);
+            string folderForFaces = ContainerDirectoryOfFaceAt(camID, dt);
 
             if (!Directory.Exists(folderForFaces))
                 Directory.CreateDirectory(folderForFaces);
@@ -91,12 +103,33 @@ namespace RemoteImaging
         }
 
 
-        public static bool FacesCapturedAt(int camID, DateTime time)
+        public static bool FaceImagesCapturedWhen(int camID, DateTime time)
         {
-            string path = FolderPathForFaceAt(camID, time);
+            string path = ContainerDirectoryOfFaceAt(camID, time);
 
             return Directory.Exists(path);
         }
+
+        public static bool MotionImagesCapturedWhen(int camID, DateTime time)
+        {
+            string root = StorageRootPathForCamera(camID);
+            string path = BuildBigImgPath(root, time);
+
+            return Directory.Exists(path);
+        }
+
+
+        public static string BuildBigImgPath(string outputPath, DateTime time)
+        {
+            return BuildDestDirectory(outputPath, time, Properties.Settings.Default.BigImageDirectoryName);
+        }
+
+
+        public static string BuildFaceImgPath(string outputPath, DateTime time)
+        {
+            return BuildDestDirectory(outputPath, time, Properties.Settings.Default.IconDirectoryName);
+        }
+
 
 
         public static string BuildDestDirectory(string outputPathRoot,
@@ -106,36 +139,36 @@ namespace RemoteImaging
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(dt.Year.ToString("D4"));
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             sb.Append(dt.Month.ToString("D2"));
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             sb.Append(dt.Day.ToString("D2"));
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             if (!string.IsNullOrEmpty(subFoldername))
             {
                 sb.Append(subFoldername);
-                sb.Append(Path.AltDirectorySeparatorChar);
+                sb.Append(Path.DirectorySeparatorChar);
             }
-            string temp = MinutesFolderNameFor(dt);
+            string temp = ToStringYearToMinute(dt);
             sb.Append(temp);
-            sb.Append(Path.AltDirectorySeparatorChar);
+            sb.Append(Path.DirectorySeparatorChar);
             string destPath = Path.Combine(outputPathRoot, sb.ToString());
             return destPath;
         }
 
-        public static string BigImgPathFor(ImageDetail img)
+        public static string BigImgPathForFace(ImageDetail face)
         {
-            string nameWithoutExtension = Path.GetFileNameWithoutExtension(img.Name);
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(face.Name);
             int idx = nameWithoutExtension.LastIndexOf('-');
             nameWithoutExtension = nameWithoutExtension.Remove(idx);
 
-            string bigPicName = nameWithoutExtension + Path.GetExtension(img.Name);
-            string bigPicFolder = Directory.GetParent(img.ContainedBy).ToString();
+            string bigPicName = nameWithoutExtension + Path.GetExtension(face.Name);
+            string bigPicFolder = Directory.GetParent(face.ContainedBy).ToString();
 
             bigPicFolder = bigPicFolder.Replace(Properties.Settings.Default.IconDirectoryName, "");
 
             bigPicFolder = Path.Combine(bigPicFolder, Properties.Settings.Default.BigImageDirectoryName);
-            bigPicFolder = Path.Combine(bigPicFolder, MinutesFolderNameFor(img.CaptureTime));
+            bigPicFolder = Path.Combine(bigPicFolder, ToStringYearToMinute(face.CaptureTime));
             string bigPicPathName = Path.Combine(bigPicFolder, bigPicName);
             return bigPicPathName;
         }
@@ -150,9 +183,16 @@ namespace RemoteImaging
             string relPath = RelativePathNameForVideoFile(utcTime);
 
             string videoFilePath = Path.Combine(rootFolder, relPath);
-            return videoFilePath;
+
+            if (System.IO.File.Exists(videoFilePath))
+                return videoFilePath;
+            else 
+                return string.Empty;
+
         }
-        public static string[] FindVideos(ImageDetail img)
+
+
+        public static string[] VideoFilesOfImage(ImageDetail img)
         {
             string videoFilePath = VideoFilePathNameAt(img.CaptureTime, img.FromCamera);
             if (File.Exists(videoFilePath))
@@ -166,28 +206,32 @@ namespace RemoteImaging
             }
         }
 
-        public static string[] FindVideos(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
+        public static RemoteImaging.Core.Video[] VideoFilesBetween(int cameraID, DateTime startLocalTime, DateTime endLocalTime)
         {
             string rootFolder = Path.Combine(Properties.Settings.Default.OutputPath, cameraID.ToString("D2"));
 
             DateTime startUTC = startLocalTime.ToUniversalTime();
             DateTime endUTC = endLocalTime.ToUniversalTime();
-            List<string> files = new List<string>();
+            List<RemoteImaging.Core.Video> videos = new List<RemoteImaging.Core.Video>();
 
             while (startUTC <= endUTC)
             {
                 string relativePath = RelativePathNameForVideoFile(startUTC);
                 string path = Path.Combine(rootFolder, relativePath);
+
                 if (File.Exists(path))
                 {
-                    files.Add(path);
+                    bool hasFaceCaptured =
+                        FaceImagesCapturedWhen(cameraID, startUTC.ToLocalTime());
+
+                    videos.Add(new RemoteImaging.Core.Video { HasFaceCaptured = hasFaceCaptured, Path = path });
                 }
 
                 startUTC = startUTC.AddMinutes(1);
 
             }
 
-            return files.ToArray();
+            return videos.ToArray();
 
         }
 

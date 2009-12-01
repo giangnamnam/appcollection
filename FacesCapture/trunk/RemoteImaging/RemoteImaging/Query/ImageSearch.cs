@@ -9,9 +9,9 @@ using System.Text.RegularExpressions;
 
 namespace RemoteImaging.Query
 {
-    public class ImageSearch
+    public static class ImageSearch
     {
-        public string[] SearchImages(ImageDirSys startDir, ImageDirSys endDir, ImageDirSys.SearchType searchType)
+        public static string[] SearchImages(ImageDirSys startDir, ImageDirSys endDir, ImageDirSys.SearchType searchType)
         {
             int startYear = int.Parse(startDir.Year);
             int startMonth = int.Parse(startDir.Month);
@@ -101,15 +101,15 @@ namespace RemoteImaging.Query
                     if (Directory.Exists(searchPath))
                     {
                         string[] dirFile = Directory.GetDirectories(searchPath);
-                        
+
                         foreach (string strFile in dirFile)
                         {
-                           if (Directory.Exists(strFile))
-                        {
-                            string[] files = Directory.GetFiles(strFile);
-                            foreach (string file in files)
+                            if (Directory.Exists(strFile))
                             {
-                                
+                                string[] files = Directory.GetFiles(strFile);
+                                foreach (string file in files)
+                                {
+
                                     DateTime dateTime1 = new DateTime(startYear, startMonth, startDay, startHour, startMinute, startSecond);
                                     DateTime dateIime2 = new DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond);
 
@@ -286,7 +286,7 @@ namespace RemoteImaging.Query
         }
 
 
-        public string[] SelectedBestImageChanged(string selectedImageName)
+        public static string[] SelectedBestImageChanged(string selectedImageName)
         {
             string fileName = System.IO.Path.GetFileNameWithoutExtension(selectedImageName);
             if (!IsValidImageFile(fileName))
@@ -336,7 +336,7 @@ namespace RemoteImaging.Query
             return null;
         }
 
-        private bool IsValidImageFile(string fileName)
+        private static bool IsValidImageFile(string fileName)
         {
             Regex fileNameRegex = new Regex("\\d{2}_\\d{15}-\\d{4}");
             Match m = fileNameRegex.Match(fileName);
@@ -356,21 +356,15 @@ namespace RemoteImaging.Query
         /// <param name="camId">相机ID</param>
         /// <param name="state">是否获取图片集合</param>
         /// <returns></returns>
-        public string[] getPicFiles(string path, string camId, bool state)
+        public static string[] FacesCapturedAt(DateTime time, int camId, bool state)
         {
             ArrayList filesArr = new ArrayList();
-            DateTime dTime = getDateTimeStr(path);
-            string imgPath = Properties.Settings.Default.OutputPath +"\\"+ int.Parse(camId).ToString("D2") + "\\" +
+            DateTime dTime = time;
+            string imgPath = Properties.Settings.Default.OutputPath + "\\" + camId.ToString("d2") + "\\" +
                 dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
-                dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" + 
+                dTime.Day.ToString("D2") + "\\" + Properties.Settings.Default.IconDirectoryName + "\\" +
                 dTime.Year + dTime.Month.ToString("D2") + dTime.Day.ToString("D2") + dTime.Hour.ToString("D2") + dTime.Minute.ToString("D2") + "\\";
-            #region
-            //string imgPath = Properties.Settings.Default.OutputPath + "\\" +
-            //    int.Parse(camId).ToString("D2") + "\\" +
-            //    dTime.Year + "\\" + dTime.Month.ToString("D2") + "\\" +
-            //    dTime.Day.ToString("D2") + "\\" +
-            //    Properties.Settings.Default.BigImageDirectoryName + "\\";
-            #endregion
+
             if (Directory.Exists(imgPath))
             {
                 string[] files = Directory.GetFiles(imgPath);
@@ -383,19 +377,6 @@ namespace RemoteImaging.Query
                         {
                             filesArr.Add(file);
                         }
-                        #region
-                        //string strExtName = Path.GetExtension(file);
-                        //string dPath = Path.GetFileNameWithoutExtension(file);
-                        //if (strExtName.Equals(".jpg"))
-                        //{
-                        //    string hourStr = dPath.Substring(9, 2);
-                        //    string minuStr = dPath.Substring(11, 2);
-                        //    if (dTime.Hour.ToString("D2").Equals(hourStr) && dTime.Minute.ToString("D2").Equals(minuStr))
-                        //    {
-                        //        filesArr.Add(file);
-                        //    }
-
-                        #endregion
                     }
                 }
                 else
@@ -412,7 +393,7 @@ namespace RemoteImaging.Query
             return fileCollections;
         }
 
-        public DateTime getDateTimeStr(string temp)
+        public static DateTime getDateTimeStr(string temp)
        {
            Int32 index = temp.IndexOf("NORMAL") + 7;
            string str = temp.Substring(index, 14);//20090629\06\00

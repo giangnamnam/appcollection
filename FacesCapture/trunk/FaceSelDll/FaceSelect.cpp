@@ -192,11 +192,11 @@ void CFaceSelect::AddInImage(const char* strFileName)
 
 bool CFaceSelect::AddInImage( IplImage *pImg, CvRect roi )
 {
-	if( !pImg ) return false;
+	assert(pImg != NULL);
 	
 	IplImage *pImage = 0;	
 	pImage = cvCloneImage( pImg );
-	if( !pImage ) return false;//处理载入失败的情况
+	assert(pImage != NULL);//处理载入失败的情况
 	m_rcROI = roi;
 
 	//bool bNormROI = false;
@@ -2754,7 +2754,7 @@ void CFaceSelect::SkinTest(const char *cFileName)
 
 	///////////////////////////输出返回的字符串/////////////////////////
 	FILE *fp = 0;
-	fp = fopen("../Debug/result.txt","a+");
+	fopen_s(&fp, "../Debug/result.txt","a+");
 
 	float fChnlRang[2] = {0, 255}; //直方图范围
 	int iDimSize = 256;
@@ -3614,10 +3614,12 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				targetArray[curId].FaceCount = curFaces;
 				targetArray[curId].FaceData = new IplImage*[curFaces];
 				targetArray[curId].FaceRects = new CvRect[curFaces];//20090827 Added for Record Face Positions
+				targetArray[curId].FaceOrgRects = new CvRect[curFaces];//20090929 Added for Face Recognition Purpose
 				for( int j = 0; j < curFaces; j++ )
 				{
 					targetArray[curId].FaceData[j] = 0;
 					targetArray[curId].FaceRects[j] = cvRect(0,0,0,0);//20090827 Added for Record Face Positions
+					targetArray[curId].FaceOrgRects[j] = cvRect(0,0,0,0);//20090929 Added for Face Recognition Purpose
 				}
 				curId++;
 			}
@@ -3653,6 +3655,7 @@ char* CFaceSelect::SelectBestImage( int outputMode )
 				{
 					targetArray[curId].FaceData[j] = SubFace;
 					targetArray[curId].FaceRects[j] = recUpBody;//20090827 Added for Record Face Positions
+					targetArray[curId].FaceOrgRects[j] = *FaceRect;//20090929 Added for Face Recognition Purpose
 					break;
 				}
 			}
@@ -5038,13 +5041,9 @@ void CFaceSelect::ReleaseTargets( Target* &targets, int &nCnt )
 
 	for( int i = 0; i < nCnt; i++ )
 	{
-		//targets[i].BaseFrame = 0;
-		for( int j = 0; j < targets[i].FaceCount; j++ )
-		{
-			cvReleaseImage( &(targets[i].FaceData[j]) );
-		}
 		delete[] targets[i].FaceData;
 		delete[] targets[i].FaceRects;//20090827 Added for Record Face Positions
+		delete[] targets[i].FaceOrgRects;//20090929 Added for Record Face Recognition Purpose
 		targets[i].FaceData = 0;
 		targets[i].FaceCount = 0;
 	}
@@ -5054,3 +5053,785 @@ void CFaceSelect::ReleaseTargets( Target* &targets, int &nCnt )
 	nCnt = 0;
 }
 //End -- 20090716 Defined Interface
+
+//20090929 Add for Face Recognition Research
+bool CFaceSelect::FaceImagePreprocess( IplImage* imgIn, IplImage* &imgNorm, CvRect roi )
+{
+	if( imgNorm ) cvReleaseImage( &imgNorm );
+	const int nFaceImgWidth = 200;
+	const int nFaceImgHeight = 200;
+	imgNorm = cvCreateImage( cvSize( nFaceImgWidth, nFaceImgHeight ), 
+		imgIn->depth, imgIn->nChannels );
+
+	IplImage* imgSub = NULL;
+	if( !CheckImageROI( imgIn, roi )
+		|| ( roi.width <= 1 && roi.height <= 1 ) )
+	{
+		imgSub = cvCloneImage(imgIn);
+	}
+	else
+	{
+		imgSub = GetSubImage( imgIn, roi );
+	}
+
+	cvClearMemStorage( m_storage_subfacefeature );
+
+	CvSeq* leyes = 0;
+	CvSeq* reyes = 0;
+	CvSeq* mouths = 0;
+	CvSeq* subFaceFeature = 0;
+
+	leyes = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+	reyes = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+	mouths = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+	subFaceFeature = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+
+	bool bFindEyes = false;
+	CvRect* leye_best = 0;
+	CvRect* reye_best = 0;
+	if( getAllSubFeatures( imgSub, leyes, reyes, mouths ) )
+	{
+		int nleyes = leyes ? leyes->total : 0 ;
+		int nreyes = reyes ? reyes->total : 0;
+		int nmouths = mouths ? mouths->total : 0;
+
+		if( SearchLREyes( leyes, reyes, leye_best, reye_best ) )
+		{
+			bFindEyes = true;
+		}			
+	}
+
+	if( bFindEyes )
+	{
+//#define _DRAWEYES
+#ifdef _DRAWEYES
+		//CvRect* r = leye_best;
+		//CvScalar color ={255,255,255,0};//BGR
+		//cvRectangle( imgSub,cvPoint(r->x,r->y),cvPoint( r->x+r->width, r->y+r->height), color, 3, 8, 0 );
+		//r = reye_best;
+		//cvRectangle( imgSub,cvPoint(r->x,r->y),cvPoint( r->x+r->width, r->y+r->height), color, 3, 8, 0 );
+		CvRect leye_inScene;
+		CvRect reye_inScene;
+		transferLocalRc2SceneRc( &leye_inScene, leye_best, &roi, 1.0 );
+		transferLocalRc2SceneRc( &reye_inScene, reye_best, &roi, 1.0 );
+		DrawRectCenter( imgIn, leye_inScene );
+		DrawRectCenter( imgIn, reye_inScene );
+#endif//End -- _DRAWEYES
+
+		int leye_cenx = leye_best->x + leye_best->width / 2.0f + 0.5f;
+		int leye_ceny = leye_best->y + leye_best->height / 2.0f + 0.5f;
+		int reye_cenx = reye_best->x + reye_best->width / 2.0f + 0.5f;
+		int reye_ceny = reye_best->y + reye_best->height / 2.0f + 0.5f;
+
+		//ReEstimate the Face Rect
+		CvRect rcFace;
+		int eyedist = abs( reye_cenx - leye_cenx );
+		CvPoint ptEyesCenter = cvPoint( ( leye_cenx + reye_cenx ) / 2.0f + 0.5f, 
+			( leye_ceny + reye_ceny ) / 2.0f + 0.5f );
+		rcFace.x = leye_cenx - eyedist / 2.0f;
+		rcFace.width = eyedist * 2.0f;
+
+		rcFace.x += rcFace.width * 0.1f;
+		rcFace.width -= rcFace.width * 0.2f;
+
+		rcFace.y = ptEyesCenter.y - eyedist * 0.95f;
+		rcFace.height = eyedist * 2.6f;
+
+		rcFace.y += rcFace.height * 0.125f;
+		rcFace.height -= rcFace.height * 0.2f;
+
+		CvRect rcFace_inScene = roi;
+		transferLocalRc2SceneRc( &rcFace_inScene, &rcFace, &roi, 1.0 );
+
+		/////////////////////////////////////////////Rotate//////////////////////////////////////////////////////////////////
+		double angle = atan( (double)(reye_ceny - leye_ceny) / (double)(reye_cenx-leye_cenx) );//设置旋转角度
+		IplImage* imgRotate = 0;
+		SubImageRotate( imgIn, rcFace_inScene, imgRotate, -angle );
+		if( imgRotate )
+		{
+			cvReleaseImage(&imgSub);
+			imgSub = imgRotate;
+			imgRotate = 0;
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
+	else
+	{
+		CvRect rRealFace;
+		FaceReDraw(imgSub, &rRealFace);
+
+		CvRect rcFace_inScene = roi;
+		transferLocalRc2SceneRc( &rcFace_inScene, &rRealFace, &roi, 1.0 );
+
+		cvReleaseImage(&imgSub);
+		imgSub = GetSubImage(imgIn, rcFace_inScene);
+	}
+
+	cvResize( imgSub, imgNorm, CV_INTER_LINEAR );
+	IplImage* imgGray = cvCreateImage( cvSize(imgNorm->width,imgNorm->height), 8, 1 );
+	cvCvtColor( imgNorm, imgGray, CV_BGR2GRAY );
+	cvEqualizeHist( imgGray, imgGray );//直方图均衡
+	//cvSmooth(imgGray, imgGray, CV_MEDIAN, 3, 0, 0, 0);
+	cvSmooth(imgGray, imgGray, CV_GAUSSIAN, 9, 9, 0, 0);
+	cvReleaseImage( &imgNorm );
+	imgNorm = imgGray;
+	cvReleaseImage(&imgSub);
+
+	return true;
+}
+
+bool CFaceSelect::FaceImagePreprocess_ForTrain( IplImage* imgIn, ImageArray &normImages, CvRect roi )
+{
+	int i = 0;
+	if( normImages.nImageCount ) ReleaseImageArray( normImages );
+	const int nGenImages = 5;
+	normImages.nImageCount = nGenImages;
+	normImages.imageArr = new IplImage*[nGenImages];
+	for( i = 0; i < nGenImages; i++ )
+	{
+		normImages.imageArr[i] = 0;
+	}
+
+	IplImage *imgNorm = 0;
+	if( imgNorm ) cvReleaseImage( &imgNorm );
+	const int nFaceImgWidth = 200;
+	const int nFaceImgHeight = 200;
+	imgNorm = cvCreateImage( cvSize( nFaceImgWidth, nFaceImgHeight ), 
+		imgIn->depth, imgIn->nChannels );
+
+	IplImage* imgSub = NULL;
+	if( !CheckImageROI( imgIn, roi )
+		|| ( roi.width <= 1 && roi.height <= 1 ) )
+	{
+		imgSub = cvCloneImage(imgIn);
+	}
+	else
+	{
+		imgSub = GetSubImage( imgIn, roi );
+	}
+
+	cvClearMemStorage( m_storage_subfacefeature );
+
+	CvSeq* leyes = 0;
+	CvSeq* reyes = 0;
+	CvSeq* mouths = 0;
+	CvSeq* subFaceFeature = 0;
+
+	leyes = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+	reyes = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+	mouths = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+	subFaceFeature = cvCreateSeq( 0, sizeof(CvSeq), sizeof(CvRect), m_storage_subfacefeature );
+
+	bool bFindEyes = false;
+	CvRect* leye_best = 0;
+	CvRect* reye_best = 0;
+	if( getAllSubFeatures( imgSub, leyes, reyes, mouths ) )
+	{
+		int nleyes = leyes ? leyes->total : 0 ;
+		int nreyes = reyes ? reyes->total : 0;
+		int nmouths = mouths ? mouths->total : 0;
+
+		if( SearchLREyes( leyes, reyes, leye_best, reye_best ) )
+		{
+			bFindEyes = true;
+		}			
+	}
+
+	IplImage* imgSubbak = cvCloneImage( imgSub );
+	for( i = 0; i < nGenImages; i++ )
+	{
+		double plusangle = (float)( i - nGenImages / 2 ) / (float)( nGenImages / 2 ) * (float)10 * CV_PI / (float)180;
+		if( imgSub) cvReleaseImage( &imgSub );
+		imgSub = cvCloneImage( imgSubbak );
+		if( bFindEyes )
+		{
+			//#define _DRAWEYES
+#ifdef _DRAWEYES
+			//CvRect* r = leye_best;
+			//CvScalar color ={255,255,255,0};//BGR
+			//cvRectangle( imgSub,cvPoint(r->x,r->y),cvPoint( r->x+r->width, r->y+r->height), color, 3, 8, 0 );
+			//r = reye_best;
+			//cvRectangle( imgSub,cvPoint(r->x,r->y),cvPoint( r->x+r->width, r->y+r->height), color, 3, 8, 0 );
+			CvRect leye_inScene;
+			CvRect reye_inScene;
+			transferLocalRc2SceneRc( &leye_inScene, leye_best, &roi, 1.0 );
+			transferLocalRc2SceneRc( &reye_inScene, reye_best, &roi, 1.0 );
+			DrawRectCenter( imgIn, leye_inScene );
+			DrawRectCenter( imgIn, reye_inScene );
+#endif//End -- _DRAWEYES
+
+			int leye_cenx = leye_best->x + leye_best->width / 2.0f + 0.5f;
+			int leye_ceny = leye_best->y + leye_best->height / 2.0f + 0.5f;
+			int reye_cenx = reye_best->x + reye_best->width / 2.0f + 0.5f;
+			int reye_ceny = reye_best->y + reye_best->height / 2.0f + 0.5f;
+
+			//ReEstimate the Face Rect
+			CvRect rcFace;
+			int eyedist = abs( reye_cenx - leye_cenx );
+			CvPoint ptEyesCenter = cvPoint( ( leye_cenx + reye_cenx ) / 2.0f + 0.5f, 
+				( leye_ceny + reye_ceny ) / 2.0f + 0.5f );
+			rcFace.x = leye_cenx - eyedist / 2.0f;
+			rcFace.width = eyedist * 2.0f;
+
+			rcFace.x += rcFace.width * 0.1f;
+			rcFace.width -= rcFace.width * 0.2f;
+
+			rcFace.y = ptEyesCenter.y - eyedist * 0.95f;
+			rcFace.height = eyedist * 2.6f;
+
+			rcFace.y += rcFace.height * 0.125f;
+			rcFace.height -= rcFace.height * 0.2f;
+
+			CvRect rcFace_inScene = roi;
+			transferLocalRc2SceneRc( &rcFace_inScene, &rcFace, &roi, 1.0 );
+
+			/////////////////////////////////////////////Rotate//////////////////////////////////////////////////////////////////
+			double angle = atan( (double)(reye_ceny - leye_ceny) / (double)(reye_cenx-leye_cenx) );//设置旋转角度
+
+			angle += plusangle;
+
+			IplImage* imgRotate = 0;
+			SubImageRotate( imgIn, rcFace_inScene, imgRotate, -angle );
+			if( imgRotate )
+			{
+				cvReleaseImage(&imgSub);
+				imgSub = imgRotate;
+				imgRotate = 0;
+			}
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		}
+		else
+		{
+			CvRect rRealFace;
+			FaceReDraw(imgSub, &rRealFace);
+
+			CvRect rcFace_inScene = roi;
+			transferLocalRc2SceneRc( &rcFace_inScene, &rRealFace, &roi, 1.0 );
+
+			//cvReleaseImage(&imgSub);
+			//imgSub = GetSubImage(imgIn, rcFace_inScene);
+			/////////////////////////////////////////////Rotate//////////////////////////////////////////////////////////////////
+			double angle = 0;//设置旋转角度
+
+			angle += plusangle;
+
+			IplImage* imgRotate = 0;
+			SubImageRotate( imgIn, rcFace_inScene, imgRotate, -angle );
+			if( imgRotate )
+			{
+				cvReleaseImage(&imgSub);
+				imgSub = imgRotate;
+				imgRotate = 0;
+			}
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		}
+
+		cvResize( imgSub, imgNorm, CV_INTER_LINEAR );
+		IplImage* imgGray = cvCreateImage( cvSize(imgNorm->width,imgNorm->height), 8, 1 );
+		cvCvtColor( imgNorm, imgGray, CV_BGR2GRAY );
+		cvEqualizeHist( imgGray, imgGray );//直方图均衡
+		//cvSmooth(imgGray, imgGray, CV_MEDIAN, 3, 0, 0, 0);
+		cvSmooth(imgGray, imgGray, CV_GAUSSIAN, 9, 9, 0, 0);
+		normImages.imageArr[i] = imgGray;
+	}
+
+	cvReleaseImage(&imgSub);
+	cvReleaseImage( &imgNorm );
+	cvReleaseImage( &imgSubbak );
+
+
+	return true;
+}
+
+
+void CFaceSelect::DrawRectCenter( IplImage* img, CvRect roi )
+{
+	CvPoint ptTL = cvPoint( roi.x, roi.y );//TopLeft
+	CvPoint ptBR = cvPoint( roi.x + roi.width, roi.y + roi.height );//BottomRight
+	CvPoint ptCen = cvPoint( ( ptTL.x + ptBR.x ) / 2.0f + 0.5, ( ptTL.y + ptBR.y ) / 2.0f + 0.5 );//Center
+	CvPoint pt1, pt2, pt3, pt4;
+	//horizontal line
+	pt1.x = ptCen.x - roi.width / 5;
+	pt1.y = ptCen.y;
+	pt2.x = ptCen.x + roi.width / 5;
+	pt2.y = ptCen.y;
+
+	//vertical line
+	pt3.x = ptCen.x;
+	pt3.y = ptCen.y - roi.height / 5;
+	pt4.x = ptCen.x;
+	pt4.y = ptCen.y + roi.height / 5;
+
+	cvLine( img, pt1, pt2,CV_RGB(255,255,255), 1);
+	cvLine( img, pt3, pt4,CV_RGB(255,255,255), 1);
+}
+
+bool CFaceSelect::SubImageRotate_Ver1( IplImage* src, CvRect roi, IplImage* &dst, double angle )//has some problem, may rotate more angle
+{
+	if( dst )
+		cvReleaseImage(&dst);
+
+	bool bRoiInvalid = false;
+	if( !CheckImageROI( src, roi )
+		|| ( roi.width <= 1 && roi.height <= 1 ) )
+	{
+		dst = cvCloneImage(src);
+	}
+	else
+	{
+		dst = GetSubImage( src, roi );
+	}
+
+	int delta = 1;
+	int opt = 0;	// 1： 旋转加缩放
+	// 0:  仅仅旋转
+	double factor;
+	if (opt)		// 旋转加缩放
+		factor = (cos (angle) + 1.0) * 2;
+	else			//  仅仅旋转
+		factor = 1;
+
+	//Call : cvGetQuadrangleSubPix
+	float m[6];
+	// Matrix m looks like:
+	// [ m0  m1  m2 ] ===>  [ A11  A12   b1 ]
+	// [ m3  m4  m5 ] ===>  [ A21  A22   b2 ]
+	CvMat M = cvMat (2, 3, CV_32F, m);
+	int w = src->width;
+	int h = src->height;
+	m[0] = (float) (factor * cos (-angle * 2));
+	m[1] = (float) (factor * sin (-angle * 2));
+	m[3] = -m[1];
+	m[4] = m[0];
+	// 将旋转中心移至图像中间
+	if( bRoiInvalid )
+	{
+		m[2] = w * 0.5f;
+		m[5] = h * 0.5f;
+	}
+	else
+	{
+		m[2] = roi.x + roi.width / 2;
+		m[5] = roi.y + roi.height / 2;
+	}
+	//  dst(x,y) = A * src(x,y) + b
+	cvZero (dst);
+	cvGetQuadrangleSubPix (src, dst, &M);
+
+	return true;
+}
+
+bool CFaceSelect::SubImageRotate( IplImage* src, CvRect roi, IplImage* &dstImage, float radians )//Rotate Clockwisely
+{
+	if( dstImage )
+		cvReleaseImage(&dstImage);
+
+	bool bRoiInvalid = false;
+	if( !CheckImageROI( src, roi )
+		|| ( roi.width <= 1 && roi.height <= 1 ) )
+	{
+		dstImage = 0;
+		return false;
+	}
+
+	int srcWidth,srcHeight;
+	LONG dstWidth,dstHeight;
+	int srcChannel,dstChannel;
+	uchar* srcData, *dstData;
+	int srcStep,dstStep;
+	int i,j,k;
+	float fCosa,fSina;
+	fCosa = (float) cos((double)radians);
+	fSina = (float) sin((double)radians);
+
+	srcWidth = roi.width;
+	srcHeight = roi.height;
+	srcChannel = src->nChannels;
+
+	//------------------------Step 1--------------------------------
+	//Calculate the dstImage's width and height
+	//by calculating the srcImage's 4 vertices' positions in the dstImage 
+
+	CvPoint2D32f srcP1,srcP2,srcP3,srcP4;//4 vertexes
+	CvPoint2D32f dstP1,dstP2,dstP3,dstP4;
+	srcP1.x = (float) (- (srcWidth  - 1) / 2);
+	srcP1.y = (float) (  (srcHeight - 1) / 2);
+
+	srcP2.x = -srcP1.x;
+	srcP2.y = srcP1.y;
+
+	srcP3.x = srcP1.x;
+	srcP3.y = -srcP1.y;
+
+	srcP4.x = -srcP1.x;
+	srcP4.y = -srcP1.y;
+
+	dstP1.x =  fCosa * srcP1.x + fSina * srcP1.y;
+	dstP1.y = -fSina * srcP1.x + fCosa * srcP1.y;
+	dstP2.x =  fCosa * srcP2.x + fSina * srcP2.y;
+	dstP2.y = -fSina * srcP2.x + fCosa * srcP2.y;
+	dstP3.x =  fCosa * srcP3.x + fSina * srcP3.y;
+	dstP3.y = -fSina * srcP3.x + fCosa * srcP3.y;
+	dstP4.x =  fCosa * srcP4.x + fSina * srcP4.y;
+	dstP4.y = -fSina * srcP4.x + fCosa * srcP4.y;
+
+	dstWidth = (LONG) ( max( fabs(dstP4.x - dstP1.x), fabs(dstP3.x - dstP2.x) ) + 0.5);
+	dstHeight = (LONG) ( max( fabs(dstP4.y - dstP1.y), fabs(dstP3.y - dstP2.y) )  + 0.5);
+
+	//------------------------End -- Step 1--------------------------------
+
+	float f1,f2;//offset pixels in x-axis and y-axis
+
+	f1 = (float) (-(dstWidth-1) / 2 * fCosa - (dstHeight-1) / 2 * fSina + (srcWidth-1) / 2 + roi.x) ;
+	f2 = (float) ((dstWidth-1) / 2 * fSina - (dstHeight-1) / 2 * fCosa + (srcHeight-1) / 2 + roi.y) ;
+
+	dstImage = cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3);
+
+	dstChannel = dstImage->nChannels;
+	//------------------------Step 2--------------------------------
+	//Begin Rotate!
+	double srcX; //
+	double srcY;
+	LONG lx;
+	LONG ly;
+	double x,y;
+	double thresh = 0.4;
+	double temp1,temp2;
+
+	srcData = (uchar*)src->imageData;
+	srcStep = src->widthStep/sizeof(uchar);
+
+	dstData = (uchar*)dstImage->imageData;
+	dstStep = dstImage->widthStep/sizeof(uchar);
+
+	int srcImageWidth = src->width;
+	int srcImageHeight = src->height;
+	for(i=0 ;i<dstHeight ;i++)
+	{
+		for (j=0 ;j<dstWidth ;j++)
+		{
+			srcY = -((float) j) * fSina + ((float) i) * fCosa + f2 + 0.5;
+			srcX = ((float) j) * fCosa + ((float) i) * fSina + f1 + 0.5;
+			ly = (LONG)srcY;
+			lx = (LONG)srcX;
+			x = srcX-lx;
+			y = srcY-ly;
+
+			if ((lx >= 0) && (lx < srcImageWidth) && (ly >= 0) && (ly < srcImageHeight))
+			{
+				for (k=0 ;k<dstChannel ;k++)//Interpolation
+				{
+					temp1 = srcData[ly*srcStep + lx*srcChannel + k] + x*(srcData[ly*srcStep + (lx + 1)*srcChannel + k]-srcData[ly*srcStep + lx*srcChannel + k]);
+					temp2 = srcData[(ly + 1)*srcStep + lx*srcChannel + k] + x*(srcData[(ly + 1)*srcStep + (lx + 1)*srcChannel + k]-srcData[(ly + 1)*srcStep + lx*srcChannel + k]);
+					dstData[i*dstStep + j*dstChannel + k] = (char)(temp1 + y*(temp2 - temp1));
+				}
+			}
+			else
+			{
+				for (k=0 ;k<dstChannel ;k++)
+				{
+					dstData[i*dstStep + j*dstChannel + k] = 0;
+				}
+			}
+		}
+	}
+
+	return dstImage;
+}
+
+IplImage* CFaceSelect::Rotate( IplImage* src , float radians )
+{
+	IplImage* dstImage;
+	int srcWidth,srcHeight;
+	LONG dstWidth,dstHeight;
+	int srcChannel,dstChannel;
+	uchar* srcData, *dstData;
+	int srcStep,dstStep;
+	int i,j,k;
+	float fCosa,fSina;
+	fCosa = (float) cos((double)radians);
+	fSina = (float) sin((double)radians);
+
+	srcWidth = src->width;
+	srcHeight = src->height;
+	srcChannel = src->nChannels;
+
+	//------------------------Step 1--------------------------------
+	//Calculate the dstImage's width and height
+	//by calculating the srcImage's 4 vertices' positions in the dstImage 
+
+	CvPoint2D32f srcP1,srcP2,srcP3,srcP4;//4 vertexes
+	CvPoint2D32f dstP1,dstP2,dstP3,dstP4;
+	srcP1.x = (float) (- (srcWidth  - 1) / 2);
+	srcP1.y = (float) (  (srcHeight - 1) / 2);
+
+	srcP2.x = -srcP1.x;
+	srcP2.y = srcP1.y;
+
+	srcP3.x = srcP1.x;
+	srcP3.y = -srcP1.y;
+
+	srcP4.x = -srcP1.x;
+	srcP4.y = -srcP1.y;
+
+	dstP1.x =  fCosa * srcP1.x + fSina * srcP1.y;
+	dstP1.y = -fSina * srcP1.x + fCosa * srcP1.y;
+	dstP2.x =  fCosa * srcP2.x + fSina * srcP2.y;
+	dstP2.y = -fSina * srcP2.x + fCosa * srcP2.y;
+	dstP3.x =  fCosa * srcP3.x + fSina * srcP3.y;
+	dstP3.y = -fSina * srcP3.x + fCosa * srcP3.y;
+	dstP4.x =  fCosa * srcP4.x + fSina * srcP4.y;
+	dstP4.y = -fSina * srcP4.x + fCosa * srcP4.y;
+
+	dstWidth = (LONG) ( max( fabs(dstP4.x - dstP1.x), fabs(dstP3.x - dstP2.x) ) + 0.5);
+	dstHeight = (LONG) ( max( fabs(dstP4.y - dstP1.y), fabs(dstP3.y - dstP2.y) )  + 0.5);
+
+	//------------------------End -- Step 1--------------------------------
+
+	float f1,f2;
+
+	f1 = (float) (-(dstWidth-1) / 2 * fCosa - (dstHeight-1) / 2 * fSina + (srcWidth-1) / 2 );
+	f2 = (float) ((dstWidth-1) / 2 * fSina - (dstHeight-1) / 2 * fCosa + (srcHeight-1) / 2 );
+
+	dstImage = cvCreateImage(cvSize(dstWidth,dstHeight),IPL_DEPTH_8U,3);
+
+	dstChannel = dstImage->nChannels;
+	//------------------------Step 2--------------------------------
+	//Begin Rotate!
+	double srcX; //
+	double srcY;
+	LONG lx;
+	LONG ly;
+	double x,y;
+	double thresh = 0.4;
+	double temp1,temp2;
+
+	srcData = (uchar*)src->imageData;
+	srcStep = src->widthStep/sizeof(uchar);
+
+	dstData = (uchar*)dstImage->imageData;
+	dstStep = dstImage->widthStep/sizeof(uchar);
+
+	for(i=0 ;i<dstHeight ;i++)
+	{
+		for (j=0 ;j<dstWidth ;j++)
+		{
+			srcY = -((float) j) * fSina + ((float) i) * fCosa + f2 + 0.5;
+			srcX = ((float) j) * fCosa + ((float) i) * fSina + f1 + 0.5;
+			ly = (LONG)srcY;
+			lx = (LONG)srcX;
+			x = srcX-lx;
+			y = srcY-ly;
+
+			if ((lx >= 0) && (lx < srcWidth) && (ly >= 0) && (ly < srcHeight))
+			{
+				for (k=0 ;k<dstChannel ;k++)//Interpolation
+				{
+					temp1 = srcData[ly*srcStep + lx*srcChannel + k] + x*(srcData[ly*srcStep + (lx + 1)*srcChannel + k]-srcData[ly*srcStep + lx*srcChannel + k]);
+					temp2 = srcData[(ly + 1)*srcStep + lx*srcChannel + k] + x*(srcData[(ly + 1)*srcStep + (lx + 1)*srcChannel + k]-srcData[(ly + 1)*srcStep + lx*srcChannel + k]);
+					dstData[i*dstStep + j*dstChannel + k] = (char)(temp1 + y*(temp2 - temp1));
+				}
+			}
+			else
+			{
+				for (k=0 ;k<dstChannel ;k++)
+				{
+					dstData[i*dstStep + j*dstChannel + k] = 0;
+				}
+			}
+		}
+	}
+	return dstImage;
+}
+
+bool CFaceSelect::SearchLREyes( CvSeq* leyes, CvSeq* reyes, CvRect* &leye_best, CvRect* &reye_best )
+{
+	leye_best = 0;
+	reye_best = 0;
+
+	int nleyes = leyes ? leyes->total : 0 ;
+	int nreyes = reyes ? reyes->total : 0;
+
+	if( nleyes == 0 || nreyes == 0 ) return false;
+
+	float weight_difInY = 1.0f;
+	float weight_difInArea = 0.1f;
+
+	float fMinDif = weight_difInY + weight_difInArea;
+	int eyedist = 0;
+	int eyeheight = 0;
+	int eye_cenx = 0;
+	int eyes_disx = 0;
+	int eyes_disy = 0;
+	int leye_area = 0;
+	int reye_area = 0;
+	float eyes_difInY = 0.0f;
+	float eyes_difInArea = 0.0f;
+
+	int l_id = 0;
+	int r_id = 0;
+	for( l_id = 0; l_id < nleyes; l_id++ )
+	{
+		CvRect* leye = (CvRect*)cvGetSeqElem( leyes, l_id );
+		int leye_cenx = leye->x + leye->width / 2;
+		int leye_ceny = leye->y + leye->height / 2;
+		int area1 = leye->width * leye->height;
+		for( r_id = 0; r_id < nreyes; r_id++ )
+		{
+			CvRect* reye = (CvRect*)cvGetSeqElem( reyes, r_id );
+			int reye_cenx = reye->x + reye->width / 2;
+			int reye_ceny = reye->y + reye->height / 2;
+
+			int disx = abs( reye_cenx - leye_cenx );
+			int disy = abs( reye_ceny - leye_ceny );
+
+			int area2 = reye->width * reye->height;
+
+			float difInY = (float)disy / (float)disx;
+			float difInArea = (float)abs( area1 - area2 ) / (float)max( area1, area2 );
+
+			float fDifRatio = weight_difInY * difInY + weight_difInArea * difInArea;
+
+			if( fDifRatio < fMinDif )
+			{
+				fMinDif = fDifRatio;
+				leye_best = leye;
+				reye_best = reye;
+
+				eyes_disx = disx;
+				eyes_disy = disy;
+				leye_area = area1;
+				reye_area = area2;
+				eyes_difInY = difInY;
+				eyes_difInArea = difInArea;
+				eyedist = disx;
+				eyeheight = ( leye_ceny + reye_ceny ) / 2;
+				eye_cenx = ( leye_cenx + reye_cenx ) / 2;
+			}
+		}
+	}
+
+	if( leye_best && reye_best )
+		return true;
+	else
+		return false;
+}
+
+bool CFaceSelect::CheckImageROI( IplImage* img, CvRect roi )
+{
+	if( roi.x < 0 || roi.y < 0 ) return false;
+
+	int imgWidth = img->width;
+	int imgHeight = img->height;
+
+	if( roi.x + roi.width >= imgWidth 
+		|| roi.y + roi.height >= imgHeight )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void CFaceSelect::FaceReDraw(IplImage *pImage, CvRect *rRealFace)
+{
+	int iQuantizeStep = 2; //直方图量化步长
+	float fChnlRang[2] = {0, 255}; //直方图范围
+	int iDimSize = 256/iQuantizeStep;
+	float *pfChnlRang =  fChnlRang;
+
+	IplImage *pHSVImage = cvCreateImage(cvGetSize(pImage), pImage->depth, pImage->nChannels);
+	IplImage* h_plane = cvCreateImage( cvGetSize(pHSVImage), 8, 1 );
+	IplImage* s_plane = cvCreateImage( cvGetSize(pHSVImage), 8, 1 );
+	IplImage* v_plane = cvCreateImage( cvGetSize(pHSVImage), 8, 1 );
+	IplImage* s_plane_thr = cvCreateImage( cvGetSize(pHSVImage), 8, 1 );
+
+	cvCvtColor(pImage, pHSVImage, CV_BGR2HSV);
+	cvCvtPixToPlane( pHSVImage, h_plane, s_plane, v_plane, 0 );
+
+	CvSize head = cvGetSize(pImage);
+	CvRect roi;
+	//去除脸图两侧可能的背景区域
+	roi.x = (int)(head.width*m_dSglBkgProportion);
+	roi.y = 0;
+	roi.width = (int)(head.width*(1-m_dSglBkgProportion*2));
+	roi.height = head.height;
+
+	/*
+	//debug 显示画框图像
+	cvNamedWindow("Image",1);
+	CvScalar color = {255,0,0,0};
+	cvRectangle(pImage, cvPoint(roi.x, roi.y), cvPoint(roi.x+roi.width, roi.y+roi.height), color, 1, 8, 0);
+	cvShowImage("Image", pImage);
+	cvWaitKey(2000);
+	// */
+
+	//S变量直方图
+	CvHistogram *pHist_s = cvCreateHist(1, &iDimSize, CV_HIST_ARRAY, (float**)(&pfChnlRang), 1);
+	cvSetImageROI(s_plane, roi);
+	cvCalcHist(&s_plane, pHist_s, 0, 0);
+	cvResetImageROI(s_plane);
+
+	///////////////////////////////////////////////////////
+
+	//直方图二值化
+	double dMaxPix = roi.width * roi.height;
+	int iLowBnd =0 ;
+	int iUpBnd = 0;
+	int iSFactor = 0;
+	iSFactor = GetHistRange(pHist_s, iDimSize-1, dMaxPix, iLowBnd, iUpBnd, m_dFaceProportion);
+	int iSRange = iUpBnd - iLowBnd;
+	iLowBnd = iLowBnd*iQuantizeStep;
+	iUpBnd = (iUpBnd+1)*iQuantizeStep-1;
+	cvThreshold(s_plane, s_plane_thr, iUpBnd, 255, CV_THRESH_TOZERO_INV);
+	cvThreshold(s_plane_thr, s_plane, iLowBnd, 255, CV_THRESH_BINARY_INV);
+
+	//画直方图
+	//DrawHistImage(pHist_s, iDimSize-1, dMaxPix);
+	cvReleaseHist(&pHist_s);
+
+	//降噪
+	DeNoise(s_plane, 2, 2, 0, 0);
+	IplImage* s_plane_not = cvCreateImage( cvGetSize(pHSVImage), 8, 1 );
+	cvNot(s_plane, s_plane_not);
+	DeNoise(s_plane_not, 2, 2, 0, 0);
+	cvNot(s_plane_not, s_plane);
+	cvReleaseImage(&s_plane_not);
+
+	//截取有效脸部区域
+	int iLeft = 0;
+	int iLenth = 0;
+	GetEffectiveFaceWidth(s_plane, m_dEarNoise, 0, iLeft, iLenth);
+	int iFaceOffset = 0;
+#ifdef OBSOLETE_FUNC
+	iFaceOffset = GetEffectiveFaceHeight(s_plane, m_dForeheadNoise, 0, iLenth);
+#endif
+	iFaceOffset = GetEffectiveFaceHeightBKG(s_plane, m_dUpBkgNoise, 0);
+
+	rRealFace->height = s_plane->height - iFaceOffset;
+	rRealFace->width = iLenth;
+	rRealFace->x = iLeft;
+	rRealFace->y = iFaceOffset;
+
+	cvReleaseImage(&pHSVImage);
+	cvReleaseImage(&h_plane);
+	cvReleaseImage(&s_plane);
+	cvReleaseImage(&v_plane);
+	cvReleaseImage(&s_plane_thr);
+}
+
+
+
+
+extern "C" __declspec(dllexport) void ReleaseImageArray( ImageArray &images )
+{
+	int i = 0;
+	for( i = 0; i < images.nImageCount; i++ )
+	{
+		cvReleaseImage( &images.imageArr[i] );
+	}
+	images.nImageCount = 0;
+	delete[] images.imageArr;
+	images.imageArr = 0;
+}
+

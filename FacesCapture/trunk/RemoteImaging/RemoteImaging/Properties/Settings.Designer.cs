@@ -445,6 +445,78 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WarnPicSavePath {
+            get {
+                return ((string)(this["WarnPicSavePath"]));
+            }
+            set {
+                this["WarnPicSavePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WarnInfoHandleMode {
+            get {
+                return ((int)(this["WarnInfoHandleMode"]));
+            }
+            set {
+                this["WarnInfoHandleMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ImpPersonConfigure.xml")]
+        public string ImpPersonConfigure {
+            get {
+                return ((string)(this["ImpPersonConfigure"]));
+            }
+            set {
+                this["ImpPersonConfigure"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\faceRecognition\\selectedFace\\")]
+        public string ImpSelectPersonPath {
+            get {
+                return ((string)(this["ImpSelectPersonPath"]));
+            }
+            set {
+                this["ImpSelectPersonPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FaceStoregePath {
+            get {
+                return ((string)(this["FaceStoregePath"]));
+            }
+            set {
+                this["FaceStoregePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5,0.58|0.58,0.68|0.68,1")]
+        public string SimilarityLevel {
+            get {
+                return ((string)(this["SimilarityLevel"]));
+            }
+            set {
+                this["SimilarityLevel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("300")]
         public string DiskQuota {
             get {
@@ -457,6 +529,18 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\faceRecognition\\faceSample\\")]
+        public string FaceSampleLib {
+            get {
+                return ((string)(this["FaceSampleLib"]));
+            }
+            set {
+                this["FaceSampleLib"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool RecheckFace {
             get {
@@ -464,6 +548,18 @@ namespace RemoteImaging.Properties {
             }
             set {
                 this["RecheckFace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowFaceRecognizeButton {
+            get {
+                return ((bool)(this["ShowFaceRecognizeButton"]));
+            }
+            set {
+                this["ShowFaceRecognizeButton"] = value;
             }
         }
     }
