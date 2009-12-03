@@ -98,6 +98,7 @@
             this.faceRecognize = new System.Windows.Forms.ToolStripButton();
             this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.testButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -637,7 +638,8 @@
             this.toolStripSeparator5,
             this.enhanceImg,
             this.toolStripButton1,
-            this.faceRecognize});
+            this.faceRecognize,
+            this.testButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 64);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Size = new System.Drawing.Size(897, 26);
@@ -742,6 +744,16 @@
             // alertControl1
             // 
             this.alertControl1.ShowPinButton = false;
+            // 
+            // testButton
+            // 
+            this.testButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.testButton.Image = ((System.Drawing.Image)(resources.GetObject("testButton.Image")));
+            this.testButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.testButton.Name = "testButton";
+            this.testButton.Size = new System.Drawing.Size(23, 23);
+            this.testButton.Text = "test";
+            this.testButton.Visible = false;
             // 
             // MainForm
             // 
@@ -857,6 +869,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton faceRecognize;
         private DevExpress.XtraEditors.LabelControl labelControl3;
+        private System.Windows.Forms.ToolStripButton testButton;
 
     }
 }

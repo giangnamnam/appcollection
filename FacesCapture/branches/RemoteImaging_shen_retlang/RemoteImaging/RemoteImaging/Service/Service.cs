@@ -69,7 +69,7 @@ namespace RemoteImaging.Service
 
         public string VideoFilePathRecordedAt(DateTime time, int camID)
         {
-            return FileSystemStorage.VideoFilePathNameAt(time, camID);
+            return FileSystemStorage.VideoFilePathNameIfExists(time, camID);
         }
 
 

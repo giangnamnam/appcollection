@@ -866,8 +866,16 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+#if DEBUG
+            testButton.Visible = true;
+            testButton.Click += new EventHandler(testButton_Click);
+#endif
             CenterLiveControl();
+        }
+
+        void testButton_Click(object sender, EventArgs e)
+        {
+            FileSystemStorage.DeleteMostOutDatedDataForDay(1);
         }
 
         private void tsbFileSet_Click(object sender, EventArgs e)
@@ -927,8 +935,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (space <= diskQuota)
             {
-                string msg = string.Format("\"{0}\" 盘空间仅剩余 {1} MB, 请尽快转存！", drive, space);
-                alertControl1.Show(this, "警告", msg);
+                System.Threading.ThreadPool.QueueUserWorkItem((o) =>
+                    FileSystemStorage.DeleteMostOutDatedDataForDay(1), null
+                    );
             }
         }
 
