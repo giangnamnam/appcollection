@@ -29,9 +29,7 @@ namespace RemoteImaging.RealtimeDisplay
                 this.Text += "-[" + Program.directory + "]";
             }
 
-#if DEBUG
-            diskSpaceCheckTimer.Interval = 1000 * 60;
-#endif
+            diskSpaceCheckTimer.Interval = Properties.Settings.Default.FreeDiskspaceCheckIntervalMs;
 
 
             config.GetLineCameras();
@@ -601,13 +599,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}",
-                this.getCurrentCpuUsage(), this.getAvailableRAM());
+            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}, 剩余磁盘空间：{2} G",
+                this.getCurrentCpuUsage(), this.getAvailableRAM(), 
+                FileSystemStorage.GetFreeDiskSpaceMB(Properties.Settings.Default.OutputPath)/1024);
 
             this.statusCPUMemUsage.Text = statusTxt;
 
             statusTime.Text = DateTime.Now.ToString();
-            this.StepProgress();
+            
         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
