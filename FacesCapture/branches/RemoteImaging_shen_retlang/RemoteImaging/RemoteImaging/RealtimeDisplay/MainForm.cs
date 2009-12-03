@@ -599,10 +599,15 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}, 可用磁盘空间: {2}MB, 磁盘空间阈值：{3}MB",
-                this.getCurrentCpuUsage(), this.getAvailableRAM(), 
-                FileSystemStorage.GetFreeDiskSpaceMB(Properties.Settings.Default.OutputPath), 
-                Properties.Settings.Default.DiskQuota);
+            int FreeDiskLimit = int.Parse(Properties.Settings.Default.DiskQuota);
+
+            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}, 磁盘空间告警阈值: {2} MB, 当前可用磁盘空间: {3}MB, 距自动清理启动剩余: {4}MB",
+                this.getCurrentCpuUsage(),
+            this.getAvailableRAM(),
+            FreeDiskLimit,
+            FileSystemStorage.GetFreeDiskSpaceMB(Properties.Settings.Default.OutputPath), 
+            FileSystemStorage.GetFreeDiskSpaceMB(Properties.Settings.Default.OutputPath) -FreeDiskLimit 
+            );
 
             this.statusCPUMemUsage.Text = statusTxt;
 
