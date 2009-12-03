@@ -259,9 +259,9 @@ namespace RemoteImaging.RealtimeDisplay
             get
             {
                 ImageDetail img = null;
-                if (this.squareListView1.LastSelectedCell != null)
+                if (this.squareListView1.SelectedCell != null)
                 {
-                    Cell c = this.squareListView1.LastSelectedCell;
+                    Cell c = this.squareListView1.SelectedCell;
                     if (!string.IsNullOrEmpty(c.Path))
                     {
                         img = ImageDetail.FromPath(c.Path);
