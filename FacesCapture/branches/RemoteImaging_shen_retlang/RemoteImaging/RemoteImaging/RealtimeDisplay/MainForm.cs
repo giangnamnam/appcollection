@@ -960,18 +960,25 @@ namespace RemoteImaging.RealtimeDisplay
             StartCamera(cam);
         }
 
+        bool isDeleting = false;
+
         private void diskSpaceCheckTimer_Tick(object sender, EventArgs e)
         {
             string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
 
             var space = FileSystemStorage.GetFreeDiskSpaceBytes(drive);
 
-            int diskQuota = int.Parse(Properties.Settings.Default.DiskQuota);
+            long diskQuota = long.Parse(Properties.Settings.Default.DiskQuota) * (1024*1024);
 
-            if (space <= diskQuota)
+            if (space <= diskQuota && !isDeleting)
             {
+                isDeleting = true;
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
-                    FileSystemStorage.DeleteMostOutDatedDataForDay(1), null
+                    {
+                        FileSystemStorage.DeleteMostOutDatedDataForDay(1);
+                        isDeleting = false;
+                    },
+                    null
                     );
             }
         }
