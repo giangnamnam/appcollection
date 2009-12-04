@@ -38,10 +38,6 @@ namespace RemoteImaging
             this.textBox4.Text = Properties.Settings.Default.CurIp;
             this.cbImageArr.Text = Properties.Settings.Default.ImageArr.ToString();
             this.cbThresholding.Text = Properties.Settings.Default.Thresholding.ToString();
-            SaveDay = Properties.Settings.Default.SaveDay;
-            SetControl();
-            SaveDay = Properties.Settings.Default.SaveDay;
-            SetControl();
         }
 
         private void InitCamDatagridView()
@@ -161,8 +157,6 @@ namespace RemoteImaging
             Properties.Settings.Default.BrightMode = this.rgBrightMode.SelectedIndex;
             Properties.Settings.Default.CurIp = this.textBox4.Text;
             Properties.Settings.Default.ComName = this.cmbComPort.Text;
-            //图片和录像过期时间设置，磁盘警告设置
-            Properties.Settings.Default.SaveDay = SaveDay;
 
 
             //调用的薛晓莉的接口
@@ -174,31 +168,7 @@ namespace RemoteImaging
         }
 
 
-        private string SaveDay
-        {
-            get
-            {
-                string value = textBox2.Text.Trim();
-                if (ckbImageAndVideo.Checked)
-                    return ((value != "") ? textBox2.Text.Trim() : "3") + "true";
-                else
-                    return ragSaveDay.SelectedIndex.ToString() + "false";
-            }
-            set
-            {
-                string temp = value;
-                if (temp.EndsWith("true"))
-                {
-                    ckbImageAndVideo.Checked = true;
-                    textBox2.Text = temp.Substring(0, temp.Length - 4);
-                }
-                else
-                {
-                    ckbImageAndVideo.Checked = false;
-                    ragSaveDay.SelectedIndex = Convert.ToInt32(temp.Substring(0, temp.Length - 5));
-                }
-            }
-        }
+        
 
 
         private void OptionsForm_Load(object sender, EventArgs e)
@@ -206,21 +176,7 @@ namespace RemoteImaging
 
         }
 
-        //设置控件 
-        private void SetControl()
-        {
-            if (ckbImageAndVideo.Checked)
-            {
-                textBox2.Enabled = true;
-                ragSaveDay.Enabled = false;
-            }
-            else
-            {
-                textBox2.Enabled = false;
-                ragSaveDay.Enabled = true;
-            }
-
-        }
+        
 
 
         #region 弹出窗口的操作
@@ -235,7 +191,6 @@ namespace RemoteImaging
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            string text = textBox2.Text.Trim();
         }
 
         private void cmbComPort_SelectedIndexChanged(object sender, EventArgs e)
@@ -243,15 +198,6 @@ namespace RemoteImaging
             Properties.Settings.Default.ComName = cmbComPort.Text;
         }
 
-        private void ckbImageAndVideo_CheckedChanged(object sender, EventArgs e)
-        {
-            SetControl();
-        }
-
-        private void ckbDiskSet_CheckedChanged(object sender, EventArgs e)
-        {
-            SetControl();
-        }
 
      
 

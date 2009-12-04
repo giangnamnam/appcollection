@@ -29,23 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.browseForOutputFolder = new System.Windows.Forms.Button();
             this.textBoxOutputFolder = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.browseForUploadFolder = new System.Windows.Forms.Button();
-            this.textBoxUploadFolder = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.linkLabelConfigCamera = new System.Windows.Forms.LinkLabel();
             this.dataGridCameras = new System.Windows.Forms.DataGridView();
@@ -89,15 +84,6 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.gBoxImgFileSet = new System.Windows.Forms.GroupBox();
-            this.ckbInvocFile = new System.Windows.Forms.CheckBox();
-            this.ragSaveDay = new DevExpress.XtraEditors.RadioGroup();
-            this.label39 = new System.Windows.Forms.Label();
-            this.ckbImageAndVideo = new System.Windows.Forms.CheckBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -127,14 +113,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).BeginInit();
             this.tabPage5.SuspendLayout();
-            this.gBoxImgFileSet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ragSaveDay.Properties)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).BeginInit();
             this.SuspendLayout();
@@ -195,14 +178,9 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.pictureBox2);
-            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.browseForOutputFolder);
             this.tabPage1.Controls.Add(this.textBoxOutputFolder);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.browseForUploadFolder);
-            this.tabPage1.Controls.Add(this.textBoxUploadFolder);
-            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Location = new System.Drawing.Point(4, 21);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -211,30 +189,9 @@
             this.tabPage1.Text = "目录";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(37, 228);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label5.Location = new System.Drawing.Point(66, 227);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(380, 17);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "注意: 图片输出目录和摄像头上传目录不要选择同一个目录。";
-            // 
             // browseForOutputFolder
             // 
-            this.browseForOutputFolder.Location = new System.Drawing.Point(381, 121);
+            this.browseForOutputFolder.Location = new System.Drawing.Point(379, 68);
             this.browseForOutputFolder.Name = "browseForOutputFolder";
             this.browseForOutputFolder.Size = new System.Drawing.Size(75, 21);
             this.browseForOutputFolder.TabIndex = 5;
@@ -245,7 +202,7 @@
             // textBoxOutputFolder
             // 
             this.textBoxOutputFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "OutputPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxOutputFolder.Location = new System.Drawing.Point(37, 123);
+            this.textBoxOutputFolder.Location = new System.Drawing.Point(35, 68);
             this.textBoxOutputFolder.Name = "textBoxOutputFolder";
             this.textBoxOutputFolder.Size = new System.Drawing.Size(328, 21);
             this.textBoxOutputFolder.TabIndex = 4;
@@ -254,39 +211,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 108);
+            this.label4.Location = new System.Drawing.Point(35, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 12);
             this.label4.TabIndex = 3;
             this.label4.Text = "图片输出目录:";
-            // 
-            // browseForUploadFolder
-            // 
-            this.browseForUploadFolder.Location = new System.Drawing.Point(381, 58);
-            this.browseForUploadFolder.Name = "browseForUploadFolder";
-            this.browseForUploadFolder.Size = new System.Drawing.Size(75, 21);
-            this.browseForUploadFolder.TabIndex = 2;
-            this.browseForUploadFolder.Text = "浏览";
-            this.browseForUploadFolder.UseVisualStyleBackColor = true;
-            this.browseForUploadFolder.Click += new System.EventHandler(this.browseForUploadFolder_Click);
-            // 
-            // textBoxUploadFolder
-            // 
-            this.textBoxUploadFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::RemoteImaging.Properties.Settings.Default, "ImageUploadPool", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxUploadFolder.Location = new System.Drawing.Point(37, 60);
-            this.textBoxUploadFolder.Name = "textBoxUploadFolder";
-            this.textBoxUploadFolder.Size = new System.Drawing.Size(328, 21);
-            this.textBoxUploadFolder.TabIndex = 1;
-            this.textBoxUploadFolder.Text = global::RemoteImaging.Properties.Settings.Default.ImageUploadPool;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 45);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "摄像头图片上传目录:";
             // 
             // tabPage2
             // 
@@ -313,37 +242,37 @@
             // 
             // dataGridCameras
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridCameras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCameras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridCameras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridCameras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.ID,
             this.IP});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridCameras.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridCameras.Location = new System.Drawing.Point(16, 30);
             this.dataGridCameras.Name = "dataGridCameras";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCameras.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridCameras.RowTemplate.Height = 23;
             this.dataGridCameras.Size = new System.Drawing.Size(449, 228);
             this.dataGridCameras.TabIndex = 0;
@@ -712,7 +641,6 @@
             this.tabPage5.Controls.Add(this.label34);
             this.tabPage5.Controls.Add(this.label35);
             this.tabPage5.Controls.Add(this.label33);
-            this.tabPage5.Controls.Add(this.gBoxImgFileSet);
             this.tabPage5.Location = new System.Drawing.Point(4, 21);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(486, 314);
@@ -729,7 +657,7 @@
             "300",
             "500",
             "1000"});
-            this.DiskQuota.Location = new System.Drawing.Point(140, 203);
+            this.DiskQuota.Location = new System.Drawing.Point(139, 59);
             this.DiskQuota.Name = "DiskQuota";
             this.DiskQuota.Size = new System.Drawing.Size(68, 20);
             this.DiskQuota.TabIndex = 35;
@@ -738,16 +666,16 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(15, 174);
+            this.label40.Location = new System.Drawing.Point(14, 30);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(101, 12);
+            this.label40.Size = new System.Drawing.Size(53, 12);
             this.label40.TabIndex = 34;
-            this.label40.Text = "磁盘存储空间预警";
+            this.label40.Text = "自动清理";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(44, 206);
+            this.label34.Location = new System.Drawing.Point(43, 62);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(89, 12);
             this.label34.TabIndex = 31;
@@ -756,119 +684,19 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(214, 206);
+            this.label35.Location = new System.Drawing.Point(213, 62);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(77, 12);
+            this.label35.Size = new System.Drawing.Size(137, 12);
             this.label35.TabIndex = 32;
-            this.label35.Text = "MB  时，提示";
+            this.label35.Text = "MB时，自动删除过期数据";
             // 
             // label33
             // 
             this.label33.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label33.Location = new System.Drawing.Point(38, 180);
+            this.label33.Location = new System.Drawing.Point(37, 36);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(410, 2);
             this.label33.TabIndex = 30;
-            // 
-            // gBoxImgFileSet
-            // 
-            this.gBoxImgFileSet.Controls.Add(this.ckbInvocFile);
-            this.gBoxImgFileSet.Controls.Add(this.ragSaveDay);
-            this.gBoxImgFileSet.Controls.Add(this.label39);
-            this.gBoxImgFileSet.Controls.Add(this.ckbImageAndVideo);
-            this.gBoxImgFileSet.Controls.Add(this.label36);
-            this.gBoxImgFileSet.Controls.Add(this.textBox2);
-            this.gBoxImgFileSet.Controls.Add(this.label37);
-            this.gBoxImgFileSet.Controls.Add(this.label38);
-            this.gBoxImgFileSet.Location = new System.Drawing.Point(10, 23);
-            this.gBoxImgFileSet.Name = "gBoxImgFileSet";
-            this.gBoxImgFileSet.Size = new System.Drawing.Size(469, 114);
-            this.gBoxImgFileSet.TabIndex = 22;
-            this.gBoxImgFileSet.TabStop = false;
-            this.gBoxImgFileSet.Text = "图片保存期限设置";
-            // 
-            // ckbInvocFile
-            // 
-            this.ckbInvocFile.AutoSize = true;
-            this.ckbInvocFile.Location = new System.Drawing.Point(391, 66);
-            this.ckbInvocFile.Name = "ckbInvocFile";
-            this.ckbInvocFile.Size = new System.Drawing.Size(48, 16);
-            this.ckbInvocFile.TabIndex = 31;
-            this.ckbInvocFile.Text = "启用";
-            this.ckbInvocFile.UseVisualStyleBackColor = true;
-            // 
-            // ragSaveDay
-            // 
-            this.ragSaveDay.EditValue = 1;
-            this.ragSaveDay.Location = new System.Drawing.Point(106, 20);
-            this.ragSaveDay.Name = "ragSaveDay";
-            this.ragSaveDay.Properties.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.ragSaveDay.Properties.Appearance.Options.UseBackColor = true;
-            this.ragSaveDay.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.ragSaveDay.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(1, "1天"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(2, "2天"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(3, "3天")});
-            this.ragSaveDay.Size = new System.Drawing.Size(229, 31);
-            this.ragSaveDay.TabIndex = 26;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.ForeColor = System.Drawing.Color.Red;
-            this.label39.Location = new System.Drawing.Point(189, 68);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(65, 12);
-            this.label39.TabIndex = 23;
-            this.label39.Text = "请输入数字";
-            // 
-            // ckbImageAndVideo
-            // 
-            this.ckbImageAndVideo.AutoSize = true;
-            this.ckbImageAndVideo.Location = new System.Drawing.Point(12, 65);
-            this.ckbImageAndVideo.Name = "ckbImageAndVideo";
-            this.ckbImageAndVideo.Size = new System.Drawing.Size(84, 16);
-            this.ckbImageAndVideo.TabIndex = 24;
-            this.ckbImageAndVideo.Text = "自定义设置";
-            this.ckbImageAndVideo.UseVisualStyleBackColor = true;
-            this.ckbImageAndVideo.CheckedChanged += new System.EventHandler(this.ckbImageAndVideo_CheckedChanged);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(157, 68);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(17, 12);
-            this.label36.TabIndex = 21;
-            this.label36.Text = "天";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(106, 63);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(51, 21);
-            this.textBox2.TabIndex = 25;
-            this.textBox2.Text = "3";
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.ForeColor = System.Drawing.Color.Red;
-            this.label37.Location = new System.Drawing.Point(127, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(257, 12);
-            this.label37.TabIndex = 19;
-            this.label37.Text = "系统会根据设置的时间来删除存放过期的的相片";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(10, 30);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(77, 12);
-            this.label38.TabIndex = 18;
-            this.label38.Text = "照片存放时间";
             // 
             // tabPage4
             // 
@@ -1117,7 +945,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCameras)).EndInit();
@@ -1126,9 +953,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.envModes.Properties)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.gBoxImgFileSet.ResumeLayout(false);
-            this.gBoxImgFileSet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ragSaveDay.Properties)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgBrightMode.Properties)).EndInit();
@@ -1147,14 +971,9 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button browseForOutputFolder;
         private System.Windows.Forms.TextBox textBoxOutputFolder;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button browseForUploadFolder;
-        private System.Windows.Forms.TextBox textBoxUploadFolder;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.DataGridView dataGridCameras;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
@@ -1193,13 +1012,6 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.GroupBox gBoxImgFileSet;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.CheckBox ckbImageAndVideo;
-        private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label25;
@@ -1220,8 +1032,6 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.ComboBox cbImageArr;
         private System.Windows.Forms.ComboBox cbThresholding;
-        private DevExpress.XtraEditors.RadioGroup ragSaveDay;
-        private System.Windows.Forms.CheckBox ckbInvocFile;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
