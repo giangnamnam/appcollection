@@ -615,7 +615,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
             else
             {
-                return string.Format(name + ": {0}GB", (int)  gb);
+                return string.Format(name + ": {0:F1}GB",   gb);
             }
         }
 
