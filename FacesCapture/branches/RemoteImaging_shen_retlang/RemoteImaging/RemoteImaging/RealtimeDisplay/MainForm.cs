@@ -18,6 +18,7 @@ namespace RemoteImaging.RealtimeDisplay
 {
     public partial class MainForm : Form, IImageScreen
     {
+        private const int GB = 1024 * 1024 * 1024;
         Configuration config = new Configuration();
         System.Windows.Forms.Timer time = null;
         public MainForm()
@@ -597,22 +598,48 @@ namespace RemoteImaging.RealtimeDisplay
             about.Dispose();
         }
 
+        long lastFreeSpaceBytes;
+
+        private static long FreeDiskSpaceBytes()
+        {
+            return FileSystemStorage.GetFreeDiskSpaceBytes(Properties.Settings.Default.OutputPath);
+        }
+
+        private static string FormatBytesString(string name, long bytes)
+        {
+            float gb = (float)bytes / GB;
+
+            if (gb < 1)
+            {
+                return string.Format(name + ": {0}MB", (int)(gb * 1024));
+            }
+            else
+            {
+                return string.Format(name + ": {0}GB", (int)  gb);
+            }
+        }
+
+  
+
         private void realTimer_Tick(object sender, EventArgs e)
         {
-            int FreeDiskLimit = int.Parse(Properties.Settings.Default.DiskQuota);
+            var reservedDiskSpaceBytes = (long)int.Parse(Properties.Settings.Default.DiskQuota) * (1024 * 1024);
+            var totalFreeDiskSpaceBytes = FreeDiskSpaceBytes();
 
-            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}, 磁盘空间告警阈值: {2} MB, 当前可用磁盘空间: {3}MB, 距自动清理启动剩余: {4}MB",
+            var availableBytes = totalFreeDiskSpaceBytes - reservedDiskSpaceBytes;
+
+            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}, {2}, {3}, {4}",
                 this.getCurrentCpuUsage(),
             this.getAvailableRAM(),
-            FreeDiskLimit,
-            FileSystemStorage.GetFreeDiskSpaceMB(Properties.Settings.Default.OutputPath), 
-            FileSystemStorage.GetFreeDiskSpaceMB(Properties.Settings.Default.OutputPath) -FreeDiskLimit 
+            FormatBytesString("空闲", totalFreeDiskSpaceBytes),
+            FormatBytesString("保留", reservedDiskSpaceBytes),
+            FormatBytesString("可用", availableBytes)
             );
 
             this.statusCPUMemUsage.Text = statusTxt;
 
             statusTime.Text = DateTime.Now.ToString();
-            
+
         }
 
         private void statusOutputFolder_Click(object sender, EventArgs e)
@@ -875,6 +902,9 @@ namespace RemoteImaging.RealtimeDisplay
             testButton.Visible = true;
             testButton.Click += new EventHandler(testButton_Click);
 #endif
+
+            lastFreeSpaceBytes = FreeDiskSpaceBytes();
+
             CenterLiveControl();
         }
 
@@ -934,7 +964,7 @@ namespace RemoteImaging.RealtimeDisplay
         {
             string drive = System.IO.Path.GetPathRoot(Properties.Settings.Default.OutputPath);
 
-            int space = FileSystemStorage.GetFreeDiskSpaceMB(drive);
+            var space = FileSystemStorage.GetFreeDiskSpaceBytes(drive);
 
             int diskQuota = int.Parse(Properties.Settings.Default.DiskQuota);
 

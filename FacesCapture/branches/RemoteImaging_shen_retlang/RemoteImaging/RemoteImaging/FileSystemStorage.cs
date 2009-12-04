@@ -23,13 +23,12 @@ namespace RemoteImaging
         }
 
 
-        public static int GetFreeDiskSpaceMB(string drive)
+        public static long GetFreeDiskSpaceBytes(string drive)
         {
             DriveInfo driveInfo = new DriveInfo(drive);
             long FreeSpace = driveInfo.AvailableFreeSpace;
 
-            FreeSpace /= 1024 * 1024;
-            return (int)FreeSpace;
+            return FreeSpace;
         }
 
         public static bool DriveRemoveable(string drive)
