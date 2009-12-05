@@ -109,7 +109,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo on&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetFileName)&quot;     &quot;$(SolutionDir)..\OutPut\$(TargetFileName)&quot;&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration

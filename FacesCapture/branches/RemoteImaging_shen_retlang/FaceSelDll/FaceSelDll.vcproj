@@ -166,7 +166,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo on&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetFileName)&quot;     &quot;$(SolutionDir)..\OutPut\$(TargetFileName)&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).lib&quot;      &quot;$(SolutionDir)..\OutPut\$(TargetName).lib&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)FaceSelect.h&quot;            &quot;$(SolutionDir)..\OutPut\FaceSelect.h&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)frame.h&quot;           &quot;$(SolutionDir)..\OutPut\frame.h&quot;&#x0D;&#x0A;"
+				CommandLine="&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
