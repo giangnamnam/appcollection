@@ -599,7 +599,7 @@
             // realTimer
             // 
             this.realTimer.Enabled = true;
-            this.realTimer.Interval = 3000;
+            this.realTimer.Interval = 1000;
             this.realTimer.Tick += new System.EventHandler(this.realTimer_Tick);
             // 
             // toolStripSeparator2

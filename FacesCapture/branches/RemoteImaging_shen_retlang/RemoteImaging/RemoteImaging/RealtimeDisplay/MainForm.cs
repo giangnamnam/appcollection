@@ -975,8 +975,19 @@ namespace RemoteImaging.RealtimeDisplay
                 isDeleting = true;
                 System.Threading.ThreadPool.QueueUserWorkItem((o) =>
                     {
-                        FileSystemStorage.DeleteMostOutDatedDataForDay(1);
-                        isDeleting = false;
+                        try
+                        {
+                            FileSystemStorage.DeleteMostOutDatedDataForDay(1);
+                        }
+                        catch (System.IO.IOException)
+                        {
+                        	
+                        }
+                        finally
+                        {
+                            isDeleting = false;
+                        }
+                        
                     },
                     null
                     );
