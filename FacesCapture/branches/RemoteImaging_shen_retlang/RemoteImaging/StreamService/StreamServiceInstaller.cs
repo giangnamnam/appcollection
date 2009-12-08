@@ -25,7 +25,6 @@ namespace StreamService
             serviceInstaller.ServiceName = "StreamService";
             serviceInstaller.StartType = ServiceStartMode.Automatic;
             
-
             Installers.Add(processInstaller);
             Installers.Add(serviceInstaller);
         }
