@@ -14,6 +14,7 @@ namespace Damany.Windows.Form
         public int Row { get; set; }
         public int Column { get; set; }
         public int Index { get; set; }
+        public bool HightLight { get; set; }
 
 
         public static Cell Empty
@@ -107,6 +108,11 @@ namespace Damany.Windows.Form
 
         public void Paint(Graphics g, Font font)
         {
+            if (this.HightLight)
+            {
+                g.FillRectangle(Brushes.LightBlue, this.Rec);
+            }
+
             if (this.Selected)
             {
                 g.FillRectangle(Brushes.DarkBlue, this.Rec);

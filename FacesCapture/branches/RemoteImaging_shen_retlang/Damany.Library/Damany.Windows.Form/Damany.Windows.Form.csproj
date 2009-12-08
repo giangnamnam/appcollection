@@ -75,4 +75,9 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)"     "$(SolutionDir)OutPut\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

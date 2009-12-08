@@ -106,6 +106,15 @@ namespace Damany.Windows.Form
 
 
 
+        private void ClearPrevCell()
+        {
+            int prevIdx = this.cursor == 0 ? this.CellsCount - 1 : this.cursor - 1;
+
+            Cell c = this.cells[prevIdx];
+            c.HightLight = false;
+            this.Invalidate(Rectangle.Round(c.Rec));
+        }
+
         void refreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             try
@@ -118,6 +127,7 @@ namespace Damany.Windows.Form
 
                 RepositionCursor();
 
+                ClearPrevCell();
                 Cell dstCell = this.cells[cursor];
                 ImageCell imgToShow = this.imgQueue.Dequeue();
 
@@ -130,6 +140,7 @@ namespace Damany.Windows.Form
                 dstCell.Text = imgToShow.Text;
                 dstCell.Path = imgToShow.Path;
                 dstCell.Tag = imgToShow.Tag;
+                dstCell.HightLight = true;
 
                 this.Invalidate(Rectangle.Round(dstCell.Rec));
                 cursor++;
