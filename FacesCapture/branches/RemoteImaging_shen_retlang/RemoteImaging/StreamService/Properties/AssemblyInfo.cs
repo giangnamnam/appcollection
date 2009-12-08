@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StreamServer")]
+[assembly: AssemblyTitle("StreamService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("China")]
-[assembly: AssemblyProduct("StreamServer")]
+[assembly: AssemblyProduct("StreamService")]
 [assembly: AssemblyCopyright("Copyright © China 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0ba72f52-6dee-4267-a2f1-22b28ab34846")]
+[assembly: Guid("50a16717-00a1-43b7-b7ca-2584a13f292f")]
 
 // Version information for an assembly consists of the following four values:
 //
