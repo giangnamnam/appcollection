@@ -210,16 +210,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void QueryRawFrame()
         {
+            if (this.cpuOverLoaded()) return;
+
             byte[] image = null;
-
-            if (!this.cpuOverLoaded())
+            lock (this.camLocker)
             {
-                lock (this.camLocker)
-                {
-                    image = camera.CaptureImageBytes();
-                }
-
+                image = camera.CaptureImageBytes();
             }
+
 
             MemoryStream memStream = new MemoryStream(image);
             Bitmap bmp = null;
