@@ -119,7 +119,7 @@ namespace RemoteImaging.RealtimeDisplay
                 BackGround = OpenCvSharp.IplImage.FromFile(@"bg.jpg");
         }
 
-    
+
 
 
         void videoFileCheckTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -192,17 +192,34 @@ namespace RemoteImaging.RealtimeDisplay
 
 
         public event EventHandler<ImageCapturedEventArgs> ImageCaptured;
+        int historyFramesQueueLength = 0;
 
+
+        private bool cpuOverLoaded()
+        {
+            lock (this.rawFrameLocker)
+            {
+                bool result = this.rawFrames.Count > historyFramesQueueLength
+                        && this.rawFrames.Count >= Properties.Settings.Default.MaxFrameQueueLength;
+                historyFramesQueueLength = this.rawFrames.Count;
+
+                return result;
+            }
+
+        }
 
         private void QueryRawFrame()
         {
-            byte[] image;
+            byte[] image = null;
 
-            lock (this.camLocker)
+            if (!this.cpuOverLoaded())
             {
-                image = camera.CaptureImageBytes();
-            }
+                lock (this.camLocker)
+                {
+                    image = camera.CaptureImageBytes();
+                }
 
+            }
 
             MemoryStream memStream = new MemoryStream(image);
             Bitmap bmp = null;
@@ -489,7 +506,7 @@ namespace RemoteImaging.RealtimeDisplay
                             int idx = fileName.IndexOf('_');
                             fileName = fileName.Remove(idx, 5);
 
-                            if (string.Compare(fileName, p.FileName, true)==0)
+                            if (string.Compare(fileName, p.FileName, true) == 0)
                             {
                                 details.Add(new ImportantPersonDetail(p, result));
                             }

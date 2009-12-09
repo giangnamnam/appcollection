@@ -586,5 +586,17 @@ namespace RemoteImaging.Properties {
                 this["FreeDiskspaceCheckIntervalMs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int MaxFrameQueueLength {
+            get {
+                return ((int)(this["MaxFrameQueueLength"]));
+            }
+            set {
+                this["MaxFrameQueueLength"] = value;
+            }
+        }
     }
 }

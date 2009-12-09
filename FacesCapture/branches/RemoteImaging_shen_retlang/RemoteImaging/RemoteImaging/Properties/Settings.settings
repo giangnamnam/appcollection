@@ -143,5 +143,8 @@
     <Setting Name="FreeDiskspaceCheckIntervalMs" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60000</Value>
     </Setting>
+    <Setting Name="MaxFrameQueueLength" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
