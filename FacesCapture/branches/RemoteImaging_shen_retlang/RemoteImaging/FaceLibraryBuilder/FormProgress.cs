@@ -16,14 +16,10 @@ namespace FaceLibraryBuilder
             InitializeComponent();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.progressBar1.Value = (this.progressBar1.Value+1) % this.progressBar1.Maximum;
-        }
+       
 
         private void FormProgress_Load(object sender, EventArgs e)
         {
-            shouldCancel = true;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += this.UpdateFaceSample;
@@ -36,8 +32,6 @@ namespace FaceLibraryBuilder
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.timer1.Dispose();
-            shouldCancel = false;
             Cursor.Current = Cursors.Default;
 
             this.Close();
@@ -52,7 +46,6 @@ namespace FaceLibraryBuilder
             
         }
 
-        bool shouldCancel;
 
         private int GetFaceSamplesCount()
         {
@@ -67,9 +60,5 @@ namespace FaceLibraryBuilder
             FaceRecognition.FaceRecognizer.FaceTraining(100, 100, 40);
         }
 
-        private void FormProgress_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = shouldCancel;
-        }
     }
 }
