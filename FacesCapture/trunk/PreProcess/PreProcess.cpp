@@ -328,8 +328,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 		//	return false;
 		//}
 		
-
-		if((maxRightX-minLeftX) < (width/3))//如果检测到框为单人大小
+		if((maxRightX-minLeftX) < (2*width/3))//如果检测到框为单人大小
 		{
 			signelCount++; 
 			cvReleaseImage(&grayImg);
