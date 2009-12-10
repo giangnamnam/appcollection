@@ -60,4 +60,9 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
