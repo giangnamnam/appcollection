@@ -15,6 +15,7 @@ namespace RemoteImaging
             InitializeComponent();
             this.Text = String.Format("关于 {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
+            this.labelVersion.Text = String.Format("版本 {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
         }
