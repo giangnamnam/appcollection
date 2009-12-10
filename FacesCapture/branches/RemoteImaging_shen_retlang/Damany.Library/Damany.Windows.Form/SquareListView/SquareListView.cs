@@ -112,7 +112,7 @@ namespace Damany.Windows.Form
 
             Cell c = this.cells[prevIdx];
             c.HightLight = false;
-            this.Invalidate(Rectangle.Round(c.Rec));
+            this.Invalidate(c.Bound);
         }
 
         void refreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -142,7 +142,7 @@ namespace Damany.Windows.Form
                 dstCell.Tag = imgToShow.Tag;
                 dstCell.HightLight = true;
 
-                this.Invalidate(Rectangle.Round(dstCell.Rec));
+                this.Invalidate(dstCell.Bound);
                 cursor++;
             }
             catch (InvalidOperationException ex)// the queue is empty
@@ -173,7 +173,6 @@ namespace Damany.Windows.Form
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             e.Graphics.Clear(this.BackColor);
-            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
         }
 
 
@@ -187,6 +186,7 @@ namespace Damany.Windows.Form
                 for (int j = 0; j < this.numOfColumns; j++)
                 {
                     int idx = j + i * this.numOfColumns;
+                    this.cells[idx].Bound = new Rectangle(j * width, i * height, width, height);
                     this.cells[idx].Rec = new Rectangle(j * width + this.Padding.Left,
                         i * height + this.Padding.Top,
                         width - this.Padding.Horizontal,
@@ -209,11 +209,13 @@ namespace Damany.Windows.Form
             for (int i = 0; i < this.CellsCount; i++)
             {
                 Cell c = this.cells[i];
-                if (e.ClipRectangle.IntersectsWith(Rectangle.Round(c.Rec)))
+                if (e.ClipRectangle.IntersectsWith(c.Bound))
                 {
                     c.Paint(e.Graphics, this.Font);
                 }
             }
+
+            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle, Color.Gray, ButtonBorderStyle.Solid);
 
         }
 
@@ -221,7 +223,7 @@ namespace Damany.Windows.Form
         {
             foreach (Cell c in this.cells)
             {
-                if (c.Rec.Contains(pt))
+                if (c.Bound.Contains(pt))
                 {
                     return c;
                 }
@@ -233,10 +235,10 @@ namespace Damany.Windows.Form
         private void PaintSelectedCell(Cell c)
         {
             LastSelectedCell.Selected = false;
-            this.Invalidate(Rectangle.Round(LastSelectedCell.Rec));
+            this.Invalidate(LastSelectedCell.Bound);
 
             c.Selected = true;
-            this.Invalidate(Rectangle.Round(c.Rec));
+            this.Invalidate(c.Bound);
         }
 
 
