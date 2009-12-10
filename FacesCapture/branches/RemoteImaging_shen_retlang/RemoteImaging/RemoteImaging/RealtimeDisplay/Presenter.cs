@@ -27,11 +27,11 @@ namespace RemoteImaging.RealtimeDisplay
         System.Timers.Timer timer = new System.Timers.Timer();
         System.Timers.Timer videoFileCheckTimer = new System.Timers.Timer();
 
-        Queue<Frame[]> framesQueue = new Queue<Frame[]>();
+        Queue<Frame[]> framesArrayQueue = new Queue<Frame[]>();
         Queue<Frame> motionFrames = new Queue<Frame>();
         Queue<Frame> rawFrames = new Queue<Frame>();
 
-        object locker = new object();
+        object framesArrayQueueLocker = new object();
         object rawFrameLocker = new object();
         object bgLocker = new object();
         object camLocker = new object();
@@ -179,10 +179,10 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
 
-            if (framesQueue.Count > 0)
+            if (framesArrayQueue.Count > 0)
             {
                 screen.ShowProgress = true;
-                worker.RunWorkerAsync(framesQueue.Dequeue());
+                worker.RunWorkerAsync(framesArrayQueue.Dequeue());
             }
             else
             {
@@ -197,11 +197,17 @@ namespace RemoteImaging.RealtimeDisplay
 
         private bool cpuOverLoaded()
         {
-            lock (this.rawFrameLocker)
+            lock (this.framesArrayQueueLocker)
             {
-                bool result = this.rawFrames.Count > historyFramesQueueLength
-                        && this.rawFrames.Count >= Properties.Settings.Default.MaxFrameQueueLength;
-                historyFramesQueueLength = this.rawFrames.Count;
+                System.Diagnostics.Debug.WriteLine("history length: " + historyFramesQueueLength.ToString()
+                                   + " length: " + this.framesArrayQueue.Count);
+                
+                bool result = this.framesArrayQueue.Count >= historyFramesQueueLength
+                        && this.framesArrayQueue.Count >= Properties.Settings.Default.MaxFrameQueueLength;
+                historyFramesQueueLength = this.framesArrayQueue.Count;
+
+                System.Diagnostics.Debug.WriteLine("overloaded: " + result.ToString());
+
 
                 return result;
             }
@@ -309,7 +315,7 @@ namespace RemoteImaging.RealtimeDisplay
 
                         if (frames.Length <= 0) continue;
 
-                        lock (locker) framesQueue.Enqueue(frames);
+                        lock (framesArrayQueueLocker) framesArrayQueue.Enqueue(frames);
 
                         goSearch.Set();
 
@@ -342,7 +348,7 @@ namespace RemoteImaging.RealtimeDisplay
                     {
                         Frame[] frames = motionFrames.ToArray();
                         motionFrames.Clear();
-                        lock (locker) framesQueue.Enqueue(frames);
+                        lock (framesArrayQueueLocker) framesArrayQueue.Enqueue(frames);
                         goSearch.Set();
                     }
                 }
@@ -419,12 +425,13 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 try
                 {
+                    
                     Frame[] frames = null;
-                    lock (locker)
+                    lock (framesArrayQueueLocker)
                     {
-                        if (framesQueue.Count > 0)
+                        if (framesArrayQueue.Count > 0)
                         {
-                            frames = framesQueue.Dequeue();
+                            frames = framesArrayQueue.Dequeue();
                         }
                     }
 

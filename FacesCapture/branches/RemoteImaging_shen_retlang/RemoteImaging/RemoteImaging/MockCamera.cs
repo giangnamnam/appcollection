@@ -13,8 +13,10 @@ namespace RemoteImaging
 
         public MockCamera(string path)
         {
-            files = System.IO.Directory.GetFiles(path);
+            files = System.IO.Directory.GetFiles(path, "*.jpg");
             Array.Sort(files);
+
+            this.Repeat = true;
 
         }
 
@@ -30,17 +32,16 @@ namespace RemoteImaging
 
         public byte[] CaptureImageBytes()
         {
-            string file = files[idx++];
 
-            if (Repeat)
-            {
-                if (idx == this.files.Length) idx = 0;
-            }
-
+            string file = files[idx];
 
             System.Diagnostics.Debug.WriteLine(idx);
 
-            return System.IO.File.ReadAllBytes(file);
+            byte[] data = System.IO.File.ReadAllBytes(file);
+
+            idx = (idx + 1) % this.files.Length;
+
+            return data;
         }
 
 

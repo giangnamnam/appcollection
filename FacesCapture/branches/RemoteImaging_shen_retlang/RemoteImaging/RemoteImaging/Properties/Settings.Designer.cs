@@ -589,7 +589,7 @@ namespace RemoteImaging.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
         public int MaxFrameQueueLength {
             get {
                 return ((int)(this["MaxFrameQueueLength"]));
