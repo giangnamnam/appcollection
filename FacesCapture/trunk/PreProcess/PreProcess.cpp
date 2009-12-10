@@ -329,7 +329,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 		//}
 		
 
-		if((minLeftY < 360) && ((maxRightX-minLeftX) < 420))//如果检测到框为单人大小
+		if((maxRightX-minLeftX) < (width/3))//如果检测到框为单人大小
 		{
 			signelCount++; 
 			cvReleaseImage(&grayImg);
@@ -339,7 +339,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 
 			if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
 			{
-				signelCount = 0;
+				signelCount = 0; 
 				return true;
 			}
 			else
