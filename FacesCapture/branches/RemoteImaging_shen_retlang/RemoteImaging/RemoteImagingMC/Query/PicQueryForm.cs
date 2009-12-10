@@ -143,7 +143,7 @@ namespace RemoteImaging.Query
             }
 
             string searchAddress = string.Format("net.tcp://{0}:8000/TcpService", GetSelectedIP());
-            string playerAddress = string.Format("net.tcp://{0}:8001/TcpService", GetSelectedIP());
+            string playerAddress = string.Format("net.tcp://{0}:4567/TcpService", GetSelectedIP());
 
             this.SearchProxy = ServiceProxy.ProxyFactory.CreateProxy<IServiceFacade>(searchAddress);
             this.StreamProxy = ServiceProxy.ProxyFactory.CreateProxy<IStreamPlayer>(playerAddress);

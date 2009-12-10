@@ -25,7 +25,7 @@ namespace StreamService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8001")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4567")]
         public int PortToListen {
             get {
                 return ((int)(this["PortToListen"]));

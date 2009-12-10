@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="PortToListen" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">8001</Value>
+      <Value Profile="(Default)">4567</Value>
     </Setting>
   </Settings>
 </SettingsFile>
