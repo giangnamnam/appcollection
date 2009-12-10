@@ -136,7 +136,7 @@
     <ATTRIBUTE name="UseAutorun" value="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="zh" InstallationType="4" CabsLocation="1" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImagingSetup" UACExecutionLevel="2"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="zh" InstallationType="5" CabsLocation="1" FirstMediaSize="649" FirstMediaSizeUnit="2" MediaSize="650" MediaSizeUnit="2" PackageType="1" ExeIconPath="..\RemoteImaging\MainIcon.ico" CreateMd5="true" ExeName="RemoteImagingSetup" UACExecutionLevel="2"/>
     <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
@@ -214,6 +214,9 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiMediaComponent">
+    <ROW LastSequence="52" DiskPrompt="Disk" Cabinet="Cab" VolumeLabel="Disk" CabinetSize="649" CabinetSizeUnit="2" UseCompressed="0" Compressed="0" InsideCabinet="1" Build="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiServCtrlComponent">
     <ROW ServiceControl="StreamService.exe" Name="StreamingService" Event="161" Wait="1" Component_="StreamService.exe"/>
