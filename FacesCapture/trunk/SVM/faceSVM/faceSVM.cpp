@@ -1,16 +1,22 @@
 // faceSVM.cpp : Defines the exported functions for the DLL application.
-//
+/************************************************************************************************
+Copyritht (c) 成都丹玛尼科技有限公司
+All right reserved!
 
+完成日期：2009年12月12日
+作    者：薛晓利
+当前版本：1.0
+
+摘要：提供SVM算法训练函数和SVM预测函数。其中，SVM训练函数用于得到SVM预测所需的model。
+	  SVM预测函数，用于对待识别的人脸进行预判别，判断是“好人”还是“坏人”。
+************************************************************************************************/
 #include "stdafx.h"
 #include "faceSVM.h"
 
 //该函数用于获得用于SVM训练的图片个数
 int GetSvmSampleCount()
 {
-	CFileFind imageFile;
-	CString fileName;
-	CString imgFileAdd = "C:\\faceRecognition\\SVM\\faceSample\\091028212230000_0000.jpg";  
-
+	CFileFind imageFile; 
 	int sampleCount = 0;//训练样本的图片个数
 
 	bool FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\SVM\\faceSample\\*.jpg"),0); 
@@ -128,7 +134,7 @@ void WriteSvmAvgTxt(CvMat *AvgVector)
 	if (out1.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write path error!!", __FILE__, __LINE__, NULL);
+		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(AverageValue.txt) write error!!", __FILE__, __LINE__, NULL);
 	}
 	for (int i=0; i<AvgVector->rows; i++)
 	{
@@ -143,7 +149,7 @@ void WriteSvmEigenVectorTxt(CvMat *EigenVectorFinal)
 	if (out2.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write path error!!!", __FILE__, __LINE__, NULL);
+		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(EigenVector.txt) write error!!!", __FILE__, __LINE__, NULL);
 	}
 	for (int i=0; i<EigenVectorFinal->height; i++)
 	{
@@ -162,7 +168,7 @@ void WriteSvmSamCoeffTxt(CvMat *resCoeff)
 	if (out3.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write error!!!", __FILE__, __LINE__, NULL);
+		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(SampleCoefficient.txt) write error!!!", __FILE__, __LINE__, NULL);
 	}
 	for (int i=0; i<resCoeff->height; i++)
 	{
@@ -201,7 +207,7 @@ void WriteBallNormResCoeff(CvMat *resCoeff)
 	if (out4.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file write error!!!", __FILE__, __LINE__, NULL);
+		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(BallNorm.txt) write error!!!", __FILE__, __LINE__, NULL);
 	}
 	for (int i=0; i<resCoeff->height; i++)
 	{
@@ -220,7 +226,7 @@ void WriteLabel(int *label, int sampleCount)
 	if (out5.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "file write error!!!", __FILE__, __LINE__, NULL);
+		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(Label.txt) write error!!!", __FILE__, __LINE__, NULL);
 	}
 	for (int i=0; i<sampleCount; i++)
 	{
@@ -235,7 +241,7 @@ void WriteSvmInfo(int imgWidth, int imgHeight, int eigenNum, int sampleCount)
 	if (out6.fail())
 	{
 		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file write error!!!", __FILE__, __LINE__, NULL);
+		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(Info.txt) write error!!!", __FILE__, __LINE__, NULL);
 	}
 	out6<<imgWidth<<endl;
 	out6<<imgHeight<<endl;
@@ -390,7 +396,7 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 	cvReleaseMat(&EigenVector);
 	cvReleaseMat(&resCoeff);
 
-	delete[] label;
+	delete[] label; 
 }
 
 void ReadInfoTxt(int &imgWidth, int &imgHeight, int &eigenNum, int &sampleCount)
@@ -693,14 +699,6 @@ void BallNorm(CvMat *targetResult, float *currBallNorm)
 
 void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, float *currBallNorm)
 {
-	CvMat *avgVector = cvCreateMat(imgLen, 1, CV_32FC1);//平均值向量
-	CvMat *eigenVector = cvCreateMat(imgLen, eigenNum, CV_32FC1);//协方差矩阵的特征向量  
-	CvMat *resCoeff = cvCreateMat(sampleCount, eigenNum, CV_32FC1);//取前eigenNum个最大特征值
-
-	ReadAvgTxt(avgVector);
-	ReadEigVecTxt(eigenVector);
-	ReadResCoeffTxt(resCoeff);
-
 	CvMat *targetMat = cvCreateMat(imgLen, 1, CV_32FC1);
 	CvMat *targetResult = cvCreateMat(1, eigenNum, CV_32FC1);
 
@@ -709,17 +707,38 @@ void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, f
 		cvmSet(targetMat, i, 0, currentFace[i]); 
 	}
 
-	cvSub(targetMat, avgVector, targetMat, NULL);
-	cvGEMM(targetMat, eigenVector, 1, NULL, 0, targetResult, CV_GEMM_A_T);
+	cvSub(targetMat, svmAvgVector, targetMat, NULL);
+	cvGEMM(targetMat, svmEigenVector, 1, NULL, 0, targetResult, CV_GEMM_A_T); 
 
 	BallNorm(targetResult, currBallNorm); 
 
-	cvReleaseMat(&avgVector);
-	cvReleaseMat(&eigenVector);
-	cvReleaseMat(&resCoeff);
-
 	cvReleaseMat(&targetMat);
 	cvReleaseMat(&targetResult);
+}
+
+FACESVM_API void InitSvmData(int sampleCount, int imgLen, int eigenNum)
+{
+	if (svmAvgVector != NULL)
+	{
+		cvReleaseMat(&svmAvgVector);
+	}
+	if (svmEigenVector != NULL)
+	{
+		cvReleaseMat(&svmEigenVector);
+	}
+	if (testModel != NULL)
+	{
+		svm_destroy_model(testModel);
+	}
+
+	svmAvgVector = cvCreateMat(imgLen, 1, CV_32FC1);//平均值向量
+	svmEigenVector = cvCreateMat(imgLen, eigenNum, CV_32FC1);//协方差矩阵的特征向量  
+
+	ReadAvgTxt(svmAvgVector);
+	ReadEigVecTxt(svmEigenVector);
+
+	const char* model_file_name = "C:\\faceRecognition\\SVM\\data\\Model.txt";
+	testModel = svm_load_model(model_file_name);
 }
 
 FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option)
@@ -759,7 +778,6 @@ FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *optio
 //SVM的预测函数
 FACESVM_API double SvmPredict(float *currentFace)
 {
-	const char* model_file_name = "C:\\faceRecognition\\SVM\\data\\Model.txt";
 	int imgWidth = 0;
 	int imgHeight = 0;
 	int eigenNum = 0;
@@ -774,11 +792,6 @@ FACESVM_API double SvmPredict(float *currentFace)
 	PcaProject(currentFace, sampleCount, imgLen, eigenNum, currBallNorm);
 
 	struct svm_node *testX;
-
-	struct svm_model* testModel;
-
-	testModel = svm_load_model(model_file_name);
-
 	testX = new struct svm_node[eigenNum+1];
 	
 	for (int i=0; i<eigenNum; i++)
@@ -788,9 +801,8 @@ FACESVM_API double SvmPredict(float *currentFace)
 	}
 	testX[eigenNum].index = -1;
 
-	double p = svm_predict(testModel, testX);
+	double p = svm_predict(testModel, testX); 
 	
-	svm_destroy_model(testModel);
 	delete[] testX;
 	delete[] currBallNorm;
 
