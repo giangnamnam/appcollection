@@ -5,7 +5,7 @@ All right reserved!
 
 完成日期：2009年12月12日
 作    者：薛晓利
-当前版本：1.0
+当前版本：1.2
 
 摘要：提供SVM算法训练函数和SVM预测函数。其中，SVM训练函数用于得到SVM预测所需的model。
 	  SVM预测函数，用于对待识别的人脸进行预判别，判断是“好人”还是“坏人”。
@@ -22,7 +22,7 @@ int GetSvmSampleCount()
 	bool FileExist = imageFile.FindFile(_T("C:\\faceRecognition\\SVM\\faceSample\\*.jpg"),0); 
 	while (FileExist)
 	{
-		FileExist = imageFile.FindNextFile(); 
+		FileExist = imageFile.FindNextFile();  
 		if (!imageFile.IsDots()) 
 		{
 			sampleCount++;//遍历得到训练样本图片的总数
@@ -716,7 +716,8 @@ void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, f
 	cvReleaseMat(&targetResult);
 }
 
-FACESVM_API void InitSvmData(int sampleCount, int imgLen, int eigenNum)
+//该函数用于加载SVM预测函数所需的相关数据（注：该函数在SVM训练完成后，只调用一次即可）
+FACESVM_API void InitSvmData(int imgLen, int eigenNum)
 {
 	if (svmAvgVector != NULL)
 	{
@@ -741,6 +742,7 @@ FACESVM_API void InitSvmData(int sampleCount, int imgLen, int eigenNum)
 	testModel = svm_load_model(model_file_name);
 }
 
+//该函数用于SVM训练，对SVM的训练样本，按照相应的参数选项进行训练
 FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option)
 {
 	PCAforSVM(imgWidth, imgHeight, eigenNum);
@@ -775,7 +777,7 @@ FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *optio
 	delete[] x_space; 
 }
 
-//SVM的预测函数
+//SVM的预测函数,对加载的每张人脸图片，该函数返回+1表示“坏人”，返回“-1”表示好人
 FACESVM_API double SvmPredict(float *currentFace)
 {
 	int imgWidth = 0;
