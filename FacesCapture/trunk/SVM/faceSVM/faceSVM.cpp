@@ -16,6 +16,8 @@ All right reserved!
 //该函数用于获得用于SVM训练的图片个数
 int GetSvmSampleCount()
 {
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
 	CFileFind imageFile; 
 	int sampleCount = 0;//训练样本的图片个数
 
@@ -286,7 +288,8 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 			fileName = imageFile.GetFileName();
 			int fileNameLen = fileName.GetLength();
 
-			imgFileAdd = "C:\\faceRecognition\\SVM\\faceSample\\" + fileName;
+			imgFileAdd = "C:\\faceRecognition\\SVM\\faceSample\\";
+			imgFileAdd += fileName;
 
 			int strLen = imgFileAdd.GetLength();
 			char *fileAddress = new char[strLen+1];
@@ -717,7 +720,7 @@ void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, f
 }
 
 //该函数用于加载SVM预测函数所需的相关数据（注：该函数在SVM训练完成后，只调用一次即可）
-FACESVM_API void InitSvmData(int imgLen, int eigenNum)
+extern "C" void PASCAL EXPORT InitSvmData(int imgLen, int eigenNum)
 {
 	if (svmAvgVector != NULL)
 	{
@@ -743,7 +746,7 @@ FACESVM_API void InitSvmData(int imgLen, int eigenNum)
 }
 
 //该函数用于SVM训练，对SVM的训练样本，按照相应的参数选项进行训练
-FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option)
+extern "C" void PASCAL EXPORT  SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option)
 {
 	PCAforSVM(imgWidth, imgHeight, eigenNum);
 
@@ -778,7 +781,7 @@ FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *optio
 }
 
 //SVM的预测函数,对加载的每张人脸图片，该函数返回+1表示“坏人”，返回“-1”表示好人
-FACESVM_API double SvmPredict(float *currentFace)
+extern "C" double PASCAL  EXPORT  SvmPredict(float *currentFace)
 {
 	int imgWidth = 0;
 	int imgHeight = 0;

@@ -4,7 +4,7 @@
 #define FACESVM_API __declspec(dllimport)
 #endif
 
-#include "afxwin.h"  
+
 #include "stdafx.h"
 #include "cv.h"
 #include "cxcore.h"
@@ -20,7 +20,7 @@ struct svm_model* testModel; //SVM预测用的结构体
 
 extern "C"
 {
-	FACESVM_API void SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option);//SVM的训练函数，对SVM训练样本，该函数训练SVM所需的model
-	FACESVM_API double SvmPredict(float *currentFace);//SVM的预测函数，对于待识别的每一张人脸，该函数返回“1"表示“坏人”，返回“-1”表示“好人”
-	FACESVM_API void InitSvmData(int imgLen, int eigenNum);//该函数加载SVM预测函数所需的相关数据，在SvmTrain()函数调用之后，该函数只需调用一次即可
+	void PASCAL EXPORT  SvmTrain(int imgWidth, int imgHeight, int eigenNum, char *option);//SVM的训练函数，对SVM训练样本，该函数训练SVM所需的model
+	double PASCAL EXPORT  SvmPredict(float *currentFace);//SVM的预测函数，对于待识别的每一张人脸，该函数返回“1"表示“坏人”，返回“-1”表示“好人”
+	void PASCAL EXPORT  InitSvmData(int imgLen, int eigenNum);//该函数加载SVM预测函数所需的相关数据，在SvmTrain()函数调用之后，该函数只需调用一次即可
 }
