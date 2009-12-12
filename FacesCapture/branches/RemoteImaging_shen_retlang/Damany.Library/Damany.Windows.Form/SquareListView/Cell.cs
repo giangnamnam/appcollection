@@ -147,7 +147,7 @@ namespace Damany.Windows.Form
 
 
                 g.DrawImage(this.Image,
-                    CalculateAutoFitRectangle(Rectangle.Round(recOfImg),
+                    CalculateAutoFitRectangle(recOfImg,
                     new Rectangle(0, 0, this.Image.Width, this.Image.Height)));
 
                 g.DrawRectangle(Pens.Gray, recOfImg);
