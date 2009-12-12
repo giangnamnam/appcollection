@@ -16,6 +16,8 @@ All right reserved!
 //该函数用于获得用于SVM训练的图片个数
 int GetSvmSampleCount()
 {
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
 	CFileFind imageFile; 
 	int sampleCount = 0;//训练样本的图片个数
 
