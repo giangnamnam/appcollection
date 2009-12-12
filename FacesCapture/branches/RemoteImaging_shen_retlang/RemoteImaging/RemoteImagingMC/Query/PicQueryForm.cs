@@ -11,6 +11,7 @@ using RemoteImaging.Core;
 using RemoteControlService;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
+using Damany.RemoteImaging.Net.Discovery;
 
 namespace RemoteImaging.Query
 {
@@ -32,7 +33,7 @@ namespace RemoteImaging.Query
         {
             InitializeComponent();
 
-            this.comboBox1.DataSource = Configuration.Instance.Cameras;
+            this.comboBox1.DataSource = Configuration.Instance.Hosts;
             this.comboBox1.DisplayMember = "Name";
 
             
@@ -133,7 +134,7 @@ namespace RemoteImaging.Query
 
         private void CreateProxy()
         {
-            Camera selected = this.comboBox1.SelectedItem as Camera;
+            HostConfiguration selected = this.comboBox1.SelectedItem as HostConfiguration;
 
             selected = Configuration.Instance[selected.ID];
 

@@ -47,13 +47,6 @@ namespace RemoteImaging
 
         private void InitCamList()
         {
-            Configuration config = Configuration.Instance;
-
-            camList.Clear();
-            foreach (var cam in config.Cameras)
-            {
-                camList.Add(cam);
-            }
         }
         private void browseForUploadFolder_Click(object sender, EventArgs e)
         {

@@ -4,20 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Threading;
+using Damany.RemoteImaging.Net.Discovery;
+using Emcaster.Sockets;
+using Emcaster.Topics;
 
 namespace RemoteImaging
 {
     public class Configuration
     {
+        UdpSource sendSocket;
+        BatchWriter writer;
+        TopicPublisher publisher;
+
         /// <summary>
         /// Initializes a new instance of the Configuration class.
         /// </summary>
-        private Configuration()
+        private Configuration(string brdcstip)
         {
+            this.BroadcastIp = brdcstip;
             
         }
 
-        public void LoadConfig()
+        public string BroadcastIp { get; set; }
+
+        private void SendHostConfigQuery()
+        {
+            PgmSource sendSocket = new PgmSource("224.0.0.23", 7272);
+            sendSocket.Start();
+
+            BatchWriter asyncWriter = new BatchWriter(sendSocket, 1024 * 128);
+
+            TopicPublisher publisher = new TopicPublisher(asyncWriter);
+            publisher.Start();
+
+            int sendTimeout = 1000;
+            publish.PublishObject("Stock-Quotes-AAPL", 123.3, sendTimeout);
+        }
+
+        public void StartDiscovery()
         {
             List<Camera> lineCam = new List<Camera>();
             XDocument camXMLDoc = XDocument.Load(fileName);
@@ -33,7 +57,7 @@ namespace RemoteImaging
                     Name = camElement.Attribute("name").Value
                 });
             }
-            Cameras = lineCam;
+            //Cameras = lineCam;
         }
 
         public void Save()
@@ -41,27 +65,27 @@ namespace RemoteImaging
             XDocument doc = XDocument.Load(fileName);
             doc.Root.RemoveNodes();
 
-            foreach (Camera cam in Cameras)
-            {
-                doc.Root.Add(new XElement("cam",
-                    new XAttribute("ip", cam.IpAddress),
-                    new XAttribute("name", cam.Name),
-                    new XAttribute("id", cam.ID)
-                   ));
-            }
-
-            doc.Save(Properties.Settings.Default.CamConfigFile);
-            LoadConfig();
+//             foreach (Camera cam in Cameras)
+//             {
+//                 doc.Root.Add(new XElement("cam",
+//                     new XAttribute("ip", cam.IpAddress),
+//                     new XAttribute("name", cam.Name),
+//                     new XAttribute("id", cam.ID)
+//                    ));
+//             }
+// 
+//             doc.Save(Properties.Settings.Default.CamConfigFile);
+//             LoadConfig();
         }
 
 
-        public Camera this[int ID]
+        public HostConfiguration this[object id]
         {
             get
             {
                 try
                 {
-                    return this.Cameras.First(c => c.ID == ID);
+                    return this.Hosts.First(h => h.ID.Equals(id));
                 }
                 catch (System.InvalidOperationException)
                 {
@@ -72,7 +96,7 @@ namespace RemoteImaging
             
         }
 
-        public IList<Camera> Cameras
+        public IList<HostConfiguration> Hosts
         {
             get;
             set;

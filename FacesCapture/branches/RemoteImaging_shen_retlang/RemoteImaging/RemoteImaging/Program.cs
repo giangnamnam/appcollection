@@ -31,6 +31,8 @@ namespace RemoteImaging
             motionDetector = new MotionDetectWrapper.MotionDetector();
             ImageSampleCount = System.IO.Directory.GetFiles(Properties.Settings.Default.FaceSampleLib, "*.jpg").Length;
 
+            SVMWrapper.InitSvmData(0, ImageLen, EigenNum);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

@@ -95,6 +95,20 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap NetHost {
+            get {
+                object obj = ResourceManager.GetObject("NetHost", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap NetHosts {
+            get {
+                object obj = ResourceManager.GetObject("NetHosts", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Options {
             get {
                 object obj = ResourceManager.GetObject("Options", resourceCulture);

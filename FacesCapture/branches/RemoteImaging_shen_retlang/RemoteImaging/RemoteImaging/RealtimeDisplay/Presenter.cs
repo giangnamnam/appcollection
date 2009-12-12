@@ -469,6 +469,10 @@ namespace RemoteImaging.RealtimeDisplay
         }
 
 
+        private static bool IsGoodGuy(float[] imgData)
+        {
+            return SVMWrapper.SvmPredict(imgData) == 1;
+        }
         private void DetectSuspecious(Target[] targets)
         {
             foreach (var t in targets)
@@ -479,6 +483,8 @@ namespace RemoteImaging.RealtimeDisplay
                     IplImage normalized = Program.faceSearch.NormalizeImage(t.BaseFrame.image, t.FacesRectsForCompare[i]);
 
                     float[] imgData = NativeIconExtractor.ResizeIplTo(normalized, 100, 100, BitDepth.U8, 1);
+
+                    if (IsGoodGuy(imgData)) return;
 
                     FaceRecognition.RecognizeResult[] results = new
                          FaceRecognition.RecognizeResult[Program.ImageSampleCount];

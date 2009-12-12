@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\OutPut\Damany.Component.dll</HintPath>
     </Reference>
+    <Reference Include="Damany.RemoteImaging.Net, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OutPut\Damany.RemoteImaging.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Damany.Windows.Form, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Damany.Library\OutPut\Damany.Windows.Form.dll</HintPath>
@@ -68,10 +72,6 @@
     <Reference Include="IconExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\OutPut\IconExtractor.dll</HintPath>
-    </Reference>
-    <Reference Include="Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OutPut\Messages.dll</HintPath>
     </Reference>
     <Reference Include="MotionDetectWrapper, Version=1.0.3615.29008, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -127,7 +127,6 @@
       <DependentUpon>AlertSettingRes.cs</DependentUpon>
     </Compile>
     <Compile Include="BackGroundComparer.cs" />
-    <Compile Include="CheckLiveCamera.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="DateTimeInString.cs" />
@@ -340,6 +339,8 @@
     <Content Include="MainIcon.ico" />
     <None Include="Resources\logo1.png" />
     <Content Include="Resources\MainIcon.ico" />
+    <None Include="Resources\NetHost.gif" />
+    <None Include="Resources\NetHosts.gif" />
     <Content Include="SetVal.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -399,7 +400,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="" Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" />
+      <UserProperties Reactor_Output="[main_assembly_dir]RemoteImagingMC_Secure\RemoteImagingMC.exe" Reactor_Project="" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

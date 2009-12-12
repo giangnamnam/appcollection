@@ -19,10 +19,11 @@ using System.Threading;
 using MotionDetectWrapper;
 using RemoteImaging.Query;
 using System.Net.Sockets;
+using Damany.RemoteImaging.Net.Discovery;
 
 namespace RemoteImaging.RealtimeDisplay
 {
-    public partial class MainForm : Form, IImageScreen
+    public partial class MainForm : Form
     {
         Configuration config = Configuration.Instance;
         System.Windows.Forms.Timer time = null;
@@ -39,26 +40,10 @@ namespace RemoteImaging.RealtimeDisplay
                 this.Text += "-[" + Program.directory + "]";
             }
 
-#if DEBUG
-            diskSpaceCheckTimer.Interval = 1000 * 60;
-#endif
 
 
-            config.GetLineCameras();
+            //config.GetLineCameras();
             Properties.Settings setting = Properties.Settings.Default;
-
-            cpuCounter = new PerformanceCounter();
-            ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-
-            cpuCounter.CategoryName = "Processor";
-            cpuCounter.CounterName = "% Processor Time";
-            cpuCounter.InstanceName = "_Total";
-
-            time = new System.Windows.Forms.Timer();
-            time.Tick += time_Elapsed;
-            time.Interval = 3000;
-            time.Enabled = true;
-
 
             InitStatusBar();
 
@@ -81,17 +66,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         delegate void DataCallBack();
         Camera[] cams = null;
-        private void time_Elapsed(object source, EventArgs args)
-        {
-            if (config.Cameras != null)
-            {
-                cams = new Camera[config.Cameras.Count];
-                config.Cameras.CopyTo(cams, 0);
-                DataCallBack dcb = new DataCallBack(this.SetTreeNode);
-                this.Invoke(dcb, null);
-                time.Enabled = false;
-            }
-        }
+        
 
         //动态 更新 Tree的方法
         private void SetTreeNode()
@@ -425,10 +400,6 @@ namespace RemoteImaging.RealtimeDisplay
             OptionsForm frm = OptionsForm.Instance;
             IList<Camera> camCopy = new List<Camera>();
 
-            foreach (Camera item in Configuration.Instance.Cameras)
-            {
-                camCopy.Add(new Camera() { ID = item.ID, Name = item.Name, IpAddress = item.IpAddress, Mac = item.Mac, Status = item.Status });
-            }
 
 
             frm.Cameras = camCopy;
@@ -437,15 +408,6 @@ namespace RemoteImaging.RealtimeDisplay
 
                 Properties.Settings setting = Properties.Settings.Default;
 
-
-
-
-
-
-                Configuration.Instance.Cameras = frm.Cameras;//这里添加设置摄像机的 IP 和 ID 对应的设置类文件 ResetCameraInfo
-                Configuration.Instance.Save();
-
-                //setting.Save();
 
                 InitStatusBar();
 
@@ -496,10 +458,6 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void realTimer_Tick(object sender, EventArgs e)
         {
-            string statusTxt = string.Format("CPU占用率: {0}, 可用内存: {1}",
-                this.getCurrentCpuUsage(), this.getAvailableRAM());
-
-            this.statusCPUMemUsage.Text = statusTxt;
 
             statusTime.Text = DateTime.Now.ToString();
             this.StepProgress();
@@ -564,18 +522,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         #endregion
 
-        PerformanceCounter cpuCounter;
-        PerformanceCounter ramCounter;
 
-        private string getCurrentCpuUsage()
-        {
-            return String.Format("{0:F0}%", cpuCounter.NextValue());
-        }
-
-        private string getAvailableRAM()
-        {
-            return String.Format("{0}MB", ramCounter.NextValue());
-        }
 
         private void ShowDetailPic(ImageDetail img)
         {
@@ -723,15 +670,15 @@ namespace RemoteImaging.RealtimeDisplay
             this.squareViewContextMenu.Items.Clear();
             Cell c = this.squareListView1.SelectedCell;
 
-            foreach (var cam in config.Cameras)
+            foreach (var h in config.Hosts)
             {
-                ToolStripMenuItem mi = new ToolStripMenuItem(cam.Name);
-                mi.Tag = cam;
+                ToolStripMenuItem mi = new ToolStripMenuItem(h.Name);
+                mi.Tag = h;
                 mi.Click += new EventHandler(mi_Click);
 
                 if (CellCameraMap.ContainsKey(c))
                 {
-                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == cam)
+                    if ((CellCameraMap[c].Tag as ConnectInfo).Source == h)
                     {
                         mi.Enabled = false;
                     }
@@ -789,17 +736,14 @@ namespace RemoteImaging.RealtimeDisplay
 
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
 
-            Camera cam = menuItem.Tag as Camera;
-
-
-
+            HostConfiguration host = menuItem.Tag as HostConfiguration;
 
             TcpClient tcp = new TcpClient();
-            System.Net.IPAddress ip = System.Net.IPAddress.Parse(cam.IpAddress);
+            System.Net.IPAddress ip = System.Net.IPAddress.Parse(host.ip);
             System.Net.IPEndPoint ep = new System.Net.IPEndPoint(ip, 20000);
             try
             {
-                ConnectInfo info = new ConnectInfo() { Socket = tcp, Target = c, Source = cam };
+                ConnectInfo info = new ConnectInfo() { Socket = tcp, Target = c, Source = host };
 
                 LiveClient lc = new LiveClient(tcp);
                 lc.Tag = info;
@@ -851,13 +795,19 @@ namespace RemoteImaging.RealtimeDisplay
                 this.squareListView1.SelectedCell = cell;
             }
         }
+
+
+        public void AddOrUpdateHost(HostConfiguration hostInfo)
+        {
+
+        }
     }
 
 
     internal class ConnectInfo
     {
         public Cell Target { get; set; }
-        public Camera Source { get; set; }
+        public HostConfiguration Source { get; set; }
         public TcpClient Socket { get; set; }
     }
 

@@ -30,19 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("2", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("3", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("192.168.1.2", 1, 1);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("2", 2, 2);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("南门", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("192.168.1.1", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("3", 2, 2);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("北门", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusOutputFolder = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusCPUMemUsage = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -80,7 +79,6 @@
             this.videoSearch = new System.Windows.Forms.ToolStripButton();
             this.options = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripLabel();
-            this.diskSpaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -108,7 +106,6 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusOutputFolder,
-            this.statusCPUMemUsage,
             this.statusProgressBar,
             this.statusTime});
             this.statusStrip1.Location = new System.Drawing.Point(0, 581);
@@ -128,15 +125,6 @@
             this.statusOutputFolder.Text = "toolStripStatusLabel2";
             this.statusOutputFolder.Click += new System.EventHandler(this.statusOutputFolder_Click);
             // 
-            // statusCPUMemUsage
-            // 
-            this.statusCPUMemUsage.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.statusCPUMemUsage.Name = "statusCPUMemUsage";
-            this.statusCPUMemUsage.Size = new System.Drawing.Size(145, 23);
-            this.statusCPUMemUsage.Text = "toolStripStatusLabel1";
-            // 
             // statusProgressBar
             // 
             this.statusProgressBar.Name = "statusProgressBar";
@@ -152,7 +140,7 @@
             this.statusTime.Image = ((System.Drawing.Image)(resources.GetObject("statusTime.Image")));
             this.statusTime.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statusTime.Name = "statusTime";
-            this.statusTime.Size = new System.Drawing.Size(576, 23);
+            this.statusTime.Size = new System.Drawing.Size(488, 23);
             this.statusTime.Spring = true;
             this.statusTime.Text = "toolStripStatusLabel1";
             // 
@@ -262,30 +250,30 @@
             this.cameraTree.ImageList = this.cameraImageList;
             this.cameraTree.Location = new System.Drawing.Point(0, 24);
             this.cameraTree.Name = "cameraTree";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "192.168.1.2";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "Node4";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "2";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "南门";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "Node3";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "192.168.1.1";
-            treeNode5.ImageIndex = 2;
-            treeNode5.Name = "Node5";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "3";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "北门";
+            treeNode7.ImageIndex = 1;
+            treeNode7.Name = "Node1";
+            treeNode7.SelectedImageIndex = 1;
+            treeNode7.Text = "192.168.1.2";
+            treeNode8.ImageIndex = 2;
+            treeNode8.Name = "Node4";
+            treeNode8.SelectedImageIndex = 2;
+            treeNode8.Text = "2";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "Node0";
+            treeNode9.Text = "南门";
+            treeNode10.ImageIndex = 1;
+            treeNode10.Name = "Node3";
+            treeNode10.SelectedImageIndex = 1;
+            treeNode10.Text = "192.168.1.1";
+            treeNode11.ImageIndex = 2;
+            treeNode11.Name = "Node5";
+            treeNode11.SelectedImageIndex = 2;
+            treeNode11.Text = "3";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "北门";
             this.cameraTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode6});
+            treeNode9,
+            treeNode12});
             this.cameraTree.SelectedImageIndex = 0;
             this.cameraTree.Size = new System.Drawing.Size(140, 453);
             this.cameraTree.TabIndex = 1;
@@ -296,7 +284,7 @@
             // 
             this.cameraImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("cameraImageList.ImageStream")));
             this.cameraImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.cameraImageList.Images.SetKeyName(0, "Cameras16.gif");
+            this.cameraImageList.Images.SetKeyName(0, "NetHost.gif");
             this.cameraImageList.Images.SetKeyName(1, "Camera16.gif");
             this.cameraImageList.Images.SetKeyName(2, "spanner16.gif");
             this.cameraImageList.Images.SetKeyName(3, "property.gif");
@@ -327,12 +315,12 @@
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(102, 24);
             this.labelControl3.TabIndex = 3;
-            this.labelControl3.Text = "摄像头列表";
+            this.labelControl3.Text = "监控点列表";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Image = global::RemoteImaging.Properties.Resources.Camera32;
+            this.pictureBox1.Image = global::RemoteImaging.Properties.Resources.NetHosts;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(38, 24);
@@ -545,11 +533,6 @@
             this.aboutButton.Text = "关于系统";
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
-            // diskSpaceCheckTimer
-            // 
-            this.diskSpaceCheckTimer.Interval = 600000;
-            this.diskSpaceCheckTimer.Tick += new System.EventHandler(this.diskSpaceCheckTimer_Tick);
-            // 
             // alertControl1
             // 
             this.alertControl1.ShowPinButton = false;
@@ -627,7 +610,6 @@
         private System.Windows.Forms.ToolStripStatusLabel statusTime;
         private System.Windows.Forms.Timer realTimer;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel statusCPUMemUsage;
         private System.Windows.Forms.ToolStripButton searchPic;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton videoSearch;
@@ -635,7 +617,6 @@
         private System.Windows.Forms.ToolStripButton options;
         private System.Windows.Forms.ToolStripLabel aboutButton;
         private System.Windows.Forms.ToolStrip mainToolStrip;
-        private System.Windows.Forms.Timer diskSpaceCheckTimer;
         private DevExpress.XtraBars.Alerter.AlertControl alertControl1;
         private Damany.Windows.Form.SquareListView squareListView1;
         private System.Windows.Forms.ContextMenuStrip squareViewContextMenu;
