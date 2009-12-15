@@ -327,7 +327,7 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 
 			if(signelCount == groupCount)//如果连续检测到5个单人的情况，分组结束 
 			{
-				signelCount = 0; 
+				signelCount = 0;  
 				return true;
 			}
 			else
