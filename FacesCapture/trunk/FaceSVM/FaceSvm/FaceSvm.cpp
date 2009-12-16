@@ -493,81 +493,68 @@ void DefaultSvmParam(struct svm_parameter *param)
 	param->weight = NULL;
 }
 
-void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fold, int cross_validation)
+void SwitchForSvmParma(struct svm_parameter *param, char ch, char *strNum, int nr_fold, int cross_validation)
 {
-	char val[2];
 	switch(ch)
 	{
 	case 's':
 		{
-			val[0] = num;
-			param->svm_type = atoi(val);
+			param->svm_type = atoi(strNum);
 			break;
 		}
 	case 't':
 		{
-			val[0] = num;
-			param->kernel_type = atoi(val);
+			param->kernel_type = atoi(strNum);
 			break;
 		}
 	case 'd':
 		{
-			val[0] = num;
-			param->degree = atoi(val);
+			param->degree = atoi(strNum);
 			break;
 		}
 	case 'g':
 		{
-			val[0] = num;
-			param->gamma = atof(val);
+			param->gamma = atof(strNum);
 			break;
 		}
 	case 'r':
 		{
-			val[0] = num;
-			param->coef0 = atof(val);
+			param->coef0 = atof(strNum);
 			break;
 		}
 	case 'n':
 		{
-			val[0] = num;
-			param->nu = atof(val);
+			param->nu = atof(strNum);
 			break;
 		}
 	case 'm':
 		{
-			val[0] = num;
-			param->cache_size = atof(val);
+			param->cache_size = atof(strNum);
 			break;
 		}
 	case 'c':
 		{
-			val[0] = num;
-			param->C = atof(val);
+			param->C = atof(strNum);
 			break;
 		}
 	case 'e':
 		{
-			val[0] = num;
-			param->eps = atof(val);
+			param->eps = atof(strNum);
 			break;
 		}
 	case 'p':
 		{
-			val[0] = num;
-			param->p = atof(val);
+			param->p = atof(strNum);
 			break;
 		}
 	case 'h':
 		{
-			val[0] = num;
-			param->shrinking = atoi(val);
+			param->shrinking = atoi(strNum);
 			break;
 		}
 	case 'b':
 		{
-			val[0] = num;
-			param->probability = atoi(val);
+			param->probability = atoi(strNum);
 			break;
 		}
 	case 'q':
@@ -576,9 +563,8 @@ void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fo
 		}
 	case 'v':
 		{
-			val[0] = num;
 			cross_validation = 1;
-			nr_fold = atoi(val);
+			nr_fold = atoi(strNum);
 			if (nr_fold < 2)
 			{
 				cvSetErrMode(CV_ErrModeParent);
@@ -592,11 +578,9 @@ void SwitchForSvmParma(struct svm_parameter *param, char ch, char num, int nr_fo
 			param->weight_label = (int *)realloc(param->weight_label,sizeof(int)*param->nr_weight);
 			param->weight = (double *)realloc(param->weight,sizeof(double)*param->nr_weight);
 
-			val[0] = num;
-			param->weight_label[param->nr_weight-1] = atoi(val);
+			param->weight_label[param->nr_weight-1] = atoi(strNum);
 
-			val[0] = num;
-			param->weight[param->nr_weight-1] = atof(val);
+			param->weight[param->nr_weight-1] = atof(strNum);
 			break;
 		}
 	default:
@@ -611,16 +595,37 @@ void SetSvmParam(struct svm_parameter *param, char *str, int cross_validation, i
 	DefaultSvmParam(param);
 	cross_validation = 0;
 
+	char ch = ' ';
 	int strSize = strlen(str);
-	if ((str[0] != '-') || (str[5] != '-'))
+	for (int i=0; i<strSize; i++)
 	{
-		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "parament error!!!", __FILE__, __LINE__, NULL);
+		if (str[i] == '-')
+		{
+			ch = str[i+1];
+			int length = 0;
+			for (int j=i+3; j<strSize; j++)
+			{
+				if (isdigit(str[j]))
+				{
+					length++;
+				}
+				else
+				{
+					break;
+				}
+			}
+			char *strNum = new char[length+1];
+			int index = 0;
+			for (int j=i+3; j<i+3+length; j++)
+			{
+				strNum[index] = str[j];
+				index++;
+			}
+			strNum[length] = '\0';
+			SwitchForSvmParma(param, ch, strNum, nr_fold, cross_validation);
+			delete strNum;
+		}
 	}
-
-	SwitchForSvmParma(param, str[1], str[3], nr_fold, cross_validation);
-	SwitchForSvmParma(param, str[6], str[8], nr_fold, cross_validation);
-
 }
 
 void ReadAvgTxt(CvMat *avgVector)
