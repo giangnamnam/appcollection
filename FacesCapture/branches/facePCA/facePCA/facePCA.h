@@ -1,11 +1,9 @@
 #ifdef FACEPCA_EXPORTS
 #define FACEPCA_API __declspec(dllexport)
 #else
-#define FACEPCA_API __declspec(dllimport)
+#define FACEPCA_API __declspec(dllimport)  
 #endif
 
-#pragma once
- 
 #include "stdafx.h" 
 #include "afxwin.h"
 #include "cv.h"

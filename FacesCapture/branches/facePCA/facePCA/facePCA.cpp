@@ -35,7 +35,7 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 		FileExist = imageFile.FindNextFileW(); 
 		if (!imageFile.IsDots()) 
 		{
-			sampleCount++;//遍历得到训练样本图片的总数
+			sampleCount++;//遍历得到训练样本图片的总数 
 		}
 	}
 
@@ -45,8 +45,8 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 		cvGuiBoxReport(CV_StsBadArg, "FaceTraining", "sampleCount should greater than(or equal to) eigenNum", __FILE__, __LINE__, NULL);
 	}
 
-	char *imgFileName[50]; //定义指针数组用来存储样本文件名 
-	for (int i=0; i<50; i++)
+	char *imgFileName[100]; //定义指针数组用来存储样本文件名 
+	for (int i=0; i<100; i++)
 	{
 		imgFileName[i] = new char[sampleCount];
 	}
@@ -69,13 +69,6 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 		if (!imageFile.IsDots()) 
 		{
 			fileName = imageFile.GetFileName();
-			int fileNameLen = fileName.GetLength();
-			for (int i=0; i<fileNameLen; i++)
-			{
-				imgFileName[i][imgCount] = fileName[i];
-			}
-			imgFileName[fileNameLen][imgCount] = '\0';
-
 			imgFileAdd = "C:\\faceRecognition\\faceSample\\" + fileName;
 
 			int strLen = imgFileAdd.GetLength();
@@ -86,6 +79,12 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 				fileAddress[i] = imgFileAdd[i];
 			}
 			fileAddress[strLen] = '\0';
+
+			for (int i=0; i<strLen; i++)
+			{
+			imgFileName[i][imgCount] = imgFileAdd[i];
+			}
+			imgFileName[strLen][imgCount] = '\0';
 
 			IplImage *bigImg = cvLoadImage(fileAddress, 0);
 
@@ -135,7 +134,7 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 					}
 				}
 
-				cvMulTransposed(faceDB, reltiveMat, 1);  
+				cvMulTransposed(faceDB, reltiveMat, 1);//计算数组与其转置的乘积  
 
 				cvEigenVV(reltiveMat, EigenVector, EigenValue, 1.0e-6F);
 				for (int i=0; i<eigenNum; i++)
@@ -247,7 +246,7 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 				}
 				for (int i=0; i<sampleCount; i++)
 				{
-					for (int j=0; j<fileNameLen; j++)
+					for (int j=0; j<strLen; j++)
 					{
 						out4<<imgFileName[j][i];
 					}
@@ -265,7 +264,7 @@ FACEPCA_API int FaceTraining(int imgWidth, int imgHeight, int eigenNum)
 	}
 
 	//delete []fileAddress;
-	for (int i=0; i<50; i++)
+	for (int i=0; i<100; i++)
 	{
 		delete []imgFileName[i];
 	}
@@ -341,7 +340,7 @@ FACEPCA_API void InitData(int sampleCount, int imgLen, int eigenNum)
 	}
 	filein3.close();
 
-	sampleFileName = new char[sampleCount*50];
+	sampleFileName = new char[sampleCount*100];
 
 	ifstream fileIn4("C:\\faceRecognition\\data\\FileName.txt");
 	if (fileIn4.fail())
@@ -350,17 +349,21 @@ FACEPCA_API void InitData(int sampleCount, int imgLen, int eigenNum)
 		cvGuiBoxReport(CV_StsBadArg, "FaceRecognition", "FileName.txt was not found!!!", __FILE__, __LINE__, NULL);
 	}
 
-	char *name = new char[50];
+	char *name = new char[100];
+	for (int i=0; i<100; i++)
+	{
+		name[i] = '\0';
+	}
 	for (int i=0; i<sampleCount; i++)
 	{
-		fileIn4.getline(name, 50, '\0');
-		//fileIn4.getline(name, 50);
-		for (int j=0; name[j-1]!='g'; j++)
+		//fileIn4.getline(name, 100, '\0'); 
+		fileIn4.getline(name, 100); 
+		for (int j=0; name[j]!='\0'; j++)
 		{
-			sampleFileName[i*50+j] = name[j];
-		}
+			sampleFileName[i*100+j] = name[j];  
+		} 
 	}
-	fileIn4.close();
+	fileIn4.close(); 
 	delete []name;
 }
 
@@ -423,18 +426,24 @@ FACEPCA_API void FaceRecognition(float *currentFace, int sampleCount, similarity
 		resCoeffCol++;
 	}
 
-	char *name = new char[50];
+	char *name = new char[100];
+	for (int i=0; i<100; i++)
+	{
+		name[i] = '\0'; 
+	}
 	int index1 = 0;
 	int index2 = 0;
-	for (int i=0; i<50*sampleCount; i++)
+	for (int i=0; i<100*sampleCount+1; i++)
 	{
-		if ((i!=0) && (i%50==0))
+		if ((i!=0) && (i%100==0))
 		{
 			index1 = 0;
-			for (int j=0; name[j-1]!='g'; j++)
+			for (int j=0; name[j]!='\0'; j++)
 			{
-				similarity[index2].fileName[j] = name[j];
+				similarity[index2].fileName[j] = name[j]; 
+				cout<<similarity[index2].fileName[j];
 			} 
+			cout<<endl; 
 			index2++;
 		}
 		name[index1] = sampleFileName[i];
@@ -509,7 +518,7 @@ FACEPCA_API void FaceRecognition(float *currentFace, int sampleCount, similarity
 	//out1.close();
 
 	/////////////////////////////////////加入距离判定后的相似度表示方法////////////////////////////////////////////////
-	if (minNum < 130000000)
+	if (minNum < 140000000)
 	{
 		for (int i=0; i<sampleCount; i++)
 		{
