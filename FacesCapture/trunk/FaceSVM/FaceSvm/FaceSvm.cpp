@@ -275,6 +275,8 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 
 	int imgCount = 0; 
 
+	CvvImage pSourImg;
+
 	CFileFind imageFile;
 	CString fileName;
 	CString imgFileAdd;
@@ -309,11 +311,15 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 				label[imgCount] = -1;
 			}
 
-			IplImage *bigImg = cvLoadImage(fileAddress, 0);
-			if (!bigImg)
-			{
-				break;
-			}
+			pSourImg.Load(fileAddress);
+			IplImage *img1 = pSourImg.GetImage();
+			IplImage *img2 = cvCreateImage(cvSize(img1->width, img1->height), 8, 3);
+			cvCopy(img1, img2);
+
+			IplImage *bigImg = cvCreateImage(cvSize(img1->width, img1->height), 8, 1);
+			cvCvtColor(img2, bigImg, CV_BGR2GRAY);
+
+			cvReleaseImage(&img2);
 
 			delete []fileAddress;
 
@@ -399,6 +405,8 @@ void PCAforSVM(int imgWidth, int imgHeight, int eigenNum)
 	cvReleaseMat(&EigenVector);
 	cvReleaseMat(&resCoeff);
 
+	pSourImg.Destroy();
+
 	delete[] label; 
 }
 
@@ -444,19 +452,22 @@ void GetProbX(struct svm_problem *prob, struct svm_node *x_space, int eigenNum)
 		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, "file(BallNorm.txt) read error!!!", __FILE__, __LINE__, NULL);
 	}
 
-	int j = 0;
-	int index = 0;
+	int index2 = 0;
 	for (int i=0; i<prob->l; i++)
 	{
-		j = index;
-		prob->x[i] = &x_space[j];
+		prob->x[i] = &x_space[index2];
 		for (int k=0; k<eigenNum; k++)
 		{
-			x_space[(i+1)*eigenNum+1+k].index = k+1;
-			fileIn>>x_space[(i+1)*eigenNum+1+k].value;
+			x_space[index2].index = k+1;
+			fileIn>>x_space[index2].value;
+			index2++;
+			//x_space[(i+1)*eigenNum+1+k].index = k+1;
+			//fileIn>>x_space[(i+1)*eigenNum+1+k].value;
 		}
-		x_space[(i+1)*eigenNum].index = -1;
-		index = (i+1)*eigenNum + 1; 
+		x_space[index2].index = -1; 
+		index2++; 
+		//x_space[(i+1)*eigenNum].index = -1;
+		//index = (i+1)*eigenNum + 1; 
 	}
 
 	fileIn.close();
@@ -605,7 +616,7 @@ void SetSvmParam(struct svm_parameter *param, char *str, int cross_validation, i
 			int length = 0;
 			for (int j=i+3; j<strSize; j++)
 			{
-				if (isdigit(str[j]))
+				if ((isdigit(str[j])) || (str[j]=='.'))
 				{
 					length++;
 				}
@@ -667,26 +678,26 @@ void ReadEigVecTxt(CvMat *eigenVector)
 	fileIn.close();
 }
 
-void ReadResCoeffTxt(CvMat *resCoeff)
-{
-	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\SampleCoefficient.txt");
-	if (fileIn.fail())
-	{
-		cvSetErrMode(CV_ErrModeParent);
-		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, " file(AverageValue.txt) read error!!!", __FILE__, __LINE__, NULL);
-	}
-
-	float val;
-	for (int i=0; i<resCoeff->rows; i++)
-	{
-		for (int j=0; j<resCoeff->cols; j++)
-		{
-			fileIn>>val;
-			cvmSet(resCoeff, i, j, val);
-		}
-	}
-	fileIn.close();
-}
+//void ReadResCoeffTxt(CvMat *resCoeff)
+//{
+//	ifstream fileIn("C:\\faceRecognition\\SVM\\data\\SampleCoefficient.txt");
+//	if (fileIn.fail())
+//	{
+//		cvSetErrMode(CV_ErrModeParent);
+//		cvGuiBoxReport(CV_StsBadArg, __FUNCTION__, " file(AverageValue.txt) read error!!!", __FILE__, __LINE__, NULL);
+//	}
+//
+//	float val;
+//	for (int i=0; i<resCoeff->rows; i++)
+//	{
+//		for (int j=0; j<resCoeff->cols; j++)
+//		{
+//			fileIn>>val;
+//			cvmSet(resCoeff, i, j, val);
+//		}
+//	}
+//	fileIn.close();
+//}
 
 void BallNorm(CvMat *targetResult, float *currBallNorm)
 {
@@ -715,9 +726,9 @@ void PcaProject(float *currentFace, int sampleCount, int imgLen, int eigenNum, f
 		cvmSet(targetMat, i, 0, currentFace[i]); 
 	}
 
-	cvSub(targetMat, svmAvgVector, targetMat, NULL);
-	cvGEMM(targetMat, svmEigenVector, 1, NULL, 0, targetResult, CV_GEMM_A_T); 
+	cvSub(targetMat, svmAvgVector, targetMat, NULL); 
 
+	cvGEMM(targetMat, svmEigenVector, 1, NULL, 0, targetResult, CV_GEMM_A_T); 
 	BallNorm(targetResult, currBallNorm); 
 
 	cvReleaseMat(&targetMat);
@@ -762,7 +773,7 @@ extern "C" void EXPORT SvmTrain(int imgWidth, int imgHeight, int eigenNum, char 
 	int cross_validation = 0;
 	int nr_fold = 0;
 
-	int sampleCount = 0;
+	int sampleCount = 0; 
 
 	ReadInfoTxt(imgWidth, imgHeight, eigenNum, sampleCount);
 	prob.l =  sampleCount;//得到训练样本个数
@@ -804,6 +815,7 @@ extern "C" double EXPORT SvmPredict(float *currentFace)
 	struct svm_node *testX;
 	testX = new struct svm_node[eigenNum+1];
 	
+	double p = 0.0;
 	for (int i=0; i<eigenNum; i++)
 	{
 		testX[i].index = i+1;
@@ -811,8 +823,8 @@ extern "C" double EXPORT SvmPredict(float *currentFace)
 	}
 	testX[eigenNum].index = -1;
 
-	double p = svm_predict(testModel, testX); 
-	
+	p = svm_predict(testModel, testX);
+
 	delete[] testX;
 	delete[] currBallNorm;
 
