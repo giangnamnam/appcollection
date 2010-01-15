@@ -181,8 +181,13 @@ void FindRectY(IplImage *img, const int leftX, const int rightX)
   该函数由UI来调用*/
 PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 {
+	prevFrame.searchRect.height = 0;
+	prevFrame.searchRect.width = 0;
+	prevFrame.searchRect.x = 0;
+	prevFrame.searchRect.y = 0;
+
 	Frame tempFrame; 
-	tempFrame = prevFrame; 
+	tempFrame = prevFrame;
 
 	currImg = frame.image;  
 
