@@ -293,11 +293,11 @@ PREPROCESS_API bool PreProcessFrame(Frame frame, Frame &lastFrame)
 		rect = cvRect(minLeftX, minLeftY, maxRightX-minLeftX, maxRightY-minLeftY); 
 		tempFrame.searchRect = rect;
 
-		signelCount++;  
+		/*signelCount++;  
 		cvReleaseImage(&grayImg);
 		cvReleaseImage(&diffImg_2);   
 		prevFrame = frame;
-		lastFrame = tempFrame; 
+		lastFrame = tempFrame; */
 
 		//if((minLeftY < 360) && ((maxRightX-minLeftX) < 420))//如果检测到框为单人大小
 		//{
