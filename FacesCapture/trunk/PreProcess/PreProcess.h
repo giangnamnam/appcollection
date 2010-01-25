@@ -20,6 +20,14 @@ struct Frame
 	IplImage *image;//转换后需要搜索人脸的大图片,薛晓利给出
 	CvRect searchRect;//搜索脸的范围，薛晓利给出
 	LONGLONG timeStamp;//沈斌给出
+
+	Frame()
+	{
+		cameraID = 0;
+		image = NULL;
+		searchRect.width = 0;
+		searchRect.height = 0;
+	}
 };
 
 extern "C"

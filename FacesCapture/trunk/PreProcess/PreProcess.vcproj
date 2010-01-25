@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cv.lib highgui.lib cxcore.lib"
+				AdditionalDependencies="cv.lib cxcore.lib highgui.lib "
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -162,7 +162,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo on&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetFileName)&quot;     &quot;$(SolutionDir)..\OutPut\$(TargetFileName)&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)$(TargetName).lib&quot;    &quot;$(SolutionDir)..\OutPut\$(TargetName).lib&quot;&#x0D;&#x0A;copy .\PreProcess.h &quot;$(SolutionDir)..\OutPut\PreProcess.h&quot;&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
