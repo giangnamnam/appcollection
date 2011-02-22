@@ -1,0 +1,9 @@
+[Setting]
+BaudRate=2400
+DataBit=8
+StopBit=1
+Parity=0
+ReadTimeout=10000
+WriteTimeout=10000
+WaitTime=1800
+ActionTime=380
