@@ -58,6 +58,14 @@ namespace RemoteImaging
             _faceSearchFacadeList.Clear();
         }
 
+        public void SetupRoi()
+        {
+            if (_faceSearchFacadeList.Count > 0)
+            {
+                _faceSearchFacadeList[0].SetupMonitorRegion();
+            }
+        }
+
 
         public void StartCameras()
         {

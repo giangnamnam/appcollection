@@ -274,6 +274,12 @@
     <None Include="FaceCompare\FaceComparer.cs" />
     <Compile Include="FaceProcessingModule.cs" />
     <Compile Include="FaceSearchFacade.cs" />
+    <Compile Include="FormRoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRoi.Designer.cs">
+      <DependentUpon>FormRoi.cs</DependentUpon>
+    </Compile>
     <Compile Include="ICameraNameResolver.cs" />
     <Compile Include="IChildwindowService.cs" />
     <Compile Include="ImageConfig.cs" />
@@ -455,6 +461,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SuspectCarControl.resx">
       <DependentUpon>SuspectCarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRoi.resx">
+      <DependentUpon>FormRoi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportPersonCompare\ImmediatelyModel.resx">
       <DependentUpon>ImmediatelyModel.cs</DependentUpon>
@@ -796,7 +805,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

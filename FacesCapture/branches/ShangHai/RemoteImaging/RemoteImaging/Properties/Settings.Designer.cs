@@ -191,30 +191,39 @@ namespace RemoteImaging.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SrchRegionLeft {
             get {
                 return ((int)(this["SrchRegionLeft"]));
             }
+            set {
+                this["SrchRegionLeft"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SrchRegionTop {
             get {
                 return ((int)(this["SrchRegionTop"]));
             }
+            set {
+                this["SrchRegionTop"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1920")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SrchRegionWidth {
             get {
                 return ((int)(this["SrchRegionWidth"]));
+            }
+            set {
+                this["SrchRegionWidth"] = value;
             }
         }
         
@@ -230,12 +239,15 @@ namespace RemoteImaging.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1080")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SrchRegionHeight {
             get {
                 return ((int)(this["SrchRegionHeight"]));
+            }
+            set {
+                this["SrchRegionHeight"] = value;
             }
         }
         

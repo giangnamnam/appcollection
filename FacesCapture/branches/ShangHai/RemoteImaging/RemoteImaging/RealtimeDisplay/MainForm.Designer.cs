@@ -56,6 +56,7 @@
             this.addSuspectsButton = new DevExpress.XtraBars.BarButtonItem();
             this.suspeciousPersonAlerm = new DevExpress.XtraBars.BarButtonItem();
             this.fullScreen = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
             this.optionsButton = new DevExpress.XtraBars.BarButtonItem();
@@ -65,6 +66,7 @@
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.skinsLink = new DevExpress.XtraBars.BarLinkContainerItem();
             this.barSubItem4 = new DevExpress.XtraBars.BarSubItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.status = new DevExpress.XtraBars.BarStaticItem();
             this.switchMode = new DevExpress.XtraBars.BarEditItem();
@@ -302,9 +304,11 @@
             this.barSubItem1,
             this.skinsLink,
             this.barCheckItem1,
-            this.showTimeCaption});
+            this.showTimeCaption,
+            this.barButtonItem2,
+            this.barButtonItem5});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 48;
+            this.barManager1.MaxItemId = 50;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit2,
             this.repositoryItemRadioGroup1,
@@ -331,7 +335,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.manualFaceCompare, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.addSuspectsButton, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.suspeciousPersonAlerm, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.fullScreen, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.fullScreen, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barButtonItem5, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
             this.bar1.Text = "Tools";
             // 
             // searchPic
@@ -389,6 +394,14 @@
             this.fullScreen.Id = 10;
             this.fullScreen.Name = "fullScreen";
             this.fullScreen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.fullScreen_ItemClick);
+            // 
+            // barButtonItem5
+            // 
+            this.barButtonItem5.Caption = "设置监控区域";
+            this.barButtonItem5.Glyph = global::RemoteImaging.Properties.Resources.Camera16;
+            this.barButtonItem5.Id = 49;
+            this.barButtonItem5.Name = "barButtonItem5";
+            this.barButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem5_ItemClick);
             // 
             // bar2
             // 
@@ -465,7 +478,17 @@
             // 
             this.barSubItem4.Caption = "帮助";
             this.barSubItem4.Id = 7;
+            this.barSubItem4.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem2)});
             this.barSubItem4.Name = "barSubItem4";
+            // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Caption = "test";
+            this.barButtonItem2.Id = 48;
+            this.barButtonItem2.Name = "barButtonItem2";
+            this.barButtonItem2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick_1);
             // 
             // bar3
             // 
@@ -966,6 +989,8 @@
         private DevExpress.XtraBars.BarCheckItem barCheckItem1;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraBars.BarCheckItem showTimeCaption;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem5;
 
     }
 }

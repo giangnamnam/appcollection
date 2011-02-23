@@ -1708,6 +1708,17 @@ namespace RemoteImaging.RealtimeDisplay
             faceGalleryControl.Gallery.ShowItemText = showTimeCaption.Checked;
         }
 
+        private void barButtonItem2_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            var form = new FormRoi();
+            form.ShowDialog(this);
+        }
+
+        private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.controller.SetupRoi();
+        }
+
 
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using AForge.Video;
 using Damany.Imaging.Common;
 using Damany.Imaging.PlugIns;
@@ -32,6 +33,8 @@ namespace RemoteImaging
         private readonly AutoResetEvent _signal = new AutoResetEvent(false);
         private Damany.PC.Domain.CameraInfo _cameraInfo;
         private System.Threading.CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private Image _latestImage;
+        private object _lastImageLock = new object();
 
 
         public int MotionQueueSize { get; set; }
@@ -50,13 +53,26 @@ namespace RemoteImaging
 
             MotionQueueSize = 10;
 
-            var rectangle = new Rectangle();
-            rectangle.X = Properties.Settings.Default.SrchRegionLeft;
-            rectangle.Y = Properties.Settings.Default.SrchRegionTop;
-            rectangle.Width = Properties.Settings.Default.SrchRegionWidth;
-            rectangle.Height = Properties.Settings.Default.SrchRegionHeight;
+            Rectangle rectangle = GetRoi();
 
             _portraitFinder.ROI = rectangle;
+        }
+
+        public void SetupMonitorRegion()
+        {
+            if (LastImage != null)
+            {
+                using (var form = new FormRoi())
+                {
+                    form.Image = LastImage;
+                    form.Roi = GetRoi();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        _portraitFinder.ROI = form.Roi;
+                        SaveRoi(form.Roi);
+                    }
+                }
+            }
         }
 
 
@@ -171,6 +187,32 @@ namespace RemoteImaging
             }
         }
 
+        public Image LastImage
+        {
+            get
+            {
+                lock (_lastImageLock)
+                {
+                    if (_latestImage != null)
+                    {
+                        return (Image)_latestImage.Clone();
+                    }
+
+                    return _latestImage;
+                }
+            }
+            set
+            {
+                lock (_lastImageLock)
+                {
+                    if (value != null)
+                    {
+                        _latestImage = (Image)value.Clone();
+                    }
+                }
+            }
+        }
+
         void JpegStreamNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             if (_motionFramesQueue.Count > MotionQueueSize)
@@ -179,6 +221,7 @@ namespace RemoteImaging
             }
 
             var bmp = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
+            LastImage = (Image) eventArgs.Frame.Clone();
 
             OpenCvSharp.IplImage ipl = null;
 
@@ -221,6 +264,27 @@ namespace RemoteImaging
                 _signal.Set();
             }
         }
+
+        private static Rectangle GetRoi()
+        {
+            var rectangle = new Rectangle();
+            rectangle.X = Properties.Settings.Default.SrchRegionLeft;
+            rectangle.Y = Properties.Settings.Default.SrchRegionTop;
+            rectangle.Width = Properties.Settings.Default.SrchRegionWidth;
+            rectangle.Height = Properties.Settings.Default.SrchRegionHeight;
+            return rectangle;
+        }
+
+        private static void SaveRoi(Rectangle rectangle)
+        {
+            Properties.Settings.Default.SrchRegionLeft = rectangle.X;
+            Properties.Settings.Default.SrchRegionTop = rectangle.Y;
+            Properties.Settings.Default.SrchRegionWidth = rectangle.Width;
+            Properties.Settings.Default.SrchRegionHeight = rectangle.Height;
+
+            Properties.Settings.Default.Save();
+        }
+
 
         private static string GetImagePath(DateTime dateTime)
         {
