@@ -60,11 +60,12 @@ namespace RemoteImaging
 
         public void SetupMonitorRegion()
         {
-            if (LastImage != null)
+            var img = LastImage;
+            if (img != null)
             {
                 using (var form = new FormRoi())
                 {
-                    form.Image = LastImage;
+                    form.Image = img;
                     form.Roi = GetRoi();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -215,13 +216,14 @@ namespace RemoteImaging
 
         void JpegStreamNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            LastImage = (Image)eventArgs.Frame.Clone();
+
             if (_motionFramesQueue.Count > MotionQueueSize)
             {
                 return;
             }
 
             var bmp = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
-            LastImage = (Image) eventArgs.Frame.Clone();
 
             OpenCvSharp.IplImage ipl = null;
 
