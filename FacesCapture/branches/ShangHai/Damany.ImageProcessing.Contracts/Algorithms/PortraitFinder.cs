@@ -49,27 +49,12 @@ namespace Damany.Imaging.Processors
 
         public List<Portrait> ProcessFrames(List<Frame> motionFrames, System.Threading.CancellationToken cancellationToken)
         {
-            ApplyROI(motionFrames);
-
             _cancellationToken = cancellationToken;
             var portraits = HandleMotionFrame(motionFrames);
 
             var filtered = PostProcessPortraits(portraits);
 
             return filtered;
-        }
-
-        private void ApplyROI(List<Frame> motionFrames)
-        {
-            foreach (var motionFrame in motionFrames)
-            {
-                for (int i = 0; i < motionFrame.MotionRectangles.Count; i++)
-                {
-                    var r = new System.Drawing.Rectangle();
-                    var rv = new OpenCvSharp.CvRect();
-
-                }
-            }
         }
 
         private List<Portrait> PostProcessPortraits(List<Portrait> portraits)
