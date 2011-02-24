@@ -263,9 +263,9 @@
             // queryBtn
             // 
             this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.queryBtn.Location = new System.Drawing.Point(909, 15);
+            this.queryBtn.Location = new System.Drawing.Point(806, 14);
             this.queryBtn.Name = "queryBtn";
-            this.queryBtn.Size = new System.Drawing.Size(103, 27);
+            this.queryBtn.Size = new System.Drawing.Size(87, 27);
             this.queryBtn.TabIndex = 9;
             this.queryBtn.Text = "查询";
             this.queryBtn.Click += new System.EventHandler(this.queryBtn_Click);

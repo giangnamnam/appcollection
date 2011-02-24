@@ -60,6 +60,7 @@
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
             this.optionsButton = new DevExpress.XtraBars.BarButtonItem();
+            this.exitSystem = new DevExpress.XtraBars.BarButtonItem();
             this.viewsBar = new DevExpress.XtraBars.BarSubItem();
             this.barButtonItemBigPicture = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemFaceList = new DevExpress.XtraBars.BarButtonItem();
@@ -110,7 +111,6 @@
             this.mainPanel = new DevExpress.XtraEditors.GroupControl();
             this.xpCollection1 = new DevExpress.Xpo.XPCollection();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.exitSystem = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
@@ -436,6 +436,14 @@
             this.optionsButton.Id = 8;
             this.optionsButton.Name = "optionsButton";
             this.optionsButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.optionsButton_ItemClick);
+            // 
+            // exitSystem
+            // 
+            this.exitSystem.Caption = "退出系统";
+            this.exitSystem.Glyph = ((System.Drawing.Image)(resources.GetObject("exitSystem.Glyph")));
+            this.exitSystem.Id = 50;
+            this.exitSystem.Name = "exitSystem";
+            this.exitSystem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.exitSystem_ItemClick);
             // 
             // viewsBar
             // 
@@ -857,14 +865,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "图像文件|*.jpg";
-            // 
-            // exitSystem
-            // 
-            this.exitSystem.Caption = "退出系统";
-            this.exitSystem.Glyph = ((System.Drawing.Image)(resources.GetObject("exitSystem.Glyph")));
-            this.exitSystem.Id = 50;
-            this.exitSystem.Name = "exitSystem";
-            this.exitSystem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.exitSystem_ItemClick);
             // 
             // MainForm
             // 

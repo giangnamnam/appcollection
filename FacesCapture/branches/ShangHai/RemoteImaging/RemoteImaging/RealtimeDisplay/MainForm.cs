@@ -1064,6 +1064,7 @@ namespace RemoteImaging.RealtimeDisplay
                 if (dr == System.Windows.Forms.DialogResult.Cancel)
                 {
                     e.Cancel = true;
+                    return;
                 }
             }
 

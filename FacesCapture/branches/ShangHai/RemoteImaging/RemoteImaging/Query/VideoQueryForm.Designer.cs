@@ -446,6 +446,7 @@ namespace RemoteImaging.Query
             this.faceGalleryControl.Gallery.ImageSize = new System.Drawing.Size(64, 64);
             this.faceGalleryControl.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleCheck;
             this.faceGalleryControl.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;
+            this.faceGalleryControl.Gallery.ShowGroupCaption = false;
             this.faceGalleryControl.Location = new System.Drawing.Point(2, 23);
             this.faceGalleryControl.Name = "faceGalleryControl";
             this.faceGalleryControl.Size = new System.Drawing.Size(789, 256);
