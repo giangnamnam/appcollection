@@ -92,23 +92,23 @@
             // timeFrom
             // 
             this.timeFrom.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeFrom.Location = new System.Drawing.Point(44, 19);
+            this.timeFrom.Location = new System.Drawing.Point(51, 20);
             this.timeFrom.Name = "timeFrom";
             this.timeFrom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeFrom.Properties.Mask.EditMask = "F";
-            this.timeFrom.Size = new System.Drawing.Size(177, 20);
+            this.timeFrom.Size = new System.Drawing.Size(206, 21);
             this.timeFrom.TabIndex = 7;
             // 
             // timeTo
             // 
             this.timeTo.EditValue = new System.DateTime(2009, 5, 7, 0, 0, 0, 0);
-            this.timeTo.Location = new System.Drawing.Point(302, 19);
+            this.timeTo.Location = new System.Drawing.Point(352, 20);
             this.timeTo.Name = "timeTo";
             this.timeTo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.timeTo.Properties.Mask.EditMask = "F";
-            this.timeTo.Size = new System.Drawing.Size(170, 20);
+            this.timeTo.Size = new System.Drawing.Size(198, 21);
             this.timeTo.TabIndex = 8;
             // 
             // faceImageList
@@ -131,7 +131,7 @@
             this.currentFace.MenuManager = this.barManager1;
             this.currentFace.Name = "currentFace";
             this.currentFace.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.currentFace.Size = new System.Drawing.Size(343, 172);
+            this.currentFace.Size = new System.Drawing.Size(341, 196);
             this.currentFace.TabIndex = 4;
             // 
             // portraits
@@ -181,28 +181,28 @@
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(787, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(918, 0);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 503);
-            this.barDockControlBottom.Size = new System.Drawing.Size(787, 29);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 545);
+            this.barDockControlBottom.Size = new System.Drawing.Size(918, 28);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 503);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 545);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(787, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 503);
+            this.barDockControlRight.Location = new System.Drawing.Point(918, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 545);
             // 
             // dockManager1
             // 
@@ -229,7 +229,7 @@
             this.dockPanel3.Options.ShowAutoHideButton = false;
             this.dockPanel3.Options.ShowCloseButton = false;
             this.dockPanel3.OriginalSize = new System.Drawing.Size(200, 96);
-            this.dockPanel3.Size = new System.Drawing.Size(787, 96);
+            this.dockPanel3.Size = new System.Drawing.Size(918, 96);
             this.dockPanel3.Text = "搜索条件";
             // 
             // dockPanel3_Container
@@ -239,33 +239,33 @@
             this.dockPanel3_Container.Controls.Add(this.timeFrom);
             this.dockPanel3_Container.Controls.Add(this.labelControl5);
             this.dockPanel3_Container.Controls.Add(this.queryBtn);
-            this.dockPanel3_Container.Location = new System.Drawing.Point(3, 29);
+            this.dockPanel3_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(781, 64);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(910, 69);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(276, 21);
+            this.labelControl6.Location = new System.Drawing.Point(322, 23);
             this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(24, 13);
+            this.labelControl6.Size = new System.Drawing.Size(24, 14);
             this.labelControl6.TabIndex = 11;
             this.labelControl6.Text = "到：";
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(14, 22);
+            this.labelControl5.Location = new System.Drawing.Point(16, 24);
             this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(24, 13);
+            this.labelControl5.Size = new System.Drawing.Size(24, 14);
             this.labelControl5.TabIndex = 10;
             this.labelControl5.Text = "从：";
             // 
             // queryBtn
             // 
             this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.queryBtn.Location = new System.Drawing.Point(669, 14);
+            this.queryBtn.Location = new System.Drawing.Point(909, 15);
             this.queryBtn.Name = "queryBtn";
-            this.queryBtn.Size = new System.Drawing.Size(88, 25);
+            this.queryBtn.Size = new System.Drawing.Size(103, 27);
             this.queryBtn.TabIndex = 9;
             this.queryBtn.Text = "查询";
             this.queryBtn.Click += new System.EventHandler(this.queryBtn_Click);
@@ -276,10 +276,10 @@
             this.panelContainer1.Controls.Add(this.dockPanel1);
             this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
             this.panelContainer1.ID = new System.Guid("fe5214ec-e932-4925-ba0b-91e301ff69aa");
-            this.panelContainer1.Location = new System.Drawing.Point(438, 96);
+            this.panelContainer1.Location = new System.Drawing.Point(569, 96);
             this.panelContainer1.Name = "panelContainer1";
             this.panelContainer1.OriginalSize = new System.Drawing.Size(349, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(349, 407);
+            this.panelContainer1.Size = new System.Drawing.Size(349, 449);
             this.panelContainer1.Text = "panelContainer1";
             // 
             // dockPanel2
@@ -290,16 +290,16 @@
             this.dockPanel2.Location = new System.Drawing.Point(0, 0);
             this.dockPanel2.Name = "dockPanel2";
             this.dockPanel2.Options.ShowCloseButton = false;
-            this.dockPanel2.OriginalSize = new System.Drawing.Size(299, 208);
-            this.dockPanel2.Size = new System.Drawing.Size(349, 204);
+            this.dockPanel2.OriginalSize = new System.Drawing.Size(407, 220);
+            this.dockPanel2.Size = new System.Drawing.Size(349, 223);
             this.dockPanel2.Text = "放大";
             // 
             // dockPanel2_Container
             // 
             this.dockPanel2_Container.Controls.Add(this.currentFace);
-            this.dockPanel2_Container.Location = new System.Drawing.Point(3, 29);
+            this.dockPanel2_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(343, 172);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(341, 196);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // dockPanel1
@@ -307,19 +307,19 @@
             this.dockPanel1.Controls.Add(this.dockPanel1_Container);
             this.dockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanel1.ID = new System.Guid("7c1444f7-4c06-4293-acc6-c4a6e7b06b5a");
-            this.dockPanel1.Location = new System.Drawing.Point(0, 204);
+            this.dockPanel1.Location = new System.Drawing.Point(0, 223);
             this.dockPanel1.Name = "dockPanel1";
             this.dockPanel1.Options.ShowCloseButton = false;
-            this.dockPanel1.OriginalSize = new System.Drawing.Size(299, 209);
-            this.dockPanel1.Size = new System.Drawing.Size(349, 203);
+            this.dockPanel1.OriginalSize = new System.Drawing.Size(407, 219);
+            this.dockPanel1.Size = new System.Drawing.Size(349, 226);
             this.dockPanel1.Text = "全景";
             // 
             // dockPanel1_Container
             // 
             this.dockPanel1_Container.Controls.Add(this.wholePicture);
-            this.dockPanel1_Container.Location = new System.Drawing.Point(3, 29);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(343, 171);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(341, 199);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // wholePicture
@@ -329,7 +329,7 @@
             this.wholePicture.Location = new System.Drawing.Point(0, 0);
             this.wholePicture.Name = "wholePicture";
             this.wholePicture.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.wholePicture.Size = new System.Drawing.Size(343, 171);
+            this.wholePicture.Size = new System.Drawing.Size(341, 199);
             this.wholePicture.TabIndex = 0;
             // 
             // barButtonItem1
@@ -357,10 +357,10 @@
             this.galleryControl1.Gallery.ImageSize = new System.Drawing.Size(64, 64);
             this.galleryControl1.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleCheck;
             this.galleryControl1.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;
-            this.galleryControl1.Location = new System.Drawing.Point(2, 37);
+            this.galleryControl1.Location = new System.Drawing.Point(2, 40);
             this.galleryControl1.LookAndFeel.SkinName = "Darkroom";
             this.galleryControl1.Name = "galleryControl1";
-            this.galleryControl1.Size = new System.Drawing.Size(434, 333);
+            this.galleryControl1.Size = new System.Drawing.Size(565, 369);
             this.galleryControl1.TabIndex = 10;
             this.galleryControl1.Text = "galleryControl1";
             // 
@@ -368,7 +368,7 @@
             // 
             this.galleryControlClient1.GalleryControl = this.galleryControl1;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient1.Size = new System.Drawing.Size(413, 329);
+            this.galleryControlClient1.Size = new System.Drawing.Size(544, 365);
             // 
             // panelControl1
             // 
@@ -376,16 +376,16 @@
             this.panelControl1.Controls.Add(this.currPage);
             this.panelControl1.Controls.Add(this.navigator);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl1.Location = new System.Drawing.Point(2, 370);
+            this.panelControl1.Location = new System.Drawing.Point(2, 409);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(434, 35);
+            this.panelControl1.Size = new System.Drawing.Size(565, 38);
             this.panelControl1.TabIndex = 1;
             // 
             // currPage
             // 
-            this.currPage.Location = new System.Drawing.Point(178, 9);
+            this.currPage.Location = new System.Drawing.Point(208, 10);
             this.currPage.Name = "currPage";
-            this.currPage.Size = new System.Drawing.Size(46, 13);
+            this.currPage.Size = new System.Drawing.Size(51, 14);
             this.currPage.TabIndex = 34;
             this.currPage.Text = "第 0/0 页";
             // 
@@ -402,19 +402,19 @@
             this.navigator.Buttons.Prev.Visible = false;
             this.navigator.Buttons.PrevPage.Hint = "前一页";
             this.navigator.Buttons.Remove.Visible = false;
-            this.navigator.Location = new System.Drawing.Point(5, 6);
+            this.navigator.Location = new System.Drawing.Point(6, 6);
             this.navigator.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.navigator.Name = "navigator";
-            this.navigator.Size = new System.Drawing.Size(155, 26);
+            this.navigator.Size = new System.Drawing.Size(181, 28);
             this.navigator.TabIndex = 32;
             this.navigator.Text = "controlNavigator1";
             this.navigator.ButtonClick += new DevExpress.XtraEditors.NavigatorButtonClickEventHandler(this.navigator_ButtonClick);
             // 
             // playRelatedVideo
             // 
-            this.playRelatedVideo.Location = new System.Drawing.Point(12, 5);
+            this.playRelatedVideo.Location = new System.Drawing.Point(14, 5);
             this.playRelatedVideo.Name = "playRelatedVideo";
-            this.playRelatedVideo.Size = new System.Drawing.Size(75, 25);
+            this.playRelatedVideo.Size = new System.Drawing.Size(87, 27);
             this.playRelatedVideo.TabIndex = 7;
             this.playRelatedVideo.Text = "相关视频";
             this.playRelatedVideo.Click += new System.EventHandler(this.toolStripButtonPlayVideo_Click);
@@ -427,7 +427,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl4.Location = new System.Drawing.Point(0, 96);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(438, 407);
+            this.panelControl4.Size = new System.Drawing.Size(569, 449);
             this.panelControl4.TabIndex = 23;
             // 
             // panelControl2
@@ -436,14 +436,14 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl2.Location = new System.Drawing.Point(2, 2);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(434, 35);
+            this.panelControl2.Size = new System.Drawing.Size(565, 38);
             this.panelControl2.TabIndex = 11;
             // 
             // PicQueryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(787, 532);
+            this.ClientSize = new System.Drawing.Size(918, 573);
             this.Controls.Add(this.panelControl4);
             this.Controls.Add(this.panelContainer1);
             this.Controls.Add(this.dockPanel3);
@@ -452,11 +452,11 @@
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "PicQueryForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "人像搜索";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PicQueryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.timeFrom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timeTo.Properties)).EndInit();

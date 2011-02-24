@@ -67,7 +67,7 @@ namespace RemoteImaging
                 {
                     form.Image = img;
                     form.Roi = GetRoi();
-                    if (form.ShowDialog() == DialogResult.OK)
+                    if (form.ShowDialog(Application.OpenForms[0]) == DialogResult.OK)
                     {
                         _portraitFinder.ROI = form.Roi;
                         SaveRoi(form.Roi);

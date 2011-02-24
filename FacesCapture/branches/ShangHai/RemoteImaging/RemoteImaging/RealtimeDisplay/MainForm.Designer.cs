@@ -110,6 +110,7 @@
             this.mainPanel = new DevExpress.XtraEditors.GroupControl();
             this.xpCollection1 = new DevExpress.Xpo.XPCollection();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.exitSystem = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
@@ -306,9 +307,10 @@
             this.barCheckItem1,
             this.showTimeCaption,
             this.barButtonItem2,
-            this.barButtonItem5});
+            this.barButtonItem5,
+            this.exitSystem});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 50;
+            this.barManager1.MaxItemId = 51;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit2,
             this.repositoryItemRadioGroup1,
@@ -423,7 +425,8 @@
             this.barSubItem2.Caption = "系统";
             this.barSubItem2.Id = 5;
             this.barSubItem2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.optionsButton)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.optionsButton),
+            new DevExpress.XtraBars.LinkPersistInfo(this.exitSystem)});
             this.barSubItem2.Name = "barSubItem2";
             // 
             // optionsButton
@@ -855,6 +858,14 @@
             // 
             this.openFileDialog1.Filter = "图像文件|*.jpg";
             // 
+            // exitSystem
+            // 
+            this.exitSystem.Caption = "退出系统";
+            this.exitSystem.Glyph = ((System.Drawing.Image)(resources.GetObject("exitSystem.Glyph")));
+            this.exitSystem.Id = 50;
+            this.exitSystem.Name = "exitSystem";
+            this.exitSystem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.exitSystem_ItemClick);
+            // 
             // MainForm
             // 
             this.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -991,6 +1002,7 @@
         private DevExpress.XtraBars.BarCheckItem showTimeCaption;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
+        private DevExpress.XtraBars.BarButtonItem exitSystem;
 
     }
 }

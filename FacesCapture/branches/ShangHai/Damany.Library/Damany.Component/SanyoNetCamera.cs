@@ -391,9 +391,6 @@ namespace Damany.Component
                     reply.GetResponseStream().Close();
                 }
             }
-
-         
-
             
 
         }

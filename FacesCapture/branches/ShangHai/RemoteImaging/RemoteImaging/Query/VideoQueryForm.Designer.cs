@@ -509,11 +509,11 @@ namespace RemoteImaging.Query
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "VideoQueryForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "搜索视频";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoQueryForm_FormClosing);
             this.Load += new System.EventHandler(this.VideoQueryForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.timeTO.Properties)).EndInit();

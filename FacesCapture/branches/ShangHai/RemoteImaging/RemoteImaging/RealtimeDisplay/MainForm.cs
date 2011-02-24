@@ -98,8 +98,30 @@ namespace RemoteImaging.RealtimeDisplay
             zoomFactor.Edit.EditValueChanging += Edit_EditValueChanging;
             faceGalleryControl.Gallery.ItemCheckedChanged += Gallery_ItemCheckedChanged;
 
+            EnterFullScreenMode(true);
 
             Application.Idle += new EventHandler(Application_Idle);
+        }
+
+        private void EnterFullScreenMode(bool enter)
+        {
+            if (enter)
+            {
+                Gma.UserActivityMonitor.HookManager.KeyDown += HookManager_KeyDown;
+                FormHelper.ShowStartMenu(false);
+            }
+            else
+            {
+                Gma.UserActivityMonitor.HookManager.KeyDown -= HookManager_KeyDown;
+                FormHelper.ShowStartMenu(true);
+            }
+
+            this.FormBorderStyle = enter ? FormBorderStyle.None : FormBorderStyle.Sizable;
+        }
+
+        void HookManager_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
 
         void Gallery_ItemCheckedChanged(object sender, GalleryItemEventArgs e)
@@ -1045,6 +1067,8 @@ namespace RemoteImaging.RealtimeDisplay
                 }
             }
 
+
+            EnterFullScreenMode(false);
             controller.Stop();
 
             if ((thread != null) && (thread.IsAlive))
@@ -1717,6 +1741,11 @@ namespace RemoteImaging.RealtimeDisplay
         private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.controller.SetupRoi();
+        }
+
+        private void exitSystem_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.Close();
         }
 
 
