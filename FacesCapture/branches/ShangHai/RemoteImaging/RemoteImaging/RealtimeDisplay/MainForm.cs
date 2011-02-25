@@ -98,13 +98,16 @@ namespace RemoteImaging.RealtimeDisplay
             zoomFactor.Edit.EditValueChanging += Edit_EditValueChanging;
             faceGalleryControl.Gallery.ItemCheckedChanged += Gallery_ItemCheckedChanged;
 
+#if !DEBUG
             EnterFullScreenMode(true);
+#endif
 
             Application.Idle += new EventHandler(Application_Idle);
         }
 
         private void EnterFullScreenMode(bool enter)
         {
+
             if (enter)
             {
                 Gma.UserActivityMonitor.HookManager.KeyDown += HookManager_KeyDown;
@@ -1068,8 +1071,9 @@ namespace RemoteImaging.RealtimeDisplay
                 }
             }
 
-
-            EnterFullScreenMode(false);
+#if !DEBUG
+           EnterFullScreenMode(false);
+#endif
             controller.Stop();
 
             if ((thread != null) && (thread.IsAlive))

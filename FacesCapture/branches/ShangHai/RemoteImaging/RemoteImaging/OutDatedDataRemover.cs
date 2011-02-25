@@ -31,9 +31,17 @@ namespace RemoteImaging
 
         void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            DeleteData();
+            try
+            {
+                DeleteData();
+            }
+            catch (Exception)
+            { }
+            finally
+            {
+                _timer.Enabled = true;
+            }
 
-            _timer.Enabled = true;
         }
 
         private void DeleteData()

@@ -131,8 +131,8 @@ namespace Damany.PortraitCapturer.DAL.DTO
             if (string.IsNullOrEmpty(ImagePath))
                 return;
 
-            DeleteFile(ImagePath);
-            DeleteFile(ThumbnailPath);
+            Util.IO.FileHelper.EnsureDelete(ImagePath);
+            Util.IO.FileHelper.EnsureDelete(ThumbnailPath);
         }
 
         private string ThumbnailPath
@@ -143,19 +143,6 @@ namespace Damany.PortraitCapturer.DAL.DTO
                     return null;
 
                 return ImagePath + ".thu";
-            }
-        }
-
-        private void DeleteFile(string path)
-        {
-            if (File.Exists(path))
-            {
-                try
-                {
-                    File.Delete(path);
-                }
-                catch (Exception)
-                { }
             }
         }
     }

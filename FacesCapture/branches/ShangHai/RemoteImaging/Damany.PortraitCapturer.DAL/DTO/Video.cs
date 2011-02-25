@@ -44,6 +44,7 @@ namespace Damany.PortraitCapturer.DAL.DTO
                 Util.IO.FileHelper.EnsureDelete(idvFile);
         }
 
+
     }
 
 }

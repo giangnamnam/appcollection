@@ -80,6 +80,10 @@ namespace RemoteImaging
             }
 
 
+            using (var s = new Session())
+            {
+                s.PurgeDeletedObjects();
+            }
 
             try
             {
@@ -97,7 +101,6 @@ namespace RemoteImaging
                     return;
                 }
 #endif
-
 
                 var modeCollection = new DevExpress.Xpo.XPCollection<WorkModeCamSetting>();
                 modeCollection.Load();
