@@ -109,7 +109,6 @@
     <Compile Include="MotionDetectResult.cs" />
     <Compile Include="NullMotionDetector.cs" />
     <Compile Include="NullRepositoryFaceComparer.cs" />
-    <Compile Include="PersistentObject1.cs" />
     <Compile Include="PersonOfInterest.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="PersonOfInterestDetectionResult.cs" />

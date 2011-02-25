@@ -309,7 +309,7 @@ namespace RemoteImaging
             {
                 foreach (var motionFrame in motionFrames)
                 {
-                    var f = new Damany.PortraitCapturer.DAL.DTO.CapturedImageObject(uow);
+                    var f = new Damany.PortraitCapturer.DAL.DTO.Frame(uow);
                     var path = SaveImage(motionFrame.GetImage(), motionFrame.CapturedAt);
                     f.CaptureTime = motionFrame.CapturedAt;
                     f.ImagePath = path;
@@ -387,8 +387,8 @@ namespace RemoteImaging
                     p.CaptureTime = portrait.CapturedAt;
                     p.ImageSourceId = portrait.CapturedFrom.Id;
 
-                    var frame = uow.GetObjectByKey(typeof(Damany.PortraitCapturer.DAL.DTO.CapturedImageObject), portrait.Frame.Oid);
-                    p.Frame = (Damany.PortraitCapturer.DAL.DTO.CapturedImageObject)frame;
+                    var frame = uow.GetObjectByKey(typeof(Damany.PortraitCapturer.DAL.DTO.Frame), portrait.Frame.Oid);
+                    p.Frame = (Damany.PortraitCapturer.DAL.DTO.Frame)frame;
                 }
 
                 uow.CommitChanges();

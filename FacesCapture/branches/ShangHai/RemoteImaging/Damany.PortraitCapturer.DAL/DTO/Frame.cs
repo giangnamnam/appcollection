@@ -29,5 +29,11 @@ namespace Damany.PortraitCapturer.DAL.DTO
             // Place here your initialization code.
         }
 
+
+        [Association("Frame-Portraits")]
+        public XPCollection<Portrait> Portraits
+        {
+            get { return GetCollection<Portrait>("Portraits"); }
+        }
     }
 }

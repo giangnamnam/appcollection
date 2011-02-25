@@ -48,7 +48,8 @@ namespace RemoteImaging.Query
             var portrait = e.Item.Tag as Damany.PortraitCapturer.DAL.DTO.Portrait;
             if (portrait != null)
             {
-                wholePicture.Image = portrait.Frame.ImageCopy;
+
+                wholePicture.Image = portrait.Frame == null ? null : portrait.Frame.ImageCopy;
                 currentFace.Image = portrait.ImageCopy;
             }
         }

@@ -29,18 +29,16 @@ namespace Damany.PortraitCapturer.DAL.DTO
             // Place here your initialization code.
         }
 
-        protected override void OnDeleted()
-        {
-            base.OnDeleted();
-            if (Frame != null)
-            {
-                Frame.Delete();
-            }
-        }
-
         [Persistent]
         public OpenCvSharp.CvRect FaceBounds;
 
-        public CapturedImageObject Frame;
+        private Frame _frame;
+
+        [Association("Frame-Portraits")]
+        public Frame Frame
+        {
+            get { return _frame; }
+            set { SetPropertyValue("Frame", ref _frame, value); }
+        }
     }
 }

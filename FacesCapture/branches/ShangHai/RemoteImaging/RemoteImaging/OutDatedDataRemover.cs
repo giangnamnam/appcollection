@@ -81,10 +81,12 @@ namespace RemoteImaging
                     {
                         var range = new Damany.Util.DateTimeRange(oldest.Date, oldest.Date.AddDays(1));
                         DeleteOutdatedPortrait(range, uow);
+                        DeleteOutdatedFrame(range, uow);
                         DeleteOutdatedVideos(range, uow);
                     }
 
                     uow.CommitChanges();
+                    uow.PurgeDeletedObjects();
                 }
             }
         }
@@ -95,7 +97,14 @@ namespace RemoteImaging
             var c = DevExpress.Data.Filtering.CriteriaOperator.Parse(cs);
             var portraits = new XPCollection<Damany.PortraitCapturer.DAL.DTO.Portrait>(uow, c);
             uow.Delete(portraits);
-            uow.Save(portraits);
+        }
+
+        private static void DeleteOutdatedFrame(Damany.Util.DateTimeRange range, UnitOfWork uow)
+        {
+            var cs = string.Format("CaptureTime >= '{0}' And CaptureTime < '{1}'", range.From, range.To);
+            var c = DevExpress.Data.Filtering.CriteriaOperator.Parse(cs);
+            var frames = new XPCollection<Damany.PortraitCapturer.DAL.DTO.Frame>(uow, c);
+            uow.Delete(frames);
         }
 
         private static void DeleteOutdatedVideos(Damany.Util.DateTimeRange range, UnitOfWork uow)
