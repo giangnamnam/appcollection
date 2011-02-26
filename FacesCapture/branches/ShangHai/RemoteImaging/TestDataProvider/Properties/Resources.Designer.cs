@@ -67,6 +67,13 @@ namespace TestDataProvider.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap luobinFace {
+            get {
+                object obj = ResourceManager.GetObject("luobinFace", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap portrait {
             get {
                 object obj = ResourceManager.GetObject("portrait", resourceCulture);

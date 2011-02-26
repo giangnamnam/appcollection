@@ -48,7 +48,6 @@ namespace RemoteImaging.Query
             var portrait = e.Item.Tag as Damany.PortraitCapturer.DAL.DTO.Portrait;
             if (portrait != null)
             {
-
                 wholePicture.Image = portrait.Frame == null ? null : portrait.Frame.ImageCopy;
                 currentFace.Image = portrait.ImageCopy;
             }
@@ -68,10 +67,8 @@ namespace RemoteImaging.Query
 
         public void SetCameras(IList<Damany.PC.Domain.CameraInfo> cameras)
         {
-
             if (cameras == null)
                 throw new ArgumentNullException("cameras", "cameras is null.");
-
         }
 
         private void ShowUserError(string msg)

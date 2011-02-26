@@ -112,6 +112,6 @@ namespace Damany.Imaging.PlugIns
         private FaceProcessingWrapper.LbpWrapper lbp = new LbpWrapper();
         private IList<Common.PersonOfInterest> persons;
 
-        private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
+        private FaceSearchWrapper.FaceSearch searcher = new FaceSearchWrapper.FaceSearch();
     }
 }

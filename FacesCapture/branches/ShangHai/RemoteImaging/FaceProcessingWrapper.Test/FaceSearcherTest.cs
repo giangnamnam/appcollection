@@ -16,11 +16,11 @@ namespace FaceProcessingWrapper.Test
         [Test]
         public void Test()
         {
-
-
-                
-
-            
+            var faceSearcher = new FaceSearchWrapper.FaceSearch();
+            var frame = TestDataProvider.Data.ImageWithOneFace;
+            var rect = new OpenCvSharp.CvRect(0, 0, frame.Width, frame.Height);
+            var faces = faceSearcher.SearchFace(frame, rect);
+            Assert.AreEqual(faces.Length, 1);
         }
     }
 }

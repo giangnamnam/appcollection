@@ -35,7 +35,7 @@ namespace Damany.Imaging.Processors
         {
             set
             {
-                searcher.SetROI(value.X, value.Y, value.Width, value.Height);
+                searcher.SetRoi(value.X, value.Y, value.Width, value.Height);
                 _roi = value;
             }
         }
@@ -47,14 +47,11 @@ namespace Damany.Imaging.Processors
             PostFilters = new List<IFacePostFilter>(0);
         }
 
-        public List<Portrait> ProcessFrames(List<Frame> motionFrames, System.Threading.CancellationToken cancellationToken)
+        public List<Portrait> ProcessFrame(Frame motionFrame, System.Threading.CancellationToken cancellationToken)
         {
             _cancellationToken = cancellationToken;
-            var portraits = HandleMotionFrame(motionFrames);
-
-            var filtered = PostProcessPortraits(portraits);
-
-            return filtered;
+            var portraits = HandleMotionFrame(motionFrame);
+            return portraits;
         }
 
         private List<Portrait> PostProcessPortraits(List<Portrait> portraits)
@@ -86,38 +83,35 @@ namespace Damany.Imaging.Processors
 
 
 
-        public List<Portrait> HandleMotionFrame(List<Frame> motionFrames)
+        public List<Portrait> HandleMotionFrame(Frame motionFrame)
         {
-            return this.SearchIn(motionFrames);
+            return this.SearchIn(motionFrame);
         }
 
 
 
-        private List<Portrait> SearchIn(List<Frame> motionFrames)
+        private List<Portrait> SearchIn(Frame motionFrame)
         {
-            var mList = motionFrames;
-            foreach (var item in mList)
-            {
-                if (_cancellationToken.IsCancellationRequested)
-                {
-                    return new List<Portrait>();
-                }
+            var faces = this.searcher.SearchFace(motionFrame.GetImage());
 
-                this.searcher.AddInFrame(item);
+            if (faces.Length == 0)
+            {
+                motionFrame.Dispose();
+                return new List<Portrait>(0);
             }
 
-            var portraits = this.searcher.SearchFaces();
+            var portraitQuery = from f in faces
+                                   let faceImg = motionFrame.GetImage().GetSub(f.Bounds)
+                                   select new Portrait(faceImg)
+                                   {
+                                       FaceBounds = f.FaceBoundsInPortrait,
+                                       Frame = motionFrame.Clone(),
+                                       CapturedAt = motionFrame.CapturedAt,
+                                       CapturedFrom = motionFrame.CapturedFrom,
+                                   };
 
-            var facelessFrames = GetFacelessFrames(mList, portraits);
-            var faceFrames = GetFaceFrames(mList, portraits);
-            var portraitList = ExpandPortraitsList(faceFrames, portraits);
 
-            foreach (var facelessFrame in facelessFrames)
-            {
-                facelessFrame.Dispose();
-            }
-
-            return portraitList;
+            return portraitQuery.ToList();
 
         }
 

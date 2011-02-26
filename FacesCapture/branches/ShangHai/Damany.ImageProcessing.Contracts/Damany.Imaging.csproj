@@ -66,10 +66,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\RemoteImaging\RefDll\FaceProcessingWrapper.dll</HintPath>
     </Reference>
-    <Reference Include="FaceSearchWrapper, Version=1.0.28.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RemoteImaging\RefDll\FaceSearchWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="MiscUtil">
       <HintPath>..\Library\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
@@ -129,6 +125,10 @@
     <ProjectReference Include="..\RemoteImaging\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\FaceSearchWrapper\FaceSearchWrapper.vcxproj">
+      <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>
+      <Name>FaceSearchWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\IconExtractor\ImageProcessing.csproj">
       <Project>{C917EC7F-9A59-4845-9108-87056AC61D4F}</Project>

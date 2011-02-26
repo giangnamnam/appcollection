@@ -14,21 +14,19 @@ namespace Damany.Imaging.Extensions
 {
     public static class IplImageExtensions
     {
-        public static CvRect[] LocateFaces(this IplImage img, FaceSearch searcher)
+        public static CvRect[] LocateFaces(this IplImage img, FaceSearchWrapper.FaceSearch searcher)
         {
             return LocateFaces(img, searcher, new CvRect(0,0,0,0));
         }
 
-        public static CvRect[] LocateFaces(this IplImage img, FaceSearch searcher, CvRect rectToLookin)
+        public static CvRect[] LocateFaces(this IplImage img, FaceSearchWrapper.FaceSearch searcher, CvRect rectToLookin)
         {
             var frame = new Common.Frame(img);
             frame.MotionRectangles.Add(rectToLookin);
-            searcher.AddInFrame(frame);
-            var faces = searcher.SearchFaces();
+            var faces = searcher.SearchFace(frame.GetImage());
 
-            var faceRects = from t in faces
-                            from f in t.Portraits
-                            select f.FacesRectForCompare;
+            var faceRects = from f in faces
+                            select f.Bounds;
 
             return faceRects.ToArray();
         }

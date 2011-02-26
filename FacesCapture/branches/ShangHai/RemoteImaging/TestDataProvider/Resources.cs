@@ -13,7 +13,10 @@ namespace TestDataProvider
             return IplImage.FromBitmap(Properties.Resources.frame).Clone();
         }
 
-
+        public static IplImage ImageWithOneFace
+        {
+            get { return IplImage.FromBitmap(Properties.Resources.luobinFace).Clone(); }
+        }
 
         public static IplImage GetPortrait()
         {

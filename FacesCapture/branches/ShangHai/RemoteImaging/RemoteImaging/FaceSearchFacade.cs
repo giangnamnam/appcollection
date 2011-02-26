@@ -340,31 +340,32 @@ namespace RemoteImaging
                 {
                     if (_tokenSource.Token.IsCancellationRequested) break;
 
-                    var portraits = _portraitFinder.ProcessFrames(frames, _tokenSource.Token);
-
-                    foreach (var portrait in portraits)
+                    foreach (var frame in frames)
                     {
-                        var p = portrait;
-                        var f = frames.Where(fr => fr.Guid == p.Frame.Guid);
-                        p.Frame.Oid = f.First().Oid;
+                        var portraits = _portraitFinder.ProcessFrame(frame, _tokenSource.Token);
+
+                        foreach (var portrait in portraits)
+                        {
+                            var p = portrait;
+                            p.Frame.Oid = frame.Oid;
+                        }
+
+                        SavePortraits(portraits);
+
+                        frames.ForEach(f => f.Dispose());
+
+                        if (_eventAggregator != null)
+                        {
+                            portraits.ForEach(p => _eventAggregator.PublishPortrait(p));
+                        }
+
+                        if (_faceComparer != null)
+                        {
+                            _faceComparer.ProcessPortraits(portraits);
+                        }
+
+                        portraits.ForEach(p => p.Dispose());
                     }
-
-                    SavePortraits(portraits);
-
-                    frames.ForEach(f => f.Dispose());
-
-
-                    if (_eventAggregator != null)
-                    {
-                        portraits.ForEach(p => _eventAggregator.PublishPortrait(p));
-                    }
-
-                    if (_faceComparer != null)
-                    {
-                        _faceComparer.ProcessPortraits(portraits);
-                    }
-
-                    portraits.ForEach(p => p.Dispose());
 
                 }
                 else
