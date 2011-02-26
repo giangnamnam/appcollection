@@ -48,9 +48,9 @@ array<Damany::Imaging::Common::PortraitBounds^>^ FaceSearchWrapper::FaceSearch::
 		faceRects[i] = gcnew Damany::Imaging::Common::PortraitBounds;
 
 		//整个头部位置
-		::CvRect portraitRect = *data.faceRectEx;
+		::CvRect portraitRect = data.faceRectEx[i];
 		//面部位置
-		::CvRect faceRect = *data.faceRect;
+		::CvRect faceRect = data.faceRect[i];
 		//调整为相对坐标
 		faceRect.x -= portraitRect.x;
 		faceRect.y -= portraitRect.y;
