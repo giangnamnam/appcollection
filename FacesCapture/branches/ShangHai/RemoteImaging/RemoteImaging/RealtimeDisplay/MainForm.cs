@@ -69,21 +69,21 @@ namespace RemoteImaging.RealtimeDisplay
             }
         }
 
-        void _eventAggregator_FrameProcessed(object sender, EventArgs<int> e)
+        void _eventAggregator_FrameProcessed(object sender, EventArgs<Tuple<int, int>> e)
         {
-           this.UpdateFrameProcessTime(e.Value);
+           this.UpdateFrameProcessTime(e.Value.Item1, e.Value.Item2);
         }
 
-        private void UpdateFrameProcessTime(int ms)
+        private void UpdateFrameProcessTime(int ms, int queueElementCount)
         {
             if (this.InvokeRequired)
             {
-                Action<int> ac = this.UpdateFrameProcessTime;
-                this.BeginInvoke(ac, ms);
+                Action<int, int> ac = this.UpdateFrameProcessTime;
+                this.BeginInvoke(ac, ms, queueElementCount);
                 return;
             }
 
-            this.frameProcessTime.Caption = string.Format("帧处理耗时：{0} 毫秒", ms);
+            this.frameProcessTime.Caption = string.Format("帧处理耗时：{0} 毫秒, 待处理：{1} 帧", ms, queueElementCount);
         }
 
         void _eventAggregator_IsBusyChanged(object sender, EventArgs<bool> e)

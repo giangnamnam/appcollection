@@ -11,12 +11,12 @@ namespace Damany.Imaging.Common
         public event EventHandler<EventArgs<PersonOfInterestDetectionResult>> FaceMatchFound;
         public event EventHandler SwitchMotionDetector;
         public event EventHandler<EventArgs<bool>> IsBusyChanged;
-        public event EventHandler<EventArgs<int>> FrameProcessed;
+        public event EventHandler<EventArgs<Tuple<int, int>>> FrameProcessed;
 
-        public void InvokeFramProcessed(int milliSecondsUsed)
+        public void InvokeFramProcessed(int milliSecondsUsed, int queueElementCount)
         {
-            EventHandler<EventArgs<int>> handler = FrameProcessed;
-            if (handler != null) handler(this, new EventArgs<int>(milliSecondsUsed));
+            EventHandler<EventArgs<Tuple<int, int>>> handler = FrameProcessed;
+            if (handler != null) handler(this, new EventArgs<Tuple<int, int>>( new Tuple<int, int>(milliSecondsUsed, queueElementCount)) );
         }
 
         public void RaiseIsBusyChanged(bool isBusy)
@@ -49,9 +49,9 @@ namespace Damany.Imaging.Common
             this.RaiseIsBusyChanged(isBuy);
         }
 
-        public void PublishFrameProcessed(int milliSecondsUsed)
+        public void PublishFrameProcessed(int milliSecondsUsed, int queueElementSize)
         {
-            InvokeFramProcessed(milliSecondsUsed);
+            InvokeFramProcessed(milliSecondsUsed, queueElementSize);
         }
 
         public void PublishPortrait(Portrait portrait)

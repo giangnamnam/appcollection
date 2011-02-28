@@ -367,7 +367,7 @@ namespace RemoteImaging
 
                         portraits.ForEach(p => p.Dispose());
                         var ms = watcher.ElapsedMilliseconds;
-                        if (_eventAggregator != null) _eventAggregator.PublishFrameProcessed((int)ms);
+                        if (_eventAggregator != null) _eventAggregator.PublishFrameProcessed((int)ms, _motionFramesQueue.Count);
                     }
 
                 }

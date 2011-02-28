@@ -11,12 +11,12 @@ namespace Damany.Imaging.Common
         event EventHandler<MiscUtil.EventArgs<PersonOfInterestDetectionResult>> FaceMatchFound;
         event EventHandler SwitchMotionDetector;
         event EventHandler<MiscUtil.EventArgs<bool>> IsBusyChanged;
-        event EventHandler<MiscUtil.EventArgs<int>> FrameProcessed;
+        event EventHandler<MiscUtil.EventArgs<Tuple<int, int>>> FrameProcessed;
 
         void PublishPortrait(Portrait portrait);
         void PublishFaceMatchEvent(PersonOfInterestDetectionResult matchResult);
         void PublishSwitchMotionDetectorEvent();
         void PublishIsBusyEvent(bool isBuy);
-        void PublishFrameProcessed(int milliSecondsUsed);
+        void PublishFrameProcessed(int milliSecondsUsed, int queueElementCount);
     }
 }
