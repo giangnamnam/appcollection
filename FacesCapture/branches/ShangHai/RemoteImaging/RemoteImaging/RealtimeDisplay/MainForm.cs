@@ -63,9 +63,27 @@ namespace RemoteImaging.RealtimeDisplay
                 {
                     _eventAggregator.PortraitFound += (o, e) => this.HandlePortrait(e.Value);
                     _eventAggregator.FaceMatchFound += (o, e) => this.ShowSuspects(e.Value);
-                    _eventAggregator.IsBusyChanged += new EventHandler<EventArgs<bool>>(_eventAggregator_IsBusyChanged);
+                    _eventAggregator.IsBusyChanged += _eventAggregator_IsBusyChanged;
+                    _eventAggregator.FrameProcessed += _eventAggregator_FrameProcessed;
                 }
             }
+        }
+
+        void _eventAggregator_FrameProcessed(object sender, EventArgs<int> e)
+        {
+           this.UpdateFrameProcessTime(e.Value);
+        }
+
+        private void UpdateFrameProcessTime(int ms)
+        {
+            if (this.InvokeRequired)
+            {
+                Action<int> ac = this.UpdateFrameProcessTime;
+                this.BeginInvoke(ac, ms);
+                return;
+            }
+
+            this.frameProcessTime.Caption = string.Format("帧处理耗时：{0} 毫秒", ms);
         }
 
         void _eventAggregator_IsBusyChanged(object sender, EventArgs<bool> e)
@@ -1072,7 +1090,7 @@ namespace RemoteImaging.RealtimeDisplay
             }
 
 #if !DEBUG
-           EnterFullScreenMode(false);
+            EnterFullScreenMode(false);
 #endif
             controller.Stop();
 
@@ -1751,6 +1769,11 @@ namespace RemoteImaging.RealtimeDisplay
         private void exitSystem_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.Close();
+        }
+
+        private void realTimer_Tick(object sender, EventArgs e)
+        {
+            currentTime.Caption = DateTime.Now.ToString();
         }
 
 

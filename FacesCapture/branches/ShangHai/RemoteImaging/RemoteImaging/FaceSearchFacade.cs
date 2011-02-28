@@ -331,6 +331,7 @@ namespace RemoteImaging
 
         void FaceSearchWorkerThread()
         {
+            var watcher = new System.Diagnostics.Stopwatch();
             while (true)
             {
                 if (_tokenSource.Token.IsCancellationRequested) break;
@@ -342,6 +343,7 @@ namespace RemoteImaging
 
                     foreach (var frame in frames)
                     {
+                        watcher.Restart();
                         var portraits = _portraitFinder.ProcessFrame(frame, _tokenSource.Token);
 
                         foreach (var portrait in portraits)
@@ -364,6 +366,8 @@ namespace RemoteImaging
                         }
 
                         portraits.ForEach(p => p.Dispose());
+                        var ms = watcher.ElapsedMilliseconds;
+                        if (_eventAggregator != null) _eventAggregator.PublishFrameProcessed((int)ms);
                     }
 
                 }

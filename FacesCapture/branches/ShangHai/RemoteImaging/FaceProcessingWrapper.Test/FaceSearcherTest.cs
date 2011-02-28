@@ -17,10 +17,24 @@ namespace FaceProcessingWrapper.Test
         public void Test()
         {
             var faceSearcher = new FaceSearchWrapper.FaceSearch();
-            var frame = TestDataProvider.Data.ImageWithOneFace;
-            var rect = new OpenCvSharp.CvRect(0, 0, frame.Width, frame.Height);
-            var faces = faceSearcher.SearchFace(frame, rect);
-            Assert.AreEqual(faces.Length, 1);
+
+
+            int count = 0;
+            var timer = new System.Diagnostics.Stopwatch();
+            timer.Start();
+
+            foreach (var file in System.IO.Directory.EnumerateFiles(@"F:\测试图片\Lb", "*.jpg"))
+            {
+                var img = IplImage.FromFile(file);
+                var rect = new CvRect(0, 0, img.Width, img.Height);
+                var faces = faceSearcher.SearchFace(img, rect);
+                count++;
+            }
+
+            var msPerPic = timer.ElapsedMilliseconds/count;
+            System.Diagnostics.Debug.WriteLine("millisecond per picture: " + msPerPic);
+
+            
         }
     }
 }

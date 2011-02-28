@@ -31,7 +31,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             this.imageListControlsZone = new System.Windows.Forms.ImageList(this.components);
             this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
@@ -75,6 +75,8 @@
             this.imageListWorkMode = new System.Windows.Forms.ImageList(this.components);
             this.progressStatusBarItem = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
+            this.frameProcessTime = new DevExpress.XtraBars.BarStaticItem();
+            this.currentTime = new DevExpress.XtraBars.BarStaticItem();
             this.bar4 = new DevExpress.XtraBars.Bar();
             this.showTimeCaption = new DevExpress.XtraBars.BarCheckItem();
             this.zoomFactor = new DevExpress.XtraBars.BarEditItem();
@@ -173,6 +175,12 @@
             this.toolTip1.InitialDelay = 500;
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.UseFading = false;
+            // 
+            // realTimer
+            // 
+            this.realTimer.Enabled = true;
+            this.realTimer.Interval = 1000;
+            this.realTimer.Tick += new System.EventHandler(this.realTimer_Tick);
             // 
             // alertControl1
             // 
@@ -308,9 +316,11 @@
             this.showTimeCaption,
             this.barButtonItem2,
             this.barButtonItem5,
-            this.exitSystem});
+            this.exitSystem,
+            this.currentTime,
+            this.frameProcessTime});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 51;
+            this.barManager1.MaxItemId = 53;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit2,
             this.repositoryItemRadioGroup1,
@@ -511,7 +521,9 @@
             this.bar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.status),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.Width, this.switchMode, "", false, true, true, 102),
-            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.progressStatusBarItem, "", false, true, true, 117, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.progressStatusBarItem, "", false, true, true, 117, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(this.frameProcessTime, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.currentTime)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
@@ -564,6 +576,22 @@
             // repositoryItemMarqueeProgressBar1
             // 
             this.repositoryItemMarqueeProgressBar1.Name = "repositoryItemMarqueeProgressBar1";
+            // 
+            // frameProcessTime
+            // 
+            this.frameProcessTime.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.frameProcessTime.Caption = "帧处理耗时：0 毫秒";
+            this.frameProcessTime.Id = 52;
+            this.frameProcessTime.Name = "frameProcessTime";
+            this.frameProcessTime.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // currentTime
+            // 
+            this.currentTime.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.currentTime.Caption = "当前时间";
+            this.currentTime.Id = 51;
+            this.currentTime.Name = "currentTime";
+            this.currentTime.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // bar4
             // 
@@ -807,9 +835,9 @@
             // 
             // faceGalleryControl
             // 
-            galleryItemGroup1.Caption = "Group1";
+            galleryItemGroup2.Caption = "Group1";
             this.faceGalleryControl.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup1});
+            galleryItemGroup2});
             this.faceGalleryControl.Gallery.ImageSize = new System.Drawing.Size(88, 88);
             this.faceGalleryControl.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleRadio;
             this.faceGalleryControl.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;
@@ -1003,6 +1031,8 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem exitSystem;
+        private DevExpress.XtraBars.BarStaticItem frameProcessTime;
+        private DevExpress.XtraBars.BarStaticItem currentTime;
 
     }
 }
