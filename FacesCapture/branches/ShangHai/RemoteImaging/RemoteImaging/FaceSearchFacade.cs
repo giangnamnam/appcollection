@@ -351,8 +351,7 @@ namespace RemoteImaging
                         }
 
                         SavePortraits(portraits);
-
-                        frames.ForEach(f => f.Dispose());
+                        frame.Dispose();
 
                         if (_eventAggregator != null)
                         {
