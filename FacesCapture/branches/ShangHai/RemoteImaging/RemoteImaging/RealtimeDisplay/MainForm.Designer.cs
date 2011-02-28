@@ -31,7 +31,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             this.imageListControlsZone = new System.Windows.Forms.ImageList(this.components);
             this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
@@ -521,9 +521,9 @@
             this.bar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.status),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.Width, this.switchMode, "", false, true, true, 102),
-            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.progressStatusBarItem, "", false, true, true, 117, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(this.frameProcessTime, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.currentTime)});
+            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.progressStatusBarItem, "", false, true, true, 117, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(this.currentTime, true)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
@@ -579,7 +579,6 @@
             // 
             // frameProcessTime
             // 
-            this.frameProcessTime.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.frameProcessTime.Caption = "帧处理耗时：0 毫秒";
             this.frameProcessTime.Id = 52;
             this.frameProcessTime.Name = "frameProcessTime";
@@ -835,9 +834,9 @@
             // 
             // faceGalleryControl
             // 
-            galleryItemGroup2.Caption = "Group1";
+            galleryItemGroup1.Caption = "Group1";
             this.faceGalleryControl.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup2});
+            galleryItemGroup1});
             this.faceGalleryControl.Gallery.ImageSize = new System.Drawing.Size(88, 88);
             this.faceGalleryControl.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleRadio;
             this.faceGalleryControl.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;

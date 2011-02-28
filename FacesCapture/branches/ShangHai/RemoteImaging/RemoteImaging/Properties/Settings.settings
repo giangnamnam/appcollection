@@ -215,5 +215,8 @@
     <Setting Name="SqlInstanceName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">localhost\sqlexpress</Value>
     </Setting>
+    <Setting Name="StartInFullScreen" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -116,10 +116,11 @@ namespace RemoteImaging.RealtimeDisplay
             zoomFactor.Edit.EditValueChanging += Edit_EditValueChanging;
             faceGalleryControl.Gallery.ItemCheckedChanged += Gallery_ItemCheckedChanged;
 
-#if !DEBUG
-            EnterFullScreenMode(true);
-#endif
-
+            if (Properties.Settings.Default.StartInFullScreen)
+            {
+                 EnterFullScreenMode(true);
+            }
+           
             Application.Idle += new EventHandler(Application_Idle);
         }
 
@@ -1089,9 +1090,11 @@ namespace RemoteImaging.RealtimeDisplay
                 }
             }
 
-#if !DEBUG
-            EnterFullScreenMode(false);
-#endif
+            if (Properties.Settings.Default.StartInFullScreen)
+            {
+                EnterFullScreenMode(false);
+            }
+            
             controller.Stop();
 
             if ((thread != null) && (thread.IsAlive))
