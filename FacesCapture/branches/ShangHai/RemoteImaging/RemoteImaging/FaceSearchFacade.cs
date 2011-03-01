@@ -77,7 +77,7 @@ namespace RemoteImaging
         }
 
 
-        public void StartWith(Damany.PC.Domain.CameraInfo cameraInfo)
+        public void StartWith(CameraInfo cameraInfo)
         {
             if (_jpegStream == null)
             {
@@ -244,9 +244,7 @@ namespace RemoteImaging
             }
 
 
-
             var frame = new Frame(ipl);
-
             var grouped = _motionDetector.ProcessFrame(frame);
 
             if (grouped)

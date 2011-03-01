@@ -48,5 +48,6 @@ namespace FaceSearchWrapper {
 		OpenCvSharp::CvRect UnmanagedRectToManaged(const ::CvRect& unmanaged);
 		FaceSearchConfiguration^ config;
 		Damany::Imaging::FaceSearch::FaceFind  *pFaceSearch;
+		OpenCvSharp::CvRect^ roi;
 	};
 }

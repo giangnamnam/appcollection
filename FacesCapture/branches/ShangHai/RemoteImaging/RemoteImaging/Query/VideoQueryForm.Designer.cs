@@ -167,7 +167,7 @@ namespace RemoteImaging.Query
             this.axVLCPlugin21.Location = new System.Drawing.Point(2, 23);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(416, 243);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(336, 210);
             this.axVLCPlugin21.TabIndex = 30;
             // 
             // labelControl1
@@ -206,7 +206,7 @@ namespace RemoteImaging.Query
             // queryBtn
             // 
             this.queryBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.queryBtn.Location = new System.Drawing.Point(929, 37);
+            this.queryBtn.Location = new System.Drawing.Point(861, 37);
             this.queryBtn.Name = "queryBtn";
             this.queryBtn.Size = new System.Drawing.Size(87, 27);
             this.queryBtn.TabIndex = 29;
@@ -220,7 +220,7 @@ namespace RemoteImaging.Query
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 86);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1055, 594);
+            this.panelControl1.Size = new System.Drawing.Size(987, 456);
             this.panelControl1.TabIndex = 32;
             // 
             // splitContainerControl1
@@ -232,7 +232,7 @@ namespace RemoteImaging.Query
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.splitContainerControl2);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1051, 554);
+            this.splitContainerControl1.Size = new System.Drawing.Size(983, 416);
             this.splitContainerControl1.SplitterPosition = 253;
             this.splitContainerControl1.TabIndex = 31;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -247,7 +247,7 @@ namespace RemoteImaging.Query
             this.videoGrid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEditFace,
             this.repositoryItemCheckEditCar});
-            this.videoGrid.Size = new System.Drawing.Size(253, 554);
+            this.videoGrid.Size = new System.Drawing.Size(253, 416);
             this.videoGrid.TabIndex = 0;
             this.videoGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.videoGridView});
@@ -346,28 +346,28 @@ namespace RemoteImaging.Query
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(1055, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(987, 0);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 680);
-            this.barDockControlBottom.Size = new System.Drawing.Size(1055, 28);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 542);
+            this.barDockControlBottom.Size = new System.Drawing.Size(987, 28);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 680);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 542);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1055, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 680);
+            this.barDockControlRight.Location = new System.Drawing.Point(987, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 542);
             // 
             // splitContainerControl2
             // 
@@ -381,8 +381,8 @@ namespace RemoteImaging.Query
             this.splitContainerControl2.Panel1.Text = "Panel1";
             this.splitContainerControl2.Panel2.Controls.Add(this.groupControl4);
             this.splitContainerControl2.Panel2.Text = "Panel2";
-            this.splitContainerControl2.Size = new System.Drawing.Size(793, 554);
-            this.splitContainerControl2.SplitterPosition = 268;
+            this.splitContainerControl2.Size = new System.Drawing.Size(725, 416);
+            this.splitContainerControl2.SplitterPosition = 235;
             this.splitContainerControl2.TabIndex = 0;
             this.splitContainerControl2.Text = "splitContainerControl2";
             // 
@@ -390,9 +390,9 @@ namespace RemoteImaging.Query
             // 
             this.groupControl2.Controls.Add(this.wholePicture);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl2.Location = new System.Drawing.Point(425, 0);
+            this.groupControl2.Location = new System.Drawing.Point(345, 0);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(368, 268);
+            this.groupControl2.Size = new System.Drawing.Size(380, 235);
             this.groupControl2.TabIndex = 2;
             this.groupControl2.Text = "放大图片";
             // 
@@ -403,14 +403,14 @@ namespace RemoteImaging.Query
             this.wholePicture.MenuManager = this.barManager1;
             this.wholePicture.Name = "wholePicture";
             this.wholePicture.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.wholePicture.Size = new System.Drawing.Size(364, 243);
+            this.wholePicture.Size = new System.Drawing.Size(376, 210);
             this.wholePicture.TabIndex = 0;
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(420, 0);
+            this.splitterControl1.Location = new System.Drawing.Point(340, 0);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(5, 268);
+            this.splitterControl1.Size = new System.Drawing.Size(5, 235);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
@@ -420,7 +420,7 @@ namespace RemoteImaging.Query
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupControl3.Location = new System.Drawing.Point(0, 0);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(420, 268);
+            this.groupControl3.Size = new System.Drawing.Size(340, 235);
             this.groupControl3.TabIndex = 0;
             this.groupControl3.Text = "视频播放：";
             // 
@@ -430,7 +430,7 @@ namespace RemoteImaging.Query
             this.groupControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl4.Location = new System.Drawing.Point(0, 0);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(793, 281);
+            this.groupControl4.Size = new System.Drawing.Size(725, 176);
             this.groupControl4.TabIndex = 0;
             this.groupControl4.Text = "人像列表：";
             // 
@@ -449,7 +449,7 @@ namespace RemoteImaging.Query
             this.faceGalleryControl.Gallery.ShowGroupCaption = false;
             this.faceGalleryControl.Location = new System.Drawing.Point(2, 23);
             this.faceGalleryControl.Name = "faceGalleryControl";
-            this.faceGalleryControl.Size = new System.Drawing.Size(789, 256);
+            this.faceGalleryControl.Size = new System.Drawing.Size(721, 151);
             this.faceGalleryControl.TabIndex = 0;
             this.faceGalleryControl.Text = "faceGalleryControl";
             // 
@@ -457,16 +457,16 @@ namespace RemoteImaging.Query
             // 
             this.galleryControlClient1.GalleryControl = this.faceGalleryControl;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient1.Size = new System.Drawing.Size(768, 252);
+            this.galleryControlClient1.Size = new System.Drawing.Size(700, 147);
             // 
             // panelControl2
             // 
             this.panelControl2.Controls.Add(this.currentPageIndicator);
             this.panelControl2.Controls.Add(this.controlNavigator1);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl2.Location = new System.Drawing.Point(2, 556);
+            this.panelControl2.Location = new System.Drawing.Point(2, 418);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1051, 36);
+            this.panelControl2.Size = new System.Drawing.Size(983, 36);
             this.panelControl2.TabIndex = 1;
             // 
             // currentPageIndicator
@@ -489,7 +489,7 @@ namespace RemoteImaging.Query
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1055, 86);
+            this.groupControl1.Size = new System.Drawing.Size(987, 86);
             this.groupControl1.TabIndex = 31;
             this.groupControl1.Text = "查询条件";
             // 
@@ -502,7 +502,7 @@ namespace RemoteImaging.Query
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 708);
+            this.ClientSize = new System.Drawing.Size(987, 570);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.barDockControlLeft);

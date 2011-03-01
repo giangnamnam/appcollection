@@ -92,6 +92,7 @@ namespace Damany.Imaging.Processors
 
         private List<Portrait> SearchIn(Frame motionFrame)
         {
+
             var faces = this.searcher.SearchFace(motionFrame.GetImage());
 
             if (faces.Length == 0)
@@ -101,14 +102,14 @@ namespace Damany.Imaging.Processors
             }
 
             var portraitQuery = from f in faces
-                                   let faceImg = motionFrame.GetImage().GetSub(f.Bounds)
-                                   select new Portrait(faceImg)
-                                   {
-                                       FaceBounds = f.FaceBoundsInPortrait,
-                                       Frame = motionFrame.Clone(),
-                                       CapturedAt = motionFrame.CapturedAt,
-                                       CapturedFrom = motionFrame.CapturedFrom,
-                                   };
+                                let faceImg = motionFrame.GetImage().GetSub(f.Bounds)
+                                select new Portrait(faceImg)
+                                {
+                                    FaceBounds = f.FaceBoundsInPortrait,
+                                    Frame = motionFrame.Clone(),
+                                    CapturedAt = motionFrame.CapturedAt,
+                                    CapturedFrom = motionFrame.CapturedFrom,
+                                };
 
 
             return portraitQuery.ToList();

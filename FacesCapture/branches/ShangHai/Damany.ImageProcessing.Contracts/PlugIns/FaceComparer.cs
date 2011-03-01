@@ -55,6 +55,8 @@ namespace Damany.Imaging.PlugIns
 
         public void InitializeAsync()
         {
+            return;
+
             if (!_initialized)
             {
                 EventAggregator.PublishIsBusyEvent(true);

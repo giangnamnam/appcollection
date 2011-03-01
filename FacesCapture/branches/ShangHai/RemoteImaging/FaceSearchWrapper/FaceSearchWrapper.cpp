@@ -4,10 +4,26 @@
 #include "FaceSearchWrapper.h"
 
 
+//计算两个Rect的交集
+static OpenCvSharp::CvRect^ Intersect(OpenCvSharp::CvRect^ a, OpenCvSharp::CvRect^ b)
+{
+    int x = Math::Max(a->X, b->X);
+    int num2 = Math::Min((int) (a->X + a->Width), (int) (b->X + b->Width));
+    int y = Math::Max(a->Y, b->Y);
+    int num4 = Math::Min((int) (a->Y + a->Height), (int) (b->Y + b->Height));
+    if ((num2 >= x) && (num4 >= y))
+    {
+        return gcnew OpenCvSharp::CvRect(x, y, num2 - x, num4 - y);
+    }
+    return gcnew OpenCvSharp::CvRect(0, 0, 0, 0);
+}
+
+
 
 FaceSearchWrapper::FaceSearch::FaceSearch(void)
 {
 	this->pFaceSearch = new Damany::Imaging::FaceSearch::FaceFind();
+	this->roi = gcnew OpenCvSharp::CvRect(0,0,0,0);
 }
 
 FaceSearchWrapper::FaceSearch::~FaceSearch(void)
@@ -20,6 +36,7 @@ FaceSearchWrapper::FaceSearch::~FaceSearch(void)
 void FaceSearchWrapper::FaceSearch::SetRoi( int x, int y, int width, int height )
 {
 	pFaceSearch->SetRoi(x, y, width, height);
+	this->roi = gcnew OpenCvSharp::CvRect(x, y, width, height);
 }
 
 void FaceSearchWrapper::FaceSearch::SetFaceParas( int iMinFace, double dFaceChangeRatio)
@@ -36,7 +53,14 @@ array<Damany::Imaging::Common::PortraitBounds^>^ FaceSearchWrapper::FaceSearch::
 
 array<Damany::Imaging::Common::PortraitBounds^>^ FaceSearchWrapper::FaceSearch::SearchFace(OpenCvSharp::IplImage^ colorImage, OpenCvSharp::CvRect^ roi)
 {
+	OpenCvSharp::CvRect^ intersect = roi;
+	if (this->roi->Width > 0 && this->roi->Height >0)
+	{
+		roi = Intersect(roi, this->roi);
+	}
+
 	::CvRect uc = ManagedRectToUnmanaged(roi);
+
 	FaceData data;
 	int faceCount = pFaceSearch->FaceSearch((IplImage*) colorImage->CvPtr.ToPointer(), uc, data);
 
