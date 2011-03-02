@@ -28,6 +28,7 @@ namespace RemoteImaging.Query
 {
     public partial class VideoQueryForm : DevExpress.XtraEditors.XtraForm, IVideoQueryScreen
     {
+        private readonly IMessageBoxService _messageBoxService;
         BindingList<Video> _videos = new BindingList<Video>();
         BindingList<LicensePlateInfo> _licensePlates = new BindingList<LicensePlateInfo>();
         private GalleryItemGroup _galleryGroup;
@@ -57,6 +58,14 @@ namespace RemoteImaging.Query
             faceGalleryControl.Gallery.ItemCheckedChanged += Gallery_ItemCheckedChanged;
             _galleryGroup = new GalleryItemGroup();
             faceGalleryControl.Gallery.Groups.Add(_galleryGroup);
+        }
+
+        public VideoQueryForm(IMessageBoxService messageBoxService)
+            : this()
+        {
+            if (messageBoxService == null)
+                throw new ArgumentNullException("messageBoxService", "messageBoxService is null.");
+            _messageBoxService = messageBoxService;
         }
 
         void Gallery_ItemCheckedChanged(object sender, DevExpress.XtraBars.Ribbon.GalleryItemEventArgs e)
@@ -105,6 +114,14 @@ namespace RemoteImaging.Query
 
             _cts = new CancellationTokenSource();
             _worker = Task.Factory.StartNew(UpdateFaceStatus, _cts.Token);
+            _worker.ContinueWith(ant =>
+                                     {
+                                         var exception = ant.Exception;
+                                         if (!(exception.InnerException is OperationCanceledException))
+                                         {
+                                             _messageBoxService.ShowError("系统发生异常，请重试。");
+                                         }
+                                     }, TaskContinuationOptions.OnlyOnFaulted);
         }
 
         private void UpdateCurrentPage()

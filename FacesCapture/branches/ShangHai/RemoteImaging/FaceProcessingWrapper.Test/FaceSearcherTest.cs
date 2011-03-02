@@ -23,11 +23,12 @@ namespace FaceProcessingWrapper.Test
             var timer = new System.Diagnostics.Stopwatch();
             timer.Start();
 
-            foreach (var file in System.IO.Directory.EnumerateFiles(@"F:\测试图片\Lb", "*.jpg"))
+            foreach (var file in System.IO.Directory.EnumerateFiles(@"G:\pic", "*.jpg"))
             {
                 var img = IplImage.FromFile(file);
                 var rect = new CvRect(0, 0, img.Width, img.Height);
                 var faces = faceSearcher.SearchFace(img, rect);
+                System.Diagnostics.Debug.WriteLine(faces.Length);
                 count++;
             }
 
