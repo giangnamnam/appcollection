@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../../FaceProcessing/FaceProcessing/MotionDetector.h"
+#include "../../Library/FaceProcessing/MotionDetector.h"
 
 
 using namespace System;

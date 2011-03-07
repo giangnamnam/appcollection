@@ -167,10 +167,6 @@
       <HintPath>..\..\Library\Emcaster.0.1.5\Emcaster.dll</HintPath>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="FaceProcessingWrapper, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RefDll\FaceProcessingWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="GdPicture.NET">
       <HintPath>C:\Program Files\GdPicture.NET\Redist\Framework 4.0\GdPicture.NET.dll</HintPath>
     </Reference>
@@ -755,6 +751,10 @@
       <Project>{B377F693-4975-4BB6-A6DC-C0C3844517B1}</Project>
       <Name>Encryptor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceProcessingWrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FaceRecognition\FaceRecognition.csproj">
       <Project>{21CE9F9A-5A38-437A-96C3-F1D7B7846734}</Project>
       <Name>FaceRecognition</Name>
@@ -808,7 +808,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
