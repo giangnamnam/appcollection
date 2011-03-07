@@ -999,7 +999,7 @@ namespace RemoteImaging.RealtimeDisplay
             axCamImgCtrl.UnicastPort = 3939;
             axCamImgCtrl.MulticastPort = 34344;
             axCamImgCtrl.MCIP = "239.136.50.230";
-            axCamImgCtrl.ComType = 2; //multi:1, udp:2, http:0
+            axCamImgCtrl.ComType = 0; //multi:1, udp:2, http:0
 
             if (Properties.Settings.Default.Live)
             {
