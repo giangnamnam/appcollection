@@ -62,10 +62,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Video, Version=2.1.3.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL" />
-    <Reference Include="FaceProcessingWrapper, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RefDll\FaceProcessingWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="Gallio" />
     <Reference Include="MbUnit" />
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
@@ -89,9 +85,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FacePCATest.cs" />
+    <Compile Include="FaceRecoWrapperTest.cs" />
     <Compile Include="FaceSearcherTest.cs" />
-    <Compile Include="IlluminatorTest.cs" />
     <Compile Include="LbpFaceComparerTest.cs" />
     <Compile Include="MotionDetectorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,7 +95,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="FaceAlignWrapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Damany.ImageProcessing.Contracts\Damany.Imaging.csproj">
@@ -118,6 +112,10 @@
     <ProjectReference Include="..\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceProcessingWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\FaceSearchWrapper\FaceSearchWrapper.vcxproj">
       <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>

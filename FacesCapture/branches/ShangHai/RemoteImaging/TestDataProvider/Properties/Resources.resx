@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dengDongFace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dengDongFace.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="frame" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\02_090613045318-0003.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -126,5 +129,11 @@
   </data>
   <data name="portrait" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\02_100303123116125-0000.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xueXiaoLiFace1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\xueXiaoLiFace1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xueXiaoLiFace2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\xueXiaoLiFace2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

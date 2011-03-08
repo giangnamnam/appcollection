@@ -33,7 +33,10 @@ namespace FaceProcessingWrapper {
 			bool success = pReco->CalcFeature((IplImage*) colorFaceImg->CvPtr.ToPointer(), ufp);
 			if (success == true)
 			{
-				fp = FaceSpecificationConverter::FromUnmanaged(ufp);
+				FaceSpecification^ fptemp = FaceSpecificationConverter::FromUnmanaged(ufp);
+				fp->EyebrowRatio = fptemp->EyebrowRatio;
+				fp->EyebrowShape = fptemp->EyebrowShape;
+				fp->Features = fptemp->Features;
 			}
 
 			return success;

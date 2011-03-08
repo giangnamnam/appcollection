@@ -60,6 +60,13 @@ namespace TestDataProvider.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap dengDongFace {
+            get {
+                object obj = ResourceManager.GetObject("dengDongFace", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap frame {
             get {
                 object obj = ResourceManager.GetObject("frame", resourceCulture);
@@ -77,6 +84,20 @@ namespace TestDataProvider.Properties {
         internal static System.Drawing.Bitmap portrait {
             get {
                 object obj = ResourceManager.GetObject("portrait", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap xueXiaoLiFace1 {
+            get {
+                object obj = ResourceManager.GetObject("xueXiaoLiFace1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap xueXiaoLiFace2 {
+            get {
+                object obj = ResourceManager.GetObject("xueXiaoLiFace2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

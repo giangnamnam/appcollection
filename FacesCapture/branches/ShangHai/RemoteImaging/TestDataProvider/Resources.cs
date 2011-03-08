@@ -18,6 +18,21 @@ namespace TestDataProvider
             get { return IplImage.FromBitmap(Properties.Resources.luobinFace).Clone(); }
         }
 
+        public static IplImage FaceOfDengDong
+        {
+            get { return IplImage.FromBitmap(Properties.Resources.dengDongFace).Clone(); }
+        }
+
+        public static IplImage Face1OfXue
+        {
+            get { return IplImage.FromBitmap(Properties.Resources.xueXiaoLiFace1).Clone(); }
+        }
+
+        public static IplImage Face2OfXue
+        {
+            get { return IplImage.FromBitmap(Properties.Resources.xueXiaoLiFace2).Clone(); }
+        }
+
         public static IplImage GetPortrait()
         {
             return IplImage.FromBitmap(Properties.Resources.portrait).Clone();

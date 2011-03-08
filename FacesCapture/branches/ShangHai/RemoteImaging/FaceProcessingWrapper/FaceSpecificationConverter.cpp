@@ -9,7 +9,8 @@ FaceProperty FaceProcessingWrapper::FaceSpecificationConverter::ToUnmanaged(Face
 
 	ufp.eyeBrowRatio = faceSpecification->EyebrowRatio;
 	ufp.eyeBrowShape = faceSpecification->EyebrowShape;
-	ufp.features = new float(faceSpecification->Features->Length);
+	ufp.featuresDim = faceSpecification->Features->Length;
+	ufp.features = new float[faceSpecification->Features->Length];
 	for (int i=0; i<faceSpecification->Features->Length; ++i)
 	{
 		ufp.features[i] = faceSpecification->Features[i];
