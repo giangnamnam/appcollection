@@ -118,6 +118,7 @@
     <Compile Include="DTO\CapturedImageObject.cs" />
     <Compile Include="DTO\Frame.cs" />
     <Compile Include="DTO\Portrait.cs" />
+    <Compile Include="DTO\TargetPerson.cs" />
     <Compile Include="DTO\Video.cs" />
     <Compile Include="MockFrameSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

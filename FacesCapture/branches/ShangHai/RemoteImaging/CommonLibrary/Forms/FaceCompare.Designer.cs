@@ -67,6 +67,9 @@ namespace Damany.RemoteImaging.Common.Forms
             this.repositoryItemTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemTrackBar();
             this.faceCollection = new DevExpress.Xpo.XPCollection();
             this.popupContainerControl1 = new DevExpress.XtraEditors.PopupContainerControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panel1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBox3)).BeginInit();
@@ -361,6 +364,9 @@ namespace Damany.RemoteImaging.Common.Forms
             this.accuracyTrackContainer.AutoSize = true;
             this.accuracyTrackContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.accuracyTrackContainer.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.accuracyTrackContainer.Controls.Add(this.labelControl3);
+            this.accuracyTrackContainer.Controls.Add(this.labelControl2);
+            this.accuracyTrackContainer.Controls.Add(this.labelControl1);
             this.accuracyTrackContainer.Controls.Add(this.accuracyTrackBar);
             this.accuracyTrackContainer.Location = new System.Drawing.Point(0, 0);
             this.accuracyTrackContainer.Manager = this.barManager1;
@@ -456,6 +462,30 @@ namespace Damany.RemoteImaging.Common.Forms
             this.popupContainerControl1.Size = new System.Drawing.Size(152, 205);
             this.popupContainerControl1.TabIndex = 0;
             // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(33, 5);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(12, 14);
+            this.labelControl1.TabIndex = 1;
+            this.labelControl1.Text = "高";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(33, 69);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(12, 14);
+            this.labelControl2.TabIndex = 2;
+            this.labelControl2.Text = "中";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(33, 130);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(12, 14);
+            this.labelControl3.TabIndex = 3;
+            this.labelControl3.Text = "低";
+            // 
             // FaceCompare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -545,5 +575,8 @@ namespace Damany.RemoteImaging.Common.Forms
         private DevExpress.XtraEditors.Repository.RepositoryItemTrackBar repositoryItemTrackBar1;
         private DevExpress.XtraEditors.PopupContainerControl popupContainerControl1;
         private DevExpress.XtraEditors.TrackBarControl accuracyTrackBar;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }
