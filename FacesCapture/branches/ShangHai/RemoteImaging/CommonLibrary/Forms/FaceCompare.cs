@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Damany.RemoteImaging.Common.Presenters;
 using Damany.Imaging.Extensions;
+using DevExpress.Utils;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Ribbon;
 using FaceSearchWrapper;
 
 namespace Damany.RemoteImaging.Common.Forms
@@ -10,6 +16,9 @@ namespace Damany.RemoteImaging.Common.Forms
     public partial class FaceCompare : DevExpress.XtraEditors.XtraForm
     {
         private readonly ConfigurationManager _manager;
+        private static FaceProcessingWrapper.FaceRecoWrapper _faceComparer;
+        private DevExpress.Utils.WaitDialogForm _waitForm;
+        private System.Threading.CancellationTokenSource _cts;
 
         public FaceCompare()
         {
@@ -20,29 +29,61 @@ namespace Damany.RemoteImaging.Common.Forms
 
             this.targetPic.Paint += new PaintEventHandler(targetPic_Paint);
             this.compareButton.Click += new EventHandler(compareButton_Click);
+
+            if (_faceComparer == null)
+            {
+                _waitForm = new WaitDialogForm("初始化人脸特征库...", "请稍候");
+                _faceComparer = FaceProcessingWrapper.FaceRecoWrapper.FromModel("model.txt",
+                                                                            "haarcascade_frontalface_alt2.xml");
+            }
         }
-		
-		 public FaceCompare(ConfigurationManager manager)
+
+
+        public FaceCompare(ConfigurationManager manager)
             : this()
         {
             _manager = manager;
         }
 
-        public void EnableStartButton(bool enable)
-        {
-            if (this.InvokeRequired)
-            {
-                Action<bool> action = this.EnableStartButton;
-                this.BeginInvoke(action, enable);
-                return;
-            }
 
-            this.compareButton.Text = enable ? "比对" : "停止";
-        }
 
         void compareButton_Click(object sender, EventArgs e)
         {
-            this.presenter.CompareClicked();
+            ShowCompareStatus(true);
+            ShowCompareButton(false);
+
+            var creteria = DevExpress.Data.Filtering.CriteriaOperator.Parse(
+                "CaptureTime >= ? && CaptureTime <= ?",
+                this.searchFrom.EditValue, this.searchTo.EditValue);
+            this.faceCollection.Criteria = creteria;
+            this.faceCollection.LoadingEnabled = true;
+            this.faceCollection.LoadAsync(loadFaceCallback);
+        }
+
+        void loadFaceCallback(ICollection[] result, Exception ex)
+        {
+            if (ex != null)
+            {
+                MessageBox.Show(this, "系统发生异常，请重试。", this.Text);
+                return;
+            }
+
+            _cts = new CancellationTokenSource();
+            var worker = Task.Factory.StartNew(CompareFaces, result, _cts.Token);
+            worker.ContinueWith(ant =>
+                                    {
+                                        if (ant.Exception != null)
+                                        {
+                                            if (!(ant.Exception.InnerException is OperationCanceledException))
+                                            {
+                                                MessageBox.Show("系统发生异常，请重试。");
+                                            }
+                                        }
+
+                                        ShowCompareStatus(false);
+                                        ShowCompareButton(true);
+
+                                    }, TaskScheduler.FromCurrentSynchronizationContext());
 
         }
 
@@ -63,20 +104,21 @@ namespace Damany.RemoteImaging.Common.Forms
             }
 
             var img = Damany.Util.Extensions.MiscHelper.FromFileBuffered(this.openFileDialog1.FileName);
-            this.targetPic.Image = img;
-
             this.ipl = OpenCvSharp.IplImage.FromBitmap((Bitmap)img);
 
-            var rects = this.ipl.LocateFaces(this.searcher);
+            var fs = new FaceProcessingWrapper.FaceSpecification();
+            var suc = _faceComparer.CalcFeature(this.ipl, fs);
 
-            if (rects.Length == 0)
+            if (!suc)
             {
-                MessageBox.Show("未定位到人脸", this.Text,
+                MessageBox.Show("人像不满足比对要求，请重新选择人像。",
+                    this.Text,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            this.faceRect = rects[0];
+            this.targetPic.Image = img;
+
 
             this.targetPic.Invalidate();
             this.compareButton.Enabled = true;
@@ -138,7 +180,7 @@ namespace Damany.RemoteImaging.Common.Forms
 
         public void ClearFaceList()
         {
-            this.faceList.Items.Clear();
+            this.galleryControl1.Gallery.Groups[0].Items.Clear();
             this.imageList1.Images.Clear();
         }
 
@@ -159,7 +201,6 @@ namespace Damany.RemoteImaging.Common.Forms
             item.Text = (_manager.GetName(p.CapturedFrom.Id) ?? string.Empty) + " " + p.CapturedAt.ToString();
             item.ImageIndex = this.imageList1.Images.Count - 1;
 
-            this.faceList.Items.Add(item);
 
             p.Dispose();
         }
@@ -181,11 +222,11 @@ namespace Damany.RemoteImaging.Common.Forms
         {
             get
             {
-                return (CompareAccuracy) this.radioGroup2.SelectedIndex;
+                return (CompareAccuracy)this.radioGroup2.SelectedIndex;
             }
             set
             {
-                int idx = (int) value;
+                int idx = (int)value;
                 this.radioGroup2.SelectedIndex = idx;
             }
         }
@@ -194,9 +235,68 @@ namespace Damany.RemoteImaging.Common.Forms
 
         private void FaceCompare_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.presenter.Stop();
+            if (_cts != null)
+                _cts.Cancel();
         }
 
+        void CompareFaces(object result)
+        {
+            var collections = ((ICollection[])result)[0];
+
+            var targetFs = new FaceProcessingWrapper.FaceSpecification();
+            _faceComparer.CalcFeature(OpenCvSharp.IplImage.FromBitmap((Bitmap)this.targetPic.Image), targetFs);
+
+            this.RunInUIThread(() =>
+            {
+                repositoryItemProgressBar1.Maximum = collections.Count;
+                this.ClearFaceList();
+            });
+
+            int count = 0;
+            foreach (Damany.PortraitCapturer.DAL.DTO.Portrait face in collections)
+            {
+                _cts.Token.ThrowIfCancellationRequested();
+
+                var curPortrait = face;
+                var curFaceImg = curPortrait.ImageCopy;
+                var clone = curFaceImg.Clone();
+                this.currentPic.RunInUIThread(() =>
+                                                  {
+                                                      this.currentPic.Image = (Image)clone;
+                                                      currentPic.Refresh();
+                                                  });
+
+                var curFs = new FaceProcessingWrapper.FaceSpecification();
+                var clone2 = curFaceImg.Clone();
+                var suc = _faceComparer.CalcFeature(OpenCvSharp.IplImage.FromBitmap((Bitmap)clone2), curFs);
+                ((IDisposable)clone2).Dispose();
+                if (suc)
+                {
+                    var sim = _faceComparer.CmpFace(targetFs, curFs);
+                    if (sim > 65)
+                    {
+                        var clone3 = curFaceImg.Clone();
+                        this.galleryControl1.RunInUIThread(() =>
+                        {
+                            var item = new GalleryItem((Image)clone3,
+                                curPortrait.CaptureTime.ToShortDateString(),
+                                curPortrait.CaptureTime.ToShortTimeString());
+                            item.Hint = curPortrait.CaptureTime.ToString();
+                            this.galleryControl1.Gallery.Groups[0].Items.Add(item);
+                        });
+                    }
+                }
+
+                var c = ++count;
+                this.RunInUIThread(() =>
+                                       {
+                                           progressBar.EditValue = c;
+                                           var msg = string.Format("已比对： {0}， 待比对： {1}", c, collections.Count - c);
+                                           counter.Caption = msg;
+                                       });
+            }
+
+        }
         private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.presenter.ThresholdChanged();
@@ -207,6 +307,34 @@ namespace Damany.RemoteImaging.Common.Forms
         private OpenCvSharp.IplImage ipl;
         private bool started;
         private FaceSearchWrapper.FaceSearch searcher = new FaceSearch();
+
+        private void FaceCompare_Load(object sender, EventArgs e)
+        {
+            if (_waitForm != null)
+            {
+                this._waitForm.Dispose();
+            }
+
+        }
+
+        private void ShowCompareStatus(bool show)
+        {
+            progressBar.Visibility = show ? BarItemVisibility.Always : BarItemVisibility.Never;
+            counter.Visibility = show ? BarItemVisibility.Always : BarItemVisibility.Never;
+        }
+
+        private void ShowCompareButton(bool show)
+        {
+            compareButton.Visible = show;
+            compareButton.Enabled = show;
+            cancelButton.Visible = !show;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            if (_cts != null)
+                _cts.Cancel();
+        }
 
 
 

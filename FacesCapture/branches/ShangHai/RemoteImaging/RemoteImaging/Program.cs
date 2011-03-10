@@ -31,6 +31,21 @@ namespace RemoteImaging
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             Application.ThreadException += Application_ThreadException;
 
+
+#if !DEBUG
+            if (!Util.VerifyKey())
+            {
+                using (var form = new RegisterForm())
+                {
+                    DialogResult res = form.ShowDialog();
+                    if (res == DialogResult.OK)
+                        Application.Restart();
+                }
+
+                return;
+            }
+#endif
+
             DevExpress.UserSkins.OfficeSkins.Register();
             DevExpress.UserSkins.BonusSkins.Register();
             DevExpress.Skins.SkinManager.EnableFormSkins();

@@ -67,6 +67,13 @@ namespace TestDataProvider.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap FaceOfShen {
+            get {
+                object obj = ResourceManager.GetObject("FaceOfShen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap frame {
             get {
                 object obj = ResourceManager.GetObject("frame", resourceCulture);

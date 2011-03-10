@@ -90,7 +90,6 @@ namespace Damany.RemoteImaging.Common.Presenters
             try
             {
                 IsRunning = true;
-                this.view.EnableStartButton(false);
 
                 targetImage.ROI = rect;
                 int count = 0;
@@ -130,7 +129,7 @@ namespace Damany.RemoteImaging.Common.Presenters
             finally
             {
                 IsRunning = false;
-                this.view.EnableStartButton(true);
+                
             }
 
         }

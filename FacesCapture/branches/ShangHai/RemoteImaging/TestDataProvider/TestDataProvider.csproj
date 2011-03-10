@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dengDongFace.jpg" />
+    <Content Include="Resources\FaceOfShen.jpg" />
     <Content Include="Resources\xueXiaoLiFace1.jpg" />
     <Content Include="Resources\xueXiaoLiFace2.jpg" />
     <Content Include="Resources\luobinFace.jpg" />

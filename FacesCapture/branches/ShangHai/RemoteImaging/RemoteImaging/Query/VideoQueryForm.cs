@@ -550,7 +550,7 @@ namespace RemoteImaging.Query
             var newest = (from v in oldestQuery
                           orderby v.CaptureTime descending
                           select v).FirstOrDefault();
-            var range = string.Format(" ({0}——{1})", oldest.CaptureTime, newest.CaptureTime);
+            var range = string.Format(" ({0} —— {1})", oldest.CaptureTime, newest.CaptureTime);
             groupControl1.Text += range;
 
         }

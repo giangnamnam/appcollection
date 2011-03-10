@@ -68,12 +68,9 @@
     </Reference>
     <Reference Include="DevExpress.Data.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="FaceProcessingWrapper, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RefDll\FaceProcessingWrapper.dll</HintPath>
-    </Reference>
     <Reference Include="FaceSearchWrapper, Version=1.0.28.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\RefDll\FaceSearchWrapper.dll</HintPath>
@@ -91,12 +88,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\RefDll\OpenCvSharp.dll</HintPath>
     </Reference>
+    <Reference Include="PGK.Extensions.Windows.Forms">
+      <HintPath>..\..\Library\PGK.Extensions.Windows.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -239,6 +241,10 @@
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceProcessingWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -271,7 +277,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
+      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

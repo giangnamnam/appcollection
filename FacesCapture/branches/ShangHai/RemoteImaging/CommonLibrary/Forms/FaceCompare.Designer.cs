@@ -1,4 +1,6 @@
-﻿namespace Damany.RemoteImaging.Common.Forms
+﻿
+
+namespace Damany.RemoteImaging.Common.Forms
 {
     partial class FaceCompare
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             this.panel1 = new DevExpress.XtraEditors.PanelControl();
             this.compareButton = new DevExpress.XtraEditors.SimpleButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,18 +46,24 @@
             this.choosePic = new DevExpress.XtraEditors.SimpleButton();
             this.groupBox1 = new DevExpress.XtraEditors.GroupControl();
             this.targetPic = new System.Windows.Forms.PictureBox();
+            this.cancelButton = new DevExpress.XtraEditors.SimpleButton();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.faceList = new Damany.RemoteImaging.Common.Controls.DoubleBufferedListView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.galleryControl1 = new DevExpress.XtraBars.Ribbon.GalleryControl();
+            this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.counter = new DevExpress.XtraBars.BarStaticItem();
+            this.progressBar = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.faceCollection = new DevExpress.Xpo.XPCollection();
             ((System.ComponentModel.ISupportInitialize)(this.panel1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBox3)).BeginInit();
@@ -73,7 +81,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.targetPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).BeginInit();
+            this.galleryControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.faceCollection)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -84,10 +96,11 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.choosePic);
             this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.cancelButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(233, 812);
+            this.panel1.Size = new System.Drawing.Size(233, 814);
             this.panel1.TabIndex = 0;
             // 
             // compareButton
@@ -100,6 +113,7 @@
             this.compareButton.Size = new System.Drawing.Size(87, 25);
             this.compareButton.TabIndex = 5;
             this.compareButton.Text = "比对";
+            this.compareButton.Click += new System.EventHandler(this.compareButton_Click);
             // 
             // label3
             // 
@@ -118,7 +132,7 @@
             this.groupBox3.Controls.Add(this.currentPic);
             this.groupBox3.Location = new System.Drawing.Point(3, 629);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(226, 180);
+            this.groupBox3.Size = new System.Drawing.Size(226, 182);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.Text = "待比较图片";
             // 
@@ -127,7 +141,7 @@
             this.currentPic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentPic.Location = new System.Drawing.Point(2, 23);
             this.currentPic.Name = "currentPic";
-            this.currentPic.Size = new System.Drawing.Size(222, 155);
+            this.currentPic.Size = new System.Drawing.Size(222, 157);
             this.currentPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentPic.TabIndex = 0;
             this.currentPic.TabStop = false;
@@ -248,11 +262,23 @@
             this.targetPic.TabIndex = 0;
             this.targetPic.TabStop = false;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.Location = new System.Drawing.Point(73, 586);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(87, 25);
+            this.cancelButton.TabIndex = 6;
+            this.cancelButton.Text = "取消";
+            this.cancelButton.Visible = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(233, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 812);
+            this.splitter1.Size = new System.Drawing.Size(3, 814);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -267,25 +293,43 @@
             this.openFileDialog1.Filter = "Jpeg 文件|*.jpg";
             this.openFileDialog1.RestoreDirectory = true;
             // 
-            // faceList
-            // 
-            this.faceList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.faceList.LargeImageList = this.imageList1;
-            this.faceList.Location = new System.Drawing.Point(2, 23);
-            this.faceList.Name = "faceList";
-            this.faceList.Size = new System.Drawing.Size(651, 787);
-            this.faceList.TabIndex = 2;
-            this.faceList.UseCompatibleStateImageBehavior = false;
-            // 
             // groupControl1
             // 
-            this.groupControl1.Controls.Add(this.faceList);
+            this.groupControl1.Controls.Add(this.galleryControl1);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl1.Location = new System.Drawing.Point(236, 0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(655, 812);
+            this.groupControl1.Size = new System.Drawing.Size(655, 814);
             this.groupControl1.TabIndex = 5;
             this.groupControl1.Text = "比较结果";
+            // 
+            // galleryControl1
+            // 
+            this.galleryControl1.Controls.Add(this.galleryControlClient1);
+            this.galleryControl1.DesignGalleryGroupIndex = 0;
+            this.galleryControl1.DesignGalleryItemIndex = 0;
+            this.galleryControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // galleryControl1
+            // 
+            galleryItemGroup1.Caption = "Group1";
+            this.galleryControl1.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
+            galleryItemGroup1});
+            this.galleryControl1.Gallery.ImageSize = new System.Drawing.Size(88, 88);
+            this.galleryControl1.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;
+            this.galleryControl1.Gallery.ShowGroupCaption = false;
+            this.galleryControl1.Gallery.ShowItemText = true;
+            this.galleryControl1.Location = new System.Drawing.Point(2, 23);
+            this.galleryControl1.Name = "galleryControl1";
+            this.galleryControl1.Size = new System.Drawing.Size(651, 789);
+            this.galleryControl1.TabIndex = 0;
+            this.galleryControl1.Text = "galleryControl1";
+            // 
+            // galleryControlClient1
+            // 
+            this.galleryControlClient1.GalleryControl = this.galleryControl1;
+            this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
+            this.galleryControlClient1.Size = new System.Drawing.Size(630, 785);
             // 
             // barManager1
             // 
@@ -297,8 +341,12 @@
             this.barManager1.DockControls.Add(this.barDockControlRight);
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.barStaticItem1});
-            this.barManager1.MaxItemId = 1;
+            this.barStaticItem1,
+            this.progressBar,
+            this.counter});
+            this.barManager1.MaxItemId = 3;
+            this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemProgressBar1});
             this.barManager1.StatusBar = this.bar3;
             // 
             // bar3
@@ -309,7 +357,9 @@
             this.bar3.DockRow = 0;
             this.bar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
             this.bar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.counter),
+            new DevExpress.XtraBars.LinkPersistInfo(this.progressBar)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
@@ -322,29 +372,61 @@
             this.barStaticItem1.Name = "barStaticItem1";
             this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
+            // counter
+            // 
+            this.counter.Caption = "已比对： 0  待比对： 0";
+            this.counter.Id = 2;
+            this.counter.Name = "counter";
+            this.counter.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.counter.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.progressBar.Caption = "progress";
+            this.progressBar.Edit = this.repositoryItemProgressBar1;
+            this.progressBar.EditValue = "0";
+            this.progressBar.Id = 1;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.progressBar.Width = 191;
+            // 
+            // repositoryItemProgressBar1
+            // 
+            this.repositoryItemProgressBar1.Name = "repositoryItemProgressBar1";
+            // 
             // barDockControlTop
             // 
+            this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
             this.barDockControlTop.Size = new System.Drawing.Size(891, 0);
             // 
             // barDockControlBottom
             // 
+            this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 812);
-            this.barDockControlBottom.Size = new System.Drawing.Size(891, 30);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 814);
+            this.barDockControlBottom.Size = new System.Drawing.Size(891, 28);
             // 
             // barDockControlLeft
             // 
+            this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 812);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 814);
             // 
             // barDockControlRight
             // 
+            this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(891, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 812);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 814);
+            // 
+            // faceCollection
+            // 
+            this.faceCollection.LoadingEnabled = false;
+            this.faceCollection.ObjectType = typeof(Damany.PortraitCapturer.DAL.DTO.Portrait);
             // 
             // FaceCompare
             // 
@@ -363,6 +445,7 @@
             this.Text = "人脸比对查询";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FaceCompare_FormClosing);
+            this.Load += new System.EventHandler(this.FaceCompare_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panel1)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupBox3)).EndInit();
@@ -381,7 +464,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.targetPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).EndInit();
+            this.galleryControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.faceCollection)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -401,7 +488,6 @@
         private DevExpress.XtraEditors.TimeEdit searchFrom;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Splitter splitter1;
-        private Damany.RemoteImaging.Common.Controls.DoubleBufferedListView faceList;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private DevExpress.XtraEditors.SimpleButton compareButton;
         private System.Windows.Forms.ImageList imageList1;
@@ -415,5 +501,12 @@
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.Xpo.XPCollection faceCollection;
+        private DevExpress.XtraBars.Ribbon.GalleryControl galleryControl1;
+        private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient1;
+        private DevExpress.XtraBars.BarEditItem progressBar;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
+        private DevExpress.XtraBars.BarStaticItem counter;
+        private DevExpress.XtraEditors.SimpleButton cancelButton;
     }
 }

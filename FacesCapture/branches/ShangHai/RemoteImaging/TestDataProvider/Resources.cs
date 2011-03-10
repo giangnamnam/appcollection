@@ -33,6 +33,11 @@ namespace TestDataProvider
             get { return IplImage.FromBitmap(Properties.Resources.xueXiaoLiFace2).Clone(); }
         }
 
+        public static IplImage FaceOfShen
+        {
+            get { return IplImage.FromBitmap(Properties.Resources.FaceOfShen).Clone(); }
+        }
+
         public static IplImage GetPortrait()
         {
             return IplImage.FromBitmap(Properties.Resources.portrait).Clone();
