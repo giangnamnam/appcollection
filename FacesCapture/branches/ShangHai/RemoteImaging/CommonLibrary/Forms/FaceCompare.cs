@@ -19,10 +19,19 @@ namespace Damany.RemoteImaging.Common.Forms
         private static FaceProcessingWrapper.FaceRecoWrapper _faceComparer;
         private DevExpress.Utils.WaitDialogForm _waitForm;
         private System.Threading.CancellationTokenSource _cts;
+        private Tuple<string, int>[] _accuracies;
+        private long _currentAccuracy;
 
         public FaceCompare()
         {
             InitializeComponent();
+            _accuracies = new[]{
+                new Tuple<string, int>("低", 60),
+                new Tuple<string, int>("中", 65),
+                new Tuple<string, int>("高", 70),
+            };
+
+            _currentAccuracy = 65;
 
             this.searchFrom.EditValue = DateTime.Now.AddDays(-1);
             this.searchTo.EditValue = DateTime.Now;
@@ -215,20 +224,6 @@ namespace Damany.RemoteImaging.Common.Forms
                 return;
             }
 
-            this.barStaticItem1.Caption = msg;
-        }
-
-        public CompareAccuracy SelectedAccuracy
-        {
-            get
-            {
-                return (CompareAccuracy)this.radioGroup2.SelectedIndex;
-            }
-            set
-            {
-                int idx = (int)value;
-                this.radioGroup2.SelectedIndex = idx;
-            }
         }
 
 
@@ -273,7 +268,7 @@ namespace Damany.RemoteImaging.Common.Forms
                 if (suc)
                 {
                     var sim = _faceComparer.CmpFace(targetFs, curFs);
-                    if (sim > 65)
+                    if (sim > Interlocked.Read(ref _currentAccuracy))
                     {
                         var clone3 = curFaceImg.Clone();
                         this.galleryControl1.RunInUIThread(() =>
@@ -335,6 +330,16 @@ namespace Damany.RemoteImaging.Common.Forms
             if (_cts != null)
                 _cts.Cancel();
         }
+
+        private void accuracyTrackContainer_CloseUp(object sender, EventArgs e)
+        {
+            var sel = (int)accuracyTrackBar.EditValue;
+            var msg = string.Format("准确度：{0}", _accuracies[sel].Item1);
+            accuracyLabel.Caption = msg;
+
+            Interlocked.Exchange(ref _currentAccuracy, _accuracies[sel].Item2);
+        }
+
 
 
 

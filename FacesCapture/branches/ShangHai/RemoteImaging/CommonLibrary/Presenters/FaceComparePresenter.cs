@@ -30,9 +30,7 @@ namespace Damany.RemoteImaging.Common.Presenters
 
         public void ThresholdChanged()
         {
-            var acc = this.view.SelectedAccuracy;
 
-            this.ThresholdIndex = (int)acc;
 
         }
 
@@ -72,7 +70,6 @@ namespace Damany.RemoteImaging.Common.Presenters
         {
             this.view.AttachPresenter(this);
             this.ThresholdIndex = 1;
-            this.view.SelectedAccuracy = CompareAccuracy.Middle;
 
 
             this.view.ShowDialog(System.Windows.Forms.Application.OpenForms[0]);

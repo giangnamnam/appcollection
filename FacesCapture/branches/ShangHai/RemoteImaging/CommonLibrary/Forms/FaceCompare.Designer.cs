@@ -37,8 +37,6 @@ namespace Damany.RemoteImaging.Common.Forms
             this.groupBox3 = new DevExpress.XtraEditors.GroupControl();
             this.currentPic = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new DevExpress.XtraEditors.GroupControl();
-            this.groupBox4 = new DevExpress.XtraEditors.GroupControl();
-            this.radioGroup2 = new DevExpress.XtraEditors.RadioGroup();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.searchTo = new DevExpress.XtraEditors.TimeEdit();
@@ -55,7 +53,9 @@ namespace Damany.RemoteImaging.Common.Forms
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
             this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.bar3 = new DevExpress.XtraBars.Bar();
-            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.accuracyLabel = new DevExpress.XtraBars.BarButtonItem();
+            this.accuracyTrackContainer = new DevExpress.XtraBars.PopupControlContainer();
+            this.accuracyTrackBar = new DevExpress.XtraEditors.TrackBarControl();
             this.counter = new DevExpress.XtraBars.BarStaticItem();
             this.progressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
@@ -63,7 +63,10 @@ namespace Damany.RemoteImaging.Common.Forms
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
+            this.repositoryItemTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemTrackBar();
             this.faceCollection = new DevExpress.Xpo.XPCollection();
+            this.popupContainerControl1 = new DevExpress.XtraEditors.PopupContainerControl();
             ((System.ComponentModel.ISupportInitialize)(this.panel1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBox3)).BeginInit();
@@ -71,9 +74,6 @@ namespace Damany.RemoteImaging.Common.Forms
             ((System.ComponentModel.ISupportInitialize)(this.currentPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBox2)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupBox4)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchTo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchFrom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBox1)).BeginInit();
@@ -84,8 +84,14 @@ namespace Damany.RemoteImaging.Common.Forms
             ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).BeginInit();
             this.galleryControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracyTrackContainer)).BeginInit();
+            this.accuracyTrackContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracyTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracyTrackBar.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.faceCollection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -108,7 +114,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.compareButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.compareButton.Enabled = false;
-            this.compareButton.Location = new System.Drawing.Point(73, 586);
+            this.compareButton.Location = new System.Drawing.Point(73, 516);
             this.compareButton.Name = "compareButton";
             this.compareButton.Size = new System.Drawing.Size(87, 25);
             this.compareButton.TabIndex = 5;
@@ -130,9 +136,9 @@ namespace Damany.RemoteImaging.Common.Forms
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.currentPic);
-            this.groupBox3.Location = new System.Drawing.Point(3, 629);
+            this.groupBox3.Location = new System.Drawing.Point(3, 553);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(226, 182);
+            this.groupBox3.Size = new System.Drawing.Size(226, 255);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.Text = "待比较图片";
             // 
@@ -141,7 +147,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.currentPic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentPic.Location = new System.Drawing.Point(2, 23);
             this.currentPic.Name = "currentPic";
-            this.currentPic.Size = new System.Drawing.Size(222, 157);
+            this.currentPic.Size = new System.Drawing.Size(222, 230);
             this.currentPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentPic.TabIndex = 0;
             this.currentPic.TabStop = false;
@@ -150,41 +156,15 @@ namespace Damany.RemoteImaging.Common.Forms
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.searchTo);
             this.groupBox2.Controls.Add(this.searchFrom);
             this.groupBox2.Location = new System.Drawing.Point(3, 339);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(226, 223);
+            this.groupBox2.Size = new System.Drawing.Size(226, 140);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.Text = "比对参数";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.radioGroup2);
-            this.groupBox4.Location = new System.Drawing.Point(7, 126);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(209, 89);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.Text = "准确度";
-            // 
-            // radioGroup2
-            // 
-            this.radioGroup2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioGroup2.Location = new System.Drawing.Point(2, 23);
-            this.radioGroup2.Name = "radioGroup2";
-            this.radioGroup2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.radioGroup2.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "高"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "中"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "低")});
-            this.radioGroup2.Size = new System.Drawing.Size(205, 64);
-            this.radioGroup2.TabIndex = 5;
-            this.radioGroup2.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -266,7 +246,7 @@ namespace Damany.RemoteImaging.Common.Forms
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(73, 586);
+            this.cancelButton.Location = new System.Drawing.Point(73, 516);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(87, 25);
             this.cancelButton.TabIndex = 6;
@@ -341,12 +321,14 @@ namespace Damany.RemoteImaging.Common.Forms
             this.barManager1.DockControls.Add(this.barDockControlRight);
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.barStaticItem1,
             this.progressBar,
-            this.counter});
-            this.barManager1.MaxItemId = 3;
+            this.counter,
+            this.barSubItem2,
+            this.accuracyLabel});
+            this.barManager1.MaxItemId = 9;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemProgressBar1});
+            this.repositoryItemProgressBar1,
+            this.repositoryItemTrackBar1});
             this.barManager1.StatusBar = this.bar3;
             // 
             // bar3
@@ -357,7 +339,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.bar3.DockRow = 0;
             this.bar3.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom;
             this.bar3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.accuracyLabel, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.counter),
             new DevExpress.XtraBars.LinkPersistInfo(this.progressBar)});
             this.bar3.OptionsBar.AllowQuickCustomization = false;
@@ -365,15 +347,44 @@ namespace Damany.RemoteImaging.Common.Forms
             this.bar3.OptionsBar.UseWholeRow = true;
             this.bar3.Text = "Status bar";
             // 
-            // barStaticItem1
+            // accuracyLabel
             // 
-            this.barStaticItem1.Caption = "就绪";
-            this.barStaticItem1.Id = 0;
-            this.barStaticItem1.Name = "barStaticItem1";
-            this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.accuracyLabel.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+            this.accuracyLabel.Caption = "准确度：中";
+            this.accuracyLabel.DropDownControl = this.accuracyTrackContainer;
+            this.accuracyLabel.Hint = "调整比对的准确度";
+            this.accuracyLabel.Id = 8;
+            this.accuracyLabel.Name = "accuracyLabel";
+            // 
+            // accuracyTrackContainer
+            // 
+            this.accuracyTrackContainer.AutoSize = true;
+            this.accuracyTrackContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.accuracyTrackContainer.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.accuracyTrackContainer.Controls.Add(this.accuracyTrackBar);
+            this.accuracyTrackContainer.Location = new System.Drawing.Point(0, 0);
+            this.accuracyTrackContainer.Manager = this.barManager1;
+            this.accuracyTrackContainer.Name = "accuracyTrackContainer";
+            this.accuracyTrackContainer.Size = new System.Drawing.Size(48, 153);
+            this.accuracyTrackContainer.TabIndex = 10;
+            this.accuracyTrackContainer.Visible = false;
+            this.accuracyTrackContainer.CloseUp += new System.EventHandler(this.accuracyTrackContainer_CloseUp);
+            // 
+            // accuracyTrackBar
+            // 
+            this.accuracyTrackBar.EditValue = 1;
+            this.accuracyTrackBar.Location = new System.Drawing.Point(0, 0);
+            this.accuracyTrackBar.MenuManager = this.barManager1;
+            this.accuracyTrackBar.Name = "accuracyTrackBar";
+            this.accuracyTrackBar.Properties.Maximum = 2;
+            this.accuracyTrackBar.Properties.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.accuracyTrackBar.Size = new System.Drawing.Size(45, 150);
+            this.accuracyTrackBar.TabIndex = 0;
+            this.accuracyTrackBar.Value = 1;
             // 
             // counter
             // 
+            this.counter.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
             this.counter.Caption = "已比对： 0  待比对： 0";
             this.counter.Id = 2;
             this.counter.Name = "counter";
@@ -389,7 +400,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.progressBar.Id = 1;
             this.progressBar.Name = "progressBar";
             this.progressBar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.progressBar.Width = 191;
+            this.progressBar.Width = 152;
             // 
             // repositoryItemProgressBar1
             // 
@@ -423,16 +434,34 @@ namespace Damany.RemoteImaging.Common.Forms
             this.barDockControlRight.Location = new System.Drawing.Point(891, 0);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 814);
             // 
+            // barSubItem2
+            // 
+            this.barSubItem2.Caption = "barSubItem2";
+            this.barSubItem2.Id = 4;
+            this.barSubItem2.Name = "barSubItem2";
+            // 
+            // repositoryItemTrackBar1
+            // 
+            this.repositoryItemTrackBar1.Name = "repositoryItemTrackBar1";
+            // 
             // faceCollection
             // 
             this.faceCollection.LoadingEnabled = false;
             this.faceCollection.ObjectType = typeof(Damany.PortraitCapturer.DAL.DTO.Portrait);
+            // 
+            // popupContainerControl1
+            // 
+            this.popupContainerControl1.Location = new System.Drawing.Point(159, 488);
+            this.popupContainerControl1.Name = "popupContainerControl1";
+            this.popupContainerControl1.Size = new System.Drawing.Size(152, 205);
+            this.popupContainerControl1.TabIndex = 0;
             // 
             // FaceCompare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 842);
+            this.Controls.Add(this.accuracyTrackContainer);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel1);
@@ -454,9 +483,6 @@ namespace Damany.RemoteImaging.Common.Forms
             ((System.ComponentModel.ISupportInitialize)(this.groupBox2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupBox4)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchTo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchFrom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBox1)).EndInit();
@@ -467,9 +493,17 @@ namespace Damany.RemoteImaging.Common.Forms
             ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).EndInit();
             this.galleryControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracyTrackContainer)).EndInit();
+            this.accuracyTrackContainer.ResumeLayout(false);
+            this.accuracyTrackContainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracyTrackBar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracyTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTrackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.faceCollection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerControl1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -491,12 +525,9 @@ namespace Damany.RemoteImaging.Common.Forms
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private DevExpress.XtraEditors.SimpleButton compareButton;
         private System.Windows.Forms.ImageList imageList1;
-        private DevExpress.XtraEditors.GroupControl groupBox4;
-        private DevExpress.XtraEditors.RadioGroup radioGroup2;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraBars.BarManager barManager1;
         private DevExpress.XtraBars.Bar bar3;
-        private DevExpress.XtraBars.BarStaticItem barStaticItem1;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
@@ -508,5 +539,11 @@ namespace Damany.RemoteImaging.Common.Forms
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
         private DevExpress.XtraBars.BarStaticItem counter;
         private DevExpress.XtraEditors.SimpleButton cancelButton;
+        private DevExpress.XtraBars.BarButtonItem accuracyLabel;
+        private DevExpress.XtraBars.PopupControlContainer accuracyTrackContainer;
+        private DevExpress.XtraBars.BarSubItem barSubItem2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTrackBar repositoryItemTrackBar1;
+        private DevExpress.XtraEditors.PopupContainerControl popupContainerControl1;
+        private DevExpress.XtraEditors.TrackBarControl accuracyTrackBar;
     }
 }
