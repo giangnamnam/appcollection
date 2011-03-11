@@ -108,11 +108,17 @@
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.faceGalleryControl = new DevExpress.XtraBars.Ribbon.GalleryControl();
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
+            this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.axCamImgCtrl1 = new AxIMGCTRLLib.AxCamImgCtrl();
             this.mainPanel = new DevExpress.XtraEditors.GroupControl();
             this.xpCollection1 = new DevExpress.Xpo.XPCollection();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.bar5 = new DevExpress.XtraBars.Bar();
+            this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
+            this.galleryControl1 = new DevExpress.XtraBars.Ribbon.GalleryControl();
+            this.galleryControlClient2 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
@@ -140,10 +146,14 @@
             this.dockPanel3_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.faceGalleryControl)).BeginInit();
             this.faceGalleryControl.SuspendLayout();
+            this.dockPanel1.SuspendLayout();
+            this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).BeginInit();
+            this.galleryControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListControlsZone
@@ -206,7 +216,8 @@
             // 
             this.dockManager1.Form = this;
             this.dockManager1.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
-            this.panelContainer1});
+            this.panelContainer1,
+            this.dockPanel1});
             this.dockManager1.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
             "DevExpress.XtraBars.StandaloneBarDockControl",
@@ -278,13 +289,15 @@
             this.bar1,
             this.bar2,
             this.bar3,
-            this.bar4});
+            this.bar4,
+            this.bar5});
             this.barManager1.Controller = this.barAndDockingController1;
             this.barManager1.DockControls.Add(this.barDockControlTop);
             this.barManager1.DockControls.Add(this.barDockControlBottom);
             this.barManager1.DockControls.Add(this.barDockControlLeft);
             this.barManager1.DockControls.Add(this.barDockControlRight);
             this.barManager1.DockControls.Add(this.standaloneBarDockControl1);
+            this.barManager1.DockControls.Add(this.standaloneBarDockControl2);
             this.barManager1.DockManager = this.dockManager1;
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
@@ -853,6 +866,28 @@
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
             this.galleryControlClient1.Size = new System.Drawing.Size(336, 188);
             // 
+            // dockPanel1
+            // 
+            this.dockPanel1.Controls.Add(this.dockPanel1_Container);
+            this.dockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
+            this.dockPanel1.FloatLocation = new System.Drawing.Point(395, 286);
+            this.dockPanel1.FloatSize = new System.Drawing.Size(385, 308);
+            this.dockPanel1.ID = new System.Guid("1d36e9b6-3c3d-4a84-9d98-4f300066a058");
+            this.dockPanel1.Location = new System.Drawing.Point(0, 0);
+            this.dockPanel1.Name = "dockPanel1";
+            this.dockPanel1.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanel1.Size = new System.Drawing.Size(385, 308);
+            this.dockPanel1.Text = "dockPanel1";
+            // 
+            // dockPanel1_Container
+            // 
+            this.dockPanel1_Container.Controls.Add(this.galleryControl1);
+            this.dockPanel1_Container.Controls.Add(this.standaloneBarDockControl2);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(3, 22);
+            this.dockPanel1_Container.Name = "dockPanel1_Container";
+            this.dockPanel1_Container.Size = new System.Drawing.Size(379, 283);
+            this.dockPanel1_Container.TabIndex = 0;
+            // 
             // gridColumn4
             // 
             this.gridColumn4.Caption = "车牌颜色";
@@ -892,6 +927,47 @@
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "图像文件|*.jpg";
+            // 
+            // bar5
+            // 
+            this.bar5.BarName = "Custom 6";
+            this.bar5.DockCol = 0;
+            this.bar5.DockRow = 0;
+            this.bar5.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.bar5.OptionsBar.AllowQuickCustomization = false;
+            this.bar5.OptionsBar.DisableCustomization = true;
+            this.bar5.OptionsBar.DrawDragBorder = false;
+            this.bar5.OptionsBar.UseWholeRow = true;
+            this.bar5.StandaloneBarDockControl = this.standaloneBarDockControl2;
+            this.bar5.Text = "Custom 6";
+            // 
+            // standaloneBarDockControl2
+            // 
+            this.standaloneBarDockControl2.AutoSize = true;
+            this.standaloneBarDockControl2.CausesValidation = false;
+            this.standaloneBarDockControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.standaloneBarDockControl2.Location = new System.Drawing.Point(0, 254);
+            this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(379, 29);
+            this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
+            // 
+            // galleryControl1
+            // 
+            this.galleryControl1.Controls.Add(this.galleryControlClient2);
+            this.galleryControl1.DesignGalleryGroupIndex = 0;
+            this.galleryControl1.DesignGalleryItemIndex = 0;
+            this.galleryControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.galleryControl1.Location = new System.Drawing.Point(0, 0);
+            this.galleryControl1.Name = "galleryControl1";
+            this.galleryControl1.Size = new System.Drawing.Size(379, 254);
+            this.galleryControl1.TabIndex = 1;
+            this.galleryControl1.Text = "galleryControl1";
+            // 
+            // galleryControlClient2
+            // 
+            this.galleryControlClient2.GalleryControl = this.galleryControl1;
+            this.galleryControlClient2.Location = new System.Drawing.Point(2, 2);
+            this.galleryControlClient2.Size = new System.Drawing.Size(358, 250);
             // 
             // MainForm
             // 
@@ -941,10 +1017,15 @@
             this.dockPanel3_Container.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.faceGalleryControl)).EndInit();
             this.faceGalleryControl.ResumeLayout(false);
+            this.dockPanel1.ResumeLayout(false);
+            this.dockPanel1_Container.ResumeLayout(false);
+            this.dockPanel1_Container.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
             this.mainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).EndInit();
+            this.galleryControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1032,6 +1113,12 @@
         private DevExpress.XtraBars.BarButtonItem exitSystem;
         private DevExpress.XtraBars.BarStaticItem frameProcessTime;
         private DevExpress.XtraBars.BarStaticItem currentTime;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanel1;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
+        private DevExpress.XtraBars.Bar bar5;
+        private DevExpress.XtraBars.StandaloneBarDockControl standaloneBarDockControl2;
+        private DevExpress.XtraBars.Ribbon.GalleryControl galleryControl1;
+        private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient2;
 
     }
 }
