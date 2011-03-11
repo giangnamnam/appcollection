@@ -1,44 +1,50 @@
 ﻿using System;
 using System.Windows.Forms;
+using Damany.Windows.Form;
 
 namespace RemoteImaging
 {
     public class MessageBoxService : IMessageBoxService
     {
-        public void ShowError(string errorMessage)
+        public DialogResult ShowError(string errorMessage)
         {
-            ShowMessageBox(errorMessage, MessageBoxIcon.Error);
+            return ShowMessageBox(errorMessage, MessageBoxIcon.Error);
         }
 
-        private void ShowMessageBox(string errorMessage, MessageBoxIcon icon)
+        private DialogResult ShowMessageBox(string errorMessage, MessageBoxIcon icon, MessageBoxButtons button = MessageBoxButtons.OK)
         {
-            Form activeForm = GetActiveForm();
+            Form activeForm = FormHelper.GetActiveForm();
 
-            Action doit = () => MessageBox.Show(
+            Func<DialogResult> doit = () => MessageBox.Show(
                 activeForm,
                 errorMessage,
                 activeForm.Text,
-                MessageBoxButtons.OK,
+                button,
                 icon);
 
             if (activeForm.InvokeRequired)
             {
-                activeForm.Invoke(doit);
+                return (DialogResult) activeForm.Invoke(doit);
             }
             else
             {
-                doit.Invoke();
+                return  doit.Invoke();
             }
         }
 
-        public void ShowInfo(string errorMessage)
+        public DialogResult ShowInfo(string errorMessage)
         {
-            ShowMessageBox(errorMessage, MessageBoxIcon.Information);
+            return  ShowMessageBox(errorMessage, MessageBoxIcon.Information);
+        }
+
+        public DialogResult ShowQuestion(string question, MessageBoxButtons buttons = MessageBoxButtons.YesNo)
+        {
+            return ShowMessageBox(question, MessageBoxIcon.Question, buttons);
         }
 
         public void ShowForm(Func<Form> creator)
         {
-            var activeForm = GetActiveForm();
+            var activeForm = FormHelper.GetActiveForm();
             activeForm.Invoke(new Action(() =>
                                                   {
                                                       var form = creator();
@@ -48,7 +54,7 @@ namespace RemoteImaging
 
         public void ShowForm(Form form)
         {
-            var activeForm = GetActiveForm();
+            var activeForm = FormHelper.GetActiveForm();
             if (activeForm != null)
             {
                 activeForm.BeginInvoke(new Action(() => form.ShowDialog(activeForm)));
@@ -62,10 +68,6 @@ namespace RemoteImaging
         }
 
 
-        private Form GetActiveForm()
-        {
-            return Application.OpenForms[0];
-
-        }
+      
     }
 }

@@ -124,15 +124,18 @@ namespace Damany.PortraitCapturer.DAL.DTO
             return false;
         }
 
-        protected override void OnDeleted()
+        protected override void OnSaved()
         {
-            base.OnDeleted();
+            base.OnSaved();
 
-            if (string.IsNullOrEmpty(ImagePath))
-                return;
+            if (IsDeleted)
+            {
+                if (string.IsNullOrEmpty(ImagePath))
+                    return;
 
-            Util.IO.FileHelper.EnsureDelete(ImagePath);
-            Util.IO.FileHelper.EnsureDelete(ThumbnailPath);
+                Util.IO.FileHelper.EnsureDelete(ImagePath);
+                Util.IO.FileHelper.EnsureDelete(ThumbnailPath);
+            }
         }
 
         private string ThumbnailPath

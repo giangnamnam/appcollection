@@ -29,24 +29,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            this.imageListControlsZone = new System.Windows.Forms.ImageList();
-            this.imageListLicensePlateList = new System.Windows.Forms.ImageList();
-            this.cameraImageList = new System.Windows.Forms.ImageList();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
-            this.realTimer = new System.Windows.Forms.Timer();
-            this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl();
-            this.tmWait = new System.Windows.Forms.Timer();
-            this.tmMaxTime = new System.Windows.Forms.Timer();
+            this.imageListControlsZone = new System.Windows.Forms.ImageList(this.components);
+            this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
+            this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.realTimer = new System.Windows.Forms.Timer(this.components);
+            this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.tmWait = new System.Windows.Forms.Timer(this.components);
+            this.tmMaxTime = new System.Windows.Forms.Timer(this.components);
             this.splitterItem4 = new DevExpress.XtraLayout.SplitterItem();
-            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
+            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanelZoomPic = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.currentLicensePlateLayoutControl = new DevExpress.XtraLayout.LayoutControl();
             this.currLicenseCaptureTime = new DevExpress.XtraEditors.TextEdit();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.searchPic = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
@@ -71,7 +72,7 @@
             this.status = new DevExpress.XtraBars.BarStaticItem();
             this.switchMode = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemImageComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
-            this.imageListWorkMode = new System.Windows.Forms.ImageList();
+            this.imageListWorkMode = new System.Windows.Forms.ImageList(this.components);
             this.frameProcessTime = new DevExpress.XtraBars.BarStaticItem();
             this.progressStatusBarItem = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMarqueeProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemMarqueeProgressBar();
@@ -81,7 +82,7 @@
             this.zoomFactor = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
             this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
+            this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();

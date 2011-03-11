@@ -103,6 +103,8 @@ namespace RemoteImaging
             this.builder.RegisterType<Query.VideoQueryPresenter>()
                 .As<Query.IVideoQueryPresenter>();
 
+            this.builder.RegisterType<TargetPersonEditForm>();
+
             this.builder.RegisterType<Damany.RemoteImaging.Common.Forms.FaceCompare>();
             this.builder.RegisterType<Damany.RemoteImaging.Common.Presenters.FaceComparePresenter>();
 

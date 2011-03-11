@@ -266,9 +266,13 @@
     <Compile Include="DisposableWrapper.cs" />
     <Compile Include="Extensions\MiscExtensions.cs" />
     <Compile Include="Face.cs" />
+    <EmbeddedResource Include="TargetPersonEditForm.resx">
+      <DependentUpon>TargetPersonEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="FaceCompare\FaceComparer.cs" />
     <Compile Include="FaceProcessingModule.cs" />
     <Compile Include="FaceSearchFacade.cs" />
+    <Compile Include="FormHelper.cs" />
     <Compile Include="FormRoi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -661,6 +665,8 @@
     <None Include="Resources\car-icon1.png" />
     <None Include="Resources\Application-SB.png" />
     <None Include="Resources\Carman.png" />
+    <None Include="Resources\Add_16x16.png" />
+    <None Include="Resources\Delete_16x16.png" />
     <Content Include="Resources\MainIcon.ico" />
     <None Include="Resources\无标题.png" />
     <None Include="Resources\Play.png" />

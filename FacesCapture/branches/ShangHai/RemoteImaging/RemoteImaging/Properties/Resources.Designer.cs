@@ -60,6 +60,13 @@ namespace RemoteImaging.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Add_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Add_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Application_SB {
             get {
                 object obj = ResourceManager.GetObject("Application-SB", resourceCulture);
@@ -112,6 +119,13 @@ namespace RemoteImaging.Properties {
         internal static System.Drawing.Bitmap Carman {
             get {
                 object obj = ResourceManager.GetObject("Carman", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Delete_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Delete_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,7 +190,7 @@ namespace RemoteImaging.Properties {
             get {
                 object obj = ResourceManager.GetObject("Stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-    }
+            }
         }
     }
 }

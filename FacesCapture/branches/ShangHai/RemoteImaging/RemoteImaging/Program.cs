@@ -89,7 +89,8 @@ namespace RemoteImaging
                         typeof(Damany.PortraitCapturer.DAL.DTO.CapturedImageObject),
                         typeof(Damany.PortraitCapturer.DAL.DTO.Video),
                         typeof(Damany.PortraitCapturer.DAL.DTO.Portrait),
-                        typeof(Damany.PortraitCapturer.DAL.DTO.Frame));
+                        typeof(Damany.PortraitCapturer.DAL.DTO.Frame),
+                        typeof(Damany.PortraitCapturer.DAL.DTO.TargetPerson));
                     var cachNode = new DataCacheNode(new DataCacheRoot(dataStore));
                     XpoDefault.DataLayer = new ThreadSafeDataLayer(session.Dictionary, cachNode);
                 }

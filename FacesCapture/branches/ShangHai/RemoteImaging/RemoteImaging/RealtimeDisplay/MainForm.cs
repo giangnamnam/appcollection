@@ -71,7 +71,7 @@ namespace RemoteImaging.RealtimeDisplay
 
         void _eventAggregator_FrameProcessed(object sender, EventArgs<Tuple<int, int>> e)
         {
-           this.UpdateFrameProcessTime(e.Value.Item1, e.Value.Item2);
+            this.UpdateFrameProcessTime(e.Value.Item1, e.Value.Item2);
         }
 
         private void UpdateFrameProcessTime(int ms, int queueElementCount)
@@ -118,9 +118,9 @@ namespace RemoteImaging.RealtimeDisplay
 
             if (Properties.Settings.Default.StartInFullScreen)
             {
-                 EnterFullScreenMode(true);
+                EnterFullScreenMode(true);
             }
-           
+
             Application.Idle += new EventHandler(Application_Idle);
         }
 
@@ -573,6 +573,7 @@ namespace RemoteImaging.RealtimeDisplay
                         Func<IVideoQueryPresenter> createVideoQueryPresenter,
                         Func<FaceComparePresenter> createFaceCompare,
                         Func<OptionsForm> createOptionsForm,
+                        Func<TargetPersonEditForm> targetsEditorFactory,
                         Func<OptionsPresenter> createOptionsPresenter,
                         Func<FullVideoScreen> fullScreenMethod,
                         IMessageBoxService messageBoxService,
@@ -581,6 +582,7 @@ namespace RemoteImaging.RealtimeDisplay
                         )
             : this()
         {
+            if (targetsEditorFactory == null) throw new ArgumentNullException("targetsEditorFactory");
             if (fullScreenMethod == null) throw new ArgumentNullException("fullScreenMethod");
             if (messageBoxService == null) throw new ArgumentNullException("messageBoxService");
 
@@ -593,6 +595,7 @@ namespace RemoteImaging.RealtimeDisplay
             _messageBoxService = messageBoxService;
             _configurationManager = configurationManager;
             this._createOptionsForm = createOptionsForm;
+            _targetsEditorFactory = targetsEditorFactory;
             _videoRepository = videoRepository;
 
             configurationManager.ConfigurationChanged += configurationManager_ConfigurationChanged;
@@ -1094,7 +1097,7 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 EnterFullScreenMode(false);
             }
-            
+
             controller.Stop();
 
             if ((thread != null) && (thread.IsAlive))
@@ -1252,6 +1255,7 @@ namespace RemoteImaging.RealtimeDisplay
         private readonly FileSystemStorage _videoRepository;
         private readonly LicensePlateRepository _suspectCarRepository;
         private Func<OptionsForm> _createOptionsForm;
+        private readonly Func<TargetPersonEditForm> _targetsEditorFactory;
 
         private void faceRecognize_Click(object sender, EventArgs e)
         {
@@ -1736,20 +1740,9 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void addSuspectsButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var dr = this.openFileDialog1.ShowDialog(this);
-            if (dr == System.Windows.Forms.DialogResult.OK)
+            using (var form = _targetsEditorFactory())
             {
-                var destFileName = string.Format("FaceLib\\{0}.jpg", Guid.NewGuid());
-                var destFile = System.IO.Path.Combine(Application.StartupPath, destFileName);
-
-                System.IO.File.Copy(this.openFileDialog1.FileName, destFile);
-
-                var appPath = System.IO.Path.Combine(Application.StartupPath, "annotation.exe");
-                appPath = "\"" + appPath + "\"";
-                destFile = "\"" + destFile + "\"";
-
-                Process.Start(appPath, destFile);
-
+                form.ShowDialog(this);
             }
         }
 
