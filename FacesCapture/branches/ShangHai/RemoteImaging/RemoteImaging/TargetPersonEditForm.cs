@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Damany.Imaging.Common;
 using Damany.PortraitCapturer.DAL.DTO;
 using DevExpress.Utils;
 using DevExpress.Xpo;
@@ -152,6 +153,7 @@ namespace RemoteImaging
         private void DeleteAndCommitChanges()
         {
             _uow.CommitChanges();
+            Mediator.Instance.NotifyColleagues<object>("SuspectsLibChanged", null);
         }
 
         private void okButton_Click(object sender, EventArgs e)

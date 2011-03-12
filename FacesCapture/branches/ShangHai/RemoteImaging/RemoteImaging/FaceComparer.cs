@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Damany.Imaging.Common;
@@ -39,6 +40,7 @@ namespace RemoteImaging
             FacePreFilter = new List<IFaceSatisfyCompareCretia>(0);
             this.goSignal = new AutoResetEvent(false);
 
+            Mediator.Instance.RegisterHandler("SuspectsLibChanged", (Action<object>) SuspectsLibChanged);
         }
 
 
@@ -56,7 +58,7 @@ namespace RemoteImaging
                                                   "model.txt",
                                                   "haarcascade_frontalface_alt2.xml");
 
-                                              _targets = pois;
+                                              Targets = pois;
 
                                               this.Run = true;
                                               _initialized = true;
@@ -139,6 +141,25 @@ namespace RemoteImaging
             }
         }
 
+        private object _targetLock = new object();
+        private TargetPerson[] Targets
+        {
+            get
+            {
+                lock (_targetLock)
+                {
+                    return _targets;
+                }
+            }
+            set
+            {
+                lock (_targetLock)
+                {
+                    _targets = value;
+                }
+            }
+        }
+
 
         private void WorkerThread()
         {
@@ -166,7 +187,8 @@ namespace RemoteImaging
                     var canCompare = _faceComparer.CalcFeature(portrait.GetIpl(), fs);
                     if (canCompare)
                     {
-                        foreach (var targetPerson in _targets)
+                        var tgs = Targets;
+                        foreach (var targetPerson in tgs)
                         {
                             _tokenSource.Token.ThrowIfCancellationRequested();
                             var ts = new FaceSpecification();
@@ -258,6 +280,12 @@ namespace RemoteImaging
 
                 return null;
             }
+        }
+
+        private void SuspectsLibChanged(object state)
+        {
+            var tgs = this.LoadPersonOfInterests();
+            Targets = tgs;
         }
 
         private bool Run
