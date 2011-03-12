@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Damany.Imaging.Common;
+//using Damany.Imaging.Common;
 using DevExpress.Xpo;
 
 namespace Damany.PortraitCapturer.DAL.DTO

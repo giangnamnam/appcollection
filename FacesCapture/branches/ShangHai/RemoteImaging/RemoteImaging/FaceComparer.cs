@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using Damany.Imaging.Common;
+using Damany.PortraitCapturer.DAL.DTO;
 using DevExpress.Xpo;
 using FaceProcessingWrapper;
-using MiscUtil;
-using Damany.Imaging.Extensions;
-using OpenCvSharp;
 using System.Threading.Tasks;
+using Portrait = Damany.Imaging.Common.Portrait;
 
-namespace Damany.Imaging.PlugIns
+namespace RemoteImaging
 {
     public class FaceComparer
     {
         private int _featurePointsCount = 68;
         private int _alignedFaceImageSize = 70;
 
-        private PortraitCapturer.DAL.DTO.TargetPerson[] _targets;
+        private TargetPerson[] _targets;
         private FaceRecoWrapper _faceComparer;
 
         private bool _initialized = false;
@@ -79,11 +76,11 @@ namespace Damany.Imaging.PlugIns
             }
         }
 
-        private PortraitCapturer.DAL.DTO.TargetPerson[] LoadPersonOfInterests()
+        private TargetPerson[] LoadPersonOfInterests()
         {
             using (var session = new Session())
             {
-                var xpc = new XPCollection<PortraitCapturer.DAL.DTO.TargetPerson>();
+                var xpc = new XPCollection<TargetPerson>();
                 xpc.Load();
                 return xpc.ToArray();
             }
@@ -177,9 +174,15 @@ namespace Damany.Imaging.PlugIns
                             ts.EyebrowShape = targetPerson.EyebrowRatio;
                             ts.Features = targetPerson.FeaturePoints;
                             var compareResults = _faceComparer.CmpFace(fs, ts);
-                            if (compareResults > _sensitivity)
+                            if (compareResults > 70)
                             {
-                                NotifyListeners(portrait, top);
+                                var fdr = new PersonOfInterestDetectionResult()
+                                              {
+                                                  Similarity = compareResults,
+                                                  Suspect = portrait,
+                                                  Target = targetPerson
+                                              };
+                                Mediator.Instance.NotifyColleagues(fdr);
                             }
 
                         }
@@ -190,24 +193,6 @@ namespace Damany.Imaging.PlugIns
 
             }
 
-        }
-
-        private void NotifyListeners(Portrait portrait, IEnumerable<RepositoryCompareResult> matches)
-        {
-            foreach (var match in matches)
-            {
-                var args = new PersonOfInterestDetectionResult
-                               {
-                                   Details = match.PersonInfo,
-                                   Portrait = portrait,
-                                   Similarity = match.Similarity
-                               };
-
-                if (EventAggregator != null)
-                {
-                    EventAggregator.PublishFaceMatchEvent(args);
-                }
-            }
         }
 
         private IEnumerable<Portrait> FiltPortraits(IList<Portrait> portraits)

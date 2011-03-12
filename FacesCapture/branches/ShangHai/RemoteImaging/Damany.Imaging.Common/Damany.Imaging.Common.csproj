@@ -106,12 +106,15 @@
     <Compile Include="IMotionFrameHandler.cs" />
     <Compile Include="IPortraitHandler.cs" />
     <Compile Include="LazyIplImage.cs" />
+    <Compile Include="Mediator.cs" />
+    <Compile Include="MediatorMessageSinkAttribut.cs" />
     <Compile Include="MotionDetectResult.cs" />
     <Compile Include="NullMotionDetector.cs" />
     <Compile Include="NullRepositoryFaceComparer.cs" />
     <Compile Include="PersonOfInterest.cs" />
     <Compile Include="Operations.cs" />
-    <Compile Include="PersonOfInterestDetectionResult.cs" />
+    <Compile Include="WeakAction.cs" />
+    <None Include="PersonOfInterestDetectionResult.cs" />
     <Compile Include="Portrait.cs" />
     <Compile Include="PortraitBounds.cs" />
     <Compile Include="PortraitHandler.cs" />

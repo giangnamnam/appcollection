@@ -15,7 +15,7 @@ namespace Damany.Imaging.Common
         }
 
         public DateTime CapturedAt { get; set; }
-        public IFrameStream CapturedFrom { get; set; }
+        public int DeviceId { get; set; }
         public System.Guid Guid { get; set; }
         public int Oid { get; set; }
 

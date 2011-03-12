@@ -40,9 +40,6 @@ namespace RemoteImaging
                         .As<IEnumerable<PersonOfInterest>>()
                         .ExternallyOwned();
                 }
-
-                builder.RegisterType<LbpFaceComparer>()
-                       .As<IRepositoryFaceComparer>();
             }
             else
             {
@@ -50,23 +47,6 @@ namespace RemoteImaging
                 builder.RegisterType<NullRepositoryFaceComparer>()
                        .As<IRepositoryFaceComparer>();
             }
-
-
-            if (EnableFrontFaceComparer)
-            {
-                builder.RegisterType<Damany.Imaging.Handlers.FrontFaceVerifier>()
-                    .As<IFaceSatisfyCompareCretia>()
-                    .WithParameter("template", FaceTemplatePath);
-            }
-
-
-
-            if (EnableBackgroundComparer)
-            {
-                builder.RegisterType<Damany.Imaging.Handlers.FaceVerifier>()
-                .As<IFacePostFilter>();
-            }
-
         }
 
         private string GetAbsolutePath(string relativePath)

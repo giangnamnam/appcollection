@@ -55,7 +55,7 @@ namespace RemoteImaging
         {
             var p = this.screen.SelectedItem;
 
-            if (p != null) VideoPlayer.PlayRelatedVideo(p.CapturedAt, p.CapturedFrom.Id);
+            if (p != null) VideoPlayer.PlayRelatedVideo(p.CapturedAt, p.DeviceId);
         }
 
         public void SelectedItemChanged()

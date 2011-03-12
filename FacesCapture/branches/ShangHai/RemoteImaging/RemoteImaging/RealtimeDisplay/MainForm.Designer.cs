@@ -32,6 +32,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             this.imageListControlsZone = new System.Windows.Forms.ImageList(this.components);
             this.imageListLicensePlateList = new System.Windows.Forms.ImageList(this.components);
             this.cameraImageList = new System.Windows.Forms.ImageList(this.components);
@@ -43,6 +44,10 @@
             this.splitterItem4 = new DevExpress.XtraLayout.SplitterItem();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.panelContainer2 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanelSuspectView = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.peopleCompare1 = new RemoteImaging.Controls.PeopleCompare();
             this.dockPanelZoomPic = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.currentLicensePlateLayoutControl = new DevExpress.XtraLayout.LayoutControl();
@@ -64,10 +69,12 @@
             this.viewsBar = new DevExpress.XtraBars.BarSubItem();
             this.barButtonItemBigPicture = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemFaceList = new DevExpress.XtraBars.BarButtonItem();
+            this.suspectViewVisible = new DevExpress.XtraBars.BarButtonItem();
+            this.suspectListVisible = new DevExpress.XtraBars.BarButtonItem();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.skinsLink = new DevExpress.XtraBars.BarLinkContainerItem();
             this.barSubItem4 = new DevExpress.XtraBars.BarSubItem();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemTest = new DevExpress.XtraBars.BarButtonItem();
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.status = new DevExpress.XtraBars.BarStaticItem();
             this.switchMode = new DevExpress.XtraBars.BarEditItem();
@@ -82,6 +89,8 @@
             this.zoomFactor = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
             this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
+            this.bar5 = new DevExpress.XtraBars.Bar();
+            this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -104,24 +113,27 @@
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.suspectsPanelContainer = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanelSuspectsList = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.suspectsGallery = new DevExpress.XtraBars.Ribbon.GalleryControl();
+            this.galleryControlClient2 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
             this.dockPanelFaceList = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.faceGalleryControl = new DevExpress.XtraBars.Ribbon.GalleryControl();
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
-            this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
-            this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.axCamImgCtrl1 = new AxIMGCTRLLib.AxCamImgCtrl();
             this.mainPanel = new DevExpress.XtraEditors.GroupControl();
             this.xpCollection1 = new DevExpress.Xpo.XPCollection();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.bar5 = new DevExpress.XtraBars.Bar();
-            this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.galleryControl1 = new DevExpress.XtraBars.Ribbon.GalleryControl();
-            this.galleryControlClient2 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
+            this.barButtonItemClearSuspectsList = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
+            this.panelContainer2.SuspendLayout();
+            this.dockPanelSuspectView.SuspendLayout();
+            this.controlContainer1.SuspendLayout();
             this.dockPanelZoomPic.SuspendLayout();
             this.dockPanel2_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.currentLicensePlateLayoutControl)).BeginInit();
@@ -142,18 +154,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            this.suspectsPanelContainer.SuspendLayout();
+            this.dockPanelSuspectsList.SuspendLayout();
+            this.dockPanel1_Container.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.suspectsGallery)).BeginInit();
+            this.suspectsGallery.SuspendLayout();
             this.dockPanelFaceList.SuspendLayout();
             this.dockPanel3_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.faceGalleryControl)).BeginInit();
             this.faceGalleryControl.SuspendLayout();
-            this.dockPanel1.SuspendLayout();
-            this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).BeginInit();
-            this.galleryControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListControlsZone
@@ -216,8 +229,7 @@
             // 
             this.dockManager1.Form = this;
             this.dockManager1.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
-            this.panelContainer1,
-            this.dockPanel1});
+            this.panelContainer1});
             this.dockManager1.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
             "DevExpress.XtraBars.StandaloneBarDockControl",
@@ -227,8 +239,8 @@
             // 
             // panelContainer1
             // 
-            this.panelContainer1.Controls.Add(this.dockPanelZoomPic);
-            this.panelContainer1.Controls.Add(this.dockPanelFaceList);
+            this.panelContainer1.Controls.Add(this.panelContainer2);
+            this.panelContainer1.Controls.Add(this.suspectsPanelContainer);
             this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
             this.panelContainer1.FloatSize = new System.Drawing.Size(207, 384);
             this.panelContainer1.ID = new System.Guid("955ab13e-fa83-4eb9-b39b-9ef09c89ca07");
@@ -238,25 +250,69 @@
             this.panelContainer1.Size = new System.Drawing.Size(365, 501);
             this.panelContainer1.Text = "panelContainer1";
             // 
+            // panelContainer2
+            // 
+            this.panelContainer2.ActiveChild = this.dockPanelSuspectView;
+            this.panelContainer2.Controls.Add(this.dockPanelSuspectView);
+            this.panelContainer2.Controls.Add(this.dockPanelZoomPic);
+            this.panelContainer2.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.panelContainer2.FloatSize = new System.Drawing.Size(207, 384);
+            this.panelContainer2.FloatVertical = true;
+            this.panelContainer2.ID = new System.Guid("9777a245-c4e1-4de3-a284-4e1cbc84ffcb");
+            this.panelContainer2.Location = new System.Drawing.Point(0, 0);
+            this.panelContainer2.Name = "panelContainer2";
+            this.panelContainer2.OriginalSize = new System.Drawing.Size(365, 250);
+            this.panelContainer2.Size = new System.Drawing.Size(365, 250);
+            this.panelContainer2.Tabbed = true;
+            this.panelContainer2.Text = "panelContainer2";
+            // 
+            // dockPanelSuspectView
+            // 
+            this.dockPanelSuspectView.Controls.Add(this.controlContainer1);
+            this.dockPanelSuspectView.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.dockPanelSuspectView.ID = new System.Guid("2e60b77f-68a1-41ff-a355-0f2843217040");
+            this.dockPanelSuspectView.Location = new System.Drawing.Point(4, 23);
+            this.dockPanelSuspectView.Name = "dockPanelSuspectView";
+            this.dockPanelSuspectView.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelSuspectView.Size = new System.Drawing.Size(357, 195);
+            this.dockPanelSuspectView.Text = "可疑人员对照";
+            // 
+            // controlContainer1
+            // 
+            this.controlContainer1.Controls.Add(this.peopleCompare1);
+            this.controlContainer1.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer1.Name = "controlContainer1";
+            this.controlContainer1.Size = new System.Drawing.Size(357, 195);
+            this.controlContainer1.TabIndex = 0;
+            // 
+            // peopleCompare1
+            // 
+            this.peopleCompare1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.peopleCompare1.Location = new System.Drawing.Point(0, 0);
+            this.peopleCompare1.Name = "peopleCompare1";
+            this.peopleCompare1.Size = new System.Drawing.Size(357, 195);
+            this.peopleCompare1.TabIndex = 0;
+            // 
             // dockPanelZoomPic
             // 
             this.dockPanelZoomPic.Controls.Add(this.dockPanel2_Container);
             this.dockPanelZoomPic.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelZoomPic.FloatSize = new System.Drawing.Size(207, 384);
+            this.dockPanelZoomPic.FloatVertical = true;
             this.dockPanelZoomPic.ID = new System.Guid("da90bc86-22f8-45a0-a716-5442ac09cd9d");
-            this.dockPanelZoomPic.Location = new System.Drawing.Point(0, 0);
+            this.dockPanelZoomPic.Location = new System.Drawing.Point(4, 23);
             this.dockPanelZoomPic.Name = "dockPanelZoomPic";
             this.dockPanelZoomPic.Options.ShowMaximizeButton = false;
-            this.dockPanelZoomPic.OriginalSize = new System.Drawing.Size(365, 250);
-            this.dockPanelZoomPic.Size = new System.Drawing.Size(365, 250);
+            this.dockPanelZoomPic.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelZoomPic.Size = new System.Drawing.Size(357, 195);
             this.dockPanelZoomPic.Text = "放大图片";
             // 
             // dockPanel2_Container
             // 
             this.dockPanel2_Container.Controls.Add(this.currentLicensePlateLayoutControl);
-            this.dockPanel2_Container.Location = new System.Drawing.Point(4, 23);
+            this.dockPanel2_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(357, 223);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(357, 195);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // currentLicensePlateLayoutControl
@@ -267,13 +323,13 @@
             this.currentLicensePlateLayoutControl.Location = new System.Drawing.Point(0, 0);
             this.currentLicensePlateLayoutControl.Name = "currentLicensePlateLayoutControl";
             this.currentLicensePlateLayoutControl.Root = this.layoutControlGroup1;
-            this.currentLicensePlateLayoutControl.Size = new System.Drawing.Size(357, 223);
+            this.currentLicensePlateLayoutControl.Size = new System.Drawing.Size(357, 195);
             this.currentLicensePlateLayoutControl.TabIndex = 1;
             this.currentLicensePlateLayoutControl.Text = "layoutControl1";
             // 
             // currLicenseCaptureTime
             // 
-            this.currLicenseCaptureTime.Location = new System.Drawing.Point(69, 197);
+            this.currLicenseCaptureTime.Location = new System.Drawing.Point(69, 169);
             this.currLicenseCaptureTime.MenuManager = this.barManager1;
             this.currLicenseCaptureTime.Name = "currLicenseCaptureTime";
             this.currLicenseCaptureTime.Properties.DisplayFormat.FormatString = "F";
@@ -327,13 +383,16 @@
             this.skinsLink,
             this.barCheckItem1,
             this.showTimeCaption,
-            this.barButtonItem2,
+            this.barButtonItemTest,
             this.barButtonItem5,
             this.exitSystem,
             this.currentTime,
-            this.frameProcessTime});
+            this.frameProcessTime,
+            this.suspectViewVisible,
+            this.suspectListVisible,
+            this.barButtonItemClearSuspectsList});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 53;
+            this.barManager1.MaxItemId = 56;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit2,
             this.repositoryItemRadioGroup1,
@@ -474,7 +533,9 @@
             this.viewsBar.Id = 6;
             this.viewsBar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemBigPicture),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemFaceList)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemFaceList),
+            new DevExpress.XtraBars.LinkPersistInfo(this.suspectViewVisible),
+            new DevExpress.XtraBars.LinkPersistInfo(this.suspectListVisible)});
             this.viewsBar.Name = "viewsBar";
             this.viewsBar.Popup += new System.EventHandler(this.viewsBar_Popup);
             // 
@@ -493,6 +554,22 @@
             this.barButtonItemFaceList.Id = 24;
             this.barButtonItemFaceList.Name = "barButtonItemFaceList";
             this.barButtonItemFaceList.DownChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemFaceList_DownChanged);
+            // 
+            // suspectViewVisible
+            // 
+            this.suspectViewVisible.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.Check;
+            this.suspectViewVisible.Caption = "可疑人员对照";
+            this.suspectViewVisible.Id = 53;
+            this.suspectViewVisible.Name = "suspectViewVisible";
+            this.suspectViewVisible.DownChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.suspectViewVisible_DownChanged);
+            // 
+            // suspectListVisible
+            // 
+            this.suspectListVisible.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.Check;
+            this.suspectListVisible.Caption = "可疑人员";
+            this.suspectListVisible.Id = 54;
+            this.suspectListVisible.Name = "suspectListVisible";
+            this.suspectListVisible.DownChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.suspectListVisible_DownChanged);
             // 
             // barSubItem1
             // 
@@ -513,16 +590,16 @@
             this.barSubItem4.Caption = "帮助";
             this.barSubItem4.Id = 7;
             this.barSubItem4.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem2)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemTest)});
             this.barSubItem4.Name = "barSubItem4";
             // 
-            // barButtonItem2
+            // barButtonItemTest
             // 
-            this.barButtonItem2.Caption = "test";
-            this.barButtonItem2.Id = 48;
-            this.barButtonItem2.Name = "barButtonItem2";
-            this.barButtonItem2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick_1);
+            this.barButtonItemTest.Caption = "test";
+            this.barButtonItemTest.Id = 48;
+            this.barButtonItemTest.Name = "barButtonItemTest";
+            this.barButtonItemTest.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.barButtonItemTest.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick_1);
             // 
             // bar3
             // 
@@ -654,10 +731,35 @@
             this.standaloneBarDockControl1.AutoSize = true;
             this.standaloneBarDockControl1.CausesValidation = false;
             this.standaloneBarDockControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 192);
+            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 164);
             this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
             this.standaloneBarDockControl1.Size = new System.Drawing.Size(357, 32);
             this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
+            // 
+            // bar5
+            // 
+            this.bar5.BarName = "Custom 6";
+            this.bar5.DockCol = 0;
+            this.bar5.DockRow = 0;
+            this.bar5.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.bar5.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemClearSuspectsList)});
+            this.bar5.OptionsBar.AllowQuickCustomization = false;
+            this.bar5.OptionsBar.DisableCustomization = true;
+            this.bar5.OptionsBar.DrawDragBorder = false;
+            this.bar5.OptionsBar.UseWholeRow = true;
+            this.bar5.StandaloneBarDockControl = this.standaloneBarDockControl2;
+            this.bar5.Text = "Custom 6";
+            // 
+            // standaloneBarDockControl2
+            // 
+            this.standaloneBarDockControl2.AutoSize = true;
+            this.standaloneBarDockControl2.CausesValidation = false;
+            this.standaloneBarDockControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.standaloneBarDockControl2.Location = new System.Drawing.Point(0, 165);
+            this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(357, 31);
+            this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
             // 
             // barAndDockingController1
             // 
@@ -774,7 +876,7 @@
             // 
             this.bigImage.Location = new System.Drawing.Point(5, 5);
             this.bigImage.Name = "bigImage";
-            this.bigImage.Size = new System.Drawing.Size(347, 188);
+            this.bigImage.Size = new System.Drawing.Size(347, 160);
             this.bigImage.TabIndex = 0;
             // 
             // layoutControlGroup1
@@ -788,7 +890,7 @@
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(357, 223);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(357, 195);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -799,7 +901,7 @@
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(351, 192);
+            this.layoutControlItem1.Size = new System.Drawing.Size(351, 164);
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
@@ -809,11 +911,77 @@
             // 
             this.layoutControlItem3.Control = this.currLicenseCaptureTime;
             this.layoutControlItem3.CustomizationFormText = "抓拍时间：";
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 192);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 164);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(351, 25);
             this.layoutControlItem3.Text = "抓拍时间：";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(60, 14);
+            // 
+            // suspectsPanelContainer
+            // 
+            this.suspectsPanelContainer.ActiveChild = this.dockPanelSuspectsList;
+            this.suspectsPanelContainer.Controls.Add(this.dockPanelSuspectsList);
+            this.suspectsPanelContainer.Controls.Add(this.dockPanelFaceList);
+            this.suspectsPanelContainer.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.suspectsPanelContainer.FloatSize = new System.Drawing.Size(551, 235);
+            this.suspectsPanelContainer.FloatVertical = true;
+            this.suspectsPanelContainer.ID = new System.Guid("7712f8d3-c440-48d5-9a5f-0a02b92847c9");
+            this.suspectsPanelContainer.Location = new System.Drawing.Point(0, 250);
+            this.suspectsPanelContainer.Name = "suspectsPanelContainer";
+            this.suspectsPanelContainer.OriginalSize = new System.Drawing.Size(365, 251);
+            this.suspectsPanelContainer.Size = new System.Drawing.Size(365, 251);
+            this.suspectsPanelContainer.Tabbed = true;
+            this.suspectsPanelContainer.Text = "panelContainer3";
+            // 
+            // dockPanelSuspectsList
+            // 
+            this.dockPanelSuspectsList.Controls.Add(this.dockPanel1_Container);
+            this.dockPanelSuspectsList.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.dockPanelSuspectsList.FloatSize = new System.Drawing.Size(385, 308);
+            this.dockPanelSuspectsList.ID = new System.Guid("1d36e9b6-3c3d-4a84-9d98-4f300066a058");
+            this.dockPanelSuspectsList.Location = new System.Drawing.Point(4, 23);
+            this.dockPanelSuspectsList.Name = "dockPanelSuspectsList";
+            this.dockPanelSuspectsList.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelSuspectsList.Size = new System.Drawing.Size(357, 196);
+            this.dockPanelSuspectsList.Text = "可疑人员";
+            // 
+            // dockPanel1_Container
+            // 
+            this.dockPanel1_Container.Controls.Add(this.suspectsGallery);
+            this.dockPanel1_Container.Controls.Add(this.standaloneBarDockControl2);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
+            this.dockPanel1_Container.Name = "dockPanel1_Container";
+            this.dockPanel1_Container.Size = new System.Drawing.Size(357, 196);
+            this.dockPanel1_Container.TabIndex = 0;
+            // 
+            // suspectsGallery
+            // 
+            this.suspectsGallery.Controls.Add(this.galleryControlClient2);
+            this.suspectsGallery.DesignGalleryGroupIndex = 0;
+            this.suspectsGallery.DesignGalleryItemIndex = 0;
+            this.suspectsGallery.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // suspectsGallery
+            // 
+            galleryItemGroup1.Caption = "Group1";
+            this.suspectsGallery.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
+            galleryItemGroup1});
+            this.suspectsGallery.Gallery.ImageSize = new System.Drawing.Size(50, 50);
+            this.suspectsGallery.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.Multiple;
+            this.suspectsGallery.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;
+            this.suspectsGallery.Gallery.ShowGroupCaption = false;
+            this.suspectsGallery.Gallery.ShowItemText = true;
+            this.suspectsGallery.Location = new System.Drawing.Point(0, 0);
+            this.suspectsGallery.Name = "suspectsGallery";
+            this.suspectsGallery.Size = new System.Drawing.Size(357, 165);
+            this.suspectsGallery.TabIndex = 1;
+            this.suspectsGallery.Text = "galleryControl1";
+            // 
+            // galleryControlClient2
+            // 
+            this.galleryControlClient2.GalleryControl = this.suspectsGallery;
+            this.galleryControlClient2.Location = new System.Drawing.Point(2, 2);
+            this.galleryControlClient2.Size = new System.Drawing.Size(336, 161);
             // 
             // dockPanelFaceList
             // 
@@ -822,20 +990,20 @@
             this.dockPanelFaceList.FloatSize = new System.Drawing.Size(551, 235);
             this.dockPanelFaceList.FloatVertical = true;
             this.dockPanelFaceList.ID = new System.Guid("c4ed9e3d-90eb-48d9-b327-46006ba8ae10");
-            this.dockPanelFaceList.Location = new System.Drawing.Point(0, 250);
+            this.dockPanelFaceList.Location = new System.Drawing.Point(4, 23);
             this.dockPanelFaceList.Name = "dockPanelFaceList";
             this.dockPanelFaceList.Options.ShowMaximizeButton = false;
-            this.dockPanelFaceList.OriginalSize = new System.Drawing.Size(365, 251);
-            this.dockPanelFaceList.Size = new System.Drawing.Size(365, 251);
+            this.dockPanelFaceList.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelFaceList.Size = new System.Drawing.Size(357, 196);
             this.dockPanelFaceList.Text = "人像列表";
             // 
             // dockPanel3_Container
             // 
             this.dockPanel3_Container.Controls.Add(this.faceGalleryControl);
             this.dockPanel3_Container.Controls.Add(this.standaloneBarDockControl1);
-            this.dockPanel3_Container.Location = new System.Drawing.Point(4, 23);
+            this.dockPanel3_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(357, 224);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(357, 196);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // faceGalleryControl
@@ -847,16 +1015,16 @@
             // 
             // faceGalleryControl
             // 
-            galleryItemGroup1.Caption = "Group1";
+            galleryItemGroup2.Caption = "Group1";
             this.faceGalleryControl.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup1});
+            galleryItemGroup2});
             this.faceGalleryControl.Gallery.ImageSize = new System.Drawing.Size(88, 88);
             this.faceGalleryControl.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleRadio;
             this.faceGalleryControl.Gallery.ItemImageLayout = DevExpress.Utils.Drawing.ImageLayoutMode.ZoomInside;
             this.faceGalleryControl.Gallery.ShowGroupCaption = false;
             this.faceGalleryControl.Location = new System.Drawing.Point(0, 0);
             this.faceGalleryControl.Name = "faceGalleryControl";
-            this.faceGalleryControl.Size = new System.Drawing.Size(357, 192);
+            this.faceGalleryControl.Size = new System.Drawing.Size(357, 164);
             this.faceGalleryControl.TabIndex = 0;
             this.faceGalleryControl.Text = "galleryControl1";
             // 
@@ -864,29 +1032,7 @@
             // 
             this.galleryControlClient1.GalleryControl = this.faceGalleryControl;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient1.Size = new System.Drawing.Size(336, 188);
-            // 
-            // dockPanel1
-            // 
-            this.dockPanel1.Controls.Add(this.dockPanel1_Container);
-            this.dockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
-            this.dockPanel1.FloatLocation = new System.Drawing.Point(395, 286);
-            this.dockPanel1.FloatSize = new System.Drawing.Size(385, 308);
-            this.dockPanel1.ID = new System.Guid("1d36e9b6-3c3d-4a84-9d98-4f300066a058");
-            this.dockPanel1.Location = new System.Drawing.Point(0, 0);
-            this.dockPanel1.Name = "dockPanel1";
-            this.dockPanel1.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanel1.Size = new System.Drawing.Size(385, 308);
-            this.dockPanel1.Text = "dockPanel1";
-            // 
-            // dockPanel1_Container
-            // 
-            this.dockPanel1_Container.Controls.Add(this.galleryControl1);
-            this.dockPanel1_Container.Controls.Add(this.standaloneBarDockControl2);
-            this.dockPanel1_Container.Location = new System.Drawing.Point(3, 22);
-            this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(379, 283);
-            this.dockPanel1_Container.TabIndex = 0;
+            this.galleryControlClient1.Size = new System.Drawing.Size(336, 160);
             // 
             // gridColumn4
             // 
@@ -928,46 +1074,13 @@
             // 
             this.openFileDialog1.Filter = "图像文件|*.jpg";
             // 
-            // bar5
+            // barButtonItemClearSuspectsList
             // 
-            this.bar5.BarName = "Custom 6";
-            this.bar5.DockCol = 0;
-            this.bar5.DockRow = 0;
-            this.bar5.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
-            this.bar5.OptionsBar.AllowQuickCustomization = false;
-            this.bar5.OptionsBar.DisableCustomization = true;
-            this.bar5.OptionsBar.DrawDragBorder = false;
-            this.bar5.OptionsBar.UseWholeRow = true;
-            this.bar5.StandaloneBarDockControl = this.standaloneBarDockControl2;
-            this.bar5.Text = "Custom 6";
-            // 
-            // standaloneBarDockControl2
-            // 
-            this.standaloneBarDockControl2.AutoSize = true;
-            this.standaloneBarDockControl2.CausesValidation = false;
-            this.standaloneBarDockControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.standaloneBarDockControl2.Location = new System.Drawing.Point(0, 254);
-            this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
-            this.standaloneBarDockControl2.Size = new System.Drawing.Size(379, 29);
-            this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
-            // 
-            // galleryControl1
-            // 
-            this.galleryControl1.Controls.Add(this.galleryControlClient2);
-            this.galleryControl1.DesignGalleryGroupIndex = 0;
-            this.galleryControl1.DesignGalleryItemIndex = 0;
-            this.galleryControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.galleryControl1.Location = new System.Drawing.Point(0, 0);
-            this.galleryControl1.Name = "galleryControl1";
-            this.galleryControl1.Size = new System.Drawing.Size(379, 254);
-            this.galleryControl1.TabIndex = 1;
-            this.galleryControl1.Text = "galleryControl1";
-            // 
-            // galleryControlClient2
-            // 
-            this.galleryControlClient2.GalleryControl = this.galleryControl1;
-            this.galleryControlClient2.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient2.Size = new System.Drawing.Size(358, 250);
+            this.barButtonItemClearSuspectsList.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.barButtonItemClearSuspectsList.Caption = "确认";
+            this.barButtonItemClearSuspectsList.Id = 55;
+            this.barButtonItemClearSuspectsList.Name = "barButtonItemClearSuspectsList";
+            this.barButtonItemClearSuspectsList.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemClearSuspectsList_ItemClick);
             // 
             // MainForm
             // 
@@ -992,6 +1105,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitterItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.panelContainer1.ResumeLayout(false);
+            this.panelContainer2.ResumeLayout(false);
+            this.dockPanelSuspectView.ResumeLayout(false);
+            this.controlContainer1.ResumeLayout(false);
             this.dockPanelZoomPic.ResumeLayout(false);
             this.dockPanel2_Container.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.currentLicensePlateLayoutControl)).EndInit();
@@ -1012,20 +1128,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            this.suspectsPanelContainer.ResumeLayout(false);
+            this.dockPanelSuspectsList.ResumeLayout(false);
+            this.dockPanel1_Container.ResumeLayout(false);
+            this.dockPanel1_Container.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.suspectsGallery)).EndInit();
+            this.suspectsGallery.ResumeLayout(false);
             this.dockPanelFaceList.ResumeLayout(false);
             this.dockPanel3_Container.ResumeLayout(false);
             this.dockPanel3_Container.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.faceGalleryControl)).EndInit();
             this.faceGalleryControl.ResumeLayout(false);
-            this.dockPanel1.ResumeLayout(false);
-            this.dockPanel1_Container.ResumeLayout(false);
-            this.dockPanel1_Container.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axCamImgCtrl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
             this.mainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xpCollection1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.galleryControl1)).EndInit();
-            this.galleryControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1108,17 +1225,25 @@
         private DevExpress.XtraBars.BarCheckItem barCheckItem1;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraBars.BarCheckItem showTimeCaption;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemTest;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem exitSystem;
         private DevExpress.XtraBars.BarStaticItem frameProcessTime;
         private DevExpress.XtraBars.BarStaticItem currentTime;
-        private DevExpress.XtraBars.Docking.DockPanel dockPanel1;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelSuspectsList;
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
         private DevExpress.XtraBars.Bar bar5;
         private DevExpress.XtraBars.StandaloneBarDockControl standaloneBarDockControl2;
-        private DevExpress.XtraBars.Ribbon.GalleryControl galleryControl1;
+        private DevExpress.XtraBars.Ribbon.GalleryControl suspectsGallery;
         private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient2;
+        private DevExpress.XtraBars.Docking.DockPanel panelContainer2;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelSuspectView;
+        private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
+        private Controls.PeopleCompare peopleCompare1;
+        private DevExpress.XtraBars.Docking.DockPanel suspectsPanelContainer;
+        private DevExpress.XtraBars.BarButtonItem suspectViewVisible;
+        private DevExpress.XtraBars.BarButtonItem suspectListVisible;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemClearSuspectsList;
 
     }
 }

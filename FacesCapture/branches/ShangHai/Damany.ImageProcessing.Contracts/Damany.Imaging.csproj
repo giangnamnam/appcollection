@@ -62,10 +62,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FaceProcessingWrapper, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RemoteImaging\RefDll\FaceProcessingWrapper.dll</HintPath>
-    </Reference>
+    <Reference Include="DevExpress.Data.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v10.2, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="MiscUtil">
       <HintPath>..\Library\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
@@ -100,17 +98,17 @@
   <ItemGroup>
     <Compile Include="ConfigurationHandlers\FaceSearchConfigSectionHandler.cs" />
     <Compile Include="Extensions\IplImageExtensions.cs" />
-    <Compile Include="Handlers\FaceVerifier.cs" />
-    <Compile Include="Handlers\FrontFaceVerifier.cs" />
+    <None Include="Handlers\FaceVerifier.cs" />
+    <None Include="Handlers\FrontFaceVerifier.cs" />
     <Compile Include="PlugIns\LbpConfiguration.cs" />
-    <Compile Include="PlugIns\LBPFaceComparer.cs" />
+    <None Include="PlugIns\LBPFaceComparer.cs" />
     <Compile Include="FaceSearchController.cs" />
     <Compile Include="FaceSearchFactory.cs" />
     <Compile Include="Algorithms\FrameManager.cs" />
     <Compile Include="Algorithms\MotionDetector.cs" />
     <Compile Include="Algorithms\PortraitFinder.cs" />
     <Compile Include="Handlers\AsyncPortraitLogger.cs" />
-    <Compile Include="PlugIns\FaceComparer.cs" />
+    <None Include="PlugIns\FaceComparer.cs" />
     <Compile Include="Handlers\FrameWritter.cs" />
     <Compile Include="Handlers\GUIUpdater.cs" />
     <Compile Include="Handlers\IWantedRepository.cs" />
@@ -122,9 +120,17 @@
       <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>
       <Name>Damany.Imaging.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\Damany.PortraitCapturer.DAL\Damany.PortraitCapturer.DAL.csproj">
+      <Project>{85DF7A03-E0AF-4A50-B257-0DB136AED335}</Project>
+      <Name>Damany.PortraitCapturer.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\Damany.Util\Damany.Util.csproj">
       <Project>{FA6DEBE0-D78D-437E-B05D-0923896290C9}</Project>
       <Name>Damany.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteImaging\FaceProcessingWrapper\FaceProcessingWrapper.vcxproj">
+      <Project>{02B00EA5-D734-429C-BF58-44769501B940}</Project>
+      <Name>FaceProcessingWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteImaging\FaceSearchWrapper\FaceSearchWrapper.vcxproj">
       <Project>{F6F410AA-5D72-49BE-9FFE-6EBECF718EAA}</Project>

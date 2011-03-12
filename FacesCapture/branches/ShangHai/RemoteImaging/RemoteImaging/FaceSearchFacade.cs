@@ -42,7 +42,7 @@ namespace RemoteImaging
         public FaceSearchFacade(Damany.Imaging.Processors.MotionDetector motionDetector,
                                 Damany.Imaging.Processors.PortraitFinder portraitFinder,
                                 IEnumerable<Damany.Imaging.Common.IFacePostFilter> facePostFilters,
-                                Damany.Imaging.PlugIns.FaceComparer faceComparer,
+                                FaceComparer faceComparer,
                                 IEventAggregator eventAggregator)
         {
             _motionDetector = motionDetector;
@@ -253,9 +253,7 @@ namespace RemoteImaging
 
                 foreach (var motionFrame in motionFrames)
                 {
-                    var source = new MockFrameSource();
-                    source.Id = _cameraInfo.Id;
-                    motionFrame.CapturedFrom = source;
+                    motionFrame.DeviceId = _cameraInfo.Id;
                 }
 
                 SaveMotionFrames(motionFrames);
@@ -311,7 +309,7 @@ namespace RemoteImaging
                     var path = SaveImage(motionFrame.GetImage(), motionFrame.CapturedAt);
                     f.CaptureTime = motionFrame.CapturedAt;
                     f.ImagePath = path;
-                    f.ImageSourceId = motionFrame.CapturedFrom.Id;
+                    f.ImageSourceId = motionFrame.DeviceId;
                     f.Save();
                     savedObjects.Add(f);
                 }
@@ -387,7 +385,7 @@ namespace RemoteImaging
                     p.ImagePath = path;
                     p.FaceBounds = portrait.FaceBounds;
                     p.CaptureTime = portrait.CapturedAt;
-                    p.ImageSourceId = portrait.CapturedFrom.Id;
+                    p.ImageSourceId = portrait.DeviceId;
 
                     var frame = uow.GetObjectByKey(typeof(Damany.PortraitCapturer.DAL.DTO.Frame), portrait.Frame.Oid);
                     p.Frame = (Damany.PortraitCapturer.DAL.DTO.Frame)frame;

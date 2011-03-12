@@ -107,7 +107,7 @@ namespace RemoteImaging
             var p = _mainForm.SelectedObject;
             if (p == null) return;
 
-            VideoPlayer.PlayRelatedVideo(p.CapturedAt, p.CapturedFrom.Id);
+            VideoPlayer.PlayRelatedVideo(p.CapturedAt, p.DeviceId);
         }
 
 

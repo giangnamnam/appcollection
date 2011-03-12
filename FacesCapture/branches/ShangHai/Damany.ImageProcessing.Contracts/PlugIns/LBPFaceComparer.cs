@@ -109,7 +109,6 @@ namespace Damany.Imaging.PlugIns
         #endregion
 
         private float sensitivity = 35;
-        private FaceProcessingWrapper.LbpWrapper lbp = new LbpWrapper();
         private IList<Common.PersonOfInterest> persons;
 
         private FaceSearchWrapper.FaceSearch searcher = new FaceSearchWrapper.FaceSearch();

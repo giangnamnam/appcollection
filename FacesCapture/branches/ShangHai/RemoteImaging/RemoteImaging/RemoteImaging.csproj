@@ -197,6 +197,7 @@
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.1.0.0\lib\40\PagedList.dll</HintPath>
     </Reference>
+    <Reference Include="PGK.Extensions.Windows.Forms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=49dc55b52b73ad40, processorArchitecture=MSIL" />
     <Reference Include="ScalablePictureBox">
       <HintPath>..\..\Library\ScalablePictureBox.dll</HintPath>
     </Reference>
@@ -279,6 +280,7 @@
       <DependentUpon>TargetPersonEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="FaceCompare\FaceComparer.cs" />
+    <Compile Include="FaceComparer.cs" />
     <Compile Include="FaceProcessingModule.cs" />
     <Compile Include="FaceSearchFacade.cs" />
     <Compile Include="FormHelper.cs" />
@@ -415,6 +417,7 @@
     <Compile Include="PasswordForm.Designer.cs">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PersonOfInterestDetectionResult.cs" />
     <Compile Include="PicQueryFormPresenter.cs" />
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
@@ -830,7 +833,7 @@
   -->
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" Reactor_Enabled="1" Reactor_Lib="0" Reactor_Automatic="1" Reactor_Commands="" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" BuildVersion_ConfigurationName="Release" BuildVersion_BuildAction="ReBuild" />
+      <UserProperties BuildVersion_BuildAction="ReBuild" BuildVersion_ConfigurationName="Release" Reactor_Output="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\bin\Release\RemoteImaging.exe" Reactor_Project="l:\Documents and Settings\benny\My Documents\Visual Studio 2008\Projects\RemoteImaging_shen_retlang\RemoteImaging\RemoteImaging\reactor.nrproj" Reactor_Commands="" Reactor_Automatic="1" Reactor_Lib="0" Reactor_Enabled="1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

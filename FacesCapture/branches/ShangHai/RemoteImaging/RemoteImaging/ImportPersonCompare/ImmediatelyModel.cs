@@ -22,16 +22,16 @@ namespace RemoteImaging.ImportPersonCompare
             btnOK.Enabled = false;
         }
 
-        public void AddSuspects(Damany.Imaging.Common.PersonOfInterestDetectionResult compareResult)
+        public void AddSuspects(PersonOfInterestDetectionResult compareResult)
         {
 
             this.listPersons.Add(compareResult);
 
             var lvi = new ListViewItem(new string[] { "",
-                                                            compareResult.Details.Name,
-                                                            compareResult.Details.Gender.ToString(),
-                                                            compareResult.Details.Age.ToString(),
-                                                            compareResult.Details.ID,
+                                                            //compareResult.Details.Name,
+                                                            //compareResult.Details.Gender.ToString(),
+                                                            //compareResult.Details.Age.ToString(),
+                                                            //compareResult.Details.ID,
                                                             string.Empty});
             lvi.Tag = compareResult;
             var added = this.suspectsList.Items.Add(lvi);
@@ -130,7 +130,7 @@ namespace RemoteImaging.ImportPersonCompare
             if (suspectsList.SelectedItems.Count > 0)
             {
                 var lvi = suspectsList.SelectedItems[suspectsList.SelectedItems.Count - 1];
-                var result = (Damany.Imaging.Common.PersonOfInterestDetectionResult)lvi.Tag;
+                var result = (PersonOfInterestDetectionResult)lvi.Tag;
 
                 lblTextSim.Text = string.Format("相似度: {0:F0}%", result.Similarity);
                 //犯罪分子图片显示
@@ -140,8 +140,8 @@ namespace RemoteImaging.ImportPersonCompare
                     personOfInterestImage.Image = null;
                 }
 
-                personOfInterestImage.Image = result.Details.GetIpl().ToBitmap();
-                this.suspectImage.Image = result.Portrait.GetIpl().ToBitmap();
+                //personOfInterestImage.Image = result.Details.GetIpl().ToBitmap();
+                //this.suspectImage.Image = result.Portrait.GetIpl().ToBitmap();
                 btnOK.Enabled = true;
             }
         }
@@ -156,7 +156,7 @@ namespace RemoteImaging.ImportPersonCompare
 
         }
 
-        private readonly List<Damany.Imaging.Common.PersonOfInterestDetectionResult> listPersons
+        private readonly List<PersonOfInterestDetectionResult> listPersons
             = new List<PersonOfInterestDetectionResult>();
 
         private void ImmediatelyModel_FormClosing(object sender, FormClosingEventArgs e)

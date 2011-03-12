@@ -62,11 +62,32 @@ namespace RemoteImaging.RealtimeDisplay
                 if (_eventAggregator != null)
                 {
                     _eventAggregator.PortraitFound += (o, e) => this.HandlePortrait(e.Value);
-                    _eventAggregator.FaceMatchFound += (o, e) => this.ShowSuspects(e.Value);
                     _eventAggregator.IsBusyChanged += _eventAggregator_IsBusyChanged;
                     _eventAggregator.FrameProcessed += _eventAggregator_FrameProcessed;
+                    Mediator.Instance.RegisterHandler((Action<PersonOfInterestDetectionResult>)FaceMatchDetected);
                 }
             }
+        }
+
+        void FaceMatchDetected(PersonOfInterestDetectionResult match)
+        {
+            suspectsGallery.RunInUIThread(() =>
+            {
+                var item = new GalleryItem(
+                    match.Suspect.GetIpl().ToBitmap(),
+                    match.Suspect.CapturedAt.ToShortTimeString(),
+                    null);
+                item.Tag = match;
+                suspectsGallery.Gallery.Groups[0].Items.Insert(0, item);
+                item.Checked = true;
+
+                dockManager1.ActivePanel = dockPanelSuspectsList;
+                dockManager1.ActivePanel = dockPanelSuspectView;
+
+            });
+
+
+
         }
 
         void _eventAggregator_FrameProcessed(object sender, EventArgs<Tuple<int, int>> e)
@@ -115,6 +136,7 @@ namespace RemoteImaging.RealtimeDisplay
 
             zoomFactor.Edit.EditValueChanging += Edit_EditValueChanging;
             faceGalleryControl.Gallery.ItemCheckedChanged += Gallery_ItemCheckedChanged;
+            suspectsGallery.Gallery.ItemCheckedChanged += SuspectsGallery_ItemCheckedChanged;
 
             if (Properties.Settings.Default.StartInFullScreen)
             {
@@ -150,6 +172,16 @@ namespace RemoteImaging.RealtimeDisplay
         {
             var portrait = e.Item.Tag as Portrait;
             ShowPreviewImage(portrait);
+        }
+
+        void SuspectsGallery_ItemCheckedChanged(object sender, GalleryItemEventArgs e)
+        {
+            if (e.Item.Checked)
+            {
+                var result = (PersonOfInterestDetectionResult)e.Item.Tag;
+                peopleCompare1.pictureEditTarget.Image = result.Target.ImageCopy;
+                peopleCompare1.pictureEditSuspect.Image = result.Suspect.GetIpl().ToBitmap();
+            }
         }
 
         void Edit_EditValueChanging(object sender, DevExpress.XtraEditors.Controls.ChangingEventArgs e)
@@ -599,6 +631,10 @@ namespace RemoteImaging.RealtimeDisplay
             _videoRepository = videoRepository;
 
             configurationManager.ConfigurationChanged += configurationManager_ConfigurationChanged;
+
+#if DEBUG
+            barButtonItemTest.Visibility = BarItemVisibility.Always;
+#endif
 
         }
 
@@ -1158,11 +1194,11 @@ namespace RemoteImaging.RealtimeDisplay
         #region IImageScreen Members
 
 
-        public void ShowSuspects(Damany.Imaging.Common.PersonOfInterestDetectionResult result)
+        public void ShowSuspects(PersonOfInterestDetectionResult result)
         {
             if (InvokeRequired)
             {
-                Action<Damany.Imaging.Common.PersonOfInterestDetectionResult> action = this.ShowSuspects;
+                Action<PersonOfInterestDetectionResult> action = this.ShowSuspects;
 
                 this.BeginInvoke(action, result);
                 return;
@@ -1620,6 +1656,8 @@ namespace RemoteImaging.RealtimeDisplay
         {
             barButtonItemFaceList.Down = dockPanelFaceList.Visible;
             barButtonItemBigPicture.Down = dockPanelZoomPic.Visible;
+            suspectViewVisible.Down = dockPanelSuspectView.Visible;
+            suspectListVisible.Down = dockPanelSuspectsList.Visible;
         }
 
         private void viewsBar_Popup(object sender, EventArgs e)
@@ -1753,8 +1791,8 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void barButtonItem2_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            var form = new FormRoi();
-            form.ShowDialog(this);
+
+
         }
 
         private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
@@ -1770,6 +1808,24 @@ namespace RemoteImaging.RealtimeDisplay
         private void realTimer_Tick(object sender, EventArgs e)
         {
             currentTime.Caption = DateTime.Now.ToString();
+        }
+
+
+        private void suspectViewVisible_DownChanged(object sender, ItemClickEventArgs e)
+        {
+            var item = sender as BarButtonItem;
+            dockPanelSuspectView.Visible = item.Down;
+        }
+
+        private void suspectListVisible_DownChanged(object sender, ItemClickEventArgs e)
+        {
+            var item = sender as BarButtonItem;
+            dockPanelSuspectsList.Visible = item.Down;
+        }
+
+        private void barButtonItemClearSuspectsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            suspectsGallery.Gallery.Groups[0].Items.Clear();
         }
 
 

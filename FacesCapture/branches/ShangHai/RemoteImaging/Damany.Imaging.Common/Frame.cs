@@ -92,7 +92,7 @@ namespace Damany.Imaging.Common
 
             clone.lazyIpl = this.lazyIpl == null ? null : this.lazyIpl.Clone();
             clone.CapturedAt = this.CapturedAt;
-            clone.CapturedFrom = this.CapturedFrom;
+            clone.DeviceId = this.DeviceId;
             clone.Guid = this.Guid;
             clone.iplImage = this.iplImage == null ? null : this.iplImage.Clone();
 
@@ -134,9 +134,8 @@ namespace Damany.Imaging.Common
         {
             var str = string.Format("{0}x{1}, Id:{2}, At:{3}, From:{4}",
                 this.GetImage().Width, this.GetImage().Height,
-                this.CapturedFrom.Id,
-                this.CapturedAt,
-                this.CapturedFrom.Description);
+                this.DeviceId,
+                this.CapturedAt);
 
             return str;
         }

@@ -880,7 +880,7 @@ namespace Damany.Cameras
             {
                 var stream = new MemoryStream(this.CaptureImageBytes());
                 var frame = new Frame(stream);
-                frame.CapturedFrom = this;
+                frame.DeviceId = this.Id;
                 return frame;
             }
             catch (System.Exception ex)

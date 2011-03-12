@@ -8,7 +8,6 @@ namespace Damany.Imaging.Common
     public class EventAggregator : IEventAggregator
     {
         public event EventHandler<EventArgs<Portrait>> PortraitFound;
-        public event EventHandler<EventArgs<PersonOfInterestDetectionResult>> FaceMatchFound;
         public event EventHandler SwitchMotionDetector;
         public event EventHandler<EventArgs<bool>> IsBusyChanged;
         public event EventHandler<EventArgs<Tuple<int, int>>> FrameProcessed;
@@ -32,12 +31,6 @@ namespace Damany.Imaging.Common
             if (handler != null) handler(this, e);
         }
 
-
-        public void PublishFaceMatchEvent(PersonOfInterestDetectionResult matchResult)
-        {
-            var e = new EventArgs<PersonOfInterestDetectionResult>(matchResult);
-            this.InvokeFaceMatchFound(e);
-        }
 
         public void PublishSwitchMotionDetectorEvent()
         {
@@ -63,12 +56,6 @@ namespace Damany.Imaging.Common
         private void InvokePortraitFound(EventArgs<Portrait> e)
         {
             EventHandler<EventArgs<Portrait>> handler = PortraitFound;
-            if (handler != null) handler(this, e);
-        }
-
-        private void InvokeFaceMatchFound(EventArgs<PersonOfInterestDetectionResult> e)
-        {
-            EventHandler<EventArgs<PersonOfInterestDetectionResult>> handler = FaceMatchFound;
             if (handler != null) handler(this, e);
         }
 

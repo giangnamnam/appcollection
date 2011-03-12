@@ -108,7 +108,7 @@ namespace Damany.Imaging.Processors
                                     FaceBounds = f.FaceBoundsInPortrait,
                                     Frame = motionFrame.Clone(),
                                     CapturedAt = motionFrame.CapturedAt,
-                                    CapturedFrom = motionFrame.CapturedFrom,
+                                    DeviceId = motionFrame.DeviceId,
                                 };
 
 
@@ -139,7 +139,7 @@ namespace Damany.Imaging.Processors
                                        FaceBounds = FrameToPortrait(p.FacesRect, p.FacesRectForCompare),
                                        Frame = frame.Frame.Clone(),
                                        CapturedAt = frame.Frame.CapturedAt,
-                                       CapturedFrom = frame.Frame.CapturedFrom,
+                                       DeviceId = frame.Frame.DeviceId,
                                    };
 
 

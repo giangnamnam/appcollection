@@ -207,7 +207,7 @@ namespace Damany.RemoteImaging.Common.Forms
             this.imageList1.Images.Add(p.GetIpl().ToBitmap());
 
             var item = new ListViewItem();
-            item.Text = (_manager.GetName(p.CapturedFrom.Id) ?? string.Empty) + " " + p.CapturedAt.ToString();
+            item.Text = (_manager.GetName(p.DeviceId) ?? string.Empty) + " " + p.CapturedAt.ToString();
             item.ImageIndex = this.imageList1.Images.Count - 1;
 
 
