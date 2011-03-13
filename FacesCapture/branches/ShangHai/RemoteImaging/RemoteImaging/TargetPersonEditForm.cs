@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Damany.Imaging.Common;
@@ -12,6 +13,7 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using FaceProcessingWrapper;
 
 namespace RemoteImaging
 {
@@ -36,9 +38,10 @@ namespace RemoteImaging
             if (_faceComparer == null)
             {
                 _waitForm.Caption = "正在初始化人像比对模块...";
-                _faceComparer = FaceProcessingWrapper.FaceRecoWrapper.FromModel(
-                    "Model.txt",
-                    "haarcascade_frontalface_alt2.xml");
+                var modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.txt");
+                var classifierPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "haarcascade_frontalface_alt2.xml");
+                var comparer = FaceRecoWrapper.FromModel(modelPath, classifierPath);
+                _faceComparer = comparer;
             }
 
             _waitForm.Caption = "正在载入目标人像库...";
@@ -99,6 +102,11 @@ namespace RemoteImaging
                 target.FeaturePoints = fs.Features;
                 var path = System.IO.Path.Combine(Properties.Settings.Default.OutputPath,
                                                   @"TargetFeature\" + Guid.NewGuid() + ".txt");
+                var dir = Path.GetDirectoryName(path);
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
                 target.FeatureFilePath = path;
                 var imgPath = path.Replace(".txt", ".jpg");
                 img.SaveImage(imgPath);

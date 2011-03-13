@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using Damany.Imaging.Common;
@@ -53,10 +54,10 @@ namespace RemoteImaging
                 var worker = Task.Factory.StartNew(() =>
                                           {
                                               var pois = LoadPersonOfInterests();
-                                              _faceComparer =
-                                                  FaceRecoWrapper.FromModel(
-                                                  "model.txt",
-                                                  "haarcascade_frontalface_alt2.xml");
+                                              var modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.txt");
+                                              var classifierPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "haarcascade_frontalface_alt2.xml");
+                                              var comparer = FaceRecoWrapper.FromModel(modelPath, classifierPath);
+                                              _faceComparer = comparer;
 
                                               Targets = pois;
 

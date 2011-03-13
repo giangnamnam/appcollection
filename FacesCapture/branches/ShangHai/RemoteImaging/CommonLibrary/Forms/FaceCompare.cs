@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ using Damany.Imaging.Extensions;
 using DevExpress.Utils;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
+using FaceProcessingWrapper;
 using FaceSearchWrapper;
 
 namespace Damany.RemoteImaging.Common.Forms
@@ -42,8 +44,10 @@ namespace Damany.RemoteImaging.Common.Forms
             if (_faceComparer == null)
             {
                 _waitForm = new WaitDialogForm("初始化人脸特征库...", "请稍候");
-                _faceComparer = FaceProcessingWrapper.FaceRecoWrapper.FromModel("model.txt",
-                                                                            "haarcascade_frontalface_alt2.xml");
+                var modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "model.txt");
+                var classifierPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "haarcascade_frontalface_alt2.xml");
+                var comparer = FaceRecoWrapper.FromModel(modelPath, classifierPath);
+                _faceComparer = comparer;
             }
         }
 
