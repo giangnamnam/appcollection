@@ -77,7 +77,7 @@ namespace RemoteImaging
         }
 
 
-        public void StartWith(CameraInfo cameraInfo)
+        public void StartWith(CameraInfo cameraInfo, System.Windows.Forms.Control displayControl)
         {
             if (_jpegStream == null)
             {
@@ -103,12 +103,33 @@ namespace RemoteImaging
                         _jpegStream = sanyo;
                         break;
                     case CameraProvider.AipStar:
-                        throw new NotSupportedException();
+                        var aip =
+                            new Damany.Cameras.FoKoShVideoSourceAdapter(displayControl != null
+                                                                            ? displayControl.Handle
+                                                                            : IntPtr.Zero);
+                        aip.Camera.Ip = cameraInfo.Location.Host;
+                        aip.Camera.Port = cameraInfo.Location.Port == 0 ? 6002 : cameraInfo.Location.Port;
+                        aip.Camera.UserName = cameraInfo.LoginUserName ?? "system";
+                        aip.Camera.Password = cameraInfo.LoginPassword ?? "system";
+                        aip.FrameInterval = cameraInfo.Interval;
+                        aip.Camera.StreamId = 0;
+
+                        if (displayControl != null)
+                        {
+                            aip.Camera.DisplayPos = displayControl.ClientRectangle;
+                        }
+                        
+                        Mediator.Instance.RegisterHandler(
+                            "liveViewResize", new Action<Control>(LiveViewResized));
+
+                        _jpegStream = aip;
                         break;
 
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+
 
                 _cameraInfo = cameraInfo;
 
@@ -406,6 +427,15 @@ namespace RemoteImaging
             image.SaveImage(path);
 
             return path;
+        }
+
+        private void LiveViewResized(Control c)
+        {
+            FoKoShVideoSourceAdapter cam = _jpegStream as FoKoShVideoSourceAdapter;
+            if (cam != null)
+            {
+                cam.Camera.DisplayPos = c.ClientRectangle;
+            }
         }
     }
 }

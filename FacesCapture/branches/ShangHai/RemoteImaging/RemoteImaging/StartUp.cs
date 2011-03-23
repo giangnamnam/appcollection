@@ -144,8 +144,6 @@ namespace RemoteImaging
 
             RegisterNavControlTypes();
 
-            builder.RegisterType<SearchLineBuilder>();
-
             builder.RegisterType<FaceSearchFacade>().WithProperty("MotionQueueSize", Properties.Settings.Default.MaxFrameQueueLength);
 
             builder.RegisterModule(new Autofac.Configuration.ConfigurationSettingsReader());

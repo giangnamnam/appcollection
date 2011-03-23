@@ -99,7 +99,7 @@ namespace RemoteImaging
             try
             {
 
-#if RELEASE
+#if !DEBUG
                 if (!Util.VerifyKey())
                 {
                     RegisterForm form = new RegisterForm();
@@ -136,9 +136,6 @@ namespace RemoteImaging
                     var dummy = workModeCamSetting;
                     System.Diagnostics.Debug.WriteLine(dummy);
                 }
-
-
-
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

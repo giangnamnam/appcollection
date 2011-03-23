@@ -106,85 +106,18 @@ namespace RemoteImaging.YunTai
         public void NavDefultPos()
         {
             
-            Damany.Cameras.SanyoNetCamera oSany = new Damany.Cameras.SanyoNetCamera();
-            try
-            {
-                ExeCuteCommand(CmdDefultPos);
-                
-                oSany.Uri = CurrentCamera.Location;
-                oSany.UserName = "admin";
-                oSany.PassWord = "admin";
-                oSany.Connect();
-                oSany.SetDefaultPosition();
-                oSany.Close();
-               
-               
-            }
-            catch (Exception ex)
-            {
-                oSany.writeLog(ex.Message+ " "+ex.StackTrace);
-            }
         }
         public void NavReturnDefultPos()
         {
             
-            Damany.Cameras.SanyoNetCamera oSany = new Damany.Cameras.SanyoNetCamera();
-            try
-            {
-                ExeCuteCommand(CmdReturnDefultPos);
-                oSany.Uri = CurrentCamera.Location;
-                oSany.UserName = "admin";
-                oSany.PassWord = "admin";
-                oSany.Connect();
-                oSany.ReturnDefaultPosition();
-                oSany.Close();
-                
-               
-            }
-            catch (Exception ex)
-            {
-                oSany.writeLog(ex.Message+ " "+ex.StackTrace);
-            }
 
         }
         #region 聚焦控制
         public void NavCameraFocusIn()
         {
-            ExeCuteCommand(CmdCameraFocusIn);
-            Damany.Cameras.SanyoNetCamera oSany = new Damany.Cameras.SanyoNetCamera();
-            try
-            {
-
-                oSany.Uri = CurrentCamera.Location;
-                oSany.UserName = "admin";
-                oSany.PassWord = "admin";
-                oSany.Connect();
-                oSany.SetFocusIn();
-                oSany.Close();
-            }
-            catch (Exception ex)
-            {
-                oSany.writeLog(ex.Message + " " + ex.StackTrace);
-            }
         }
         public void NavCameraFocusOut()
         {
-            ExeCuteCommand(CmdCameraFocusOut);
-            Damany.Cameras.SanyoNetCamera oSany = new Damany.Cameras.SanyoNetCamera();
-            try
-            {
-
-                oSany.Uri = CurrentCamera.Location;
-                oSany.UserName = "admin";
-                oSany.PassWord = "admin";
-                oSany.Connect();
-                oSany.SetFocusOut();
-                oSany.Close();
-            }
-            catch (Exception ex)
-            {
-                oSany.writeLog(ex.Message + " " + ex.StackTrace);
-            }
         }
         #endregion
         #region 雨刷控制
@@ -200,41 +133,9 @@ namespace RemoteImaging.YunTai
         #region 光圈控制
         public void NavCameraIrisOpen()
         {
-            ExeCuteCommand(CmdCameraIrisOpen);
-            Damany.Cameras.SanyoNetCamera oSany = new Damany.Cameras.SanyoNetCamera();
-            try
-            {
-
-                oSany.Uri = CurrentCamera.Location;
-                oSany.UserName = "admin";
-                oSany.PassWord = "admin";
-                oSany.Connect();
-                oSany.SetIrisOpen();
-                oSany.Close();
-            }
-            catch (Exception ex)
-            {
-                oSany.writeLog(ex.Message + " " + ex.StackTrace);
-            }
         }
         public void NavCameraIrisClose()
         {
-            ExeCuteCommand(CmdCameraIrisClose);
-            Damany.Cameras.SanyoNetCamera oSany = new Damany.Cameras.SanyoNetCamera();
-            try
-            {
-
-                oSany.Uri = CurrentCamera.Location;
-                oSany.UserName = "admin";
-                oSany.PassWord = "admin";
-                oSany.Connect();
-                oSany.SetIrisClose();
-                oSany.Close();
-            }
-            catch (Exception ex)
-            {
-                oSany.writeLog(ex.Message + " " + ex.StackTrace);
-            }
         }
         #endregion
 

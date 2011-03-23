@@ -39,6 +39,7 @@ namespace RemoteImaging
         {
 
         }
+
         private void CreatePictureBox()
         {
             _pictureBox = new Damany.Windows.Form.PictureBox();
