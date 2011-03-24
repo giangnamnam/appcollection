@@ -149,8 +149,6 @@ namespace RemoteImaging
                         throw new ArgumentOutOfRangeException();
                 }
 
-
-
                 _cameraInfo = cameraInfo;
 
                 _jpegStream.NewFrame += JpegStreamNewFrame;

@@ -1723,6 +1723,8 @@ namespace RemoteImaging.RealtimeDisplay
                 return;
             }
 
+            return;
+
             var worker = Task.Factory.StartNew(() =>
                                                              {
                                                                  var sanyocamera = new Damany.Component.SanyoNetCamera();
