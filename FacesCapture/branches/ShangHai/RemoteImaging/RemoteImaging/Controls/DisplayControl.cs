@@ -14,11 +14,16 @@ namespace RemoteImaging.Controls
         public DisplayControl()
         {
             InitializeComponent();
+            this.ResizeRedraw = true;
+
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
+
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            base.OnPaint(pe);
+            pe.Graphics.FillRectangle(Brushes.Black, this.ClientRectangle);
         }
     }
 }

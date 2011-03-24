@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Damany.Imaging.Common;
 using Damany.Imaging.Processors;
 using Damany.Imaging.Handlers;
-using Damany.Cameras.Wrappers;
 using Damany.Cameras;
 using Damany.RemoteImaging.Common;
 

@@ -35,6 +35,7 @@ namespace RemoteImaging
         private System.Threading.CancellationTokenSource _tokenSource = new CancellationTokenSource();
         private Image _latestImage;
         private object _lastImageLock = new object();
+        private Control _displayControl;
 
 
         public int MotionQueueSize { get; set; }
@@ -79,6 +80,8 @@ namespace RemoteImaging
 
         public void StartWith(CameraInfo cameraInfo, System.Windows.Forms.Control displayControl)
         {
+            _displayControl = displayControl;
+
             if (_jpegStream == null)
             {
                 switch (cameraInfo.Provider)
@@ -103,26 +106,43 @@ namespace RemoteImaging
                         _jpegStream = sanyo;
                         break;
                     case CameraProvider.AipStar:
-                        var aip =
-                            new Damany.Cameras.FoKoShVideoSourceAdapter(displayControl != null
-                                                                            ? displayControl.Handle
-                                                                            : IntPtr.Zero);
-                        aip.Camera.Ip = cameraInfo.Location.Host;
-                        aip.Camera.Port = cameraInfo.Location.Port == 0 ? 6002 : cameraInfo.Location.Port;
-                        aip.Camera.UserName = cameraInfo.LoginUserName ?? "system";
-                        aip.Camera.Password = cameraInfo.LoginPassword ?? "system";
-                        aip.FrameInterval = cameraInfo.Interval;
+
+                        var hwnd = displayControl != null ? displayControl.Handle : IntPtr.Zero;
+                        var aip = CreateAipCamera(cameraInfo, hwnd);
                         aip.Camera.StreamId = 0;
+
+
+                        Mediator.Instance.RegisterHandler(
+                            "liveViewResize", new Action<object>(LiveViewResized));
+                        _jpegStream = aip;
 
                         if (displayControl != null)
                         {
-                            aip.Camera.DisplayPos = displayControl.ClientRectangle;
+                            //aip.Camera.DisplayPos = displayControl.ClientRectangle;
                         }
-                        
-                        Mediator.Instance.RegisterHandler(
-                            "liveViewResize", new Action<Control>(LiveViewResized));
 
-                        _jpegStream = aip;
+                        var videoRecorder = CreateAipCamera(cameraInfo, IntPtr.Zero);
+                        videoRecorder.Camera.PathFunc = d =>
+                                                            {
+                                                                var utc = d.ToUniversalTime();
+                                                                var rp = string.Format(
+                                                                    "{0:d2}\\NORMAL\\{1:d4}{2:d2}{3:d2}\\{4:d2}\\{5:d2}.m4v",
+                                                                    cameraInfo.Id,
+                                                                    utc.Year, utc.Month, utc.Day, utc.Hour, utc.Minute);
+
+                                                                var ap = Path.Combine(Util.GetVideoOutputPath(), rp);
+                                                                var directory = Path.GetDirectoryName(ap);
+                                                                if (!Directory.Exists(directory))
+                                                                {
+                                                                    Directory.CreateDirectory(directory);
+                                                                }
+
+                                                                return ap;
+                                                            };
+                        videoRecorder.Camera.StreamId = 1;
+                        videoRecorder.Start();
+                        videoRecorder.Camera.StartRecord();
+
                         break;
 
                     default:
@@ -135,6 +155,8 @@ namespace RemoteImaging
 
                 _jpegStream.NewFrame += JpegStreamNewFrame;
                 _jpegStream.Start();
+
+
 
                 if (_faceSearchTask == null)
                 {
@@ -235,8 +257,21 @@ namespace RemoteImaging
             }
         }
 
+
+        private bool _resized;
+
         void JpegStreamNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            if (!_resized)
+            {
+                if (_displayControl != null)
+                {
+                    _displayControl.Invalidate();
+                }
+                this.LiveViewResized(null);
+                _resized = true;
+            }
+            
             LastImage = (Image)eventArgs.Frame.Clone();
 
             if (_motionFramesQueue.Count > MotionQueueSize)
@@ -429,13 +464,34 @@ namespace RemoteImaging
             return path;
         }
 
-        private void LiveViewResized(Control c)
+        private void LiveViewResized(object state)
         {
             FoKoShVideoSourceAdapter cam = _jpegStream as FoKoShVideoSourceAdapter;
-            if (cam != null)
+            if (cam != null && _displayControl != null)
             {
-                cam.Camera.DisplayPos = c.ClientRectangle;
+                var w = cam.Camera.ImageWidth;
+                var h = cam.Camera.ImageHeight;
+                Size size = new Size(w, h);
+                float num = Math.Min((float)(((float)_displayControl.ClientRectangle.Width) / ((float)size.Width)), (float)(((float)_displayControl.ClientRectangle.Height) / ((float)size.Height)));
+                var rectangle = new Rectangle();
+                rectangle.Width = (int)(size.Width * num);
+                rectangle.Height = (int)(size.Height * num);
+                rectangle.X = (_displayControl.ClientRectangle.Width - rectangle.Width) / 2;
+                rectangle.Y = (_displayControl.ClientRectangle.Height - rectangle.Height) / 2;
+
+                cam.Camera.DisplayPos = rectangle;
             }
+        }
+        private static FoKoShVideoSourceAdapter CreateAipCamera(CameraInfo cameraInfo, IntPtr hwnd)
+        {
+            var c = new FoKoShVideoSourceAdapter(hwnd);
+            c.Camera.Ip = cameraInfo.Location.Host;
+            c.Camera.Port = 6002;
+            c.Camera.UserName = cameraInfo.LoginUserName ?? "system";
+            c.Camera.Password = cameraInfo.LoginPassword ?? "system";
+            c.FrameInterval = cameraInfo.Interval;
+
+            return c;
         }
     }
 }

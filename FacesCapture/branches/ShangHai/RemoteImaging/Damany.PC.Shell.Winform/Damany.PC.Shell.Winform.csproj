@@ -61,9 +61,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Damany.Cameras.Wrappers, Version=1.0.3789.27023, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RefDll\Damany.Cameras.Wrappers.dll</HintPath>
+    <Reference Include="Damany.Cameras, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>E:\Users\Benny\Documents\Visual Studio 2010\Projects\FaceCaptureShangHai\Library\Damany\Damany.Cameras.dll</HintPath>
     </Reference>
     <Reference Include="Damany.Component">
       <HintPath>..\RefDll\Damany.Component.dll</HintPath>
@@ -157,10 +156,6 @@
     <ProjectReference Include="..\CommonLibrary\RemoteImaging.Common.csproj">
       <Project>{683B173B-831E-494D-A6FE-965934D3D315}</Project>
       <Name>RemoteImaging.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Damany.Cameras\Damany.Cameras.csproj">
-      <Project>{BCB72517-49DF-4EDE-B84A-55E870B069EF}</Project>
-      <Name>Damany.Cameras</Name>
     </ProjectReference>
     <ProjectReference Include="..\Damany.Imaging.Common\Damany.Imaging.Common.csproj">
       <Project>{1546E91B-1045-42BA-9CAA-D5215EF3C792}</Project>

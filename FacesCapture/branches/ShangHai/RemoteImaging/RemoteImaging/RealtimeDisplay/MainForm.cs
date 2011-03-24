@@ -1017,6 +1017,8 @@ namespace RemoteImaging.RealtimeDisplay
             //}
 
             //StartRecordInternal(cam, axCamImgCtrl);
+
+
         }
 
         private void StartRecordInternal(CameraInfo cam, AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl)
