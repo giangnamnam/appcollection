@@ -476,6 +476,7 @@
             this.fullScreen.Glyph = ((System.Drawing.Image)(resources.GetObject("fullScreen.Glyph")));
             this.fullScreen.Id = 10;
             this.fullScreen.Name = "fullScreen";
+            this.fullScreen.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.fullScreen.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.fullScreen_ItemClick);
             // 
             // barButtonItem5

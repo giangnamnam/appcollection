@@ -269,7 +269,7 @@ namespace RemoteImaging
                 this.LiveViewResized(null);
                 _resized = true;
             }
-            
+
             LastImage = (Image)eventArgs.Frame.Clone();
 
             if (_motionFramesQueue.Count > MotionQueueSize)
@@ -304,16 +304,19 @@ namespace RemoteImaging
             if (grouped)
             {
                 var motionFrames = _motionDetector.GetMotionFrames();
-
-                foreach (var motionFrame in motionFrames)
+                if (motionFrames != null)
                 {
-                    motionFrame.DeviceId = _cameraInfo.Id;
+                    foreach (var motionFrame in motionFrames)
+                    {
+                        motionFrame.DeviceId = _cameraInfo.Id;
+                    }
+
+                    SaveMotionFrames(motionFrames);
+
+                    _motionFramesQueue.Enqueue(motionFrames);
+                    _signal.Set();
                 }
 
-                SaveMotionFrames(motionFrames);
-
-                _motionFramesQueue.Enqueue(motionFrames);
-                _signal.Set();
             }
         }
 

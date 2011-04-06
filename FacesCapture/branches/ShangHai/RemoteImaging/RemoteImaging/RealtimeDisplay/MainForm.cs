@@ -1640,6 +1640,14 @@ namespace RemoteImaging.RealtimeDisplay
             //axCamImgCtrl1.Parent = parent;
 
             //this.axCamImgCtrl1.CamImgCtrlStart();
+
+            //this.displayControl1.Parent = null;
+
+           // this.displayControl1.Width = parent.ClientSize.Width;
+           // this.displayControl1.Height = parent.ClientSize.Height;
+
+            this.displayControl1.Parent = parent;
+            this.displayControl1.Dock = DockStyle.Fill;
         }
 
         private void suspectCarManage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
