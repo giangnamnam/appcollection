@@ -90,7 +90,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>FaceFind.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutDir);..\..\Library\FaceSearch;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);..\..\Library\FaceSearchForShenZhen;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
