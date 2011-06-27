@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using AutofacContrib.Startable;
 using Damany.Imaging.Common;
@@ -13,6 +14,7 @@ using Damany.RemoteImaging.Common;
 using RemoteImaging.RealtimeDisplay;
 using Frame = Damany.Imaging.Common.Frame;
 using Portrait = Damany.Imaging.Common.Portrait;
+using NServiceBus;
 
 namespace RemoteImaging
 {
@@ -155,11 +157,28 @@ namespace RemoteImaging
                                                                                       Util.GetVideoOutputPath());
             builder.RegisterType<VideoFileWalker>().As<IMyStartable>().WithParameter("directoryToWalk",
                                                                                      Util.GetVideoOutputPath());
+            builder.RegisterType<PortraitDistributor>().As<IMyStartable>().PropertiesAutowired();
             builder.RegisterModule(new StartableModule<IMyStartable>(s => s.Start()));
             //builder.RegisterModule(new LicensePlate.LicensePlateModule());)))));
 
 
             this.Container = this.builder.Build();
+
+            var assembly1 = Assembly.LoadFrom("NServiceBus.dll");
+            var assembly2 = Assembly.LoadFrom("NServiceBus.Core.dll");
+            var as3 = Assembly.LoadFrom("Damany.RemoteImaging.Net.Messages.dll");
+
+            NServiceBus.SetLoggingLibrary.Log4Net(log4net.Config.XmlConfigurator.Configure);
+
+            NServiceBus.Configure.With(new[] { assembly1, assembly2, as3 }).Autofac2Builder(this.Container)
+                .Log4Net()
+                .BinarySerializer()
+                .MsmqTransport().IsTransactional(true)
+                .MsmqSubscriptionStorage()
+                .UnicastBus()
+                //.LoadMessageHandlers()
+                .CreateBus()
+                .Start();
 
         }
 

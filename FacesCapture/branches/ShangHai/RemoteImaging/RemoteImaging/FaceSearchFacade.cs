@@ -87,8 +87,8 @@ namespace RemoteImaging
                 switch (cameraInfo.Provider)
                 {
                     case CameraProvider.LocalDirectory:
-                        var dir = new Damany.Cameras.DirectoryFilesCamera(cameraInfo.Location.LocalPath, "*.jpg");
-                        dir.Repeat = true;
+                        var dir = new Damany.Cameras.DirectoryFilesCamera(cameraInfo.Location.LocalPath, "*.*");
+                        dir.Repeat = false;
                         dir.FrameIntervalMs = cameraInfo.Interval;
 
                         _jpegStream = dir;
@@ -237,7 +237,7 @@ namespace RemoteImaging
                 {
                     if (_latestImage != null)
                     {
-                        return (Image)_latestImage.Clone();
+                        return AForge.Imaging.Image.Clone((Bitmap)_latestImage);
                     }
 
                     return _latestImage;
@@ -249,7 +249,7 @@ namespace RemoteImaging
                 {
                     if (value != null)
                     {
-                        _latestImage = (Image)value.Clone();
+                        _latestImage = AForge.Imaging.Image.Clone((Bitmap)value);
                     }
                 }
             }
@@ -270,14 +270,14 @@ namespace RemoteImaging
                 _resized = true;
             }
 
-            LastImage = (Image)eventArgs.Frame.Clone();
+            LastImage = eventArgs.Frame;
 
             if (_motionFramesQueue.Count > MotionQueueSize)
             {
                 return;
             }
 
-            var bmp = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
+            var bmp = AForge.Imaging.Image.Clone(eventArgs.Frame);
 
             OpenCvSharp.IplImage ipl = null;
 
@@ -343,7 +343,7 @@ namespace RemoteImaging
 
         private static string GetImagePath(DateTime dateTime)
         {
-            var relativePath = string.Format("{0}\\{1}\\{2}\\{3}\\{4}.jpg",
+            var relativePath = string.Format("{0}\\{1}\\{2}\\{3}\\{4}.png",
                                                                  dateTime.Year,
                                                                  dateTime.Month,
                                                                  dateTime.Day,
@@ -410,7 +410,14 @@ namespace RemoteImaging
 
                         if (_eventAggregator != null)
                         {
-                            portraits.ForEach(p => _eventAggregator.PublishPortrait(p));
+                            portraits.ForEach(p =>
+                                                  {
+                                                      try
+                                                      {
+                                                          _eventAggregator.PublishPortrait(p);
+                                                      }
+                                                      catch { }
+                                                  });
                         }
 
                         if (_faceComparer != null)

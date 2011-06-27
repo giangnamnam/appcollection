@@ -172,9 +172,9 @@
     <Reference Include="Gma.UserActivityMonitor">
       <HintPath>..\RefDll\Gma.UserActivityMonitor.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RefDll\log4net.dll</HintPath>
+      <HintPath>..\..\Library\NServiceBus2.5\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -188,6 +188,13 @@
     <Reference Include="NavigationControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\RefDll\NavigationControl.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceBus, Version=2.5.0.1446, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL" />
+    <Reference Include="NServiceBus.Core">
+      <HintPath>..\..\Library\NServiceBus2.5\NServiceBus.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NServiceBus.ObjectBuilder.Autofac2">
+      <HintPath>..\..\Library\NServiceBus2.5\containers\autofac2\NServiceBus.ObjectBuilder.Autofac2.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=2.0.3497.28493, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -425,6 +432,7 @@
     </Compile>
     <Compile Include="PersonOfInterestDetectionResult.cs" />
     <Compile Include="PicQueryFormPresenter.cs" />
+    <Compile Include="PortraitDistributor.cs" />
     <Compile Include="Query\ImageDirSys.cs" />
     <Compile Include="Query\ImageSearch.cs" />
     <Compile Include="Query\IVideoQueryPresenter.cs" />
@@ -725,6 +733,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>

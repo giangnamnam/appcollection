@@ -41,12 +41,14 @@ namespace RemoteImaging
             FacePreFilter = new List<IFaceSatisfyCompareCretia>(0);
             this.goSignal = new AutoResetEvent(false);
 
-            Mediator.Instance.RegisterHandler("SuspectsLibChanged", (Action<object>) SuspectsLibChanged);
+            Mediator.Instance.RegisterHandler("SuspectsLibChanged", (Action<object>)SuspectsLibChanged);
         }
 
 
         public void InitializeAsync()
         {
+            return;
+
             if (!_initialized)
             {
                 EventAggregator.PublishIsBusyEvent(true);
@@ -181,7 +183,6 @@ namespace RemoteImaging
                     return;
                 }
 
-
                 foreach (var portrait in portraits)
                 {
                     var fs = new FaceSpecification();
@@ -194,7 +195,7 @@ namespace RemoteImaging
                             _tokenSource.Token.ThrowIfCancellationRequested();
                             var ts = new FaceSpecification();
                             ts.EyebrowRatio = targetPerson.EyebrowRatio;
-                            ts.EyebrowShape = targetPerson.EyebrowRatio;
+                            ts.EyebrowShape = targetPerson.EyeBrowShape;
                             ts.Features = targetPerson.FeaturePoints;
                             var compareResults = _faceComparer.CmpFace(fs, ts);
                             if (compareResults > 70)
@@ -207,7 +208,6 @@ namespace RemoteImaging
                                               };
                                 Mediator.Instance.NotifyColleagues(fdr);
                             }
-
                         }
                     }
 

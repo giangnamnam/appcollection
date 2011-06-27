@@ -187,22 +187,22 @@
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 545);
-            this.barDockControlBottom.Size = new System.Drawing.Size(918, 28);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 546);
+            this.barDockControlBottom.Size = new System.Drawing.Size(918, 27);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 545);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 546);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(918, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 545);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 546);
             // 
             // dockManager1
             // 
@@ -279,7 +279,7 @@
             this.panelContainer1.Location = new System.Drawing.Point(569, 96);
             this.panelContainer1.Name = "panelContainer1";
             this.panelContainer1.OriginalSize = new System.Drawing.Size(349, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(349, 449);
+            this.panelContainer1.Size = new System.Drawing.Size(349, 450);
             this.panelContainer1.Text = "panelContainer1";
             // 
             // dockPanel2
@@ -310,8 +310,8 @@
             this.dockPanel1.Location = new System.Drawing.Point(0, 223);
             this.dockPanel1.Name = "dockPanel1";
             this.dockPanel1.Options.ShowCloseButton = false;
-            this.dockPanel1.OriginalSize = new System.Drawing.Size(407, 219);
-            this.dockPanel1.Size = new System.Drawing.Size(349, 226);
+            this.dockPanel1.OriginalSize = new System.Drawing.Size(349, 226);
+            this.dockPanel1.Size = new System.Drawing.Size(349, 227);
             this.dockPanel1.Text = "全景";
             // 
             // dockPanel1_Container
@@ -319,7 +319,7 @@
             this.dockPanel1_Container.Controls.Add(this.wholePicture);
             this.dockPanel1_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(341, 199);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(341, 200);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // wholePicture
@@ -329,7 +329,7 @@
             this.wholePicture.Location = new System.Drawing.Point(0, 0);
             this.wholePicture.Name = "wholePicture";
             this.wholePicture.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.wholePicture.Size = new System.Drawing.Size(341, 199);
+            this.wholePicture.Size = new System.Drawing.Size(341, 200);
             this.wholePicture.TabIndex = 0;
             // 
             // barButtonItem1
@@ -360,7 +360,7 @@
             this.galleryControl1.Location = new System.Drawing.Point(2, 40);
             this.galleryControl1.LookAndFeel.SkinName = "Darkroom";
             this.galleryControl1.Name = "galleryControl1";
-            this.galleryControl1.Size = new System.Drawing.Size(565, 369);
+            this.galleryControl1.Size = new System.Drawing.Size(565, 370);
             this.galleryControl1.TabIndex = 10;
             this.galleryControl1.Text = "galleryControl1";
             // 
@@ -368,7 +368,7 @@
             // 
             this.galleryControlClient1.GalleryControl = this.galleryControl1;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient1.Size = new System.Drawing.Size(544, 365);
+            this.galleryControlClient1.Size = new System.Drawing.Size(544, 366);
             // 
             // panelControl1
             // 
@@ -376,7 +376,7 @@
             this.panelControl1.Controls.Add(this.currPage);
             this.panelControl1.Controls.Add(this.navigator);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl1.Location = new System.Drawing.Point(2, 409);
+            this.panelControl1.Location = new System.Drawing.Point(2, 410);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(565, 38);
             this.panelControl1.TabIndex = 1;
@@ -427,7 +427,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl4.Location = new System.Drawing.Point(0, 96);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(569, 449);
+            this.panelControl4.Size = new System.Drawing.Size(569, 450);
             this.panelControl4.TabIndex = 23;
             // 
             // panelControl2

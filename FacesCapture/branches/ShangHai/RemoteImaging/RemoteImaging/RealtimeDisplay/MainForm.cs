@@ -1006,48 +1006,46 @@ namespace RemoteImaging.RealtimeDisplay
 
         public void StartRecord(CameraInfo cam)
         {
-            //var axCamImgCtrl = this.axCamImgCtrl1;
+            var axCamImgCtrl = this.axCamImgCtrl1;
 
-            //if (InvokeRequired)
-            //{
-            //    Action<CameraInfo, AxIMGCTRLLib.AxCamImgCtrl> action = StartRecordInternal;
+            if (InvokeRequired)
+            {
+                Action<CameraInfo, AxIMGCTRLLib.AxCamImgCtrl> action = StartRecordInternal;
 
-            //    this.BeginInvoke(action, cam, axCamImgCtrl);
-            //    return;
-            //}
+                this.BeginInvoke(action, cam, axCamImgCtrl);
+                return;
+            }
 
-            //StartRecordInternal(cam, axCamImgCtrl);
-
-
+            StartRecordInternal(cam, axCamImgCtrl);
         }
 
         private void StartRecordInternal(CameraInfo cam, AxIMGCTRLLib.AxCamImgCtrl axCamImgCtrl)
         {
-            //axCamImgCtrl.CamImgCtrlStop();
+            axCamImgCtrl.CamImgCtrlStop();
 
-            //System.Diagnostics.Debug.WriteLine(axCamImgCtrl.Tag);
+            System.Diagnostics.Debug.WriteLine(axCamImgCtrl.Tag);
 
-            //axCamImgCtrl.ImageFileURL = @"liveimg.cgi";
-            //axCamImgCtrl.ImageType = @"MPEG";
-            //axCamImgCtrl.CameraModel = 1;
-            //axCamImgCtrl.CtlLocation = @"http://" + cam.Location.Host;
-            //axCamImgCtrl.uid = "guest";
-            //axCamImgCtrl.pwd = "guest";
-            //axCamImgCtrl.RecordingFolderPath
-            //    = Path.Combine(Util.GetVideoOutputPath(), cam.Id.ToString("D2"));
-            //axCamImgCtrl.RecordingFormat = 0;
-            //axCamImgCtrl.UniIP = this.axCamImgCtrl1.CtlLocation;
-            //axCamImgCtrl.UnicastPort = 3939;
-            //axCamImgCtrl.MulticastPort = 34344;
-            //axCamImgCtrl.MCIP = "239.136.50.230";
-            //axCamImgCtrl.ComType = 0; //multi:1, udp:2, http:0
+            axCamImgCtrl.ImageFileURL = @"liveimg.cgi";
+            axCamImgCtrl.ImageType = @"MPEG";
+            axCamImgCtrl.CameraModel = 1;
+            axCamImgCtrl.CtlLocation = @"http://" + cam.Location.Host;
+            axCamImgCtrl.uid = "guest";
+            axCamImgCtrl.pwd = "guest";
+            axCamImgCtrl.RecordingFolderPath
+                = Path.Combine(Util.GetVideoOutputPath(), cam.Id.ToString("D2"));
+            axCamImgCtrl.RecordingFormat = 0;
+            axCamImgCtrl.UniIP = this.axCamImgCtrl1.CtlLocation;
+            axCamImgCtrl.UnicastPort = 3939;
+            axCamImgCtrl.MulticastPort = 34344;
+            axCamImgCtrl.MCIP = "239.136.50.230";
+            axCamImgCtrl.ComType = Properties.Settings.Default.SanyoCommType; //multi:1, udp:2, http:0
 
-            //if (Properties.Settings.Default.Live)
-            //{
-            //    axCamImgCtrl.CamImgCtrlStart();
-            //    axCamImgCtrl.CamImgRecStart();
+            if (Properties.Settings.Default.Live)
+            {
+                axCamImgCtrl.CamImgCtrlStart();
+                axCamImgCtrl.CamImgRecStart();
 
-            //}
+            }
         }
 
         private void OnConnectionFinished(object ex)
@@ -1331,9 +1329,9 @@ namespace RemoteImaging.RealtimeDisplay
         {
             set
             {
-                addSuspectsButton.Visibility = value.HumanFaceLibraryButtonVisible ? BarItemVisibility.Always : BarItemVisibility.Never;
+               // addSuspectsButton.Visibility = value.HumanFaceLibraryButtonVisible ? BarItemVisibility.Always : BarItemVisibility.Never;
                 manualFaceCompare.Visibility = value.CompareFaceButtonVisible ? BarItemVisibility.Always : BarItemVisibility.Never;
-                suspeciousPersonAlerm.Visibility = value.ShowAlermFormButtonVisible ? BarItemVisibility.Always : BarItemVisibility.Never;
+               // suspeciousPersonAlerm.Visibility = value.ShowAlermFormButtonVisible ? BarItemVisibility.Always : BarItemVisibility.Never;
             }
         }
 
@@ -1532,52 +1530,52 @@ namespace RemoteImaging.RealtimeDisplay
         private void switchView_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
-            //_videoIsFull = !_videoIsFull;
-            //this.SuspendLayout();
+            _videoIsFull = !_videoIsFull;
+            this.SuspendLayout();
 
-            //axCamImgCtrl1.CamImgCtrlStop();
+            axCamImgCtrl1.CamImgCtrlStop();
 
-            //if (_videoIsFull)
-            //{
-            //    axCamImgCtrl1.Parent = mainPanel;
-            //    currentLicensePlateLayoutControl.Parent = dockPanelZoomPic;
-            //    axCamImgCtrl1.Height = mainPanel.ClientSize.Width;
-            //    axCamImgCtrl1.Width = mainPanel.ClientSize.Height;
+            if (_videoIsFull)
+            {
+                axCamImgCtrl1.Parent = mainPanel;
+                currentLicensePlateLayoutControl.Parent = dockPanelZoomPic;
+                axCamImgCtrl1.Height = mainPanel.ClientSize.Width;
+                axCamImgCtrl1.Width = mainPanel.ClientSize.Height;
 
-            //    mainPanel.Text = "实时视频";
-            //    dockPanelZoomPic.Text = "放大图片";
+                mainPanel.Text = "实时视频";
+                dockPanelZoomPic.Text = "放大图片";
 
-            //}
-            //else
-            //{
-            //    axCamImgCtrl1.Parent = dockPanelZoomPic;
-            //    axCamImgCtrl1.Height = dockPanelZoomPic.ClientSize.Height;
-            //    axCamImgCtrl1.Width = dockPanelZoomPic.ClientSize.Width;
+            }
+            else
+            {
+                axCamImgCtrl1.Parent = dockPanelZoomPic;
+                axCamImgCtrl1.Height = dockPanelZoomPic.ClientSize.Height;
+                axCamImgCtrl1.Width = dockPanelZoomPic.ClientSize.Width;
 
-            //    mainPanel.Text = "放大图片";
-            //    dockPanelZoomPic.Text = "实时视频";
-
-
-            //    currentLicensePlateLayoutControl.Parent = mainPanel;
-            //}
-
-            //axCamImgCtrl1.CamImgCtrlStart();
+                mainPanel.Text = "放大图片";
+                dockPanelZoomPic.Text = "实时视频";
 
 
-            //this.ResumeLayout();
+                currentLicensePlateLayoutControl.Parent = mainPanel;
+            }
 
-            //return;
+            axCamImgCtrl1.CamImgCtrlStart();
 
-            //_videoIsFull = !_videoIsFull;
 
-            //axCamImgCtrl1.Dock = _videoIsFull ? DockStyle.Fill : DockStyle.None;
+            this.ResumeLayout();
 
-            //if (!_videoIsFull)
-            //{
-            //    axCamImgCtrl1.Width = 170;
-            //    axCamImgCtrl1.Height = 120;
-            //    axCamImgCtrl1.Location = new Point(0, 0);
-            //}
+            return;
+
+            _videoIsFull = !_videoIsFull;
+
+            axCamImgCtrl1.Dock = _videoIsFull ? DockStyle.Fill : DockStyle.None;
+
+            if (!_videoIsFull)
+            {
+                axCamImgCtrl1.Width = 170;
+                axCamImgCtrl1.Height = 120;
+                axCamImgCtrl1.Location = new Point(0, 0);
+            }
 
             //liveFullImage.Dock = _videoIsFull ? DockStyle.None : DockStyle.Fill;
             //if (_videoIsFull)
@@ -1632,22 +1630,14 @@ namespace RemoteImaging.RealtimeDisplay
 
         private void ChangeParentTo(Control parent)
         {
-            //axCamImgCtrl1.CamImgCtrlStop();
-            //axCamImgCtrl1.Parent = null;
+            axCamImgCtrl1.CamImgCtrlStop();
+            axCamImgCtrl1.Parent = null;
 
-            //axCamImgCtrl1.Width = parent.ClientSize.Width;
-            //axCamImgCtrl1.Height = parent.ClientSize.Height;
-            //axCamImgCtrl1.Parent = parent;
+            axCamImgCtrl1.Width = parent.ClientSize.Width;
+            axCamImgCtrl1.Height = parent.ClientSize.Height;
+            axCamImgCtrl1.Parent = parent;
 
-            //this.axCamImgCtrl1.CamImgCtrlStart();
-
-            //this.displayControl1.Parent = null;
-
-           // this.displayControl1.Width = parent.ClientSize.Width;
-           // this.displayControl1.Height = parent.ClientSize.Height;
-
-            this.displayControl1.Parent = parent;
-            this.displayControl1.Dock = DockStyle.Fill;
+            this.axCamImgCtrl1.CamImgCtrlStart();
         }
 
         private void suspectCarManage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1730,8 +1720,6 @@ namespace RemoteImaging.RealtimeDisplay
             {
                 return;
             }
-
-            return;
 
             var worker = Task.Factory.StartNew(() =>
                                                              {

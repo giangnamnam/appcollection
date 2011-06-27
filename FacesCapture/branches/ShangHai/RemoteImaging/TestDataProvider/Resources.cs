@@ -43,5 +43,15 @@ namespace TestDataProvider
             return IplImage.FromBitmap(Properties.Resources.portrait).Clone();
         }
 
+        public static IplImage GetImage1()
+        {
+            return IplImage.FromFile("1.jpg");
+        }
+
+        public static IplImage GetImage2()
+        {
+            return IplImage.FromFile("2.jpg");
+        }
+
     }
 }

@@ -258,7 +258,7 @@ namespace Damany.RemoteImaging.Common.Forms
 
                 var curPortrait = face;
                 var curFaceImg = curPortrait.ImageCopy;
-                var clone = curFaceImg.Clone();
+                var clone = AForge.Imaging.Image.Clone((Bitmap) curFaceImg);
                 this.currentPic.RunInUIThread(() =>
                                                   {
                                                       this.currentPic.Image = (Image)clone;
@@ -266,7 +266,7 @@ namespace Damany.RemoteImaging.Common.Forms
                                                   });
 
                 var curFs = new FaceProcessingWrapper.FaceSpecification();
-                var clone2 = curFaceImg.Clone();
+                var clone2 = AForge.Imaging.Image.Clone((Bitmap)curFaceImg);
                 var suc = _faceComparer.CalcFeature(OpenCvSharp.IplImage.FromBitmap((Bitmap)clone2), curFs);
                 ((IDisposable)clone2).Dispose();
                 if (suc)
@@ -274,7 +274,7 @@ namespace Damany.RemoteImaging.Common.Forms
                     var sim = _faceComparer.CmpFace(targetFs, curFs);
                     if (sim > Interlocked.Read(ref _currentAccuracy))
                     {
-                        var clone3 = curFaceImg.Clone();
+                        var clone3 = AForge.Imaging.Image.Clone((Bitmap)curFaceImg);
                         this.galleryControl1.RunInUIThread(() =>
                         {
                             var item = new GalleryItem((Image)clone3,

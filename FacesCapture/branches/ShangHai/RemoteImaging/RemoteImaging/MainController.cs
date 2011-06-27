@@ -77,10 +77,7 @@ namespace RemoteImaging
                 try
                 {
                     var searchFacade = _faceSearchFacadeFactory();
-                    searchFacade.StartWith(cameraInfo, _mainForm.displayControl1);
-
-                    _mainForm.displayControl1.SizeChanged +=
-                        (s, e) => Mediator.Instance.NotifyColleagues("liveViewResize", _mainForm.displayControl1);
+                    searchFacade.StartWith(cameraInfo, null);
 
                     if (cameraInfo.Provider == CameraProvider.Sanyo)
                     {
